@@ -12,7 +12,7 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div id="container">
+	<%-- <div id="container">
 	
 		<div id="header">
 			<c:import url="/WEB-INF/views/includes/header.jsp"/>
@@ -43,6 +43,6 @@
 			<c:import url="/WEB-INF/views/includes/footer.jsp"/>	
 		</div>
 		
-	</div>
+	</div> --%>
 </body>
 </html>
