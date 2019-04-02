@@ -7,7 +7,7 @@
 	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo
 	      from departments a, company b 
 	     where a.company_no = b.no
-	       and b.no = 1
+<!-- 	       and b.no = ${value} -->
 	  order by a.g_no asc, a.o_no asc
 	</select>
    
