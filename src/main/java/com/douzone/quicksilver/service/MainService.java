@@ -23,13 +23,13 @@ public class MainService {
 		List<CompanyVo> companyVoList = mainDao.get();
 		List<DepartmentsVo> departmentsVoList = mainDao.getList();
 		
-		System.out.println(companyVoList.toString());
+		//System.out.println(companyVoList.toString());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("companyVoList", companyVoList);
 		map.put("departmentsVoList",departmentsVoList);
 
-	return map;
+		return map;
 	
 	}	
 }
