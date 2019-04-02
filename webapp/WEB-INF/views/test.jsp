@@ -8,42 +8,6 @@
 <meta charset="utf-8">
 <title>jQuery treemenu.js Plugin Demo</title>
 <link href="${pageContext.request.contextPath }/assets/css/treejs/jquery.treemenu.css" rel="stylesheet" type="text/css">
-
-<style>
-ul,ol, li {list-style:none}
-.tree { background-color:#2C3E50; color:#46CFB0;}
-.tree li,
-.tree li > a,
-.tree li > span {
-    padding: 4pt;
-    border-radius: 4px;
-}
-
-.tree li a {
-   color:#46CFB0;
-    text-decoration: none;
-    line-height: 20pt;
-    border-radius: 4px;
-}
-
-.tree li a:hover {
-    background-color: #34BC9D;
-    color: #fff;
-}
-
-.active {
-    background-color: #34495E;
-    color: white;
-}
-
-.active a {
-    color: #fff;
-}
-
-.tree li a.active:hover {
-    background-color: #34BC9D;
-}
-</style>
 </head>
 
 <body>
