@@ -26,7 +26,7 @@
 						<tr>
 							<td>
 								<h2>${departmentsList.name}</h2>
-							</td>		
+							</td>
 						</tr>
 					 </table>
 				   </li>
