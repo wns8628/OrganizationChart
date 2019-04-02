@@ -1,4 +1,4 @@
-package com.douzone.mysite.respository;
+package com.douzone.quicksilver.respository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
