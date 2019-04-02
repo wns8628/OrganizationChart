@@ -2,14 +2,17 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
 <configuration> 
    <typeAliases> 
-   <!-- 
-         <typeAlias alias="sitevo" type="com.douzone.mysite.vo.SiteVo"/>
-         <typeAlias alias="uservo" type="com.douzone.mysite.vo.UserVo"/> -->
+         <typeAlias alias="companyvo" type="com.douzone.quicksilver.vo.CompanyVo"/>
+         <typeAlias alias="departmentsvo" type="com.douzone.quicksilver.vo.DepartmentsVo"/>
+         <!-- <typeAlias alias="employeesvo" type="com.douzone.quicksilver.vo.EmployeesVo"/>
+         <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/> -->
     </typeAliases>    
 
    <mappers> 
-      <mapper resource="/com/douzone/config/app/mybatis/mappers/site.xml" />   
-      <mapper resource="/com/douzone/config/app/mybatis/mappers/user.xml" />   
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/company.xml" />   
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/departments.xml" />   
+      <!-- <mapper resource="/com/douzone/config/app/mybatis/mappers/employees.xml" />   
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/mastergroup.xml" />    -->
    </mappers> 
 </configuration>
 
