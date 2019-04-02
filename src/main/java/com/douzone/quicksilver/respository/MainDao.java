@@ -31,7 +31,8 @@ public class MainDao {
 			 	
 			//보여줄 글 			
 			String sql = "select no,name,group_no from company";
-			  	  
+			
+			pstmt = conn.prepareStatement(sql);
 			rs= pstmt.executeQuery();			
 			while(rs.next()) {
 				
@@ -82,7 +83,7 @@ public class MainDao {
 			 	
 			//보여줄 글 			
 			String sql = "select no,name,g_no,o_no,depth,company_no from departments";
-			  	  
+			pstmt = conn.prepareStatement(sql);
 			rs= pstmt.executeQuery();			
 			
 			while( rs.next()) {	
