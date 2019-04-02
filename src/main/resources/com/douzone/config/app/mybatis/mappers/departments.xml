@@ -4,7 +4,7 @@
 
 <mapper namespace="departments">
 	<select id="getList" resultType="departmentsvo">
-		select no,name,g_no,o_no,depth,company_no from departments
+		select no,name,g_no as gNo,o_no as oNo,depth,company_no as companyNo from departments
 	</select>
    
 </mapper>

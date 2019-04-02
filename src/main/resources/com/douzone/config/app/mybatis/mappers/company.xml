@@ -4,7 +4,7 @@
 
 <mapper namespace="company">
 	<select id="getList" resultType="companyvo">
-		select no,name,group_no from company
+		select no,name,group_no as groupNo from company
 	</select>
    
 </mapper>
