@@ -25,6 +25,13 @@ public class MainController {
 		return "main/index"; //뷰리졸브 설정
 	}
 	
+	@RequestMapping({"/test"} )
+	public String main() {
+	
+		return "test"; //뷰리졸브 설정
+	}
+	
+	
 //	@ResponseBody
 //	@RequestMapping( {"","/main"} )
 //	public String hello() {
