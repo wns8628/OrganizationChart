@@ -12,6 +12,15 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+	<c:forEach items="${mainMap.companyVoList}" var="companyList">
+		<h2>${companyList}</h2>
+	</c:forEach>
+	
+	<c:forEach items="${mainMap.departmentsVoList}" var="departmentsList">
+		<h2>${departmentsList}</h2>
+	</c:forEach>
+	
 	<%-- <div id="container">
 	
 		<div id="header">
