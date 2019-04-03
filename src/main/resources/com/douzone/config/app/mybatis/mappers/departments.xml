@@ -4,7 +4,7 @@
 
 <mapper namespace="departments">
 	<select id="getList" resultType="departmentsvo">
-	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo
+	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo, a.parents 
 	      from departments a, company b 
 	     where a.company_no = b.no
 <!-- 	       and b.no = ${value} -->

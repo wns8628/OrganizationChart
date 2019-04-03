@@ -8,6 +8,7 @@ public class DepartmentsVo {
 	private int oNo;
 	private int depth;
 	private int companyNo;
+	private int parents;
 	public int getNo() {
 		return no;
 	}
@@ -44,12 +45,18 @@ public class DepartmentsVo {
 	public void setCompanyNo(int companyNo) {
 		this.companyNo = companyNo;
 	}
-	
+	public int getParents() {
+		return parents;
+	}
+	public void setParents(int parents) {
+		this.parents = parents;
+	}
 	@Override
 	public String toString() {
 		return "DepartmentsVo [no=" + no + ", name=" + name + ", gNo=" + gNo + ", oNo=" + oNo + ", depth=" + depth
-				+ ", companyNo=" + companyNo + "]";
+				+ ", companyNo=" + companyNo + ", parents=" + parents + "]";
 	}
 	
+
 	
 }
