@@ -19,21 +19,20 @@
 		<h2>${companyList}</h2>
 		
 		<c:forEach items="${mainMap.departmentsVoList}" var="departmentsList">
-			<c:if test="${companyList.no eq departmentsList.companyNo }">
-				<ul>
-				   <li>
-					 <table style="padding-left:${30*departmentsList.depth}px">
-						<tr>
-							<td>
-								<h2>${departmentsList.name}</h2>
-							</td>		
-						</tr>
-					 </table>
-				   </li>
-			   </ul>
-		   </c:if>
+		<c:if test="${companyList.no eq departmentsList.companyNo }">
+			<ul>
+			   <li>
+				 <table style="padding-left:${30*departmentsList.depth}px">
+					<tr>
+						<td>
+							<h2>${departmentsList.name}</h2>
+						</td>		
+					</tr>
+				 </table>
+			   </li>
+		   </ul>
+	   </c:if>
 	   </c:forEach>
-
 	</c:forEach>
 	
 	
