@@ -69,29 +69,35 @@ $(function(){
 	
 	//자회사 목록
 	$(document).on("click", "#company", function(event){
-		var cno = $(this).attr("data-no");
-		console.log($("ul[data-no='"+cno+"'] li[depth='1']").css("display"));
-		$list = $("ul[data-no='"+cno+"'] li[depth='1']");
-		if($list.css("display")==="none"){
-			$list.show();
-		}else{
-			$list.hide();
-		}
-		
+      var cno = $(this).attr("data-no");
+      $list = $("ul[data-no='"+cno+"'] li[depth='1']");
+      if($list.css("display")==="none"){
+         $list.show();
+      }else{
+         $("ul[data-no='"+cno+"'] li").hide();
+      }
 	});
 	
 	//부서 목록
 	$(document).on("click", "#departments", function(event){
-		var no = $(this).attr("data-no");
-		console.log(no);
-		var gno = $(this).attr("g-no");
-		var depth = ($(this).attr("depth")*1)+1;
-		$list = $("li[p-no='"+no+"']");
-		if($list.css("display")==="none"){
-			$list.show();
-		}else{
-			$list.hide();
-		}
+	      var no = $(this).attr("data-no");
+	      var gno = $(this).attr("g-no");
+	      var depth = ($(this).attr("depth")*1)+1;
+	      $list = $("li[p-no='"+no+"']");
+	      if($list.css("display")==="none"){
+	         $list.show();
+	      }else{
+	         var f = function($li){
+	            console.log($li.length);
+	            $li.hide();
+	            for(var i=0; i<$li.length; i++){
+	               if($li[i].getAttribute('data-no') != undefined){
+	                   f($("li[p-no='"+$li[i].getAttribute('data-no')+"']"));
+	                }
+	            }
+	         }
+	         f($list);
+	      }
 	});
 });
 </script>
