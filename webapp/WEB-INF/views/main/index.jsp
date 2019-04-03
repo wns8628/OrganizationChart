@@ -19,6 +19,7 @@
 		<h2>${companyList}</h2>
 		
 		<c:forEach items="${mainMap.departmentsVoList}" var="departmentsList">
+<<<<<<< HEAD
 			<c:if test="${companyList.no eq departmentsList.companyNo }">
 				<ul>
 				   <li>
@@ -32,8 +33,22 @@
 				   </li>
 			   </ul>
 		   </c:if>
+=======
+		<c:if test="${companyList.no eq departmentsList.companyNo }">
+			<ul>
+			   <li>
+				 <table style="padding-left:${30*departmentsList.depth}px">
+					<tr>
+						<td>
+							<h2>${departmentsList.name}</h2>
+						</td>		
+					</tr>
+				 </table>
+			   </li>
+		   </ul>
+	   </c:if>
+>>>>>>> branch 'master' of http://218.39.221.93/root/quicksilver.git
 	   </c:forEach>
-
 	</c:forEach>
 	
 	

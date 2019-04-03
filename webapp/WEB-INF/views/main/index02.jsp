@@ -24,7 +24,7 @@ var render = function(vo){
 }
 
 var render2 = function(vo){
-	var htmls = "<li c-no='"+vo.companyNo+"' g-no='"+vo.gNo+"' o-no='"+vo.oNo+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li>";
+	var htmls = "<li data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li>";
 	$("ul[data-no='"+vo.companyNo+"']").append(htmls);
 }
 
@@ -53,31 +53,30 @@ var getList = function(){
 $(function(){
 	getList();
 	
+	//자회사 목록
 	$(document).on("click", "h2", function(event){
 		var cno = $(this).attr("data-no");
-		$("ul[data-no='"+cno+"'] li[depth='1']").toggle();
+		console.log($("ul[data-no='"+cno+"'] li[depth='1']").css("display"));
+		$list = $("ul[data-no='"+cno+"'] li[depth='1']");
+		if($list.css("display")==="none"){
+			$list.show();
+		}else{
+			$list.hide();
+		}
+		
 	});
 	
+	//부서 목록
 	$(document).on("click", "li", function(event){
-		console.log("dd");
-		var cno = $(this).attr("c-no");
+		var no = $(this).attr("data-no");
+		console.log(no);
 		var gno = $(this).attr("g-no");
 		var depth = ($(this).attr("depth")*1)+1;
-// 		$("li[g-no='"+gno+"' depth='"+depth+"']").toggle();
-// 		$("li[g-no='"+gno+"']").toggle();
-// 		console.log($("li[g-no='"+gno+"' depth='"+depth+"']"));
-		var list = $("ul[data-no='"+cno+"'] li[g-no='"+gno+"']");
-		var check = 0;
-		for(var i=0; i<list.length; i++){
-			if(check < list[i].getAttribute('depth')){
-				check = list[i].getAttribute('depth');
-				if(list[i].getAttribute('depth') == depth){
-					list[i].style.display="block";
-				}
-			}else{
-				check = 0;
-				break;
-			}
+		$list = $("li[p-no='"+no+"']");
+		if($list.css("display")==="none"){
+			$list.show();
+		}else{
+			$list.hide();
 		}
 	});
 });

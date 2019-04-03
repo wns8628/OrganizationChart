@@ -18,7 +18,7 @@ public class MainController02 {
 	
 	@RequestMapping("/main2")
 	public String main() {
-		
+		System.out.println("dd");
 		return "main/index02";
 	}
 	
