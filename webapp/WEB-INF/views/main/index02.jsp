@@ -83,8 +83,7 @@ $(function(){
 </script>
 </head>
 <body>
-
-	<c:forEach items="${mainMap.companyVoList}" var="companyList">
+	<%-- <c:forEach items="${mainMap.companyVoList}" var="companyList">
 		<h2>${companyList}</h2>
 		
 		<c:forEach items="${mainMap.departmentsVoList}" var="departmentsList">
@@ -102,8 +101,6 @@ $(function(){
 			   </ul>
 		   </c:if>
 	   </c:forEach>
-
-	</c:forEach>
-
+	</c:forEach> --%>
 </body>
 </html>
