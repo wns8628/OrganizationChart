@@ -30,6 +30,5 @@ public class MainService {
 		map.put("departmentsVoList",departmentsVoList);
 
 		return map;
-	
-	}	
+	}
 }
