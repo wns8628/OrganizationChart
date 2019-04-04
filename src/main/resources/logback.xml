@@ -32,7 +32,7 @@
             <appender-ref ref="fileAppenderException" />
     </logger>
 
-   <root level="debug"> <!-- 레벨단계떄문에 로그안뜰수도있으니 debug로 -->
+   <root level="info"> <!-- 레벨단계떄문에 로그안뜰수도있으니 debug로 -->
       <appender-ref ref="consoleAppender" />
    </root>
 

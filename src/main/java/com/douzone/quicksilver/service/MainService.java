@@ -132,7 +132,7 @@ public class MainService {
 	}
 
 	public void addDept(int i) {
-		int pNo = random((i*1000)+(i+1), (mainDao.getCount()+i) + 1);
+		int pNo = random(((i*1000)+(i+1)), (mainDao.getCount()+i) + 1);
 		if(pNo == ((i*1000)+(i+1))) {
 			pNo *= -1; 
 			String deptName = "부서"+(mainDao.getCountByPno(pNo)+1);
@@ -142,6 +142,10 @@ public class MainService {
 			addDepartment(pNo, deptName);
 		}
 		
+	}
+	
+	public void autoSet(int num) {
+		mainDao.autoSet(num);
 	}
 	
 	public int random(int n1, int n2) {

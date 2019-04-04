@@ -43,9 +43,11 @@ public class MainController02 {
 	
 	@RequestMapping("/addDept")
 	public String addDept() {
-		for(int i=1; i<10; i++) {
+		for(int i=2; i<10; i++) {
+			mainService.autoSet((i*1000)+(i+1)+1);
 			for(int j=0; j<1000; j++) {
 				mainService.addDept(i);
+				System.out.println(j);
 			}
 		}
 		return "redirect:/main2";
