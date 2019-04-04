@@ -1,6 +1,7 @@
 package com.douzone.quicksilver.respository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.douzone.quicksilver.vo.DepartmentsVo;
 
 @Repository
 public class MainDao {
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -22,4 +24,39 @@ public class MainDao {
 		return sqlSession.selectList("departments.getList");
 	}
 	
+	public DepartmentsVo get(long parentNo) {
+		return sqlSession.selectOne("departments.getParentDepartmentInfo", parentNo);
+	}
+	
+	public DepartmentsVo get(DepartmentsVo departmentsVo) {
+		return sqlSession.selectOne("departments.get", departmentsVo);
+	}
+	
+	public int update(DepartmentsVo departmentsVo) {
+		return sqlSession.update("departments.ifnotnullupdateOnoPlusOne", departmentsVo);
+	}
+	
+	public int insert(DepartmentsVo departmentsVo) {
+		return sqlSession.insert("departments.addDepartment", departmentsVo);
+	}
+	
+	public int delete(long departmentNo) {
+		return sqlSession.delete("departments.deleteDepartment", departmentNo);
+	}
+	
+//	public Long gets(long gNo) {
+//	return sqlSession.selectOne("departments.ifnullMaxOnoPlusOne", gNo);
+//}
+	
+//	public CompanyVo get(CompanyVo companyVo) {
+//		return sqlSession.selectOne("company.getParentCompanyInfo", companyVo.getNo());
+//	}
+	
+//	public Long get(DepartmentsVo departmentsVo) {
+//		return sqlSession.selectOne("departments.getMaxGno", departmentsVo.getParents());
+//	}
+	
+//	public int insert(DepartmentsVo departmentsVo) {
+//		
+//	}
 }

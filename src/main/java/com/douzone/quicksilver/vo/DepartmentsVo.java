@@ -2,17 +2,18 @@ package com.douzone.quicksilver.vo;
 
 public class DepartmentsVo {
 	
-	private int no;
+	private Long no;
 	private String name;
-	private int gNo;
-	private int oNo;
-	private int depth;
-	private int companyNo;
-	private int parents;
-	public int getNo() {
+	private Long gNo;
+	private Long oNo;
+	private Long depth;
+	private Long companyNo;
+	private Long parents;
+	
+	public Long getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(Long no) {
 		this.no = no;
 	}
 	public String getName() {
@@ -21,34 +22,34 @@ public class DepartmentsVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getgNo() {
+	public Long getgNo() {
 		return gNo;
 	}
-	public void setgNo(int gNo) {
+	public void setgNo(Long gNo) {
 		this.gNo = gNo;
 	}
-	public int getoNo() {
+	public Long getoNo() {
 		return oNo;
 	}
-	public void setoNo(int oNo) {
+	public void setoNo(Long oNo) {
 		this.oNo = oNo;
 	}
-	public int getDepth() {
+	public Long getDepth() {
 		return depth;
 	}
-	public void setDepth(int depth) {
+	public void setDepth(Long depth) {
 		this.depth = depth;
 	}
-	public int getCompanyNo() {
+	public Long getCompanyNo() {
 		return companyNo;
 	}
-	public void setCompanyNo(int companyNo) {
+	public void setCompanyNo(Long companyNo) {
 		this.companyNo = companyNo;
 	}
-	public int getParents() {
+	public Long getParents() {
 		return parents;
 	}
-	public void setParents(int parents) {
+	public void setParents(Long parents) {
 		this.parents = parents;
 	}
 	@Override

@@ -10,5 +10,96 @@
 <!-- 	       and b.no = ${value} -->
 	  order by a.g_no asc, a.o_no asc
 	</select>
+	
+	
+	<!-- 부서 밑에 부서추가 -->
+	
+	<select id="getParentDepartmentInfo" parameterType="long" resultType="departmentsvo">
+	
+		<![CDATA[
+			 select no, name, g_no as gNo, o_no as oNo, depth, company_no as companyNo, parents 
+		    	from departments 
+		    		where no = #{value} order by gNo asc, oNo asc
+		]]>
+	 
+	</select>
+	
+	<select id="get" parameterType="departmentsvo" resultType="departmentsvo">
+		
+		<!-- getMinOno -->
+		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null">
+			<![CDATA[
+				select min(o_no) as oNo
+					from departments 
+						where g_no = #{gNo} and o_no > #{oNo} and depth <= #{depth}
+			]]>
+		</if>
+		
+		<!-- ifnullMaxOnoPlusOne -->
+		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null &amp;&amp; oNo == null &amp;&amp; depth == null">
+			<![CDATA[
+				select max(o_no) + 1 as oNo 
+					from departments 
+						where g_no = #{gNo}
+			]]>
+		</if>
+		
+		<!-- 자회사 밑에 부서추가 -->
+		<!-- getMaxGno -->
+		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; gNo == null &amp;&amp; oNo == null &amp;&amp; depth == null &amp;&amp;">
+			<![CDATA[
+				select count(*) + 1 as gNo
+					from departments 
+						where parents = #{parents}
+			]]>
+		</if>
+		
+	</select>
+	
+	 <update id="ifnotnullupdateOnoPlusOne" parameterType="departmentsvo">
+		<![CDATA[
+			update departments 
+				set o_no = o_no + 1 
+					where g_no = #{gNo} and o_no >= #{oNo}
+		]]>
+	</update> 
+	
+	<insert id="addDepartment" parameterType="departmentsvo">
+		<![CDATA[
+			insert into departments values (null, #{departmentName}, #{gNo}, #{oNo}, #{depth}, #{companyNo}, #{parents})
+		]]>
+	</insert>
+	
+	<!-- 부서 삭제 -->
+	<delete id="deleteDepartment" parameterType="Long">
+		<![CDATA[
+			delete from departments where no = #{value};
+		]]>
+	</delete>
+	
+	<!-- 자회사 밑에 부서추가 -->
+	
+	<!-- <select id="getMaxGno" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select count(*) + 1 from departments where parents = #{value}
+		]]>
+	</select> -->
+	
+	<!-- Long으로 올지 잘모름 에러시 확인 -김택주- -->
+	<!-- <select id="getMinOno" parameterType="map" resultType="Long">
+		<![CDATA[
+			select min(o_no) 
+				from departments 
+					where g_no = #{gNo} and o_no > #{oNo} and depth <= #{depth}
+		]]>
+	</select> -->
+	
+	<!-- <select id="ifnullMaxOnoPlusOne" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select max(o_no) + 1 as oNo 
+				from departments 
+					where g_no = #{gNo}
+		]]>
+	</select> -->
    
 </mapper>

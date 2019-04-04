@@ -2,14 +2,14 @@ package com.douzone.quicksilver.vo;
 
 public class CompanyVo {
 
-	private int no;
+	private long no;
 	private String name;
-	private int groupNo;
+	private long groupNo;
 	
-	public int getNo() {
+	public long getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(long no) {
 		this.no = no;
 	}
 	public String getName() {
@@ -18,10 +18,10 @@ public class CompanyVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getGroupNo() {
+	public long getGroupNo() {
 		return groupNo;
 	}
-	public void setGroupNo(int groupNo) {
+	public void setGroupNo(long groupNo) {
 		this.groupNo = groupNo;
 	}
 	
