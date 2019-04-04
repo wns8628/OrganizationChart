@@ -3,6 +3,7 @@ package com.douzone.quicksilver.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,5 +27,19 @@ public class MainController02 {
 		
 		return JSONResult.success(mainService.deptList());
 	}
+	
+	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})
+	public void addDepartment(@PathVariable Long parentNo,
+						 @PathVariable String departmentName) {
+		
+		mainService.addDepartment(parentNo, departmentName);
+	}
+	
+	@RequestMapping({"/deleteDepartment/{departmentNo}"})
+	public void addDepartment(@PathVariable Long departmentNo) {
+		
+		mainService.deleteDepartment(departmentNo);
+	}
+	
 	
 }

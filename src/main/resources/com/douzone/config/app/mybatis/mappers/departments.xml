@@ -26,62 +26,35 @@
 	
 	<select id="get" parameterType="departmentsvo" resultType="departmentsvo">
 		
-		<choose>
+		 <choose>
 			<!-- getMinOno -->
-			<when test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null">
+			<when test="gNo != null and oNo != null and depth != null">
 				<![CDATA[
 					select min(o_no) as oNo
-						from departments 
+						from departments
 							where g_no = #{gNo} and o_no > #{oNo} and depth <= #{depth}
 				]]>
 			</when>
 			
 			<!-- ifnullMaxOnoPlusOne -->
-			<when test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null &amp;&amp; oNo == null &amp;&amp; depth == null">
+			<when test="no == null and companyNo == null and parents == null and oNo == null and depth == null">
 				<![CDATA[
-					select max(o_no) + 1 as oNo 
-						from departments 
+					select max(o_no) + 1 as oNo
+						from departments
 							where g_no = #{gNo}
 				]]>
 			</when>
 			
+			<!-- 자회사 밑에 부서 추가 -->
 			<!-- getMaxGno -->
-			<otherwise>
+			<when test="no == null and companyNo == null and gNo == null and oNo == null and depth == null ">
 				<![CDATA[
 					select count(*) + 1 as gNo
-						from departments 
+						from departments
 							where parents = #{parents}
 				]]>
-			</otherwise>
+			</when>
 		</choose>
-		
-		<!--  getMinOno
-		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null">
-			<![CDATA[
-				select min(o_no) as oNo
-					from departments 
-						where g_no = #{gNo} and o_no > #{oNo} and depth <= #{depth}
-			]]>
-		</if>
-		
-		ifnullMaxOnoPlusOne
-		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null &amp;&amp; oNo == null &amp;&amp; depth == null">
-			<![CDATA[
-				select max(o_no) + 1 as oNo 
-					from departments 
-						where g_no = #{gNo}
-			]]>
-		</if>
-		
-		자회사 밑에 부서추가
-		getMaxGno
-		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; gNo == null &amp;&amp; oNo == null &amp;&amp; depth == null &amp;&amp;">
-			<![CDATA[
-				select count(*) + 1 as gNo
-					from departments 
-						where parents = #{parents}
-			]]>
-		</if> -->
 		
 	</select>
 	
@@ -95,7 +68,7 @@
 	
 	<insert id="addDepartment" parameterType="departmentsvo">
 		<![CDATA[
-			insert into departments values (null, #{departmentName}, #{gNo}, #{oNo}, #{depth}, #{companyNo}, #{parents})
+			insert into departments values (null, #{name}, #{gNo}, #{oNo}, #{depth}, #{companyNo}, #{parents})
 		]]>
 	</insert>
 	
@@ -106,29 +79,4 @@
 		]]>
 	</delete>
 	
-	<!-- 자회사 밑에 부서추가 -->
-	
-	<!-- <select id="getMaxGno" parameterType="Long" resultType="Long">
-		<![CDATA[
-			select count(*) + 1 from departments where parents = #{value}
-		]]>
-	</select> -->
-	
-	<!-- Long으로 올지 잘모름 에러시 확인 -김택주- -->
-	<!-- <select id="getMinOno" parameterType="map" resultType="Long">
-		<![CDATA[
-			select min(o_no) 
-				from departments 
-					where g_no = #{gNo} and o_no > #{oNo} and depth <= #{depth}
-		]]>
-	</select> -->
-	
-	<!-- <select id="ifnullMaxOnoPlusOne" parameterType="Long" resultType="Long">
-		<![CDATA[
-			select max(o_no) + 1 as oNo 
-				from departments 
-					where g_no = #{gNo}
-		]]>
-	</select> -->
-   
 </mapper>
