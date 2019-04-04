@@ -1,7 +1,5 @@
 package com.douzone.quicksilver.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +15,8 @@ public class MainController02 {
 	private MainService mainService;
 	
 	@RequestMapping("/main2")
-	public String main() {
-		System.out.println("dd");
+	public String main(Model model) {
+		model.addAttribute("companyList", mainService.companyList());
 		return "main/index02";
 	}
 	
@@ -26,8 +24,7 @@ public class MainController02 {
 	@RequestMapping({"/getlist"})
 	public JSONResult getList(Model model) {
 		
-		Map<String, Object> map	= mainService.list();
-		
-		return JSONResult.success(map);
+		return JSONResult.success(mainService.deptList());
 	}
+	
 }

@@ -43,11 +43,6 @@ div.result-wrapper{ background-color: #999900; height:500px; width: 70%; float: 
 <script type="text/javascript">
 
 var render = function(vo){
-   var htmls = "<h2 data-no='"+vo.no+"'>"+vo.name+"</h2><ul data-no='"+vo.no+"'></ul>";
-   $("div.navi").append(htmls);
-}
-
-var render2 = function(vo){
    var htmls = "<li data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li>";
    $("ul[data-no='"+vo.companyNo+"']").append(htmls);
 }
@@ -59,12 +54,8 @@ var getList = function(){
       dataType:"json",
       data:"",
       success: function(response){
-         console.log(response.data);
-         $(response.data.companyVoList).each(function(index, vo){
+         $(response.data).each(function(index, vo){
             render(vo);
-         });
-         $(response.data.departmentsVoList).each(function(index, vo){
-            render2(vo);
          });
       },
       error: function(xhr, status, e){
@@ -114,17 +105,20 @@ $(function(){
 </script>
 </head>
 <body>
-   <div id="header">
-      <div class="header-wrapper">
-         <span>quicksilver</span>
-         <div class="header-menubar">
-            <button>login</button>      
-         </div>
-      </div>
-   </div>
-   <div class="navi">
-   </div>
-   <div class="result-wrapper">
-   </div>
+	<div id="header">
+		<div class="header-wrapper">
+			<span>quicksilver</span>
+			<div class="header-menubar">
+				<button>login</button>      
+			</div>
+		</div>
+	</div>
+	<div class="navi">
+		<c:forEach items="${companyList }" var="vo">
+			<h2 data-no='${vo.no }'>${vo.name }</h2><ul data-no='${vo.no }'></ul>
+		</c:forEach>
+	</div>
+	<div class="result-wrapper">
+	</div>
 </body>
 </html>

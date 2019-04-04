@@ -32,6 +32,15 @@ public class MainService {
 		return map;
 	}
 	
+	// 자회사리스트
+	public List<CompanyVo> companyList(){
+		return mainDao.get();
+	}
+	
+	public List<DepartmentsVo> deptList(){
+		return mainDao.getList();
+	}
+	
 	public void addDepartment(long parentNo, String departmentName){
 		
 		DepartmentsVo departmentsVo = new DepartmentsVo();
