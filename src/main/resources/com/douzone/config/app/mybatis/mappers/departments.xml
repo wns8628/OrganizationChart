@@ -79,4 +79,16 @@
 		]]>
 	</delete>
 	
+	<!-- 더미데이터  -->
+	<select id="getCount" resultType="int">
+		select count(*) from departments
+	</select>
+	
+	<select id="getCountByPno" resultType="int" parameterType="int">
+		select count(*) from departments where parents = #{parents}
+	</select>
+	
+	<select id="getNameByPno" resultType="string" parameterType="int">
+		select name from departments where no = #{no}
+	</select>
 </mapper>

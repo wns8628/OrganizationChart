@@ -131,11 +131,20 @@ public class MainService {
 		}
 	}
 
-	public void addEmployee(String grade,
-			String name,
-			String age,
-			String gender) {
-
-
+	public void addDept(int i) {
+		int pNo = random((i*1000)+(i+1), (mainDao.getCount()+i) + 1);
+		if(pNo == ((i*1000)+(i+1))) {
+			pNo *= -1; 
+			String deptName = "부서"+(mainDao.getCountByPno(pNo)+1);
+			addDepartment(pNo, deptName);
+		}else {
+			String deptName = mainDao.getNameByPno(pNo)+"-"+(mainDao.getCountByPno(pNo)+1);
+			addDepartment(pNo, deptName);
+		}
+		
+	}
+	
+	public int random(int n1, int n2) {
+		return (int)(Math.random()*(n2 - n1 + 1))+n1;
 	}
 }

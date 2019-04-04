@@ -43,4 +43,17 @@ public class MainDao {
 	public int delete(long departmentNo) {
 		return sqlSession.delete("departments.deleteDepartment", departmentNo);
 	}
+	
+	// 더미데이터용
+	public int getCount() {
+		return sqlSession.selectOne("departments.getCount");
+	}
+	
+	public int getCountByPno(int pNo) {
+		return sqlSession.selectOne("departments.getCountByPno", pNo);
+	}
+	
+	public String getNameByPno(int pNo) {
+		return sqlSession.selectOne("departments.getNameByPno", pNo);
+	}
 }

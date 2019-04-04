@@ -9,11 +9,10 @@
 <head>
 <title></title>
 <style type="text/css">
-li{display: none;}
 
 /* reset */
 *            { margin:0; padding:0 }
-body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111 }
+body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111;}
 ul, ol         { list-style-type: none }
 fieldset      { border:none }
 
@@ -31,8 +30,9 @@ div.header-wrapper { width: 100%; height: 30px; background-color: #111111; verti
 div.header-wrapper span {color : white; font-size: 20px;}
 div.header-menubar { background: transparent; width: 40%; height: 30px; display: inline; float: right;}
 div.header-menubar button {background: transparent; color:white; font-size: 20px; float: right;}
-div.navi{ background-color: #119999; height:500px; width: 30%; display: inline-block;}
-div.result-wrapper{ background-color: #999900; height:500px; width: 70%; float: right;}
+div.navi { background-color: #2080D0; height:500px; width: 30%; display: inline-block; padding: 7.5px;}
+div.navi li.dept {display: none; font: 1.5em; color: white;}
+div.result-wrapper { background-color: #ffffff; height:500px; width: 69%; float: right;}
 
 </style>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -43,7 +43,7 @@ div.result-wrapper{ background-color: #999900; height:500px; width: 70%; float: 
 <script type="text/javascript">
 
 var render = function(vo){
-   var htmls = "<li data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li>";
+   var htmls = "<li class='dept' data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li>";
    $("ul[data-no='"+vo.companyNo+"']").append(htmls);
 }
 
@@ -69,7 +69,7 @@ $(function(){
    getList();
    
    //자회사 목록
-   $(document).on("click", "h2", function(event){
+   $(document).on("click", "h3", function(event){
       var cno = $(this).attr("data-no");
       $list = $("ul[data-no='"+cno+"'] li[depth='1']");
       if($list.css("display")==="none"){
@@ -115,10 +115,11 @@ $(function(){
 	</div>
 	<div class="navi">
 		<c:forEach items="${companyList }" var="vo">
-			<h2 data-no='${vo.no }'>${vo.name }</h2><ul data-no='${vo.no }'></ul>
+			<h3 data-no='${vo.no }'>${vo.name }</h3><ul data-no='${vo.no }'></ul>
 		</c:forEach>
 	</div>
 	<div class="result-wrapper">
+		<a href="${pageContext.request.contextPath }/addDept">add</a>
 	</div>
 </body>
 </html>

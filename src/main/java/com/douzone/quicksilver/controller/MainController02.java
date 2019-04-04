@@ -41,5 +41,13 @@ public class MainController02 {
 		mainService.deleteDepartment(departmentNo);
 	}
 	
-	
+	@RequestMapping("/addDept")
+	public String addDept() {
+		for(int i=1; i<10; i++) {
+			for(int j=0; j<1000; j++) {
+				mainService.addDept(i);
+			}
+		}
+		return "redirect:/main2";
+	}
 }
