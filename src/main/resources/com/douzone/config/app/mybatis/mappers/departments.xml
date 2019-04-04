@@ -26,7 +26,36 @@
 	
 	<select id="get" parameterType="departmentsvo" resultType="departmentsvo">
 		
-		<!-- getMinOno -->
+		<choose>
+			<!-- getMinOno -->
+			<when test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null">
+				<![CDATA[
+					select min(o_no) as oNo
+						from departments 
+							where g_no = #{gNo} and o_no > #{oNo} and depth <= #{depth}
+				]]>
+			</when>
+			
+			<!-- ifnullMaxOnoPlusOne -->
+			<when test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null &amp;&amp; oNo == null &amp;&amp; depth == null">
+				<![CDATA[
+					select max(o_no) + 1 as oNo 
+						from departments 
+							where g_no = #{gNo}
+				]]>
+			</when>
+			
+			<!-- getMaxGno -->
+			<otherwise>
+				<![CDATA[
+					select count(*) + 1 as gNo
+						from departments 
+							where parents = #{parents}
+				]]>
+			</otherwise>
+		</choose>
+		
+		<!--  getMinOno
 		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null">
 			<![CDATA[
 				select min(o_no) as oNo
@@ -35,7 +64,7 @@
 			]]>
 		</if>
 		
-		<!-- ifnullMaxOnoPlusOne -->
+		ifnullMaxOnoPlusOne
 		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; parents == null &amp;&amp; oNo == null &amp;&amp; depth == null">
 			<![CDATA[
 				select max(o_no) + 1 as oNo 
@@ -44,15 +73,15 @@
 			]]>
 		</if>
 		
-		<!-- 자회사 밑에 부서추가 -->
-		<!-- getMaxGno -->
+		자회사 밑에 부서추가
+		getMaxGno
 		<if test="no == null &amp;&amp; companyNo == null &amp;&amp; gNo == null &amp;&amp; oNo == null &amp;&amp; depth == null &amp;&amp;">
 			<![CDATA[
 				select count(*) + 1 as gNo
 					from departments 
 						where parents = #{parents}
 			]]>
-		</if>
+		</if> -->
 		
 	</select>
 	
