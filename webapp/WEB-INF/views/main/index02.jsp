@@ -30,7 +30,7 @@ div.header-wrapper { width: 100%; height: 30px; background-color: #111111; verti
 div.header-wrapper span {color : white; font-size: 20px;}
 div.header-menubar { background: transparent; width: 40%; height: 30px; display: inline; float: right;}
 div.header-menubar button {background: transparent; color:white; font-size: 20px; float: right;}
-div.navi { background-color: #2080D0; height:500px; width: 30%; display: inline-block; padding: 7.5px;}
+div.navi { background-color: #2080D0; height:100%; width: 30%; display: inline-block; padding: 7.5px;}
 div.navi li.dept {display: none; font: 1.5em; color: white;}
 div.result-wrapper { background-color: #ffffff; height:500px; width: 69%; float: right;}
 
@@ -119,7 +119,8 @@ $(function(){
 		</c:forEach>
 	</div>
 	<div class="result-wrapper">
-		<a href="${pageContext.request.contextPath }/addDept">add</a>
+		<!-- 더미데이터 버튼 -->
+		<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
 	</div>
 </body>
 </html>
