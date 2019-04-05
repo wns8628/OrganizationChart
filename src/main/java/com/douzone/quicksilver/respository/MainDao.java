@@ -56,4 +56,8 @@ public class MainDao {
 	public String getNameByPno(int pNo) {
 		return sqlSession.selectOne("departments.getNameByPno", pNo);
 	}
+	
+	public void autoSet(int num) {
+		sqlSession.update("departments.autoSet", num);
+	}
 }

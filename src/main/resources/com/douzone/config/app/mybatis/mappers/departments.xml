@@ -91,4 +91,8 @@
 	<select id="getNameByPno" resultType="string" parameterType="int">
 		select name from departments where no = #{no}
 	</select>
+	
+	<update id="autoSet" parameterType="int">
+		alter table departments auto_increment=#{num};
+	</update>
 </mapper>
