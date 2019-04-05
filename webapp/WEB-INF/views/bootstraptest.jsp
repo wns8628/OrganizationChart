@@ -15,7 +15,7 @@
   <meta name="author" content="">
 
   <title>SB Admin - Dashboard</title>
-
+ 
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -27,107 +27,85 @@
 
 <!--  -->
 <style type="text/css">
-#departments{display: none;}
+  #departments{display: none;} 
+  #login-cancel{float:right; padding:5px;}
 </style>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript">
 
-var render = function(vo){
-	var htmls = "<li id='company' class='nav-item' data-no='"+vo.no+"'><a class='nav-link'>"+vo.name+"</a></li><ul data-no='"+vo.no+"'></ul>";
-	$("#hierarchy").append(htmls);
-}
-
-var render2 = function(vo){
-	var htmls = "<li id='departments' data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'><a class='nav-link' href='#'>"+vo.name+"</a></li>";
-	$("ul[data-no='"+vo.companyNo+"']").append(htmls);
-} 
-
-var getList = function(){
-	$.ajax({
-		url:"${pageContext.servletContext.contextPath }/getlist",
-		type:"get",
-		dataType:"json",
-		data:"",
-		success: function(response){
-			console.log(response.data);
-			$(response.data.companyVoList).each(function(index, vo){
-				render(vo);
-			});
- 			$(response.data.departmentsVoList).each(function(index, vo){
-				render2(vo)
-			}); 
-		},
-		error: function(xhr, status, e){
-			console.error(status+":"+e);
-		}
-		
-	});
-}
-
-$(function(){
-	getList();
-	
-	//자회사 목록
-	$(document).on("click", "#company", function(event){
-      var cno = $(this).attr("data-no");
-      $list = $("ul[data-no='"+cno+"'] li[depth='1']");
-      if($list.css("display")==="none"){
-         $list.show();
-      }else{
-         $("ul[data-no='"+cno+"'] li").hide();
-      }
-	});
-	
-	//부서 목록
-	$(document).on("click", "#departments", function(event){
-	      var no = $(this).attr("data-no");
-	      var gno = $(this).attr("g-no");
-	      var depth = ($(this).attr("depth")*1)+1;
-	      $list = $("li[p-no='"+no+"']");
-	      if($list.css("display")==="none"){
-	         $list.show();
-	      }else{
-	         var f = function($li){
-	            console.log($li.length);
-	            $li.hide();
-	            for(var i=0; i<$li.length; i++){
-	               if($li[i].getAttribute('data-no') != undefined){
-	                   f($("li[p-no='"+$li[i].getAttribute('data-no')+"']"));
-	                }
-	            }
-	         }
-	         f($list);
-	      }
-	});
-});
-</script>
+<!-- 로그인테스트 -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
 <!--  -->
+
+<%-- 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+--%>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-ajax-js.js"></script>
+<script>
+	var contextPath = "${pageContext.servletContext.contextPath }";
+</script>
 </head>
-
 <body id="page-top">
-
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
     <a class="navbar-brand mr-1" href="index.html">Quick Silver(douzone)</a>
-
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+<!--  
+   <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
-
+-->
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <input type="text" class="form-control" placeholder="검색..." aria-label="kwd" aria-describedby="basic-addon2">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary search" id="search-button" type="button">
             <i class="fas fa-search"></i>
           </button>
-        </div>
+        </div>        
       </div>
     </form>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
+      <li class="nav-item">   
+         
+        <div id="admin-login" class="form-control btn-primary">
+       		 관리자 로그인
+	     	<!--  -->
+	     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
+				  <div id="formContent" >
+				    <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
+				    <!-- Tabs Titles -->
+					<!-- Icon -->	
+			        <h2>관리자</h2>
+				     <div class="fadeIn first">
+				      <img src="${pageContext.request.contextPath }/assets/images/quicksilver.jpg" id="icon" alt="User Icon" />
+				    </div>
+
+				    <!-- Login Form -->
+				    <form>
+				      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+				      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+				      <input type="submit" class="fadeIn fourth" value="Log In">
+				    </form>
+				
+				    <!-- Remind Passowrd -->
+				    <div id="formFooter">
+				      <a class="underlineHover" href="#">Forgot Password?</a>
+				    </div>
+				  </div>
+			</div>    	
+	     	<!--  -->
+        </div> 
+
+   	  <!-- href="${pageContext.request.contextPath }/testboot/login -->
+      </li>	     
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-bell fa-fw"></i>
@@ -206,9 +184,16 @@ $(function(){
     </ul> -->
 
 <!--  -->
-<ul id="hierarchy" class="sidebar navbar-nav">
+<!-- ul id="hierarchy" class="sidebar navbar-nav">
 
-</ul>
+</ul> -->
+
+<div class="sidebar navbar-nav">
+	<c:forEach items="${companyList }" var="vo">
+		<div id="company" class="btn-success" data-no='${vo.no }'>${vo.name }</div>
+		<ul data-no='${vo.no }'></ul>
+	</c:forEach>
+</div>
 
 
 <!--  -->
@@ -270,7 +255,7 @@ $(function(){
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
+  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script> --%>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -288,6 +273,7 @@ $(function(){
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-area-demo.js"></script>
 
+ 
 </body>
 
 </html>
