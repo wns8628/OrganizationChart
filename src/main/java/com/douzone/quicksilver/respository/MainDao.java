@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Repository
 public class MainDao {
@@ -59,5 +60,10 @@ public class MainDao {
 	
 	public void autoSet(int num) {
 		sqlSession.update("departments.autoSet", num);
+	}
+	
+	// 부서의 직원정보 가져옴
+	public List<EmployeesVo> get(EmployeesVo employeesVo){
+		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", employeesVo);
 	}
 }

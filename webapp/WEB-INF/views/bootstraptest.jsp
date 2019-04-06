@@ -25,32 +25,104 @@
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/sb-admin.css" rel="stylesheet">
 
-<!--  -->
-<style type="text/css">
-  #departments{display: none;} 
-  #login-cancel{float:right; padding:5px;}
-</style>
+  <!-- 테이블 CSS -->
+  <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  
+	
+	<!--  -->
+	<style type="text/css">
+	  #departments{display: none;} 
+	  #login-cancel{float:right; padding:5px;}
+	</style>
+	
+	<!-- 로그인테스트 -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
+	<!--  -->
+	
+	<%-- 
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+	--%>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+	 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-ajax-js.js"></script>
+	<script>
+		var contextPath = "${pageContext.servletContext.contextPath }";
+	</script>
 
-<!-- 로그인테스트 -->
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
-<!--  -->
+	<script type="text/javascript">
+		
+		$(function(){
+			
+			 let render = function(departmentName){
+			
+			   $(".card-header").empty();
+			   
+			   let htmls = "<h6 class='m-0 font-weight-bold text-primary'>" + 
+			   					departmentName + 
+			   				"</h6>";
+			   				
+			   $(".card-header").append(htmls);
+			}; 
+			
+			$(document).on("click", "#company", function(event){
+				console.log("자회사클릭");
+			});
+			
+			 $(document).on("click", "#departments", function(event){
+				 
+				console.log("부서 클릭");
+				let departmentNo = $(this).attr('data-no');
+				let departmentName = $(this).html();
+				console.log('departmentNo : ' + departmentNo);
+				console.log('departmentName : ' + departmentName);
 
-<%-- 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
---%>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-
-
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-ajax-js.js"></script>
-<script>
-	var contextPath = "${pageContext.servletContext.contextPath }";
-</script>
+				$("#dataTable").dataTable().fnDestroy();
+				
+				 render(departmentName); 
+				
+				 $('#dataTable').dataTable({
+		                pageLength: 5,
+		                bPaginate: true,
+		                bLengthChange: true,
+		                lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
+		                bAutoWidth: false,
+		                processing: true,
+		                ordering: true,
+		                serverSide: false,
+		                searching: true,
+		               
+		                ajax : {
+		                    "url":"${pageContext.servletContext.contextPath }/testboot/getDepartmentEmployeeInfo/" + departmentNo,
+		                    "type":"GET",
+		                    "data": '',
+		                   
+		                },
+		                columns : [
+		                    {data: "no"},
+		                    {data: "name"},
+		                    {data: "age"},
+		                    {data: "gender"},
+		                    {data: "grade"},
+		                    {data: "departments"},
+		                    {data: "company"},
+		                    {data: "masterGroup"},
+		                    {data: "phone"}
+		                 
+		                ]
+		 
+		            });	
+			 });
+		});
+		
+	</script>
 </head>
+
 <body id="page-top">
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
     <a class="navbar-brand mr-1" href="index.html">Quick Silver(douzone)</a>
@@ -198,36 +270,74 @@
 
 <!--  -->
 
-    <div id="content-wrapper">
+    <!-- Content Wrapper -->
+	 <div id="content-wrapper" class="d-flex flex-column">
+	
+      <!-- Main Content -->
+      <div id="content">
 
-      <div class="container-fluid">
+      <!-- Begin Page Content -->
+        <div class="container-fluid">
 
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#">정보</a>
-          </li>
-          <li class="breadcrumb-item active">douzone</li>
-        </ol>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>사원번호</th>
+                      <th>이름</th>
+                      <th>나이</th>
+                      <th>성별</th>
+                      <th>직급</th>
+                      <th>부서</th>
+                      <th>자회사</th>
+                      <th>모회사</th>
+                      <th>전화번호</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>사원번호</th>
+                      <th>이름</th>
+                      <th>나이</th>
+                      <th>성별</th>
+                      <th>직급</th>
+                      <th>부서</th>
+                      <th>자회사</th>
+                      <th>모회사</th>
+                      <th>전화번호</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                   
+                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-       
+        </div>
+        <!-- /.container-fluid -->
 
       </div>
-      <!-- /.container-fluid -->
-
+      <!-- End of Main Content -->
+	</div>
       <!-- Sticky Footer -->
-      <footer class="sticky-footer">
+      <!-- <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright © Your Website 2019</span>
           </div>
         </div>
-      </footer>
+      </footer> -->
 
-    </div>
     <!-- /.content-wrapper -->
 
-  </div>
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -255,7 +365,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script> --%>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -268,9 +378,11 @@
 
   <!-- Custom scripts for all pages-->
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin.min.js"></script>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
+  
 
   <!-- Demo scripts for this page-->
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script>
+  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-area-demo.js"></script>
 
  

@@ -82,7 +82,6 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 
 		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
 			button = buttons[i];
-
 			if ( $.isArray( button ) ) {
 				attach( container, button );
 			}

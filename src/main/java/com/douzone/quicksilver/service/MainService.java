@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.douzone.quicksilver.respository.MainDao;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
 public class MainService {	
@@ -151,4 +152,10 @@ public class MainService {
 	public int random(int n1, int n2) {
 		return (int)(Math.random()*(n2 - n1 + 1))+n1;
 	}
+	
+	public List<EmployeesVo> getDepartmentEmployeeInfo(EmployeesVo employeesVo){
+		
+		return mainDao.get(employeesVo);
+	}
+	
 }
