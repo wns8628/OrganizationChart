@@ -96,6 +96,8 @@
 		                ordering: true,
 		                serverSide: false,
 		                searching: true,
+		                scrollY: 250,
+		                scrollCollapse: false,
 		               
 		                ajax : {
 		                    "url":"${pageContext.servletContext.contextPath }/testboot/getDepartmentEmployeeInfo/" + departmentNo,
