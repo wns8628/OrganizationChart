@@ -158,4 +158,13 @@ public class MainService {
 		return mainDao.get(employeesVo);
 	}
 	
+	public List<EmployeesVo> search(String kwd, Long selectSearch){
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("kwd", kwd);
+		map.put("selectSearch", selectSearch);
+		return mainDao.get(map);
+	}
+	
 }

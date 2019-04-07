@@ -66,4 +66,9 @@ public class MainDao {
 	public List<EmployeesVo> get(EmployeesVo employeesVo){
 		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", employeesVo);
 	}
+	
+	// 검색해서 직원정보 가져옴
+	public List<EmployeesVo> get(Map<String, Object> map){
+		return sqlSession.selectList("employees.search", map);
+	}
 }

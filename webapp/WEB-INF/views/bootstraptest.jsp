@@ -54,75 +54,7 @@
 	<script>
 		var contextPath = "${pageContext.servletContext.contextPath }";
 	</script>
-
-	<script type="text/javascript">
-		
-		$(function(){
-			
-			 let render = function(departmentName){
-			
-			   $(".card-header").empty();
-			   
-			   let htmls = "<h6 class='m-0 font-weight-bold text-primary'>" + 
-			   					departmentName + 
-			   				"</h6>";
-			   				
-			   $(".card-header").append(htmls);
-			}; 
-			
-			$(document).on("click", "#company", function(event){
-				console.log("자회사클릭");
-			});
-			
-			 $(document).on("click", "#departments", function(event){
-				 
-				console.log("부서 클릭");
-				let departmentNo = $(this).attr('data-no');
-				let departmentName = $(this).html();
-				console.log('departmentNo : ' + departmentNo);
-				console.log('departmentName : ' + departmentName);
-
-				$("#dataTable").dataTable().fnDestroy();
-				
-				 render(departmentName); 
-				
-				 $('#dataTable').dataTable({
-		                pageLength: 5,
-		                bPaginate: true,
-		                bLengthChange: true,
-		                lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
-		                bAutoWidth: false,
-		                processing: true,
-		                ordering: true,
-		                serverSide: false,
-		                searching: true,
-		                scrollY: 250,
-		                scrollCollapse: false,
-		               
-		                ajax : {
-		                    "url":"${pageContext.servletContext.contextPath }/testboot/getDepartmentEmployeeInfo/" + departmentNo,
-		                    "type":"GET",
-		                    "data": '',
-		                   
-		                },
-		                columns : [
-		                    {data: "no"},
-		                    {data: "name"},
-		                    {data: "age"},
-		                    {data: "gender"},
-		                    {data: "grade"},
-		                    {data: "departments"},
-		                    {data: "company"},
-		                    {data: "masterGroup"},
-		                    {data: "phone"}
-		                 
-		                ]
-		 
-		            });	
-			 });
-		});
-		
-	</script>
+	
 </head>
 
 <body id="page-top">
@@ -134,7 +66,7 @@
     </button>
 -->
     <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="검색..." aria-label="kwd" aria-describedby="basic-addon2">
         <div class="input-group-append">

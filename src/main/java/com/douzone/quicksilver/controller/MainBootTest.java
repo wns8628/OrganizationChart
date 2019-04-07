@@ -40,4 +40,13 @@ public class MainBootTest {
 		return JSONResult.success(mainService.getDepartmentEmployeeInfo(employeesVo));
 	}
 	
+	// 검색하여 직원정보를 테이블에 출력 
+	// selectSearch는 부서검색, 이름검색 등 선택한 숫자값을 가져옴
+	@ResponseBody
+	@RequestMapping("/testboot/search/{kwd}/{selectSearch}")
+	public JSONResult search(@PathVariable String kwd,
+							 @PathVariable Long selectSearch) {
+		return JSONResult.success(mainService.search(kwd, selectSearch));
+	}
+	
 }
