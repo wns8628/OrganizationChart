@@ -80,6 +80,7 @@ var search = function(kwd, selectSearch){
 
 $(function(){
 	getList();
+	 $('#dataTable').dataTable();
 	//자회사 목록
 	$(document).on("click", "#company", function(event){
 		
