@@ -9,21 +9,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.MainService;
+import com.douzone.quicksilver.service.NaviService;
 
 @Controller
-public class MainController02 {
+public class NaviController {
 	@Autowired
-	private MainService mainService;
+	private NaviService naviService;
 	
 	@RequestMapping("/main2")
 	public String main(Model model) {
-		model.addAttribute("companyList", mainService.companyList());
+		model.addAttribute("companyList", naviService.companyList());
 		return "main/index02";
 	}
 	
 	@RequestMapping("/main3")
 	public String main3(Model model) {
-		model.addAttribute("companyList", mainService.companyList());
+		model.addAttribute("companyList", naviService.companyList());
 		return "main/index03";
 	}
 	
@@ -31,26 +32,13 @@ public class MainController02 {
 	@RequestMapping({"/getlist"})
 	public JSONResult getList(Model model) {
 		
-		return JSONResult.success(mainService.deptList());
-	}
-	
-	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})
-	public void addDepartment(@PathVariable Long parentNo,
-						 @PathVariable String departmentName) {
-		
-		mainService.addDepartment(parentNo, departmentName);
-	}
-	
-	@RequestMapping({"/deleteDepartment/{departmentNo}"})
-	public void addDepartment(@PathVariable Long departmentNo) {
-		
-		mainService.deleteDepartment(departmentNo);
+		return JSONResult.success(naviService.deptList());
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getDept/{parents}")
 	public JSONResult getDeptByNo(@PathVariable int parents) {
-		return JSONResult.success(mainService.getDeptByPno(parents));
+		return JSONResult.success(naviService.getDeptByPno(parents));
 	}
 	
 	@RequestMapping("/addDept")

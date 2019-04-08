@@ -36,7 +36,12 @@ div#footer p { color: white; text-align: center;}
 
 div.navi { background-color: #2080D0; height:100%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
 div.navi li.dept { font: 1.5em; color: white;}
-div.result-wrapper { background-color: #ffffff; height:500px; width: 78%; padding: 0.5%; float: right;}
+div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
+
+div.tbl-wrapper { width : 100%; }
+div.result-wrapper .tbl-result{ width: 60%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
+div.result-wrapper .tbl-result td{ border: 1px solid #777; text-align: center;}
+div.result-wrapper .tbl-result th{ border: 1px solid #777; }
 
 </style>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -114,6 +119,22 @@ $(function(){
 	<div class="result-wrapper">
 		<!-- 더미데이터 버튼 -->
 		<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
+		<div class="tbl-wrapper">
+			<table class="tbl-result">
+				<tr>
+					<th>부서</th>
+					<th>이름</th>
+					<th>직급</th>
+					<th>나이</th>
+				</tr>
+				<tr>
+					<td>부서1</td>
+					<td>둘리</td>
+					<td>부장</td>
+					<td>17</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	<div id="footer">
 		<p>copyright 2019</p>

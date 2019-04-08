@@ -18,30 +18,6 @@ public class MainService {
 	@Autowired
 	private MainDao mainDao;
 
-	//리스트
-	public Map<String, Object> list(){
-
-		List<CompanyVo> companyVoList = mainDao.get();
-		List<DepartmentsVo> departmentsVoList = mainDao.getList();
-
-		//System.out.println(companyVoList.toString());
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("companyVoList", companyVoList);
-		map.put("departmentsVoList",departmentsVoList);
-
-		return map;
-	}
-
-	// 자회사리스트
-	public List<CompanyVo> companyList(){
-		return mainDao.get();
-	}
-
-	public List<DepartmentsVo> deptList(){
-		return mainDao.getList();
-	}
-
 	public void addDepartment(long parentNo, String departmentName){
 
 		DepartmentsVo departmentsVo = new DepartmentsVo();
@@ -132,26 +108,6 @@ public class MainService {
 		}
 	}
 
-	public void addDept(int i) {
-		int pNo = random(((i*1000)+(i+1)), (mainDao.getCount()+i) + 1);
-		if(pNo == ((i*1000)+(i+1))) {
-			pNo *= -1; 
-			String deptName = "부서"+(mainDao.getCountByPno(pNo)+1);
-			addDepartment(pNo, deptName);
-		}else {
-			String deptName = mainDao.getNameByPno(pNo)+"-"+(mainDao.getCountByPno(pNo)+1);
-			addDepartment(pNo, deptName);
-		}
-		
-	}
-	
-	public void autoSet(int num) {
-		mainDao.autoSet(num);
-	}
-	
-	public int random(int n1, int n2) {
-		return (int)(Math.random()*(n2 - n1 + 1))+n1;
-	}
 	
 	public List<EmployeesVo> getDepartmentEmployeeInfo(EmployeesVo employeesVo){
 		
@@ -165,9 +121,5 @@ public class MainService {
 		map.put("kwd", kwd);
 		map.put("selectSearch", selectSearch);
 		return mainDao.get(map);
-	}
-	
-	public List<DepartmentsVo> getDeptByPno(int parents){
-		return mainDao.getDeptByPno(parents);
 	}
 }

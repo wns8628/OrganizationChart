@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="navigation">
+	<select id="getCompanyList" resultType="companyvo">
+		select no,name,group_no as groupNo from company
+	</select>
+	
+	<select id="getDeptList" resultType="departmentsvo">
+	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo, a.parents 
+	      from departments a, company b 
+	     where a.company_no = b.no
+<!-- 	       and b.no = ${value} -->
+	  order by a.g_no asc, a.o_no asc
+	</select>
+
+	<!-- 더미데이터  -->
+	<select id="getCount" resultType="int">
+		select count(*) from departments
+	</select>
+	
+	<select id="getCountByPno" resultType="int" parameterType="int">
+		select count(*) from departments where parents = #{parents}
+	</select>
+	
+	<select id="getNameByPno" resultType="string" parameterType="int">
+		select name from departments where no = #{no}
+	</select>
+	
+	<update id="autoSet" parameterType="int">
+		alter table departments auto_increment=#{num};
+	</update>
+	
+	<select id="getDeptByPno" parameterType="int" resultType="departmentsvo">
+		select no, name, g_no as gNo, o_no as oNo, depth, company_no as companyNo, parents
+		from departments
+		where parents = #{parents}
+	</select>
+</mapper>

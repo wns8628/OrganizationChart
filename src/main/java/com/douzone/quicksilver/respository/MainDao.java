@@ -17,14 +17,6 @@ public class MainDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<CompanyVo> get() {
-		return sqlSession.selectList("company.getList");
-	}
-
-	public List<DepartmentsVo> getList() {
-		return sqlSession.selectList("departments.getList");
-	}
-
 	public DepartmentsVo get(long parentNo) {
 		return sqlSession.selectOne("departments.getParentDepartmentInfo", parentNo);
 	}
@@ -45,23 +37,6 @@ public class MainDao {
 		return sqlSession.delete("departments.deleteDepartment", departmentNo);
 	}
 	
-	// 더미데이터용
-	public int getCount() {
-		return sqlSession.selectOne("departments.getCount");
-	}
-	
-	public int getCountByPno(int pNo) {
-		return sqlSession.selectOne("departments.getCountByPno", pNo);
-	}
-	
-	public String getNameByPno(int pNo) {
-		return sqlSession.selectOne("departments.getNameByPno", pNo);
-	}
-	
-	public void autoSet(int num) {
-		sqlSession.update("departments.autoSet", num);
-	}
-	
 	// 부서의 직원정보 가져옴
 	public List<EmployeesVo> get(EmployeesVo employeesVo){
 		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", employeesVo);
@@ -72,7 +47,4 @@ public class MainDao {
 		return sqlSession.selectList("employees.search", map);
 	}
 	
-	public List<DepartmentsVo> getDeptByPno(int parents){
-		return sqlSession.selectList("departments.getDeptByPno", parents);
-	}
 }

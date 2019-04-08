@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.MainService;
+import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
@@ -16,10 +17,12 @@ public class MainBoot {
 
 	@Autowired
 	MainService mainService;
+	@Autowired
+	NaviService naviService;
 	
 	@RequestMapping("/boot")
 	public String main(Model model) {
-		model.addAttribute("companyList", mainService.companyList());
+		model.addAttribute("companyList", naviService.companyList());
 		return "quicksilverboot/main";
 	}
 
