@@ -1,11 +1,8 @@
-
 var renderTableDepartmentName = function(departmentName){
 	   $(".card-header").empty();
-	   
 	   let htmls = "<h6 class='m-0 font-weight-bold text-primary'>" + 
 	   					departmentName + 
 	   				"</h6>";
-	   				
 	   $(".card-header").append(htmls);
 	}
 
@@ -45,99 +42,19 @@ var makeTable = function(url) {
       });	
 };
 
-// 매핑된 url을 전달
-var search = function(kwd, selectSearch){
-	$(".card-header").empty();
-	renderTableDepartmentName("Search");
-	makeTable("/boot/search/" + kwd + "/" + selectSearch);
-}
-
-//document.write("<script src='b.js'></script>");
-//<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-ajax.js"></script>
-
+//메인 - 부서클릭시 : 테이블뿌려주기 
 $(function(){
-	
-	$('#dataTable').dataTable();
+      $('#dataTable').dataTable();
 
-   //부서 목록
-   $(document).on("click", "#departments", function(event){
+      //부서 목록
+      $(document).on("click", "#departments", function(event){
 
-   // * 부서 클릭시 테이블에 사원 출력	       	   
-	  console.log("부서 클릭");
+      // * 부서 클릭시 테이블에 사원 출력	       	   
 	  let departmentNo = $(this).attr('data-no');
 	  let departmentName = $(this).html();
-	  console.log('departmentNo : ' + departmentNo);
-	  console.log('departmentName : ' + departmentName);
-	  
+
 	  makeTable("/boot/getDepartmentEmployeeInfo/" + departmentNo);
 	  renderTableDepartmentName(departmentName);
-      
    });
-
-
-/* 검색  */	
-	 let check = true;
-	 
-	 let searchClick = function() { // 검색창에서 어떤키를 눌렀을때
-			
-		 	if( check == true){ // keydown시 꾹 누르면 이벤트가 계속발생하는걸 방지하기위해 제약
-		 		
-		 		check = false;
-		 		let kwd = $("input[aria-label='kwd']").val();
-				
-				if( kwd == ""){
-					alert("검색어를 입력하세요");
-					return;
-				}
-				console.log(kwd);
-				search(kwd, 1);
-		 	}
-			
-		};
-		
-	 // 검색창 focus
-	 $(document).on("focus", ".form-control", function (event) { // 검색창 눌렀을때 인식		 
-		console.log("focus");
-		
-		$('.form-control').keydown( function(event) {
-			
-			console.log(event.keyCode);
-		 	
-			if( event.keyCode == 13){ // 검색창에서 엔터 눌렀을때
-				//console.log("엔터");
-				searchClick();
-			}
-		});
-		
-		$('.form-control').keyup( function(event) { // 키를 뗄때 다시 누를수있도록 설정
-			check = true;
-		});
-		
-	});
-	 
-	$(document).on("click", "#search-button", function(key) { // 마우스로 검색버튼을 눌렀을때
-		
-		if( key.keyCode == undefined){
-			//console.log("마우스 검색버튼 클릭");
-			searchClick();
-			check = true;
-		}
-	});  
-
-	//로그인폼
-	$(document).on("click", "#admin-login", function(event){	
-		 $("#admin-dialog").dialog({
-			 modal:true,
-			 width:"500px",
-			 open:function(){
-				     $('#login-cancel').bind('click', function(){
-					 $('#admin-dialog').dialog('close');
-				 })
-			 }
-		 }).parent(".ui-dialog").removeClass("ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable")
-		 .children(".wrapper").removeClass("ui-dialog-content ui-widget-content")
-		 .parents(".ui-dialog")
-		 .children(".ui-dialog-titlebar").remove();
-	});
 });
 

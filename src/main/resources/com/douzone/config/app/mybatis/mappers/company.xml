@@ -6,15 +6,4 @@
 	<select id="getList" resultType="companyvo">
 		select no,name,group_no as groupNo from company
 	</select>
-	
-	<!-- 자회사 밑에 부서추가 -->
-	<!-- <select id="getParentCompanyInfo" parameterType="long" resultType="companyvo">
-	
-	   <![CDATA[
-			select no, name, group_no as groupNo 
-				from company
-					where no = #{value}
-	   ]]> 
-	</select> -->
-   
 </mapper>

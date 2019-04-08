@@ -4912,7 +4912,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .card-body {
 	-webkit-box-flex: 1;
 	-ms-flex: 1 1 auto;
-	flex: 1 1 auto;
+	flex: 1 1 1;
 	padding: 1.25rem;
 	padding-top:10px;
 }
@@ -10254,8 +10254,8 @@ a:focus {
 	background-color: #f8f9fc;
 	width: 100%;
 	overflow-x: hidden;
-	padding-left: 50px;
-	padding-right: 50px;
+/* 	padding-left: 50px;
+	padding-right: 50px; */
 }
 
 #wrapper #content-wrapper #content {
@@ -10267,7 +10267,7 @@ a:focus {
 .container, .container-fluid {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
-	padding-top: 50px;
+	padding-top: 5px;
 }
 
 .scroll-to-top {
