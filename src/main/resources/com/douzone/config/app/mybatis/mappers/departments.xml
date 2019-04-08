@@ -78,5 +78,5 @@
 			delete from departments where no = #{value};
 		]]>
 	</delete>
-	
+
 </mapper>

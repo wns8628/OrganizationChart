@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
-import com.douzone.quicksilver.service.MainService;
 import com.douzone.quicksilver.service.NaviService;
 
 @Controller
