@@ -21,6 +21,12 @@ public class MainController02 {
 		return "main/index02";
 	}
 	
+	@RequestMapping("/main3")
+	public String main3(Model model) {
+		model.addAttribute("companyList", mainService.companyList());
+		return "main/index03";
+	}
+	
 	@ResponseBody
 	@RequestMapping({"/getlist"})
 	public JSONResult getList(Model model) {
@@ -39,6 +45,12 @@ public class MainController02 {
 	public void addDepartment(@PathVariable Long departmentNo) {
 		
 		mainService.deleteDepartment(departmentNo);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getDept/{parents}")
+	public JSONResult getDeptByNo(@PathVariable int parents) {
+		return JSONResult.success(mainService.getDeptByPno(parents));
 	}
 	
 	@RequestMapping("/addDept")

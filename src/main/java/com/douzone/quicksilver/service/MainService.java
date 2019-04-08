@@ -167,4 +167,7 @@ public class MainService {
 		return mainDao.get(map);
 	}
 	
+	public List<DepartmentsVo> getDeptByPno(int parents){
+		return mainDao.getDeptByPno(parents);
+	}
 }

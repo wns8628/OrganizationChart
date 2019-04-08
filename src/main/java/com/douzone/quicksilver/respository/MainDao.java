@@ -71,4 +71,8 @@ public class MainDao {
 	public List<EmployeesVo> get(Map<String, Object> map){
 		return sqlSession.selectList("employees.search", map);
 	}
+	
+	public List<DepartmentsVo> getDeptByPno(int parents){
+		return sqlSession.selectList("departments.getDeptByPno", parents);
+	}
 }
