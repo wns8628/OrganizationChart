@@ -36,6 +36,7 @@ div#footer p { color: white; text-align: center;}
 
 div.navi { background-color: #2080D0; height:100%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
 div.navi li.dept { font: 1.5em; color: white;}
+div.navi span {cursor: pointer;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
 div.tbl-wrapper { width : 100%; }
@@ -52,7 +53,7 @@ div.result-wrapper .tbl-result th{ border: 1px solid #777; }
 <script type="text/javascript">
 
 var render = function(vo){
-   var htmls = "<li class='dept' data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li><ul data-no='"+vo.no+"'></ul>";
+   var htmls = "<li class='dept' data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'><span>"+vo.name+"<span></li><ul data-no='"+vo.no+"'></ul>";
    if(vo.parents > 0){
 	   $("ul[data-no='"+vo.parents+"']").append(htmls);
    }else{
@@ -81,24 +82,36 @@ var getList = function(parents){
 $(function(){
    
    //자회사 목록
-   $(document).on("click", "h3", function(event){
-	   var no = $(this).attr("data-no") * -1;
-	   if($(this).next().children().length > 0){
-		   $(this).next().children().remove();
+//    $(document).on("click", "h3", function(event){
+// 	   var no = $(this).attr("data-no") * -1;
+// 	   if($(this).next().children().length > 0){
+// 		   $(this).next().children().remove();
+// 	   }else{
+// 		   getList(no);
+// 	   }
+//    });
+   
+   $(document).on("click", "h3 span", function(event){
+	   $parent = $(this).parent();
+	   var no = $parent.attr("data-no") * -1;
+	   if($parent.next().children().length > 0){
+		   $parent.next().children().remove();
 	   }else{
 		   getList(no);
 	   }
    });
    
    //부서 목록
-   $(document).on("click", "li", function(event){
-      var no = $(this).attr("data-no");
-      if($(this).next().children().length > 0){
-		   $(this).next().children().remove();
+   $(document).on("click", "li span", function(event){
+	  $parent = $(this).parent();
+      var no = $parent.attr("data-no");
+      if($parent.next().children().length > 0){
+    	  $parent.next().children().remove();
 	  }else{
 		   getList(no);
 	  }
    });
+   
 });
 </script>
 </head>
@@ -113,7 +126,7 @@ $(function(){
 	</div>
 	<div class="navi">
 		<c:forEach items="${companyList }" var="vo">
-			<h3 data-no='${vo.no }'>${vo.name }</h3><ul data-no='${vo.no }'></ul>
+			<h3 data-no='${vo.no }'><span>${vo.name }</span></h3><ul data-no='${vo.no }'></ul>
 		</c:forEach>
 	</div>
 	<div class="result-wrapper">
