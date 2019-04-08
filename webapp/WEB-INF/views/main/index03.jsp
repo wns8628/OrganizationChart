@@ -30,9 +30,13 @@ div.header-wrapper { width: 100%; height: 30px; background-color: #111111; verti
 div.header-wrapper span {color : white; font-size: 20px;}
 div.header-menubar { background: transparent; width: 40%; height: 30px; display: inline; float: right;}
 div.header-menubar button {background: transparent; color:white; font-size: 20px; float: right;}
-div.navi { background-color: #2080D0; height:100%; width: 30%; display: inline-block; padding: 7.5px;}
+
+div#footer { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
+div#footer p { color: white; text-align: center;}
+
+div.navi { background-color: #2080D0; height:100%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
 div.navi li.dept { font: 1.5em; color: white;}
-div.result-wrapper { background-color: #ffffff; height:500px; width: 69%; float: right;}
+div.result-wrapper { background-color: #ffffff; height:500px; width: 78%; padding: 0.5%; float: right;}
 
 </style>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -110,6 +114,9 @@ $(function(){
 	<div class="result-wrapper">
 		<!-- 더미데이터 버튼 -->
 		<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
+	</div>
+	<div id="footer">
+		<p>copyright 2019</p>
 	</div>
 </body>
 </html>
