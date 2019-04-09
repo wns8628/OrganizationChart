@@ -5,10 +5,24 @@
     pageEncoding="UTF-8"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-nav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-ajax.js"></script>
-<div class="sidebar navbar-nav">
+
+<ul class="sidebar navbar-nav">
 	<c:forEach items="${companyList }" var="vo">
-		<div id="company" class="btn-success" data-no='${vo.no }'>${vo.name }</div>
-		<ul data-no='${vo.no }'></ul>
+		<li class="nav-item dropdown">
+			<div class="company nav-link dropdown-toggle"
+			   id="pagesDropdown"
+			   data-toggle="dropdown"
+			   aria-haspopup="true"
+			   aria-expanded="true"
+			   data-no='${vo.no }'>${vo.name }
+		    </div>	   
+			<ul data-no='${vo.no }' class="dropdown-menu"
+			     aria-labelledby="pagesDropdown">
+	
+			</ul>
+		</li>
 	</c:forEach>
-</div>
+</ul>
+
+
 

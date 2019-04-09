@@ -4166,76 +4166,77 @@
 
     // Public
     _proto.toggle = function toggle() {
-      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED)) {
-        return;
-      }
-
-      var parent = Dropdown._getParentFromElement(this._element);
-
-      var isActive = $(this._menu).hasClass(ClassName$4.SHOW);
-
-      Dropdown._clearMenus();
-
-      if (isActive) {
-        return;
-      }
-
-      var relatedTarget = {
-        relatedTarget: this._element
-      };
-      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
-      $(parent).trigger(showEvent);
-
-      if (showEvent.isDefaultPrevented()) {
-        return;
-      } // Disable totally Popper.js for Dropdown in Navbar
-
-
-      if (!this._inNavbar) {
-        /**
-         * Check for Popper dependency
-         * Popper - https://popper.js.org
-         */
-        if (typeof Popper === 'undefined') {
-          throw new TypeError('Bootstrap\'s dropdowns require Popper.js (https://popper.js.org/)');
-        }
-
-        var referenceElement = this._element;
-
-        if (this._config.reference === 'parent') {
-          referenceElement = parent;
-        } else if (Util.isElement(this._config.reference)) {
-          referenceElement = this._config.reference; // Check if it's jQuery element
-
-          if (typeof this._config.reference.jquery !== 'undefined') {
-            referenceElement = this._config.reference[0];
-          }
-        } // If boundary is not `scrollParent`, then set position to `static`
-        // to allow the menu to "escape" the scroll parent's boundaries
-        // https://github.com/twbs/bootstrap/issues/24251
-
-
-        if (this._config.boundary !== 'scrollParent') {
-          $(parent).addClass(ClassName$4.POSITION_STATIC);
-        }
-
-        this._popper = new Popper(referenceElement, this._menu, this._getPopperConfig());
-      } // If this is a touch-enabled device we add extra
-      // empty mouseover listeners to the body's immediate children;
-      // only needed because of broken event delegation on iOS
-      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-
-
-      if ('ontouchstart' in document.documentElement && $(parent).closest(Selector$4.NAVBAR_NAV).length === 0) {
-        $(document.body).children().on('mouseover', null, $.noop);
-      }
-
-      this._element.focus();
-
-      this._element.setAttribute('aria-expanded', true);
+//      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED)) {
+//        return;
+//      }
+//
+//      var parent = Dropdown._getParentFromElement(this._element);
+//
+//      var isActive = $(this._menu).hasClass(ClassName$4.SHOW);
+//
+//      Dropdown._clearMenus();
+//
+//      if (isActive) {
+//        return;
+//      }
+//
+//      var relatedTarget = {
+//        relatedTarget: this._element
+//      };
+//      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
+//      $(parent).trigger(showEvent);
+//
+//      if (showEvent.isDefaultPrevented()) {
+//        return;
+//      } // Disable totally Popper.js for Dropdown in Navbar
+//
+//
+//      if (!this._inNavbar) {
+//        /**
+//         * Check for Popper dependency
+//         * Popper - https://popper.js.org
+//         */
+//        if (typeof Popper === 'undefined') {
+//          throw new TypeError('Bootstrap\'s dropdowns require Popper.js (https://popper.js.org/)');
+//        }
+//
+//        var referenceElement = this._element;
+//
+//        if (this._config.reference === 'parent') {
+//          referenceElement = parent;
+//        } else if (Util.isElement(this._config.reference)) {
+//          referenceElement = this._config.reference; // Check if it's jQuery element
+//
+//          if (typeof this._config.reference.jquery !== 'undefined') {
+//            referenceElement = this._config.reference[0];
+//          }
+//        } // If boundary is not `scrollParent`, then set position to `static`
+//        // to allow the menu to "escape" the scroll parent's boundaries
+//        // https://github.com/twbs/bootstrap/issues/24251
+//
+//
+//        if (this._config.boundary !== 'scrollParent') {
+//          $(parent).addClass(ClassName$4.POSITION_STATIC);
+//        }
+//
+//        this._popper = new Popper(referenceElement, this._menu, this._getPopperConfig());
+//      } // If this is a touch-enabled device we add extra
+//      // empty mouseover listeners to the body's immediate children;
+//      // only needed because of broken event delegation on iOS
+//      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+//
+//
+//      if ('ontouchstart' in document.documentElement && $(parent).closest(Selector$4.NAVBAR_NAV).length === 0) {
+//        $(document.body).children().on('mouseover', null, $.noop);
+//      }
+//
+//      this._element.focus();
+//
+//      this._element.setAttribute('aria-expanded', true);
 
       $(this._menu).toggleClass(ClassName$4.SHOW);
-      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
+      
+//    $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
     };
 
     _proto.show = function show() {

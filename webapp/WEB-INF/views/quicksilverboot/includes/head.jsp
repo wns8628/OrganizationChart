@@ -42,10 +42,12 @@
 
 <!-- 원래바디밑에임  -->
 <!-- Bootstrap core JavaScript-->
-  <%--
+ 
+<%-- 
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  --%>
+ --%>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  
   <!-- Core plugin JavaScript-->
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
