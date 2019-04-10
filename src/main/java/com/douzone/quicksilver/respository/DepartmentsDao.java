@@ -16,8 +16,8 @@ public class DepartmentsDao {
 	private SqlSession sqlSession;
 	
 	// 부서의 직원정보 가져옴
-	public List<EmployeesVo> get(EmployeesVo employeesVo){
-		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", employeesVo);
+	public List<EmployeesVo> getList(Long dept_no){
+		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", dept_no);
 	}
 
 	public DepartmentsVo get(DepartmentsVo departmentsVo) {

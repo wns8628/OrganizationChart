@@ -18,9 +18,9 @@ public class DepartmentController {
 	
 	// 부서 정보를 가져와서 테이블에 출력
 	@ResponseBody
-	@RequestMapping("/{departmentsNo}")
-	public JSONResult getDepartmentEmployeeInfo(EmployeesVo employeesVo) {
-		return JSONResult.success(departmentService.getDepartmentEmployeeInfo(employeesVo));
+	@RequestMapping("/{dept_no}")
+	public JSONResult getDepartmentEmployeeInfo(@PathVariable Long dept_no) {
+		return JSONResult.success(departmentService.getDepartmentEmployeeInfo(dept_no));
 	}
 	
 	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})

@@ -20,8 +20,8 @@ public class DepartmentService {
 	@Autowired
 	private DeptComDao deptComDao;
 	
-	public List<EmployeesVo> getDepartmentEmployeeInfo(EmployeesVo employeesVo){
-		return departmentsDao.get(employeesVo);
+	public List<EmployeesVo> getDepartmentEmployeeInfo(Long dept_no){
+		return departmentsDao.getList(dept_no);
 	}
 	
 	//추가
