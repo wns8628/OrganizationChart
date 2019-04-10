@@ -4,7 +4,7 @@
 
 <mapper namespace="departments">
 	<select id="getList" resultType="departmentsvo">
-	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo, a.parents 
+	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth, a.p_no as parents 
 	      from departments a, company b 
 	     where a.company_no = b.no
 <!-- 	       and b.no = ${value} -->
@@ -17,7 +17,7 @@
 	<select id="getParentDepartmentInfo" parameterType="long" resultType="departmentsvo">
 	
 		<![CDATA[
-			 select no, name, g_no as gNo, o_no as oNo, depth, company_no as companyNo, parents 
+			 select no, name, g_no as gNo, o_no as oNo, depth, p_no as parents
 		    	from departments 
 		    		where no = #{value} order by gNo asc, oNo asc
 		]]>
@@ -51,7 +51,13 @@
 				<![CDATA[
 					select count(*) + 1 as gNo
 						from departments
-							where parents = #{parents}
+							where p_no = #{parents}
+				]]>
+			</when>
+			
+			<when test="no != null">
+				<![CDATA[
+					select p_no as parents from departments where no = #{no}
 				]]>
 			</when>
 		</choose>
@@ -68,8 +74,13 @@
 	
 	<insert id="addDepartment" parameterType="departmentsvo">
 		<![CDATA[
-			insert into departments values (null, #{name}, #{gNo}, #{oNo}, #{depth}, #{companyNo}, #{parents})
+			insert into departments values (null, #{name}, #{gNo}, #{oNo}, #{depth}, #{parents})
 		]]>
+		<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
 	</insert>
 	
 	<!-- 부서 삭제 -->
@@ -78,5 +89,24 @@
 			delete from departments where no = #{value};
 		]]>
 	</delete>
-
+	
+	<!-- 더미데이터  -->
+	<select id="getCount" resultType="int">
+		select count(*) from departments
+	</select>
+	
+	<select id="getCountByPno" resultType="int" parameterType="int">
+		select count(*) from departments where p_no = #{parents}
+	</select>
+	
+	<select id="getNameByPno" resultType="string" parameterType="int">
+		select name from departments where no = #{no}
+	</select>
+	
+	<select id="selectParentNo" parameterType="long" resultType="departmentsvo">
+		<![CDATA[
+			select no from departments where p_no = #{value};
+		]]>
+	</select>
+	
 </mapper>
