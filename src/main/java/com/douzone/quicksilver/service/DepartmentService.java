@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.quicksilver.respository.DepartmentsDao;
+import com.douzone.quicksilver.respository.DeptComDao;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DeptComVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
@@ -14,6 +16,9 @@ public class DepartmentService {
 	
 	@Autowired
 	private DepartmentsDao departmentsDao;
+	
+	@Autowired
+	private DeptComDao deptComDao;
 	
 	public List<EmployeesVo> getDepartmentEmployeeInfo(EmployeesVo employeesVo){
 		return departmentsDao.get(employeesVo);
@@ -28,24 +33,25 @@ public class DepartmentService {
 		long oNo = 0;
 		long depth = 0;
 		long companyNo = 0;
-		long parents = 0;
+		Long parents = 0L;
 
 		if( parentNo < 0 ) { // 자회사 바로 밑에 부서를 추가
 
 			System.out.println("자회사 밑 부서 추가");
 
-			departmentsVo.setParents(parentNo);			
+			departmentsVo.setParents(parentNo);	
 			departmentsVo = departmentsDao.get(departmentsVo);
 
 			departmentsVo.setName(departmentName);
 			departmentsVo.setoNo(1L);
 			departmentsVo.setDepth(1L);
-			departmentsVo.setCompanyNo(Math.abs(parentNo));
 			departmentsVo.setParents(parentNo);
 
-			int result = departmentsDao.insert(departmentsVo);
+			long result = departmentsDao.insert(departmentsVo);
 			System.out.println("insert 결과 : " + result);
-
+			
+			addDeptCom( result);
+			
 		} else { // 부서 밑에 부서를 추가
 
 			System.out.println("부서 밑 부서 추가");
@@ -56,7 +62,7 @@ public class DepartmentService {
 			gNo = departmentsVo.getgNo();
 			oNo = departmentsVo.getoNo();
 			depth = departmentsVo.getDepth();
-			companyNo = departmentsVo.getCompanyNo();
+			//companyNo = departmentsVo.getCompanyNo();
 			parents = departmentsVo.getParents();
 
 			departmentsVo.setNo(null);
@@ -92,10 +98,11 @@ public class DepartmentService {
 			departmentsVo.setgNo(gNo);
 			departmentsVo.setoNo(oNo);
 			departmentsVo.setDepth(depth);
-			departmentsVo.setCompanyNo(companyNo);
+			//departmentsVo.setCompanyNo(companyNo);
 			departmentsVo.setParents(no);
 
-			departmentsDao.insert(departmentsVo);
+			long insertDepartmentNo = departmentsDao.insert(departmentsVo);
+			System.out.println("insertDepartmentNo : " + insertDepartmentNo);
 		}
 	}
 	
@@ -107,6 +114,31 @@ public class DepartmentService {
 			System.out.println("삭제 할수없다는 알림창 띄워줌");
 		}else { // 부서 밑에 사람이 하나도없으며, 부서밑에 부서도없음  삭제
 			System.out.println("삭제되었다는 알림창");
+		}
+	}
+	
+	public void addDeptCom(long departmentNo) {
+		
+		Long parents = null;
+		DepartmentsVo departmentsVo = new DepartmentsVo();
+		departmentsVo.setNo( departmentNo);
+		
+		
+		while(true) {
+			System.out.println("departmentNo : " + departmentNo);
+			
+			parents = departmentsDao.get(departmentsVo).getParents();
+			
+			System.out.println("parents : " + parents);
+			
+			if( parents < 0) {
+				DeptComVo deptComVo = new DeptComVo();
+				deptComVo.setDepartmentsNo( departmentNo);
+				deptComVo.setCompanyNo( Math.abs(parents));
+				
+				deptComDao.insert(deptComVo);
+				break;
+			}				
 		}
 	}
 	
