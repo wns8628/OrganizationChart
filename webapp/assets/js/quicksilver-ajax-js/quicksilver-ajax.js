@@ -29,14 +29,14 @@ var makeTable = function(url) {
           },
           columns : [
               {data: "no"},
+              {data: "profile"},
               {data: "name"},
               {data: "age"},
               {data: "gender"},
               {data: "grade"},
-              {data: "departments"},
-              {data: "company"},
-              {data: "masterGroup"},
-              {data: "phone"}
+              {data: "email"},              
+              {data: "phone"},
+              {data: "departments"}
           ]
 
       });	
