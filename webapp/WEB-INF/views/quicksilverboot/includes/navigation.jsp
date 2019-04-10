@@ -16,7 +16,7 @@ $(document).on("click", "#departments", function(event){
 	if($(this).width() < 70){
 		console.log("하앙");
 		console.log($("#quick-navbar").width());
-		/* $("#quick-navbar").width(500); */
+		$("#quick-navbar").width(500);
 		var widthNav = $("#quick-navbar").width();
 		
 	 	$("#quick-navbar").css("width", widthNav + 500);
@@ -24,6 +24,7 @@ $(document).on("click", "#departments", function(event){
 	 	
 	 }
 */
+
 });
  
 </script>
