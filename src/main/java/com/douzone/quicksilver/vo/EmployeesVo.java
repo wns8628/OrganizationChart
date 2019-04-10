@@ -112,6 +112,7 @@ public class EmployeesVo {
 				+ departments + ", company=" + company + ", masterGroup=" + masterGroup + "]";
 	}
 
+
 	public Long getSalary() {
 		return salary;
 	}

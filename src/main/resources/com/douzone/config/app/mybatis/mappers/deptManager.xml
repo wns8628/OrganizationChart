@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="deptManager">
+	
+	<select id="get" parameterType="employeesvo" resultType="deptmanagervo"> 
+		<![CDATA[
+			select no from dept_manager where emp_no = #{no}
+		]]>
+	</select>
+</mapper>

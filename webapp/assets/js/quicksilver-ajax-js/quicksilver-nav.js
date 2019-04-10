@@ -9,6 +9,8 @@ var render = function(vo){
 	}
 }
 
+
+
 var getList = function(parents){
 	$.ajax({
 		url: contextPath + "/getDept/" + parents,
