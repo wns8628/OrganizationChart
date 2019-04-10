@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="employees">
+	
+	<select id="getDepartmentEmployeeInfo" 
+		parameterType="employeesvo" resultType="employeesvo">
+		
+		<![CDATA[
+			SELECT 
+			    a.no AS no,
+			    a.name AS name,
+			    a.age AS age,
+			    a.gender as gender,
+			    a.grade AS grade,
+			    b.name AS departments,
+			    c.name AS company,
+			    d.name AS masterGroup,
+			    a.phone AS phone
+			FROM
+			    employees a,
+			    departments b,
+			    company c,
+    			master_group d
+			WHERE
+		    	a.departments_no = b.no
+			        AND b.company_no = c.no
+			        AND c.group_no = d.no
+			        AND a.departments_no = #{departmentsNo};
+		]]>
+		
+	</select>
+	
+	<select id="search" 
+		parameterType="map" resultType="employeesvo">
+		
+		<![CDATA[
+			SELECT 
+			    a.no AS no,
+			    a.name AS name,
+			    a.age AS age,
+			    a.gender as gender,
+			    a.grade AS grade,
+			    b.name AS departments,
+			    c.name AS company,
+			    d.name AS masterGroup,
+			    a.phone AS phone
+			FROM
+			    employees a,
+			    departments b,
+			    company c,
+    			master_group d
+			WHERE
+		    	a.departments_no = b.no
+			        AND b.company_no = c.no
+			        AND c.group_no = d.no
+		]]>
+		
+		<choose>
+			<when test="selectSearch == 1"> <!-- 이름 검색 -->
+				AND a.name = #{kwd}
+			</when>
+			
+			<when test="selectSearch == 2"> <!-- 부서 검색 -->
+			 	AND b.name = #{kwd}
+			</when>
+		</choose>
+		
+	</select>
+
+</mapper>
