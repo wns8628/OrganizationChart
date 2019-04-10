@@ -14,7 +14,7 @@ import com.douzone.quicksilver.vo.EmployeesVo;
 public class DepartmentController {
 	
 	@Autowired
-	DepartmentService departmentService;
+	private DepartmentService departmentService;
 	
 	// 부서 정보를 가져와서 테이블에 출력
 	@ResponseBody

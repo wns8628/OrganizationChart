@@ -68,5 +68,91 @@
 		</choose>
 		
 	</select>
+	
+	<insert id="insert" parameterType="employeesvo">
+		<choose>
+			<!-- salaires insert -->
+			<when test="name == null and age != null">
+				
+				<![CDATA[
+					insert into salaries values(null, 
+												#{no}, 
+												(select hire_date from employees where no = #{no}), 
+												(select age from employees where no = #{no}) * 100,
+												'9999-01-01' );
+				]]>
+			</when>
+			
+			<!-- grade_emp insert -->
+			<when test="name == null and age == null and gender != null">
+				
+				<![CDATA[
+					insert into grade_emp values(null, 
+												(SELECT CASE 
+														WHEN age >= 60 THEN 8 
+														WHEN age >= 55 THEN 7 
+														WHEN age >= 50 THEN 6 
+														WHEN age >= 45 THEN 5 
+														WHEN age >= 40 THEN 4 
+														WHEN age >= 35 THEN 3 
+														WHEN age >= 30 THEN 2 
+														ELSE 1 
+														END 
+														FROM (SELECT age FROM employees WHERE no = #{no}) a
+													), 
+													#{no}, 
+													(select hire_date from employees where no = #{no}), 
+													'9999-01-01')
+				]]>
+			</when>
+			
+			<!-- dept_emp insert -->
+			<when test="name == null and age == null and gender == null and phone != null">
+				<![CDATA[
+					insert into dept_emp values(null, 
+												#{departmentsNo}, 
+												#{no}, 
+												(select hire_date from employees where no = #{no}), 
+												'9999-01-01')
+				]]>
+			</when>
+			
+			<!-- dept_manager insert -->
+			<when test="name == null and age == null and gender == null and phone == null">
+			
+				<![CDATA[
+					insert into dept_manager values(null, 
+													#{no}, 
+													#{departmentsNo}, 
+													(select hire_date from employees where no = #{no}),
+													 '9999-01-01');
+				]]>
+			</when>
+			
+			<otherwise>
+				<![CDATA[
+					insert into employees values(null, #{name},
+													   #{age}, 
+													   #{gender}, 
+													   #{phone}, 
+													   #{address}, 
+													   #{residentNum}, 
+													   #{profile}, 
+													   #{email},
+													   #{hireDate} );
+				]]>
+			
+			</otherwise>
+			
+		</choose>
+		
+		<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			
+				<![CDATA[
+					select last_insert_id()
+				]]>
+		</selectKey>
+		
+	</insert>
 
 </mapper>
