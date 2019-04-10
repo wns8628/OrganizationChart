@@ -4,7 +4,8 @@
 
 <mapper namespace="navigation">
 	<select id="getCompanyList" resultType="companyvo">
-		select no,name,group_no as groupNo from company
+		select no,name,mastergroup_no as groupNo from company 
+		where mastergroup_no = 1;
 	</select>
 	
 	<select id="getDeptList" resultType="departmentsvo">
@@ -33,8 +34,10 @@
 	</update>
 	
 	<select id="getDeptByPno" parameterType="int" resultType="departmentsvo">
-		select no, name, g_no as gNo, o_no as oNo, depth, company_no as companyNo, parents
-		from departments
-		where parents = #{parents}
+		select a.no as no, name, g_no as gNo, o_no as oNo, depth, b.company_no as companyNo, p_no as parents
+		from departments a, dept_com b
+		where a.no = b.departments_no
+		and to_date = '9999-01-01'
+		and a.p_no = #{pNo};
 	</select>
 </mapper>
