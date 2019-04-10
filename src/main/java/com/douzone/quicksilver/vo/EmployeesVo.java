@@ -111,14 +111,15 @@ public class EmployeesVo {
 				+ ", profile=" + profile + ", email=" + email + ", hireDate=" + hireDate + ", departments="
 				+ departments + ", company=" + company + ", masterGroup=" + masterGroup + "]";
 	}
+
 	public Long getSalary() {
 		return salary;
 	}
 	public void setSalary(Long salary) {
 		this.salary = salary;
 	}
+
 	
-	
-	
+
 
 }
