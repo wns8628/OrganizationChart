@@ -55,6 +55,7 @@
 				]]>
 			</when>
 			
+			<!-- 부서 추가시 CompanyNo 구하기위해서 사용하는 쿼리 -->
 			<when test="no != null">
 				<![CDATA[
 					select p_no as parents from departments where no = #{no}
