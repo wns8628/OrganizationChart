@@ -13,7 +13,7 @@
   <title>SB Admin - Dashboard</title>
  
   <!-- Custom fonts for this template-->
-  <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">

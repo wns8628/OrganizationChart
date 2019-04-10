@@ -58,11 +58,11 @@
 		        </div>		
 		      </div>
 			</div>
-	     
+ 	<%-- 	 
 	      <footer class="sticky-footer">
 			  <c:import url="/WEB-INF/views/quicksilverboot/includes/footer.jsp"/>
 	      </footer>
-	
+	 --%>
 	  </div>
 	</body>	
 </html>
