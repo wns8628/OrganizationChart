@@ -24,8 +24,9 @@ public class DepartmentsDao {
 		return sqlSession.selectOne("departments.get", departmentsVo);
 	}
 	
-	public int insert(DepartmentsVo departmentsVo) {
-		return sqlSession.insert("departments.addDepartment", departmentsVo);
+	public long insert(DepartmentsVo departmentsVo) {
+		sqlSession.insert("departments.addDepartment", departmentsVo);
+		return departmentsVo.getNo();
 	}
 	
 	public DepartmentsVo get(long parentNo) {
