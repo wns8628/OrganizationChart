@@ -24,7 +24,7 @@ public class NaviController {
 	@RequestMapping("/main3")
 	public String main3(Model model) {
 		model.addAttribute("companyList", naviService.companyList());
-		return "main/index03";
+		return "main/index";
 	}
 	
 	@ResponseBody

@@ -57,7 +57,7 @@ var render = function(vo){
    if(vo.parents > 0){
 	   $("ul[data-no='"+vo.parents+"']").append(htmls);
    }else{
-	   $("ul[data-no='"+vo.companyNo+"']").append(htmls);
+	   $("ul[c-no='"+vo.companyNo+"']").append(htmls);
    }
 }
 
@@ -126,7 +126,7 @@ $(function(){
 	</div>
 	<div class="navi">
 		<c:forEach items="${companyList }" var="vo">
-			<h3 data-no='${vo.no }'><span>${vo.name }</span></h3><ul data-no='${vo.no }'></ul>
+			<h3 data-no='${vo.no }'><span>${vo.name }</span></h3><ul c-no='${vo.no }'></ul>
 		</c:forEach>
 	</div>
 	<div class="result-wrapper">
