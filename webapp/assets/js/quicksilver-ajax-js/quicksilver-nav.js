@@ -5,7 +5,7 @@ var render = function(vo){
 	if(vo.parents > 0){
 		$("ul[data-no='"+vo.parents+"']").append(htmls);
 	}else{
-		$("ul[data-no='"+vo.companyNo+"']").append(htmls);
+		$("ul[c-no='"+vo.companyNo+"']").append(htmls);
 	}
 }
 

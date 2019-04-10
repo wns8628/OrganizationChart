@@ -16,7 +16,7 @@
 			   aria-expanded="true"
 			   data-no='${vo.no }'>${vo.name }
 		    </div>	   
-			<ul data-no='${vo.no }' class="dropdown-menu"
+			<ul c-no='${vo.no }' class="dropdown-menu"
 			     aria-labelledby="pagesDropdown">
 	
 			</ul>
