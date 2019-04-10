@@ -32,5 +32,51 @@ public class DepartmentController {
 	@RequestMapping({"/deleteDepartment/{departmentNo}"})
 	public void deleteDepartment(@PathVariable Long departmentNo) {		
 		departmentService.deleteDepartment(departmentNo);
-	}	
+	}
+	
+//	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})
+//	public void test(@PathVariable Long parentNo,
+//			 @PathVariable String departmentName) {
+//		if( parentNo < 0) {
+//			 //자회사 바로 밑에 부서 10개씩 다 추가
+//			for(long i = parentNo; i >= -10; i--)
+//			{
+//				System.out.println("여기");
+//				for(int j = 1; j <= 10; j++) {
+//					departmentService.addDepartment(i, "부서" + Math.abs(j));
+//				}
+//			}
+//		}
+//		else if( parentNo < 100) {
+//			// 부서밑에 10개씩 다 추가
+//			int index = 1;
+//			for(long x = parentNo; x <= 100; x++) {
+//				
+//				for(int i = 1 + (10 * ( (int)x - 1) ); i <= 100; i++) {
+//					for(int j = 1; j <= 10; j++) {
+//						departmentService.addDepartment(i, "부서-" + index + "-" + j);
+//						
+//					}
+//					
+//					index++;
+//					if( index > 10) {
+//						index = 1;
+//					}
+//				}
+//			}
+//		}
+//		else {
+//			for(long x = parentNo; x <= 5600;) {
+//				
+//				for(int i = 1; i <= 10; i++) {
+//					for(int j = 1; j <= 10; j++) {
+//						for(int k = 1; k <= 1; k++) {
+//							departmentService.addDepartment(x++, "부서-" + i + "-" + j + "-" + k);
+//						}
+//						
+//					}
+//				}
+//			}
+//		}
+//	}
 }
