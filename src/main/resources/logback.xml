@@ -29,14 +29,14 @@
    </appender>
    
    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/temp/test.log</file>
+      <file>/var/log/test.log</file>
       <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
          <Pattern>
             %d{HH:mm:ss.SSS} - %msg%n
          </Pattern>
       </encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-         <FileNamePattern>/mysite-log/mysite-exception.%i.log.zip</FileNamePattern>
+         <FileNamePattern>/var/log/test.%i.log.zip</FileNamePattern>
          <MinIndex>1</MinIndex>
          <MaxIndex>10</MaxIndex>
       </rollingPolicy>
