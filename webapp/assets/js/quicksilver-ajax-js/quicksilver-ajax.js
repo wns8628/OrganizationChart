@@ -43,7 +43,7 @@ var makeTable = function(url) {
               {
                   "targets": 1,
                   "render":  function(data){
-                      return '<img src="'+ contextPath+"/"+data+'" style="width: 100%"></img>'
+                      return '<img src="'+ contextPath+"/"+data+'" style="width: 50px"></img>'
                   },
               },
           ]
