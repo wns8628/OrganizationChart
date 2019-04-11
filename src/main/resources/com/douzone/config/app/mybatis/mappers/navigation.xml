@@ -34,7 +34,7 @@
 	</update>
 	
 	<select id="getDeptByPno" parameterType="int" resultType="departmentsvo">
-		select a.no as no, name, g_no as gNo, o_no as oNo, depth, b.company_no as companyNo, p_no as parents
+		select distinct a.no as no, name, g_no as gNo, o_no as oNo, depth, b.company_no as companyNo, p_no as parents
 		from departments a, dept_com b
 		where a.no = b.departments_no
 		and to_date = '9999-01-01'

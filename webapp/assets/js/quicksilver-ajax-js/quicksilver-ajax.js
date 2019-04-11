@@ -30,7 +30,7 @@ var makeTable = function(url) {
           
           columns : [
               {data: "no"},
-/*              {data: "profile"},*/
+              {data: "profile"},
               {data: "name"},
               {data: "age"},
               {data: "gender"},
@@ -38,8 +38,15 @@ var makeTable = function(url) {
               {data: "email"},              
               {data: "phone"},
               {data: "departments"}
+          ],
+          columnDefs : [
+              {
+                  "targets": 1,
+                  "render":  function(data){
+                      return '<img src="'+ contextPath+"/"+data+'" style="width: 100%"></img>'
+                  },
+              },
           ]
-
       });	
 };
 
