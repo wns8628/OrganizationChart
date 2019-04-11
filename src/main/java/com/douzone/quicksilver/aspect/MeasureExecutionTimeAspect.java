@@ -29,11 +29,11 @@ public class MeasureExecutionTimeAspect {
 		double totalTime = stopWatch.getTotalTimeSeconds();
 
 		//리플렉션- 객체를가지고 클래스랑,메소드이름찾아오는것
-		//String className = pjp.getTarget().getClass().getName();
+		String className = pjp.getTarget().getClass().getName().substring(24);
 		String methodName = pjp.getSignature().getName();
-		String taskName = methodName;
+		String taskName = className + "." + methodName;
 		
-		LOG.info("[ExecutionTime][" + taskName + "]" + totalTime + "초");
+		LOG.info("[ExecutionTime][" + taskName + "] → " + totalTime + "초");
 		System.out.println("[ExecutionTime][" + taskName + "]" + totalTime + "초");
 		
 		return result;
