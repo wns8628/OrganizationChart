@@ -29,12 +29,11 @@ public class DepartmentController {
 
 			DeptManagerVo deptLeader = departmentService.getDepartmentEmployeeInfoLeader(dept_no);
 			List<EmployeesVo> emplist =	departmentService.getDepartmentEmployeeInfo(dept_no);
-			
 			Map<Object, String> map = new HashMap<Object, String>();
 			map.put(deptLeader,"deptLeader");
 			map.put(emplist,"emplist");
 			//미완성
-			
+
 		return JSONResult.success(departmentService.getDepartmentEmployeeInfo(dept_no));
 	}
 	
