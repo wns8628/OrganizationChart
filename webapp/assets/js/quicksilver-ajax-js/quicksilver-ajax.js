@@ -27,6 +27,7 @@ var makeTable = function(url) {
               "type": "GET",
               "data": '',
           },
+          
           columns : [
               {data: "no"},
 /*              {data: "profile"},*/

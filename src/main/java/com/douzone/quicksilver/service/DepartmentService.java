@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.douzone.quicksilver.respository.DepartmentsDao;
-import com.douzone.quicksilver.respository.DeptComDao;
+import com.douzone.quicksilver.repository.DepartmentsDao;
+import com.douzone.quicksilver.repository.DeptComDao;
 import com.douzone.quicksilver.vo.DepartmentsVo;
 import com.douzone.quicksilver.vo.DeptComVo;
 import com.douzone.quicksilver.vo.DeptManagerVo;

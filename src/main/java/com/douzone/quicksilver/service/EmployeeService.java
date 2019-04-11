@@ -3,7 +3,7 @@ package com.douzone.quicksilver.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.douzone.quicksilver.respository.EmployeeDao;
+import com.douzone.quicksilver.repository.EmployeeDao;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
