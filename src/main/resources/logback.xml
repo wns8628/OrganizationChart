@@ -29,10 +29,10 @@
    </appender>
    
    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/test.log</file>
+      <file>/temp/test.log</file>
       <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
          <Pattern>
-            %d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+            %d{HH:mm:ss.SSS} - %msg%n
          </Pattern>
       </encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
