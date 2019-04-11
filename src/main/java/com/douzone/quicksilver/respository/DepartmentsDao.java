@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DeptManagerVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 
@@ -16,10 +17,14 @@ public class DepartmentsDao {
 	private SqlSession sqlSession;
 	
 	// 부서의 직원정보 가져옴
-	public List<EmployeesVo> get(EmployeesVo employeesVo){
-		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", employeesVo);
+	public List<EmployeesVo> getList(Long dept_no){		
+		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", dept_no);
 	}
 
+	public DeptManagerVo get(Long dept_no){		
+		return sqlSession.selectOne("employees.getDepartmentEmployeeInfoLeader", dept_no);
+	}
+	
 	public DepartmentsVo get(DepartmentsVo departmentsVo) {
 		return sqlSession.selectOne("departments.get", departmentsVo);
 	}

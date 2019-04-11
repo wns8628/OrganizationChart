@@ -29,14 +29,14 @@ var makeTable = function(url) {
           },
           columns : [
               {data: "no"},
+/*              {data: "profile"},*/
               {data: "name"},
               {data: "age"},
               {data: "gender"},
               {data: "grade"},
-              {data: "departments"},
-              {data: "company"},
-              {data: "masterGroup"},
-              {data: "phone"}
+              {data: "email"},              
+              {data: "phone"},
+              {data: "departments"}
           ]
 
       });	
@@ -52,7 +52,8 @@ $(function(){
       // * 부서 클릭시 테이블에 사원 출력	       	   
 	  let departmentNo = $(this).attr('data-no');
 	  let departmentName = $(this).html();
-
+	  
+	  
 	  makeTable("/boot/getDepartmentEmployeeInfo/" + departmentNo);
 	  renderTableDepartmentName(departmentName);
    });

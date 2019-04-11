@@ -34,21 +34,21 @@
 		            <div class="card-body">
 		              <div class="table-responsive">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-			                  <thead>
-			                    <tr>
-			                      <th>사원번호</th>
-			                      <th>이름</th>
-			                      <th>나이</th>
-			                      <th>성별</th>
-			                      <th>직급</th>
-			                      <th>부서</th>
-			                      <th>자회사</th>
-			                      <th>모회사</th>
-			                      <th>전화번호</th>
-			                    </tr>
-			                  </thead>
+		                  <thead>
+		                    <tr>
+		                      <th>사원번호</th>
+		                     <!--  <th>프로필</th> -->
+		                      <th>이름</th>
+		                      <th>나이</th>
+		                      <th>성별</th>
+		                      <th>직급</th>
+		                      <th>이메일</th>
+		                      <th>전화번호</th>
+		                      <th>부서</th>
+		                    </tr>
+		                  </thead>
 		                  <tbody>
-		                   
+		                   	
 		                  </tbody>
 		                </table>
 		              </div>

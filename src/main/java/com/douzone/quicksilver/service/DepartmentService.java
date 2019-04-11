@@ -9,6 +9,7 @@ import com.douzone.quicksilver.respository.DepartmentsDao;
 import com.douzone.quicksilver.respository.DeptComDao;
 import com.douzone.quicksilver.vo.DepartmentsVo;
 import com.douzone.quicksilver.vo.DeptComVo;
+import com.douzone.quicksilver.vo.DeptManagerVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
@@ -20,8 +21,11 @@ public class DepartmentService {
 	@Autowired
 	private DeptComDao deptComDao;
 	
-	public List<EmployeesVo> getDepartmentEmployeeInfo(EmployeesVo employeesVo){
-		return departmentsDao.get(employeesVo);
+	public List<EmployeesVo> getDepartmentEmployeeInfo(Long dept_no){		
+		return departmentsDao.getList(dept_no);
+	}
+	public DeptManagerVo getDepartmentEmployeeInfoLeader(Long dept_no){		
+		return departmentsDao.get(dept_no);
 	}
 	
 	//추가

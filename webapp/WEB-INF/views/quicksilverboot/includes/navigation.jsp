@@ -39,10 +39,8 @@ $(document).on("click", "#departments", function(event){
 			   aria-expanded="true"
 			   data-no='${vo.no }'>${vo.name }
 		    </div>	   
-		    
-			<ul data-no='${vo.no }' class="dropdown-menu"
-			    aria-labelledby="pagesDropdown">
-				
+			<ul c-no='${vo.no }' class="dropdown-menu"
+			     aria-labelledby="pagesDropdown">
 			</ul>
 		</li>
 	</c:forEach>

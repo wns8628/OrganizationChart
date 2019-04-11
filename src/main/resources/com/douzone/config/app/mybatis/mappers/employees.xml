@@ -5,56 +5,61 @@
 <mapper namespace="employees">
 	
 	<select id="getDepartmentEmployeeInfo" 
-		parameterType="employeesvo" resultType="employeesvo">
+		parameterType="Long" resultType="employeesvo">
 		
 		<![CDATA[
-			SELECT 
-			    a.no AS no,
-			    a.name AS name,
-			    a.age AS age,
-			    a.gender as gender,
-			    a.grade AS grade,
-			    b.name AS departments,
-			    c.name AS company,
-			    d.name AS masterGroup,
-			    a.phone AS phone
-			FROM
-			    employees a,
-			    departments b,
-			    company c,
-    			master_group d
-			WHERE
-		    	a.departments_no = b.no
-			        AND b.company_no = c.no
-			        AND c.group_no = d.no
-			        AND a.departments_no = #{departmentsNo};
+		select a.no as no,
+			   a.profile as profile,
+	           a.name as name,
+	           a.age as age,
+	           a.gender as gender,
+	           c.name as grade,
+	           a.email as email,
+	           a.phone as phone,
+	           e.name as departments
+		  from employees a, grade_emp b, grade c, dept_emp d, departments e 
+		 where a.no = b.emp_no
+	       and c.no = b.grade_no
+	       and a.no = d.emp_no
+	       and e.no = d.departments_no
+	       and b.to_date = '9999-01-01'
+	       and d.to_date = '9999-01-01'
+	       and d.departments_no = ${value};
 		]]>
+	</select>
+	
+	<select id="getDepartmentEmployeeInfoLeader" 
+		parameterType="Long" resultType="deptmanagervo">
 		
+		<![CDATA[
+		select emp_no as empNo, b.name as name
+		  from dept_manager a, employees b 
+		 where a.emp_no = b.no
+		   and departments_no = ${value}
+		   and a.to_date = '9999-01-01';
+		]]>
 	</select>
 	
 	<select id="search" 
 		parameterType="map" resultType="employeesvo">
 		
 		<![CDATA[
-			SELECT 
-			    a.no AS no,
-			    a.name AS name,
-			    a.age AS age,
-			    a.gender as gender,
-			    a.grade AS grade,
-			    b.name AS departments,
-			    c.name AS company,
-			    d.name AS masterGroup,
-			    a.phone AS phone
-			FROM
-			    employees a,
-			    departments b,
-			    company c,
-    			master_group d
-			WHERE
-		    	a.departments_no = b.no
-			        AND b.company_no = c.no
-			        AND c.group_no = d.no
+			select a.no as no,
+			   a.profile as profile,
+	           a.name as name,
+	           a.age as age,
+	           a.gender as gender,
+	           c.name as grade,
+	           a.email as email,
+	           a.phone as phone,
+	           e.name as departments
+		  from employees a, grade_emp b, grade c, dept_emp d, departments e 
+		 where a.no = b.emp_no
+	       and c.no = b.grade_no
+	       and a.no = d.emp_no
+	       and e.no = d.departments_no
+	       and b.to_date = '9999-01-01'
+	       and d.to_date = '9999-01-01'
 		]]>
 		
 		<choose>
@@ -63,10 +68,96 @@
 			</when>
 			
 			<when test="selectSearch == 2"> <!-- 부서 검색 -->
-			 	AND b.name = #{kwd}
+			 	AND c.name = #{kwd}
 			</when>
 		</choose>
 		
 	</select>
+	
+	<insert id="insert" parameterType="employeesvo">
+		<choose>
+			<!-- salaires insert -->
+			<when test="name == null and age != null">
+				
+				<![CDATA[
+					insert into salaries values(null, 
+												#{no}, 
+												(select hire_date from employees where no = #{no}), 
+												(select age from employees where no = #{no}) * 100,
+												'9999-01-01' );
+				]]>
+			</when>
+			
+			<!-- grade_emp insert -->
+			<when test="name == null and age == null and gender != null">
+				
+				<![CDATA[
+					insert into grade_emp values(null, 
+												(SELECT CASE 
+														WHEN age >= 60 THEN 8 
+														WHEN age >= 55 THEN 7 
+														WHEN age >= 50 THEN 6 
+														WHEN age >= 45 THEN 5 
+														WHEN age >= 40 THEN 4 
+														WHEN age >= 35 THEN 3 
+														WHEN age >= 30 THEN 2 
+														ELSE 1 
+														END 
+														FROM (SELECT age FROM employees WHERE no = #{no}) a
+													), 
+													#{no}, 
+													(select hire_date from employees where no = #{no}), 
+													'9999-01-01')
+				]]>
+			</when>
+			
+			<!-- dept_emp insert -->
+			<when test="name == null and age == null and gender == null and phone != null">
+				<![CDATA[
+					insert into dept_emp values(null, 
+												#{departmentsNo}, 
+												#{no}, 
+												(select hire_date from employees where no = #{no}), 
+												'9999-01-01')
+				]]>
+			</when>
+			
+			<!-- dept_manager insert -->
+			<when test="name == null and age == null and gender == null and phone == null">
+			
+				<![CDATA[
+					insert into dept_manager values(null, 
+													#{no}, 
+													#{departmentsNo}, 
+													(select hire_date from employees where no = #{no}),
+													 '9999-01-01');
+				]]>
+			</when>
+			
+			<otherwise>
+				<![CDATA[
+					insert into employees values(null, #{name},
+													   #{age}, 
+													   #{gender}, 
+													   #{phone}, 
+													   #{address}, 
+													   #{residentNum}, 
+													   #{profile}, 
+													   #{email},
+													   #{hireDate} );
+				]]>
+			
+			</otherwise>
+			
+		</choose>
+		
+		<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			
+				<![CDATA[
+					select last_insert_id()
+				]]>
+		</selectKey>
+		
+	</insert>
 
 </mapper>
