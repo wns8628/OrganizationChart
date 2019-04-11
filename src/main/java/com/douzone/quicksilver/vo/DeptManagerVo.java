@@ -8,6 +8,14 @@ public class DeptManagerVo {
 	private String fromDate;
 	private String toDate;
 	
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -41,8 +49,10 @@ public class DeptManagerVo {
 	@Override
 	public String toString() {
 		return "DeptManagerVo [no=" + no + ", empNo=" + empNo + ", departmentsNo=" + departmentsNo + ", fromDate="
-				+ fromDate + ", toDate=" + toDate + "]";
+				+ fromDate + ", toDate=" + toDate + ", name=" + name + "]";
 	}
+
+	
 	
 	
 

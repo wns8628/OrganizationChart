@@ -8,50 +8,58 @@
 		parameterType="Long" resultType="employeesvo">
 		
 		<![CDATA[
-			select a.no as no,
-				   a.profile as profile,
-		           a.name as name,
-		           a.age as age,
-		           a.gender as gender,
-		           c.name as grade,
-		           a.email as email,
-		           a.phone as phone,
-		           e.name as departments
-			  from employees a, grade_emp b, grade c, dept_emp d, departments e 
-			 where a.no = b.emp_no
-		       and c.no = b.grade_no
-		       and a.no = d.emp_no
-		       and e.no = d.departments_no
-		       and b.to_date = '9999-01-01'
-		       and d.to_date = '9999-01-01'
-		       and d.departments_no = ${value};
+		select a.no as no,
+			   a.profile as profile,
+	           a.name as name,
+	           a.age as age,
+	           a.gender as gender,
+	           c.name as grade,
+	           a.email as email,
+	           a.phone as phone,
+	           e.name as departments
+		  from employees a, grade_emp b, grade c, dept_emp d, departments e 
+		 where a.no = b.emp_no
+	       and c.no = b.grade_no
+	       and a.no = d.emp_no
+	       and e.no = d.departments_no
+	       and b.to_date = '9999-01-01'
+	       and d.to_date = '9999-01-01'
+	       and d.departments_no = ${value};
 		]]>
+	</select>
+	
+	<select id="getDepartmentEmployeeInfoLeader" 
+		parameterType="Long" resultType="deptmanagervo">
 		
+		<![CDATA[
+		select emp_no as empNo, b.name as name
+		  from dept_manager a, employees b 
+		 where a.emp_no = b.no
+		   and departments_no = ${value}
+		   and a.to_date = '9999-01-01';
+		]]>
 	</select>
 	
 	<select id="search" 
 		parameterType="map" resultType="employeesvo">
 		
 		<![CDATA[
-			SELECT 
-			    a.no AS no,
-			    a.name AS name,
-			    a.age AS age,
-			    a.gender as gender,
-			    a.grade AS grade,
-			    b.name AS departments,
-			    c.name AS company,
-			    d.name AS masterGroup,
-			    a.phone AS phone
-			FROM
-			    employees a,
-			    departments b,
-			    company c,
-    			master_group d
-			WHERE
-		    	a.departments_no = b.no
-			        AND b.company_no = c.no
-			        AND c.group_no = d.no
+			select a.no as no,
+			   a.profile as profile,
+	           a.name as name,
+	           a.age as age,
+	           a.gender as gender,
+	           c.name as grade,
+	           a.email as email,
+	           a.phone as phone,
+	           e.name as departments
+		  from employees a, grade_emp b, grade c, dept_emp d, departments e 
+		 where a.no = b.emp_no
+	       and c.no = b.grade_no
+	       and a.no = d.emp_no
+	       and e.no = d.departments_no
+	       and b.to_date = '9999-01-01'
+	       and d.to_date = '9999-01-01'
 		]]>
 		
 		<choose>
@@ -60,7 +68,7 @@
 			</when>
 			
 			<when test="selectSearch == 2"> <!-- 부서 검색 -->
-			 	AND b.name = #{kwd}
+			 	AND c.name = #{kwd}
 			</when>
 		</choose>
 		

@@ -6,7 +6,7 @@ public class EmployeesVo {
 	private String name;       		// 이름
 	private Long age;		   		// 나이
 	private String gender;	   		// 성별 
-	//private String grade;      	// 직급
+	private String grade;    	  	// 직급
 	private Long departmentsNo; 	// 부서번호
 	private String phone;      		// 전화번호
 	private String address;			// 주소
@@ -20,6 +20,12 @@ public class EmployeesVo {
 	private String departments;      //부서이름
 	private String company;          //모회사	
 	private String masterGroup;      //모회사
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -104,22 +110,23 @@ public class EmployeesVo {
 	public void setMasterGroup(String masterGroup) {
 		this.masterGroup = masterGroup;
 	}
-	@Override
-	public String toString() {
-		return "EmployeesVo [no=" + no + ", name=" + name + ", age=" + age + ", gender=" + gender + ", departmentsNo="
-				+ departmentsNo + ", phone=" + phone + ", address=" + address + ", residentNum=" + residentNum
-				+ ", profile=" + profile + ", email=" + email + ", hireDate=" + hireDate + ", departments="
-				+ departments + ", company=" + company + ", masterGroup=" + masterGroup + "]";
-	}
-
-
 	public Long getSalary() {
 		return salary;
 	}
 	public void setSalary(Long salary) {
 		this.salary = salary;
 	}
+	
+	@Override
+	public String toString() {
+		return "EmployeesVo [no=" + no + ", name=" + name + ", age=" + age + ", gender=" + gender + ", grade=" + grade
+				+ ", departmentsNo=" + departmentsNo + ", phone=" + phone + ", address=" + address + ", residentNum="
+				+ residentNum + ", profile=" + profile + ", email=" + email + ", hireDate=" + hireDate + ", salary="
+				+ salary + ", departments=" + departments + ", company=" + company + ", masterGroup=" + masterGroup
+				+ "]";
+	}
 
+	
 	
 
 
