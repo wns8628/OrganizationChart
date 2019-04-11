@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.douzone.quicksilver.respository.SearchDao;
+import com.douzone.quicksilver.repository.SearchDao;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service

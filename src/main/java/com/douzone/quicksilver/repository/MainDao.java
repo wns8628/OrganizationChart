@@ -1,4 +1,4 @@
-package com.douzone.quicksilver.respository;
+package com.douzone.quicksilver.repository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

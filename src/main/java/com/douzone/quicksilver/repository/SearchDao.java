@@ -1,4 +1,4 @@
-package com.douzone.quicksilver.respository;
+package com.douzone.quicksilver.repository;
 
 import java.util.List;
 import java.util.Map;
