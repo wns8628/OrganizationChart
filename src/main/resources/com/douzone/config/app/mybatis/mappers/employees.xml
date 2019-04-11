@@ -160,22 +160,4 @@
 		
 	</insert>
 	
-	<!-- 연봉 변경 -->
-	<update id="updateSalaryToDate" parameterType="long">
-		update salaries set to_date = date_format(now(), "%c/%e/%Y") where emp_no = #{no}
-	</update>
-	
-	<insert id="insertSalary" parameterType="map">
-		insert into salaries values(null, #{no}, date_format(now(), "%c/%e/%Y"), #{salary}, '9999-01-01')
-	</insert>
-	
-	<!-- 직급 변경 -->
-	<update id="updateGradeToDate" parameterType="long">
-		update grade_emp set to_date = date_format(now(), "%c/%e/%Y") where emp_no = #{no}
-	</update>
-	
-	<insert id="insertGrade" parameterType="map">
-		insert into grade_emp values(null, (select no from grade where name = '#{grade}'), #{no}, date_format(now(), "%c/%e/%Y"), '9999-01-01')
-	</insert>
-	
 </mapper>
