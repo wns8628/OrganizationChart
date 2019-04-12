@@ -216,10 +216,6 @@ svg {
 table {
   border-collapse: collapse;
 }
-table tr:hover{
-  background-color: #3CC2FF;
-  color:white;
-}
 
 caption {
   padding-top: 0.75rem;
@@ -1666,6 +1662,16 @@ pre code {
   margin-bottom: 1rem;
   background-color: transparent;
 }
+
+.table tr:hover{
+  background-color: #3CC2FF;
+  color:white;
+}
+.table tr:active{
+  background-color: #1EA4FF;
+  color:white;
+}
+
 
 .table th,
 .table td {
