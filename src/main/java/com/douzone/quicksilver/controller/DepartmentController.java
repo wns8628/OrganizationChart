@@ -27,14 +27,17 @@ public class DepartmentController {
 	@RequestMapping("/{dept_no}")
 	public JSONResult getDepartmentEmployeeInfo(@PathVariable Long dept_no) {
 
-			DeptManagerVo deptLeader = departmentService.getDepartmentEmployeeInfoLeader(dept_no);
-			List<EmployeesVo> emplist =	departmentService.getDepartmentEmployeeInfo(dept_no);
-			Map<Object, String> map = new HashMap<Object, String>();
-			map.put(deptLeader,"deptLeader");
-			map.put(emplist,"emplist");
-			//미완성
-
 		return JSONResult.success(departmentService.getDepartmentEmployeeInfo(dept_no));
+	}
+	
+	// 부서 정보를 가져와서 팀장출력
+	@ResponseBody
+	@RequestMapping("/{dept_no}/getLeader")
+	public JSONResult getDepartmentEmployeeInfoGetLeader(@PathVariable Long dept_no) {
+
+			DeptManagerVo deptLeader = departmentService.getDepartmentEmployeeInfoLeader(dept_no);
+
+		return JSONResult.success(deptLeader);
 	}
 	
 	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})
