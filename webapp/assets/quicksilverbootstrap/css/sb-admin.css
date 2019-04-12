@@ -216,6 +216,10 @@ svg {
 table {
   border-collapse: collapse;
 }
+table tr:hover{
+  background-color: #3CC2FF;
+  color:white;
+}
 
 caption {
   padding-top: 0.75rem;
@@ -1669,6 +1673,7 @@ pre code {
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
+
 
 .table thead th {
   vertical-align: bottom;
