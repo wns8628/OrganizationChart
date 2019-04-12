@@ -38,7 +38,6 @@
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
   </script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-ajax.js"></script>
 
 <!-- 원래바디밑에임  -->
 <!-- Bootstrap core JavaScript-->
