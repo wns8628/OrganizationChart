@@ -17,7 +17,6 @@
 		  <c:import url="/WEB-INF/views/quicksilverboot/includes/navigation.jsp"/>
 	
 		<!--  -->
-			
 		    <!-- Content Wrapper -->
 			 <div id="content-wrapper" class="d-flex flex-column">
 			
@@ -54,9 +53,13 @@
 		              </div>
 		            </div>
 		          </div>
-		
-		        </div>		
-		      </div>
+		        </div>		        		       	
+		      </div>		      
+				<!-- 디테일  -->
+				<div class="container">
+				
+				</div>
+				<!--  -->
 			</div>
  	<%-- 	 
 	      <footer class="sticky-footer">

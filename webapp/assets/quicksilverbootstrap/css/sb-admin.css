@@ -10486,7 +10486,7 @@ body {
 }
 
 .sidebar {
-  width: 90px !;
+  width: 90px;
   background-color: #212529;
   min-height: calc(100vh - 56px);
 }

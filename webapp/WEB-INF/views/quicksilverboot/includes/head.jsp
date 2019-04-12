@@ -25,6 +25,9 @@
   <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   
+  <!-- 자세히보기 CSS,js -->
+  <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/profile.css" rel="stylesheet">
+
   <!-- 관리자로그인css -->
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -34,6 +37,8 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-emp-detail.js"></script>
 	
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
