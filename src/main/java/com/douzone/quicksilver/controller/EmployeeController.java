@@ -22,8 +22,5 @@ public class EmployeeController {
 		
 		System.out.println("employeesVo : " + employeesVo);
 		employeeService.insertEmployee(employeesVo);
-		
-		
 	}
-	
 }
