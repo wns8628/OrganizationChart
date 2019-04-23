@@ -1663,12 +1663,23 @@ pre code {
   background-color: transparent;
 }
 
+.table tr:hover{
+  background-color: #3CC2FF;
+  color:white;
+}
+.table tr:active{
+  background-color: #1EA4FF;
+  color:white;
+}
+
+
 .table th,
 .table td {
   padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
+
 
 .table thead th {
   vertical-align: bottom;
@@ -10486,7 +10497,7 @@ body {
 }
 
 .sidebar {
-  width: 90px !;
+  width: 90px;
   background-color: #212529;
   min-height: calc(100vh - 56px);
 }

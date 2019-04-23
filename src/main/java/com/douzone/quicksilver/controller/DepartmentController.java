@@ -1,9 +1,5 @@
 package com.douzone.quicksilver.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.DepartmentService;
 import com.douzone.quicksilver.vo.DeptManagerVo;
-import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
 @RequestMapping("boot/getDepartmentEmployeeInfo")
@@ -27,15 +22,14 @@ public class DepartmentController {
 	@RequestMapping("/{dept_no}")
 	public JSONResult getDepartmentEmployeeInfo(@PathVariable Long dept_no) {
 
-			DeptManagerVo deptLeader = departmentService.getDepartmentEmployeeInfoLeader(dept_no);
-			List<EmployeesVo> emplist =	departmentService.getDepartmentEmployeeInfo(dept_no);
-			
-			Map<Object, String> map = new HashMap<Object, String>();
-			map.put(deptLeader,"deptLeader");
-			map.put(emplist,"emplist");
-			//미완성
-			
 		return JSONResult.success(departmentService.getDepartmentEmployeeInfo(dept_no));
+	}
+	// 부서 정보를 가져와서 팀장출력
+	@ResponseBody
+	@RequestMapping("/{dept_no}/getLeader")
+	public JSONResult getDepartmentEmployeeInfoGetLeader(@PathVariable Long dept_no) {
+			DeptManagerVo deptLeader = departmentService.getDepartmentEmployeeInfoLeader(dept_no);
+		return JSONResult.success(deptLeader);
 	}
 	
 	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})
