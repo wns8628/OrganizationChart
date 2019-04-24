@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +24,20 @@ public class NaviController {
 	}
 	
 	@RequestMapping("/main3")
-	public String main3(Model model) {
-		model.addAttribute("companyList", naviService.getCompList());
+	public String main3(Model model, HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		System.out.println(langCode);
+		model.addAttribute("companyList", naviService.getCompList(langCode));
 		return "main/index";
+	}
+	
+	@RequestMapping("/main3/{langCode}")
+	public String lang(@PathVariable String langCode, HttpSession session) {
+		session.setAttribute("langCode", langCode);
+		return "redirect:/main3";
 	}
 	
 	@ResponseBody
@@ -34,11 +47,11 @@ public class NaviController {
 		return JSONResult.success(naviService.deptList());
 	}
 	
-	@ResponseBody
-	@RequestMapping("/getDept/{parents}")
-	public JSONResult getDeptByNo(@PathVariable int parents) {
-		return JSONResult.success(naviService.getDeptByPno(parents));
-	}
+//	@ResponseBody
+//	@RequestMapping("/getDept/{parents}")
+//	public JSONResult getDeptByNo(@PathVariable int parents) {
+//		return JSONResult.success(naviService.getDeptByPno(parents));
+//	}
 	
 	@RequestMapping("/addDept")
 	public String addDept() {
@@ -57,13 +70,21 @@ public class NaviController {
 	
 	@ResponseBody
 	@RequestMapping("/getBiz/{seq}")
-	public JSONResult getBizList(@PathVariable String seq) {
-		return JSONResult.success(naviService.getBizList(seq));
+	public JSONResult getBizList(@PathVariable String seq, HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if("".equals(langCode)) {
+			langCode = "kr";
+		}
+		return JSONResult.success(naviService.getBizList(seq, langCode));
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getDept/{seq}")
-	public JSONResult getDeptList(@PathVariable String seq) {
-		return JSONResult.success(naviService.getDeptList(seq));
+	public JSONResult getDeptList(@PathVariable String seq, HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if("".equals(langCode)) {
+			langCode = "kr";
+		}
+		return JSONResult.success(naviService.getDeptList(seq, langCode));
 	}
 }

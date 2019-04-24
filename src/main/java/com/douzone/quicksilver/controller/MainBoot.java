@@ -18,7 +18,7 @@ public class MainBoot {
 	
 	@RequestMapping("/boot")
 	public String main(Model model) {
-		model.addAttribute("companyList", naviService.companyList());
+		model.addAttribute("companyList", naviService.getCompList());
 		return "quicksilverboot/main";
 	}
 	

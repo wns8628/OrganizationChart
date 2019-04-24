@@ -1,6 +1,7 @@
 package com.douzone.quicksilver.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,16 @@ public class NaviDao {
 		return sqlSession.selectList("navigation.getDeptByPno", parents);
 	}
 
-	public List<CompanyVo> getCompList(){
-		return sqlSession.selectList("navigation.getCompList");
+	public List<CompanyVo> getCompList(String langCode){
+		return sqlSession.selectList("navigation.getCompList", langCode);
 	}
 	
-	public List<BizVo> getBizList(String seq){
-		return sqlSession.selectList("navigation.getBizList", seq);
+	public List<BizVo> getBizList(Map<String, Object> map){
+		return sqlSession.selectList("navigation.getBizList", map);
 	}
 	
-	public List<DepartmentsVo> getDeptList(String seq){
-		return sqlSession.selectList("navigation.getDeptList", seq);
+	public List<DepartmentsVo> getDeptList(Map<String, Object> map){
+		return sqlSession.selectList("navigation.getDeptList", map);
 	}
 	
 }
