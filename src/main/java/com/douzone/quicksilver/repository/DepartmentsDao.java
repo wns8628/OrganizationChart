@@ -30,17 +30,18 @@ public class DepartmentsDao {
 	}
 	
 	public long insert(DepartmentsVo departmentsVo) {
-		sqlSession.insert("departments.addDepartment", departmentsVo);
-		return departmentsVo.getNo();
+		sqlSession.insert("departments.add_t_co_dept", departmentsVo);
+		return sqlSession.insert("departments.add_t_co_dept_multi", departmentsVo);
+
 	}
 	
-	public DepartmentsVo get(long parentNo) {
-		return sqlSession.selectOne("departments.getParentDepartmentInfo", parentNo);
-	}
+//	public DepartmentsVo get(long parentNo) {
+//		return sqlSession.selectOne("departments.getParentDepartmentInfo", parentNo);
+//	}
 	
-	public int update(DepartmentsVo departmentsVo) {
-		return sqlSession.update("departments.ifnotnullupdateOnoPlusOne", departmentsVo);
-	}
+//	public int update(DepartmentsVo departmentsVo) {
+//		return sqlSession.update("departments.ifnotnullupdateOnoPlusOne", departmentsVo);
+//	}
 	
 	public int delete(long departmentNo) {
 		return sqlSession.delete("departments.deleteDepartment", departmentNo);

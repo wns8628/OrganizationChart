@@ -5,10 +5,11 @@
          <typeAlias alias="companyvo" type="com.douzone.quicksilver.vo.CompanyVo"/>
          <typeAlias alias="departmentsvo" type="com.douzone.quicksilver.vo.DepartmentsVo"/>
          <typeAlias alias="employeesvo" type="com.douzone.quicksilver.vo.EmployeesVo"/>
-         <typeAlias alias="deptcomvo" type="com.douzone.quicksilver.vo.DeptComVo"/>
-         <typeAlias alias="deptmanagervo" type="com.douzone.quicksilver.vo.DeptManagerVo"/>
+         <typeAlias alias="dutypositionvo" type="com.douzone.quicksilver.vo.DutyPositionVo"/>
          
-         <!-- <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/> -->
+<!--      <typeAlias alias="deptcomvo" type="com.douzone.quicksilver.vo.DeptComVo"/>		 -->         
+<!-- 	  <typeAlias alias="deptmanagervo" type="com.douzone.quicksilver.vo.DeptManagerVo"/> -->        
+<!--      <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/> -->
     </typeAliases>    
 
    <mappers> 

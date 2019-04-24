@@ -11,10 +11,73 @@
 	  order by a.g_no asc, a.o_no asc
 	</select>
 	
+	<insert id="add_t_co_dept" parameterType="departmentsvo">
+		<![CDATA[
+			insert into t_co_dept VALUES
+				( (select dep from (select max(dept_seq + 0) + 1 as dep from t_co_dept ) a),
+																					   null, 
+																					   #{groupSeq}, 
+																					   #{compSeq}, 
+																					   #{deptSeq}, 
+																					   10000001, 
+																					   NULL, 
+																					   '', 
+																					   NULL, 
+																					   '', 
+																					   NULL, 
+																					   null, 
+																					   'N', 
+																					   'Y', 
+																					   'kr', 
+																					   '', 
+																					   null, 
+																					   1, 
+																					   NULL,
+																					   'Y', 
+																					   '0101', 
+																					   date_format(now(), '%Y-%m-%d %h:%m:%s'),
+																					   null,
+																					   null, 
+																					   NULL, 
+																					   'Y')
+		]]>
+	</insert>
+	
+	<insert id="add_t_co_dept_multi" parameterType="departmentsvo">
+		<![CDATA[
+			INSERT INTO `t_co_dept_multi` VALUES
+					(	
+						'kr', 
+						(select max(dept_seq + 0) from t_co_dept), 
+						#{groupSeq},
+						#{compSeq},
+						#{bizSeq},
+						#{deptName}, 
+						NULL, 
+						NULL, 
+						'',
+						'', 
+						#{deptName}, 
+						'Y', 
+						'0101', 
+						date_format(now(), '%Y-%m-%d %h:%m:%s'), 
+						null, 
+						null, 
+						null
+					)
+		]]>
+	</insert>
+	
+	<select id="get_t_co_biz_info" parameterType="Long" resultType="bizvo">
+		<![CDATA[
+			select group_seq as groupSeq, comp_seq as compSeq from t_co_biz where biz_seq = 10000001;
+		]]>
+	</select>
+	
 	
 	<!-- 부서 밑에 부서추가 -->
 	
-	<select id="getParentDepartmentInfo" parameterType="long" resultType="departmentsvo">
+	<!-- <select id="getParentDepartmentInfo" parameterType="long" resultType="departmentsvo">
 	
 		<![CDATA[
 			 select no, name, g_no as gNo, o_no as oNo, depth, p_no as parents
@@ -27,7 +90,7 @@
 	<select id="get" parameterType="departmentsvo" resultType="departmentsvo">
 		
 		 <choose>
-			<!-- getMinOno -->
+			getMinOno
 			<when test="gNo != null and oNo != null and depth != null">
 				<![CDATA[
 					select min(o_no) as oNo
@@ -36,7 +99,7 @@
 				]]>
 			</when>
 			
-			<!-- ifnullMaxOnoPlusOne -->
+			ifnullMaxOnoPlusOne
 			<when test="no == null and companyNo == null and parents == null and oNo == null and depth == null">
 				<![CDATA[
 					select max(o_no) + 1 as oNo
@@ -45,8 +108,8 @@
 				]]>
 			</when>
 			
-			<!-- 자회사 밑에 부서 추가 -->
-			<!-- getMaxGno -->
+			자회사 밑에 부서 추가
+			getMaxGno
 			<when test="no == null and companyNo == null and gNo == null and oNo == null and depth == null ">
 				<![CDATA[
 					select count(*) + 1 as gNo
@@ -55,7 +118,7 @@
 				]]>
 			</when>
 			
-			<!-- 부서 추가시 CompanyNo 구하기위해서 사용하는 쿼리 -->
+			부서 추가시 CompanyNo 구하기위해서 사용하는 쿼리
 			<when test="no != null">
 				<![CDATA[
 					select p_no as parents from departments where no = #{no}
@@ -71,9 +134,9 @@
 				set o_no = o_no + 1 
 					where g_no = #{gNo} and o_no >= #{oNo}
 		]]>
-	</update> 
+	</update>  -->
 	
-	<insert id="addDepartment" parameterType="departmentsvo">
+	<!-- <insert id="addDepartment" parameterType="departmentsvo">
 		<![CDATA[
 			insert into departments values (null, #{name}, #{gNo}, #{oNo}, #{depth}, #{parents})
 		]]>
@@ -82,7 +145,7 @@
 				select last_insert_id()
 			]]>
 		</selectKey>
-	</insert>
+	</insert> -->
 	
 	<!-- 부서 삭제 -->
 	<delete id="deleteDepartment" parameterType="Long">
