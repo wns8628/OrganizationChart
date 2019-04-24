@@ -1,8 +1,5 @@
 package com.douzone.quicksilver.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,31 +50,6 @@ public class EmployeeService {
 		return 1L;
 	}
 	
-	public void updateSalary(long no, long salary) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("salary", salary);
-		
-		employeeDao.updateSalaryToDate(no);
-		employeeDao.insertSalary(map);
-	}
 	
-	public void updateGrade(long no, String grade) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("grade", grade);
-		
-		employeeDao.updateGradeToDate(no);
-		employeeDao.insertGrade(map);
-	}
-	
-	public void updateDept(long no, long departmentsNo) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("departmentsNo", departmentsNo);
-		
-		employeeDao.updateDeptToDate(no);
-		employeeDao.insertDept(map);
-	}
 
 }

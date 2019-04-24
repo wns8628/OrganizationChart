@@ -1,7 +1,6 @@
 package com.douzone.quicksilver.repository;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,29 +29,5 @@ public class EmployeeDao {
 	
 	public List<DeptManagerVo> get(EmployeesVo employeesVo) {
 		return sqlSession.selectList("deptManager.get", employeesVo);
-	}
-	
-	public void updateSalaryToDate(long no) {
-		sqlSession.update("employees.updateSalaryToDate", no);
-	}
-	
-	public void insertSalary(Map<String, Object> map) {
-		sqlSession.insert("employees.insertSalary", map);
-	}
-	
-	public void updateGradeToDate(long no) {
-		sqlSession.update("employees.updateGradeToDate", no);
-	}
-	
-	public void insertGrade(Map<String, Object> map) {
-		sqlSession.insert("employees.insertGrade", map);
-	}
-	
-	public void updateDeptToDate(long no) {
-		sqlSession.update("employees.updateDeptToDate", no);
-	}
-	
-	public void insertDept(Map<String, Object> map) {
-		sqlSession.insert("employees.insertDept", map);
 	}
 }
