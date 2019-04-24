@@ -29,7 +29,6 @@ public class NaviController {
 		if(langCode == null) {
 			langCode = "kr";
 		}
-		System.out.println(langCode);
 		model.addAttribute("companyList", naviService.getCompList(langCode));
 		return "main/index";
 	}
@@ -72,7 +71,7 @@ public class NaviController {
 	@RequestMapping("/getBiz/{seq}")
 	public JSONResult getBizList(@PathVariable String seq, HttpSession session) {
 		String langCode = (String) session.getAttribute("langCode");
-		if("".equals(langCode)) {
+		if(langCode == null) {
 			langCode = "kr";
 		}
 		return JSONResult.success(naviService.getBizList(seq, langCode));
@@ -82,7 +81,7 @@ public class NaviController {
 	@RequestMapping("/getDept/{seq}")
 	public JSONResult getDeptList(@PathVariable String seq, HttpSession session) {
 		String langCode = (String) session.getAttribute("langCode");
-		if("".equals(langCode)) {
+		if(langCode == null) {
 			langCode = "kr";
 		}
 		return JSONResult.success(naviService.getDeptList(seq, langCode));
