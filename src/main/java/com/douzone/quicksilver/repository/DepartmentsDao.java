@@ -6,8 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
 import com.douzone.quicksilver.vo.DeptManagerVo;
+import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 
@@ -25,8 +27,16 @@ public class DepartmentsDao {
 		return sqlSession.selectOne("employees.getDepartmentEmployeeInfoLeader", dept_no);
 	}
 	
-	public DepartmentsVo get(DepartmentsVo departmentsVo) {
-		return sqlSession.selectOne("departments.get", departmentsVo);
+	public DepartmentsVo get(DepartmentsVo departmentsVo) { 
+		return sqlSession.selectOne("departments.get_t_co_dept_info", departmentsVo);
+	}
+	
+	public BizVo get(BizVo bizVo) { 
+		return sqlSession.selectOne("departments.get_t_co_biz_info", bizVo);
+	}
+	
+	public List<EmployeeDeptInfoVo> get(EmployeeDeptInfoVo employeeDeptInfoVo) { 
+		return sqlSession.selectList("departments.get", employeeDeptInfoVo);
 	}
 	
 	public long insert(DepartmentsVo departmentsVo) {
@@ -43,7 +53,8 @@ public class DepartmentsDao {
 //		return sqlSession.update("departments.ifnotnullupdateOnoPlusOne", departmentsVo);
 //	}
 	
-	public int delete(long departmentNo) {
-		return sqlSession.delete("departments.deleteDepartment", departmentNo);
+	public int delete(String departmentNo) {
+		sqlSession.delete("departments.delete_t_co_dept", departmentNo);
+		return sqlSession.delete("departments.delete_t_co_dept_multi", departmentNo);
 	}
 }

@@ -18,8 +18,8 @@
 																					   null, 
 																					   #{groupSeq}, 
 																					   #{compSeq}, 
-																					   #{deptSeq}, 
-																					   10000001, 
+																					   #{bizSeq}, 
+																					   #{parentDeptSeq}, 
 																					   NULL, 
 																					   '', 
 																					   NULL, 
@@ -31,11 +31,11 @@
 																					   'kr', 
 																					   '', 
 																					   null, 
-																					   1, 
+																					   #{deptLevel}, 
 																					   NULL,
 																					   'Y', 
 																					   '0101', 
-																					   date_format(now(), '%Y-%m-%d %h:%m:%s'),
+																					   date_format(now(), '%Y-%m-%d %T'),
 																					   null,
 																					   null, 
 																					   NULL, 
@@ -60,7 +60,7 @@
 						#{deptName}, 
 						'Y', 
 						'0101', 
-						date_format(now(), '%Y-%m-%d %h:%m:%s'), 
+						date_format(now(), '%Y-%m-%d %T'), 
 						null, 
 						null, 
 						null
@@ -68,11 +68,71 @@
 		]]>
 	</insert>
 	
-	<select id="get_t_co_biz_info" parameterType="Long" resultType="bizvo">
+	<select id="get_t_co_biz_info" parameterType="bizvo" resultType="bizvo">
 		<![CDATA[
-			select group_seq as groupSeq, comp_seq as compSeq from t_co_biz where biz_seq = 10000001;
+			select group_seq as groupSeq, comp_seq as compSeq from t_co_biz where biz_seq = #{bizSeq}
 		]]>
 	</select>
+	
+	<select id="get_t_co_dept_info" parameterType="departmentsvo" resultType="departmentsvo">
+		<![CDATA[
+			select group_seq as groupSeq, comp_seq as compSeq, biz_seq as bizSeq, dept_level as deptLevel from t_co_dept where dept_seq = #{deptSeq}
+		]]>
+	</select>
+	
+	<select id="get" parameterType="employeedeptinfovo" resultType="employeedeptinfovo">
+		<choose>
+			<when test="empSeq == null">
+				<!-- getRestDepartmentEmployee -->
+				<![CDATA[
+					select emp_seq as empSeq from t_co_emp_dept where dept_seq = #{deptSeq}
+				]]>
+			</when>
+			
+			<when test="empSeq != null and groupSeq == null">
+			
+				<!-- getUnderDepartmentRestEmployee -->
+				<![CDATA[
+					select emp_seq as empSeq
+						from t_co_emp_dept a, (select dept_seq from t_co_dept where parent_dept_seq = #{deptSeq}) b 
+							where a.dept_seq = b.dept_seq
+				]]>
+				
+			</when>
+			
+			<otherwise>
+				<!-- getDeleteDepartmentInfo -->
+				<![CDATA[
+					select dept_seq as deptSeq from t_co_dept where parent_dept_seq = #{deptSeq}
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<delete id="delete_t_co_dept" parameterType="string">
+		<![CDATA[
+			delete from t_co_dept where dept_seq = #{value};
+		]]>
+	</delete>
+	
+	<delete id="delete_t_co_dept_multi" parameterType="string">
+		<![CDATA[
+			delete from t_co_dept_multi where dept_seq = #{value};
+		]]>
+	</delete>
+	<!-- <select id="getRestDepartmentEmployee" parameterType="employeedeptinfovo" resultType="employeedeptinfovo">
+		<![CDATA[
+			select emp_seq from t_co_emp_dept where dept_seq = #{deptSeq};
+		]]>
+	</select>
+	
+	<select id="getUnderDepartmentRestEmployee" parameterType="employeedeptinfovo" resultType="employeedeptinfovo">
+		<![CDATA[
+			select emp_seq 
+				from t_co_emp_dept a, (select dept_seq from t_co_dept where parent_dept_seq = #{deptSeq}) b 
+					where a.dept_seq = b.dept_seq
+		]]>
+	</select> -->
 	
 	
 	<!-- 부서 밑에 부서추가 -->

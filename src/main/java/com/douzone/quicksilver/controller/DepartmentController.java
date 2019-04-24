@@ -24,6 +24,7 @@ public class DepartmentController {
 
 		return JSONResult.success(departmentService.getDepartmentEmployeeInfo(dept_no));
 	}
+	
 	// 부서 정보를 가져와서 팀장출력
 	@ResponseBody
 	@RequestMapping("/{dept_no}/getLeader")
@@ -33,8 +34,9 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})
-	public void addDepartment(@PathVariable Long parentNo,
-			 				  @PathVariable String departmentName) {		
+	public void addDepartment(@PathVariable String parentNo,
+			 				  @PathVariable String departmentName) {	
+		System.out.println("여기");
 		departmentService.addDepartment(parentNo, departmentName);
 	}
 	
