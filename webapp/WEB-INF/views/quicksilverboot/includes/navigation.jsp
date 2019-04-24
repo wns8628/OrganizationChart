@@ -36,9 +36,9 @@ $(document).on("click", "#departments", function(event){
 			   data-toggle="dropdown"
 			   aria-haspopup="true"
 			   aria-expanded="true"
-			   data-no='${vo.no }'>${vo.name }
+			   data-no='${vo.compSeq }'>${vo.compName }
 		    </div>	   
-			<ul c-no='${vo.no }' class="dropdown-menu"
+			<ul c-no='${vo.compSeq }' class="dropdown-menu"
 			     aria-labelledby="pagesDropdown">
 			</ul>
 		</li>

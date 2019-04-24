@@ -26,7 +26,7 @@
 	
 	<select id="getDeptList" resultType="departmentsvo">
 	    select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
-	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, b.dept_name as deptName  
+	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, b.dept_name as deptName, a.dept_level as deptLevel
 		from t_co_dept a, t_co_dept_multi b
 		where a.dept_seq = b.dept_seq
 		and b.lang_code = 'kr'

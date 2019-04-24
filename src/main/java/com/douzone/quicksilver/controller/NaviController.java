@@ -34,11 +34,11 @@ public class NaviController {
 		return JSONResult.success(naviService.deptList());
 	}
 	
-	@ResponseBody
-	@RequestMapping("/getDept/{parents}")
-	public JSONResult getDeptByNo(@PathVariable int parents) {
-		return JSONResult.success(naviService.getDeptByPno(parents));
-	}
+//	@ResponseBody
+//	@RequestMapping("/getDept/{parents}")
+//	public JSONResult getDeptByNo(@PathVariable int parents) {
+//		return JSONResult.success(naviService.getDeptByPno(parents));
+//	}
 	
 	@RequestMapping("/addDept")
 	public String addDept() {
