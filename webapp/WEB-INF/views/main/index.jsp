@@ -12,7 +12,7 @@
 
 /* reset */
 *            { margin:0; padding:0 }
-body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111;}
+body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-width: 1000px;}
 ul, ol         { list-style-type: none }
 fieldset      { border:none }
 
@@ -40,8 +40,8 @@ div.navi li.biz { font: 1.5em; color: white;}
 div.navi span {cursor: pointer;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
-div.tbl-wrapper { width : 100%; }
-div.result-wrapper .tbl-result{ width: 60%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
+div.tbl-wrapper { width : 96%; padding: 2%;}
+div.result-wrapper .tbl-result{ width: 100%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
 div.result-wrapper .tbl-result td{ border: 1px solid #777; text-align: center;}
 div.result-wrapper .tbl-result th{ border: 1px solid #777; }
 
@@ -143,7 +143,9 @@ $(function(){
 		<div class="header-wrapper">
 			<span>quicksilver</span>
 			<div class="header-menubar">
-				<button>login</button>      
+				<a href="${pageContext.servletContext.contextPath }/main3/kr"><span>kr</span></a>
+				<a href="${pageContext.servletContext.contextPath }/main3/en"><span>en</span></a>
+				<button>login</button>
 			</div>
 		</div>
 	</div>
@@ -155,19 +157,32 @@ $(function(){
 	<div class="result-wrapper">
 		<!-- 더미데이터 버튼 -->
 		<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
+		<div class="tbl-header"></div>
 		<div class="tbl-wrapper">
 			<table class="tbl-result">
 				<tr>
-					<th>부서</th>
+					<th>사원번호</th>
+					<th>프로필</th>
 					<th>이름</th>
-					<th>직급</th>
 					<th>나이</th>
+					<th>성별</th>
+					<th>직급</th>
+					<th>이메일</th>
+					<th>전화번호</th>
+					<th>부서</th>
+					<th>직책</th>
 				</tr>
 				<tr>
-					<td>부서1</td>
-					<td>둘리</td>
-					<td>부장</td>
+					<td>155202</td>
+					<td><img alt="" src=""></td>
+					<td>홍길동</td>
 					<td>17</td>
+					<td>남</td>
+					<td>과장</td>
+					<td>gildong@gmail.com</td>
+					<td>010-1234-5678</td>
+					<td>부서1</td>
+					<td>부서장</td>
 				</tr>
 			</table>
 		</div>

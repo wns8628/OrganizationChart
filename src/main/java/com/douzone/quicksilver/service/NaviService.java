@@ -1,6 +1,8 @@
 package com.douzone.quicksilver.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,15 +51,21 @@ public class NaviService {
 		return naviDao.getDeptByPno(parents);
 	}
 	
-	public List<CompanyVo> getCompList(){
-		return naviDao.getCompList();
+	public List<CompanyVo> getCompList(String langCode){
+		return naviDao.getCompList(langCode);
 	}
 	
-	public List<BizVo> getBizList(String seq){
-		return naviDao.getBizList(seq);
+	public List<BizVo> getBizList(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return naviDao.getBizList(map);
 	}
 	
-	public List<DepartmentsVo> getDeptList(String seq){
-		return naviDao.getDeptList(seq);
+	public List<DepartmentsVo> getDeptList(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return naviDao.getDeptList(map);
 	}
 }
