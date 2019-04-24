@@ -8,8 +8,10 @@
          <typeAlias alias="deptcomvo" type="com.douzone.quicksilver.vo.DeptComVo"/>
          <typeAlias alias="deptmanagervo" type="com.douzone.quicksilver.vo.DeptManagerVo"/>
          <typeAlias alias="bizvo" type="com.douzone.quicksilver.vo.BizVo"/>
-         
-         <!-- <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/> -->
+         <typeAlias alias="dutypositionvo" type="com.douzone.quicksilver.vo.DutyPositionVo"/>
+      
+<!-- 	  <typeAlias alias="deptmanagervo" type="com.douzone.quicksilver.vo.DeptManagerVo"/> -->        
+<!--      <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/> -->
     </typeAliases>    
 
    <mappers> 
