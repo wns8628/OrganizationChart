@@ -4,8 +4,13 @@
 
 <mapper namespace="navigation">
 	<select id="getCompanyList" resultType="companyvo">
-		select no,name,mastergroup_no as groupNo from company 
-		where mastergroup_no = 1;
+		select distinct b.comp_seq, b.group_seq, b.comp_name, b.lang_code
+		from t_co_comp a, t_co_comp_multi b
+		where a.group_seq = b.group_seq
+		and b.lang_code = 'kr'
+		and a.use_yn = 'Y'
+		and b.use_yn = 'Y'
+		order by b.comp_seq + 0;
 	</select>
 	
 	<select id="getDeptList" resultType="departmentsvo">
