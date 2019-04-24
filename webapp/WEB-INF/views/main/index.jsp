@@ -79,6 +79,23 @@ var getList = function(parents){
    });
 }
 
+var getBizList = function(seq){
+	$.ajax({
+		url:"${pageContext.servletContext.contextPath }/getBiz/"+seq,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	         $(response.data).each(function(index, vo){
+	            render(vo)
+	         });
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	});
+}
+
 $(function(){
    
    //자회사 목록
@@ -126,7 +143,7 @@ $(function(){
 	</div>
 	<div class="navi">
 		<c:forEach items="${companyList }" var="vo">
-			<h3 data-no='${vo.no }'><span>${vo.name }</span></h3><ul c-no='${vo.no }'></ul>
+			<h3 data-no='${vo.compSeq }'><span>${vo.compName }</span></h3><ul c-no='${vo.compSeq }'></ul>
 		</c:forEach>
 	</div>
 	<div class="result-wrapper">

@@ -23,7 +23,7 @@ public class NaviController {
 	
 	@RequestMapping("/main3")
 	public String main3(Model model) {
-		model.addAttribute("companyList", naviService.companyList());
+		model.addAttribute("companyList", naviService.getCompList());
 		return "main/index";
 	}
 	
@@ -51,5 +51,19 @@ public class NaviController {
 			}
 		}
 		return "redirect:/main2";
+	}
+	
+	///////////////////////////////////////
+	
+	@ResponseBody
+	@RequestMapping("/getBiz/{seq}")
+	public JSONResult getBizList(@PathVariable String seq) {
+		return JSONResult.success(naviService.getBizList(seq));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getDept/{seq}")
+	public JSONResult getDeptList(@PathVariable String seq) {
+		return JSONResult.success(naviService.getDeptList(seq));
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.quicksilver.repository.NaviDao;
+import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
 
@@ -22,7 +23,7 @@ public class NaviService {
 	public List<DepartmentsVo> deptList(){
 		return naviDao.getDeptList();
 	}
-		
+	
 //	public void addDept(int i) {
 //		int pNo = random(((i*1000)+(i+1)), (naviDao.getCount()+i) + 1);
 //		if(pNo == ((i*1000)+(i+1))) {
@@ -46,5 +47,17 @@ public class NaviService {
 	
 	public List<DepartmentsVo> getDeptByPno(int parents){
 		return naviDao.getDeptByPno(parents);
+	}
+	
+	public List<CompanyVo> getCompList(){
+		return naviDao.getCompList();
+	}
+	
+	public List<BizVo> getBizList(String seq){
+		return naviDao.getBizList(seq);
+	}
+	
+	public List<DepartmentsVo> getDeptList(String seq){
+		return naviDao.getDeptList(seq);
 	}
 }

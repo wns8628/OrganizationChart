@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
 
@@ -41,6 +42,17 @@ public class NaviDao {
 	public List<DepartmentsVo> getDeptByPno(int parents) {
 		return sqlSession.selectList("navigation.getDeptByPno", parents);
 	}
+
+	public List<CompanyVo> getCompList(){
+		return sqlSession.selectList("navigation.getCompList");
+	}
 	
+	public List<BizVo> getBizList(String seq){
+		return sqlSession.selectList("navigation.getBizList", seq);
+	}
+	
+	public List<DepartmentsVo> getDeptList(String seq){
+		return sqlSession.selectList("navigation.getDeptList", seq);
+	}
 	
 }

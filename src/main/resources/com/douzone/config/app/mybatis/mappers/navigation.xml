@@ -3,22 +3,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="navigation">
-	<select id="getCompanyList" resultType="companyvo">
-		select distinct b.comp_seq, b.group_seq, b.comp_name, b.lang_code
+	<select id="getCompList" resultType="companyvo">
+		select distinct b.comp_seq as compSeq, b.group_seq as groupSeq, b.comp_name as compName, b.lang_code as langCode
 		from t_co_comp a, t_co_comp_multi b
 		where a.group_seq = b.group_seq
 		and b.lang_code = 'kr'
 		and a.use_yn = 'Y'
 		and b.use_yn = 'Y'
+		and b.group_seq = 'demo'
 		order by b.comp_seq + 0;
 	</select>
 	
+	<select id="getBizList" parameterType="string" resultType="bizvo">
+		select biz_seq as bizSeq, lang_code as langCode, group_seq as groupSeq, comp_seq as compSeq,
+			biz_name as bizName
+		from t_co_biz_multi
+		where lang_code = 'kr'
+		and use_yn = 'Y'
+		and group_seq = 'demo'
+		and comp_seq = #{seq}
+	</select>
+	
 	<select id="getDeptList" resultType="departmentsvo">
-	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo, a.parents 
-	      from departments a, company b 
-	     where a.company_no = b.no
-<!-- 	       and b.no = ${value} -->
-	  order by a.g_no asc, a.o_no asc
+	    select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
+	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, b.dept_name as deptName  
+		from t_co_dept a, t_co_dept_multi b
+		where a.dept_seq = b.dept_seq
+		and b.lang_code = 'kr'
+		and a.use_yn = 'Y'
+		and b.use_yn = 'Y'
+		and parent_dept_seq = #{seq}
+		order by a.dept_seq + 0;
 	</select>
 
 	<!-- 더미데이터  -->
@@ -45,4 +60,5 @@
 		and to_date = '9999-01-01'
 		and a.p_no = #{pNo};
 	</select>
+	
 </mapper>

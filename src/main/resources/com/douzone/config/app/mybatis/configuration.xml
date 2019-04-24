@@ -7,6 +7,7 @@
          <typeAlias alias="employeesvo" type="com.douzone.quicksilver.vo.EmployeesVo"/>
          <typeAlias alias="deptcomvo" type="com.douzone.quicksilver.vo.DeptComVo"/>
          <typeAlias alias="deptmanagervo" type="com.douzone.quicksilver.vo.DeptManagerVo"/>
+         <typeAlias alias="bizvo" type="com.douzone.quicksilver.vo.BizVo"/>
          
          <!-- <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/> -->
     </typeAliases>    
@@ -18,6 +19,7 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/navigation.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/deptCom.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/deptManager.xml" />   
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/biz.xml" />   
       
       <!-- <mapper resource="/com/douzone/config/app/mybatis/mappers/mastergroup.xml" />    -->
    </mappers> 
