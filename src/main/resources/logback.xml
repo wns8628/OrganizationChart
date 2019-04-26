@@ -10,15 +10,15 @@
       </encoder>
    </appender>
 
-   <appender name="fileAppenderException" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/mysite-log/mysite-exception.log</file>
+   <appender name="fileAppender2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/xorwnTest/quicksilver-exception.log</file>
       <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
          <Pattern>
             %d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
          </Pattern>
       </encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-         <FileNamePattern>/mysite-log/mysite-exception.%i.log.zip</FileNamePattern>
+         <FileNamePattern>/test/mysite-exception.%i.log.zip</FileNamePattern>
          <MinIndex>1</MinIndex>
          <MaxIndex>10</MaxIndex>
       </rollingPolicy>
@@ -34,6 +34,12 @@
     
      <logger name="com.douzone.quicksilver.aspect"  level="debug" additivity="false">
             <appender-ref ref="fileAppender" />
+    </logger>
+    
+     <logger name="com.douzone.exception"  level="debug" additivity="false">
+            <appender-ref ref="fileAppender2" />
+            <appender-ref ref="consoleAppender" />
+            
     </logger>
 
    <root level="info"> <!-- 레벨단계떄문에 로그안뜰수도있으니 debug로 -->
