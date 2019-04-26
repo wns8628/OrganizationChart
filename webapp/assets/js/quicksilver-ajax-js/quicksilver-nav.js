@@ -125,22 +125,12 @@ var makeTable = function(url) {
           
           columns : [
               {data: "empNum"},
-              {data: ""},
               {data: "empName"},
               {data: "bDay"},
               {data: "genderCode"},
               {data: "positionCode"},
               {data: "dutyCode"},              
               {data: "deptName"}
-          ],
-          
-          columnDefs : [
-              {
-                  "targets": 1,
-                  "render":  function(data){
-                      return '<img src="'+ contextPath+"/"+data+'" style="width: 50px"></img>'
-                  },
-              },
           ]
       });	
 	

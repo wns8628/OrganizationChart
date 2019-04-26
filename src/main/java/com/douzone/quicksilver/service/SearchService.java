@@ -22,7 +22,6 @@ public class SearchService {
 		
 		map.put("kwd", kwd);
 		map.put("selectSearch", selectSearch);
-		System.out.println(searchDao.getList(map).size());
 		return searchDao.getList(map);
 	}
 	

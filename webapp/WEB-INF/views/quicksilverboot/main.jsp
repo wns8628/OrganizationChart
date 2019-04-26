@@ -36,7 +36,6 @@
 		                  <thead>
 		                    <tr>
 		                      <th>사원번호</th>
-		                      <th>프로필</th>
 		                      <th>이름</th>
 		                      <th>나이</th>
 		                      <th>성별</th>

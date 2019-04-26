@@ -32,7 +32,6 @@ public class EmployeeController {
 	@RequestMapping("/getdetailEmployeeInfo/{empNum}/{langCode}")
 	public JSONResult getdetailEmployeeInfo(@PathVariable String empNum,
 											@PathVariable String langCode) {
-		System.out.println("여어기");
 		EmployeesVo employeesVo = new EmployeesVo();
 		employeesVo.setEmpNum(empNum);
 		employeesVo.setLangCode(langCode);
