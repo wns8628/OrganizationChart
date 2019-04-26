@@ -16,13 +16,13 @@ public class SearchService {
 	@Autowired
 	private SearchDao searchDao;
 
-	public List<EmployeesVo> Employeelist(String kwd, Long selectSearch){
+	public List<EmployeesVo> Employeelist(String kwd, String selectSearch){
 		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("kwd", kwd);
 		map.put("selectSearch", selectSearch);
-		
+		System.out.println(searchDao.getList(map).size());
 		return searchDao.getList(map);
 	}
 	

@@ -65,6 +65,8 @@ public class EmployeesVo {
 	private String detailAddr;				// 상세 주소
 	private String mainWork;				// 담당 업무
 	
+	private String deptName;				// 부서명
+	
 	public String getEmpName() {
 		return empName;
 	}
@@ -382,6 +384,12 @@ public class EmployeesVo {
 	}
 	public void setSignType(String signType) {
 		this.signType = signType;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 	@Override
 	public String toString() {

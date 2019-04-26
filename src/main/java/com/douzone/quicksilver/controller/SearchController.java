@@ -20,10 +20,10 @@ public class SearchController {
 	// selectSearch는 부서검색, 이름검색 등 선택한 숫자값을 가져옴
 	//1은 이름 , 2는 부서 , 3은 통합?
 	@ResponseBody
-	@RequestMapping("/{kwd}/{selectSearch}")
-	public JSONResult search(@PathVariable String kwd,
-							 @PathVariable Long selectSearch) {
-		
+	@RequestMapping("/{selectSearch}/{kwd}")
+	public JSONResult search( @PathVariable String selectSearch,
+								@PathVariable String kwd) {
+		System.out.println(kwd);
 		return JSONResult.success(searchService.Employeelist(kwd, selectSearch));
 	}
 	

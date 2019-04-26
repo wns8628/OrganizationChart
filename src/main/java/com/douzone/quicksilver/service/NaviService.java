@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import com.douzone.quicksilver.repository.NaviDao;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
 public class NaviService {
@@ -67,5 +70,12 @@ public class NaviService {
 		map.put("seq", seq);
 		map.put("langCode", langCode);
 		return naviDao.getDeptList(map);
+	}
+	
+	public List<EmployeesVo> getEmpList(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return naviDao.getEmpList(map);
 	}
 }

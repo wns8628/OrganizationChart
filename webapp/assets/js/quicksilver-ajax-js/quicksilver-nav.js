@@ -124,15 +124,14 @@ var makeTable = function(url) {
           },
           
           columns : [
-              {data: "no"},
-              {data: "profile"},
-              {data: "name"},
-              {data: "age"},
-              {data: "gender"},
-              {data: "grade"},
-              {data: "email"},              
-              {data: "phone"},
-              {data: "departments"}
+              {data: "empNum"},
+              {data: ""},
+              {data: "empName"},
+              {data: "bDay"},
+              {data: "genderCode"},
+              {data: "positionCode"},
+              {data: "dutyCode"},              
+              {data: "deptName"}
           ],
           
           columnDefs : [
@@ -208,11 +207,16 @@ $(function(){
    
    //부서 목록
    $(document).on("click", ".departments", function(event){
-      var seq = $(this).attr("data-no");
-      if($(this).next().children().length > 0){
-    	  $(this).next().children().remove();
+	  var seq = $(this).attr("data-no");
+	  if($(this).next().children().length > 0){
+		  $(this).next().children().remove();
 	  }else{
 		   getList(seq);
 	  }
+	  let departmentNo = $(this).attr('data-no');
+	  let departmentName = $(this).html();
+		makeTable("/getEmpInfo/" + seq);
+		renderTableDepartmentName(departmentName, departmentNo);
+//		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
    });
 });

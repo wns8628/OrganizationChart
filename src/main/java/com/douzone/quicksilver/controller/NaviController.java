@@ -86,4 +86,14 @@ public class NaviController {
 		}
 		return JSONResult.success(naviService.getDeptList(seq, langCode));
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getEmpInfo/{seq}")
+	public JSONResult getEmpList(@PathVariable String seq, HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		return JSONResult.success(naviService.getEmpList(seq, langCode));
+	}
 }
