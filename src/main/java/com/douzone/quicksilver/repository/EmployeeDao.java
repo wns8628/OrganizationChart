@@ -15,19 +15,23 @@ public class EmployeeDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public Long insert(EmployeesVo employeesVo) {
-		System.out.println("employeesVo no : " + employeesVo.getNo());
-		System.out.println(employeesVo);
-		sqlSession.insert("employees.insert", employeesVo);
-		
-		if( employeesVo.getNo() != null) {
-			return employeesVo.getNo();
-		}
-		
-		return 1L;
-	}
+//	public Long insert(EmployeesVo employeesVo) {
+//		System.out.println("employeesVo no : " + employeesVo.getNo());
+//		System.out.println(employeesVo);
+//		sqlSession.insert("employees.insert", employeesVo);
+//		
+//		if( employeesVo.getNo() != null) {
+//			return employeesVo.getNo();
+//		}
+//		
+//		return 1L;
+//	}
 	
-	public List<DeptManagerVo> get(EmployeesVo employeesVo) {
-		return sqlSession.selectList("deptManager.get", employeesVo);
+//	public List<DeptManagerVo> get(EmployeesVo employeesVo) {
+//		return sqlSession.selectList("deptManager.get", employeesVo);
+//	}
+	
+	public EmployeesVo get(EmployeesVo employeesVo) {
+		return sqlSession.selectOne("employees.getdetailEmployeeInfo", employeesVo);
 	}
 }
