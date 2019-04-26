@@ -42,24 +42,68 @@ var empDetailRender = function(empPath){
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
-		"				                                <label class=\"col-md-2 col-sm-3 col-xs-12 control-label\">User Name</label>\r\n" + 
-		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-		"				                                    <input type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
+		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">이름</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">나이</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">성별</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				        \r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
-		"				                                <label class=\"col-md-2 col-sm-3 col-xs-12 control-label\">First Name</label>\r\n" + 
-		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-		"				                                    <input type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
+		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">그룹</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">회사</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">사업장</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
-		"				                                <label class=\"col-md-2 col-sm-3 col-xs-12 control-label\">Last Name</label>\r\n" + 
-		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-		"				                                    <input type=\"text\" class=\"form-control\" value=\"Sanders\">\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
+		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">결혼유무</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">생일</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">입사일</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                            </div>\r\n" +
+		"				                            <div class=\"form-group\">\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
+		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">직책</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">직급</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
+		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">담당업무</label>\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"Rebecca\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
+		"				                            <div class=\"form-group\">\r\n" + 
+		"				                                <label class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">주소</label>\r\n" + 
+		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12 make\">\r\n" + 
+		"				                                    <input type=\"text\" class=\"form-control\" value=\"Sanders\">\r\n" + 
+		"				                                </div>\r\n" + 
+		"				                            </div>\r\n" +
 		"				                        </fieldset>\r\n" + 
 		"				                        <fieldset class=\"fieldset\">\r\n" + 
 		"				                            <h3 class=\"fieldset-title\">Contact Info</h3>\r\n" + 
@@ -67,21 +111,12 @@ var empDetailRender = function(empPath){
 		"				                                <label class=\"col-md-2  col-sm-3 col-xs-12 control-label\">Email</label>\r\n" + 
 		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
 		"				                                    <input type=\"email\" class=\"form-control\" value=\"Rebecca@website.com\">\r\n" + 
-		"				                                    <p class=\"help-block\">This is the email </p>\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
-		"				                                <label class=\"col-md-2  col-sm-3 col-xs-12 control-label\">Twitter</label>\r\n" + 
+		"				                                <label class=\"col-md-2  col-sm-3 col-xs-12 control-label\">폰번호</label>\r\n" + 
 		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
 		"				                                    <input type=\"text\" class=\"form-control\" value=\"SpeedyBecky\">\r\n" + 
-		"				                                    <p class=\"help-block\">Your twitter username</p>\r\n" + 
-		"				                                </div>\r\n" + 
-		"				                            </div>\r\n" + 
-		"				                            <div class=\"form-group\">\r\n" + 
-		"				                                <label class=\"col-md-2  col-sm-3 col-xs-12 control-label\">Linkedin</label>\r\n" + 
-		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-		"				                                    <input type=\"url\" class=\"form-control\" value=\"https://www.linkedin.com/in/lorem\">\r\n" + 
-		"				                                    <p class=\"help-block\">eg. https://www.linkedin.com/in/yourname</p>\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                        </fieldset>\r\n" + 
@@ -96,13 +131,28 @@ var empDetailRender = function(empPath){
 		"				            </div>\r\n" + 
 		"				        </section>\r\n" + 
 		"				    </div>";
-
 	$(".container").append(htmls);
 }
 
 $(function(){
 	$(document).on("click", "tbody tr", function(event){	
-		let empPath= $(this).children().children("img").attr("src");  
+		let empNum = this.children[1].innerHTML;
+		let empPath= $(this).children().children("img").attr("src");
+		
+		$.ajax({
+			url: contextPath + "/getdetailEmployeeInfo/" + empNum,
+		      type:"get",
+		      dataType:"json",
+		      data:"",
+		      success: function(response){
+		         $(response.data).each(function(index, vo){
+		            bizRender(vo)
+		         });
+		      },
+		      error: function(xhr, status, e){
+		         console.error(status+":"+e);
+		      }
+		});
 		empDetailRender(empPath);
 	});
 });
