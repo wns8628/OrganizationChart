@@ -9,16 +9,16 @@ let searchClick = function() { // 검색창에서 어떤키를 눌렀을때
 			alert("검색어를 입력하세요");
 			return;
 		}
-		console.log(kwd);
-		search(kwd, 1);
+		let option = $("#search-opt option:selected").val();
+		search(option, kwd);
 	}
 };
 
 //매핑된 url을 전달
-var search = function(kwd, selectSearch){
+var search = function(selectSearch, kwd){
 	$(".card-header").empty();
 	renderTableDepartmentName("Search");
-	makeTable("/boot/search/" + kwd + "/" + selectSearch);
+	makeTable("/boot/search/" + selectSearch + "/" + kwd);
 }
 
 $(function(){  

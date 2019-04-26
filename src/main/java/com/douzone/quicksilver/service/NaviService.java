@@ -1,13 +1,19 @@
 package com.douzone.quicksilver.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.quicksilver.repository.NaviDao;
+import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
 public class NaviService {
@@ -22,7 +28,7 @@ public class NaviService {
 	public List<DepartmentsVo> deptList(){
 		return naviDao.getDeptList();
 	}
-		
+	
 //	public void addDept(int i) {
 //		int pNo = random(((i*1000)+(i+1)), (naviDao.getCount()+i) + 1);
 //		if(pNo == ((i*1000)+(i+1))) {
@@ -46,5 +52,30 @@ public class NaviService {
 	
 	public List<DepartmentsVo> getDeptByPno(int parents){
 		return naviDao.getDeptByPno(parents);
+	}
+	
+	public List<CompanyVo> getCompList(String langCode){
+		return naviDao.getCompList(langCode);
+	}
+	
+	public List<BizVo> getBizList(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return naviDao.getBizList(map);
+	}
+	
+	public List<DepartmentsVo> getDeptList(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return naviDao.getDeptList(map);
+	}
+	
+	public List<EmployeesVo> getEmpInfo(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return naviDao.getEmpInfo(map);
 	}
 }

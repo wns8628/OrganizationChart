@@ -4,6 +4,46 @@
 
 <mapper namespace="employees">
 	
+	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
+		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
+		    a.dp_name as dutyCode, b.dp_name as positionCode
+		from
+			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
+			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
+			where a.emp_seq = b.emp_seq
+			and b.emp_seq = c.emp_seq
+			and c.dept_seq = d.dept_seq
+			and c.duty_code = e.dp_seq
+			and b.lang_code = #{langCode}
+			and d.lang_code = #{langCode}
+			and e.lang_code = #{langCode}
+			and c.dept_seq = #{seq}) a
+		left outer join t_co_comp_duty_position_multi b
+		on a.position_code = b.dp_seq
+		and b.lang_code = #{langCode}
+	</select>
+	
+	<select id="search" parameterType="map" resultType="employeesvo">
+		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
+		    a.dp_name as dutyCode, b.dp_name as positionCode
+		from	
+			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
+			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
+			where a.emp_seq = b.emp_seq
+			and b.emp_seq = c.emp_seq
+			and c.dept_seq = d.dept_seq
+			and c.duty_code = e.dp_seq
+			and b.lang_code = #{langCode}
+			and d.lang_code = #{langCode}
+			and e.lang_code = #{langCode}
+			and b.emp_name = #{kwd}) a
+		left outer join t_co_comp_duty_position_multi b
+		on a.position_code = b.dp_seq
+		and b.lang_code = #{langCode}
+	</select>
+	
 	<select id="getDepartmentEmployeeInfo" 
 		parameterType="Long" resultType="employeesvo">
 		
@@ -40,7 +80,7 @@
 		]]>
 	</select>
 	
-	<select id="search" 
+	<!-- <select id="search" 
 		parameterType="map" resultType="employeesvo">
 		
 		<![CDATA[
@@ -63,16 +103,16 @@
 		]]>
 		
 		<choose>
-			<when test="selectSearch == 1"> <!-- 이름 검색 -->
+			<when test="selectSearch == 1"> 이름 검색
 				AND a.name = #{kwd}
 			</when>
 			
-			<when test="selectSearch == 2"> <!-- 부서 검색 -->
+			<when test="selectSearch == 2"> 부서 검색
 			 	AND c.name = #{kwd}
 			</when>
 		</choose>
 		
-	</select>
+	</select> -->
 	
 	<insert id="insert" parameterType="employeesvo">
 		<choose>
@@ -159,5 +199,63 @@
 		</selectKey>
 		
 	</insert>
-
+	
+	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
+		<![CDATA[
+			SELECT 
+				b.emp_name AS empName,
+				DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y') AS age,
+				if(emp.gender_code = 'M', '남', '여') AS genderCode,
+		    (SELECT 
+		            group_name
+		        FROM
+		            t_co_group
+		        WHERE
+		            group_seq = emp.group_seq) AS groupSeq,
+		    (SELECT 
+		            comp_name
+		        FROM
+		            t_co_comp_multi
+		        WHERE
+		            comp_seq = emp.main_comp_seq
+		                AND lang_code = #{langCode}) AS mainCompSeq,
+		    (SELECT 
+		            biz_name AS bizName
+		        FROM
+		            t_co_biz_multi
+		        WHERE
+		            biz_seq = (SELECT 
+		                    biz_seq
+		                FROM
+		                    t_co_emp_dept
+		                WHERE
+		                    emp_seq = emp.emp_seq)
+		                AND lang_code = #{langCode}) AS bizName,
+		    emp.wedding_yn AS weddingYn,
+		    b.main_work AS mainWork,
+		    emp.join_day AS joinDay,
+		    pmp.dp_name as positionCode,
+		    pmd.dp_name as dutyCode,
+		    date_format(emp.bday, '%m월 %d일') as bDay,
+		    b.detail_addr as detailAddr,
+		    emp.pic_file_id as picFileID,
+		    emp.mobile_tel_num as mobileTelNum,
+		    emp.email_addr as emailAddr
+		    
+		FROM
+		    t_co_emp emp
+		        LEFT OUTER JOIN
+		    t_co_comp_duty_position_multi pmp ON emp.position_code = pmp.dp_seq
+		        AND pmp.lang_code = #{langCode}
+		        AND pmp.dp_type = 'POSITION'
+		        LEFT OUTER JOIN
+		    t_co_comp_duty_position_multi pmd ON emp.duty_code = pmd.dp_seq
+		        AND pmd.lang_code = #{langCode}
+		        AND pmd.dp_type = 'DUTY',
+		    t_co_emp_multi b
+		WHERE
+		    emp.emp_seq = b.emp_seq
+		        AND emp.emp_seq = #{empNum};
+		]]>
+	</select>
 </mapper>

@@ -12,8 +12,8 @@
 
 /* reset */
 *            { margin:0; padding:0 }
-body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111;}
-ul, ol         { list-style-type: none }
+body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-width: 1000px;}
+ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
 a:link          { color:#696969; text-decoration:none; font-weight:bold; }
@@ -34,13 +34,18 @@ div.header-menubar button {background: transparent; color:white; font-size: 20px
 div#footer { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
 div#footer p { color: white; text-align: center;}
 
+div.content{ width: 100%; height: 100%;}
+
 div.navi { background-color: #2080D0; height:100%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
+div.navi li {margin-bottom: 2px; margin-top: 2px; font: 2em;}
 div.navi li.dept { font: 1.5em; color: white;}
+div.navi li.biz { font: 1.5em; color: white;}
 div.navi span {cursor: pointer;}
+div.navi img.navi-icon {height: 100%; width: 16px;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
-div.tbl-wrapper { width : 100%; }
-div.result-wrapper .tbl-result{ width: 60%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
+div.tbl-wrapper { width : 96%; padding: 2%;}
+div.result-wrapper .tbl-result{ width: 100%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
 div.result-wrapper .tbl-result td{ border: 1px solid #777; text-align: center;}
 div.result-wrapper .tbl-result th{ border: 1px solid #777; }
 
@@ -52,24 +57,35 @@ div.result-wrapper .tbl-result th{ border: 1px solid #777; }
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
 
-var render = function(vo){
-   var htmls = "<li class='dept' data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'><span>"+vo.name+"<span></li><ul data-no='"+vo.no+"'></ul>";
-   if(vo.parents > 0){
-	   $("ul[data-no='"+vo.parents+"']").append(htmls);
+var deptRender = function(vo){
+   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.depth+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   if(parseInt(vo.parentDeptSeq) < 10000000){
+	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
-	   $("ul[c-no='"+vo.companyNo+"']").append(htmls);
+	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
 }
 
-var getList = function(parents){
+var bizRender = function(vo){
+	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:10px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
+	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
+}
+
+var tableRender = function(vo){
+	var htmls = "<tr data-no='"+vo.empNum+"'><td>"+vo.empNum+"</td><td>"+vo.empName+"</td><td>"+vo.bDay+"</td><td>"+vo.genderCode+"</td><td>"+vo.positionCode+"</td>"+
+				"<td>"+vo.dutyCode+"</td><td>"+vo.deptName+"</td></tr>";
+	$("tbody").append(htmls);
+}
+
+var getList = function(seq){
    $.ajax({
-      url:"${pageContext.servletContext.contextPath }/getDept/"+parents,
+      url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
       type:"get",
       dataType:"json",
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            render(vo)
+            deptRender(vo)
          });
       },
       error: function(xhr, status, e){
@@ -79,6 +95,36 @@ var getList = function(parents){
    });
 }
 
+var getBizList = function(seq){
+	$.ajax({
+		url:"${pageContext.servletContext.contextPath }/getBiz/"+seq,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	         $(response.data).each(function(index, vo){
+	            bizRender(vo)
+	         });
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	});
+}
+
+var getEmpInfo = function(seq){
+	$.ajax({
+		url:"${pageContext.servletContext.contextPath }/getEmpInfoByDept/"+seq,
+		type:"get",
+		dataType:"json",
+		data:"",
+		success: function(response){
+			$(response.data).each(function(index, vo){
+				tableRender(vo);
+			});
+		}
+	});
+}
 $(function(){
    
    //자회사 목록
@@ -91,24 +137,26 @@ $(function(){
 // 	   }
 //    });
    
-   $(document).on("click", "h3 span", function(event){
+   $(document).on("click", "li.comp span", function(event){
 	   $parent = $(this).parent();
-	   var no = $parent.attr("data-no") * -1;
+	   var seq = $parent.attr("data-no");
 	   if($parent.next().children().length > 0){
 		   $parent.next().children().remove();
 	   }else{
-		   getList(no);
+		   getBizList(seq);
 	   }
    });
    
    //부서 목록
-   $(document).on("click", "li span", function(event){
+   $(document).on("click", "li.dept span", function(event){
 	  $parent = $(this).parent();
-      var no = $parent.attr("data-no");
+      var seq = $parent.attr("data-no");
       if($parent.next().children().length > 0){
     	  $parent.next().children().remove();
 	  }else{
-		   getList(no);
+		   getList(seq);
+		   $("tbody tr").remove();
+		   getEmpInfo(seq);
 	  }
    });
    
@@ -120,33 +168,43 @@ $(function(){
 		<div class="header-wrapper">
 			<span>quicksilver</span>
 			<div class="header-menubar">
-				<button>login</button>      
+				<a href="${pageContext.servletContext.contextPath }/main3/kr"><span>kr</span></a>
+				<a href="${pageContext.servletContext.contextPath }/main3/en"><span>en</span></a>
+				<button>login</button>
 			</div>
 		</div>
 	</div>
-	<div class="navi">
-		<c:forEach items="${companyList }" var="vo">
-			<h3 data-no='${vo.no }'><span>${vo.name }</span></h3><ul c-no='${vo.no }'></ul>
-		</c:forEach>
-	</div>
-	<div class="result-wrapper">
-		<!-- 더미데이터 버튼 -->
-		<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
-		<div class="tbl-wrapper">
-			<table class="tbl-result">
-				<tr>
-					<th>부서</th>
-					<th>이름</th>
-					<th>직급</th>
-					<th>나이</th>
-				</tr>
-				<tr>
-					<td>부서1</td>
-					<td>둘리</td>
-					<td>부장</td>
-					<td>17</td>
-				</tr>
-			</table>
+	<div class="content">
+		<div class="navi">
+			<c:forEach items="${companyList }" var="vo">
+				<li class='comp' data-no='${vo.compSeq }'>
+					<img class="navi-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/group.png">
+					<span>${vo.compName }</span>
+				</li>
+			<ul c-no='${vo.compSeq }'></ul>
+			</c:forEach>
+		</div>
+		<div class="result-wrapper">
+			<!-- 더미데이터 버튼 -->
+			<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
+			<div class="tbl-header"></div>
+			<div class="tbl-wrapper">
+				<table class="tbl-result">
+					<thead>
+						<tr>
+							<th>사원번호</th>
+							<th>이름</th>
+							<th>나이</th>
+							<th>성별</th>
+							<th>직급</th>
+							<th>직책</th>
+							<th>부서</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	<div id="footer">

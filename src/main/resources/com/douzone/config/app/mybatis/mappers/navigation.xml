@@ -3,41 +3,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="navigation">
-	<select id="getCompanyList" resultType="companyvo">
-		select no,name,mastergroup_no as groupNo from company 
-		where mastergroup_no = 1;
+	<select id="getCompList" resultType="companyvo">
+		select distinct b.comp_seq as compSeq, b.group_seq as groupSeq, b.comp_name as compName, b.lang_code as langCode
+		from t_co_comp a, t_co_comp_multi b
+		where a.group_seq = b.group_seq
+		and b.lang_code = #{langCode}
+		and a.use_yn = 'Y'
+		and b.use_yn = 'Y'
+		and b.group_seq = 'demo'
+		order by b.comp_seq + 0;
+	</select>
+	
+	<select id="getBizList" parameterType="string" resultType="bizvo">
+		select biz_seq as bizSeq, lang_code as langCode, group_seq as groupSeq, comp_seq as compSeq,
+			biz_name as bizName
+		from t_co_biz_multi
+		where lang_code = #{langCode}
+		and use_yn = 'Y'
+		and group_seq = 'demo'
+		and comp_seq = #{seq}
 	</select>
 	
 	<select id="getDeptList" resultType="departmentsvo">
-	    select a.no as no, a.name as name, a.g_no as gNo, a.o_no as oNo, a.depth as depth , a.company_no as companyNo, a.parents 
-	      from departments a, company b 
-	     where a.company_no = b.no
-<!-- 	       and b.no = ${value} -->
-	  order by a.g_no asc, a.o_no asc
+	    select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
+	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, b.dept_name as deptName, a.dept_level as deptLevel
+		from t_co_dept a, t_co_dept_multi b
+		where a.dept_seq = b.dept_seq
+		and b.lang_code = #{langCode}
+		and a.use_yn = 'Y'
+		and b.use_yn = 'Y'
+		and parent_dept_seq = #{seq}
+		order by a.dept_seq + 0;
 	</select>
 
-	<!-- 더미데이터  -->
-	<select id="getCount" resultType="int">
-		select count(*) from departments
+	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
+		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
+		    a.dp_name as dutyCode, b.dp_name as positionCode
+		from
+			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
+			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
+			where a.emp_seq = b.emp_seq
+			and b.emp_seq = c.emp_seq
+			and c.dept_seq = d.dept_seq
+			and c.duty_code = e.dp_seq
+			and b.lang_code = #{langCode}
+			and d.lang_code = #{langCode}
+			and e.lang_code = #{langCode}
+			and c.dept_seq = #{seq}) a
+		left outer join t_co_comp_duty_position_multi b
+		on a.position_code = b.dp_seq
+		and b.lang_code = #{langCode}
 	</select>
 	
-	<select id="getCountByPno" resultType="int" parameterType="int">
-		select count(*) from departments where parents = #{parents}
-	</select>
-	
-	<select id="getNameByPno" resultType="string" parameterType="int">
-		select name from departments where no = #{no}
-	</select>
-	
-	<update id="autoSet" parameterType="int">
-		alter table departments auto_increment=#{num};
-	</update>
-	
-	<select id="getDeptByPno" parameterType="int" resultType="departmentsvo">
-		select distinct a.no as no, name, g_no as gNo, o_no as oNo, depth, b.company_no as companyNo, p_no as parents
-		from departments a, dept_com b
-		where a.no = b.departments_no
-		and to_date = '9999-01-01'
-		and a.p_no = #{pNo};
-	</select>
 </mapper>
