@@ -138,12 +138,8 @@ var empDetailRender = function(vo){
 $(function(){
 	$(document).on("click", "tbody tr", function(event){	
 		let empNum = this.children[0].innerHTML;
-		console.log(empNum);
 		let empPath= $(this).children().children("img").attr("src");
 		let langCode = 'kr';
-		
-		console.log(empNum);
-		console.log(contextPath);
 		
 		$.ajax({
 			url: contextPath + "/getdetailEmployeeInfo/" + empNum + "/" + langCode,
