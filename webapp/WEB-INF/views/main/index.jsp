@@ -34,6 +34,8 @@ div.header-menubar button {background: transparent; color:white; font-size: 20px
 div#footer { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
 div#footer p { color: white; text-align: center;}
 
+div.content{ width: 100%; height: 100%;}
+
 div.navi { background-color: #2080D0; height:100%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
 div.navi li.dept { font: 1.5em; color: white;}
 div.navi li.biz { font: 1.5em; color: white;}
@@ -65,6 +67,12 @@ var deptRender = function(vo){
 var bizRender = function(vo){
 	var htmls = "<li class='biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:20px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
+}
+
+var tableRender = function(vo){
+	var htmls = "<tr data-no='"+vo.empSeq+"'><td>"+vo.empSeq+"</td><td>"+vo.empName+"</td><td>"+vo.bDay+"</td><td>"+vo.genderCode+"</td><td>"+vo.positionCode+"</td>"+
+				"<td>"+vo.dutyCode+"</td><td>"+vo.deptName+"</td></tr>";
+	$("tbody").append(htmls);
 }
 
 var getList = function(seq){
@@ -102,6 +110,19 @@ var getBizList = function(seq){
 	});
 }
 
+var getEmpInfo = function(seq){
+	$.ajax({
+		url:"${pageContext.servletContext.contextPath }/getEmpInfo/"+seq,
+		type:"get",
+		dataType:"json",
+		data:"",
+		success: function(response){
+			$(response.data).each(function(index, vo){
+				tableRender(vo);
+			});
+		}
+	});
+}
 $(function(){
    
    //자회사 목록
@@ -132,6 +153,8 @@ $(function(){
     	  $parent.next().children().remove();
 	  }else{
 		   getList(seq);
+		   $("tbody tr").remove();
+		   getEmpInfo(seq);
 	  }
    });
    
@@ -149,42 +172,33 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<div class="navi">
-		<c:forEach items="${companyList }" var="vo">
-			<h3 data-no='${vo.compSeq }'><span>${vo.compName }</span></h3><ul c-no='${vo.compSeq }'></ul>
-		</c:forEach>
-	</div>
-	<div class="result-wrapper">
-		<!-- 더미데이터 버튼 -->
-		<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
-		<div class="tbl-header"></div>
-		<div class="tbl-wrapper">
-			<table class="tbl-result">
-				<tr>
-					<th>사원번호</th>
-					<th>프로필</th>
-					<th>이름</th>
-					<th>나이</th>
-					<th>성별</th>
-					<th>직급</th>
-					<th>이메일</th>
-					<th>전화번호</th>
-					<th>부서</th>
-					<th>직책</th>
-				</tr>
-				<tr>
-					<td>155202</td>
-					<td><img alt="" src=""></td>
-					<td>홍길동</td>
-					<td>17</td>
-					<td>남</td>
-					<td>과장</td>
-					<td>gildong@gmail.com</td>
-					<td>010-1234-5678</td>
-					<td>부서1</td>
-					<td>부서장</td>
-				</tr>
-			</table>
+	<div class="content">
+		<div class="navi">
+			<c:forEach items="${companyList }" var="vo">
+				<h3 data-no='${vo.compSeq }'><span>${vo.compName }</span></h3><ul c-no='${vo.compSeq }'></ul>
+			</c:forEach>
+		</div>
+		<div class="result-wrapper">
+			<!-- 더미데이터 버튼 -->
+			<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
+			<div class="tbl-header"></div>
+			<div class="tbl-wrapper">
+				<table class="tbl-result">
+					<thead>
+						<tr>
+							<th>사원번호</th>
+							<th>이름</th>
+							<th>나이</th>
+							<th>성별</th>
+							<th>직급</th>
+							<th>직책</th>
+							<th>부서</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	<div id="footer">

@@ -36,29 +36,38 @@
 		order by a.dept_seq + 0;
 	</select>
 
-	<!-- 더미데이터  -->
-	<select id="getCount" resultType="int">
-		select count(*) from departments
-	</select>
-	
-	<select id="getCountByPno" resultType="int" parameterType="int">
-		select count(*) from departments where parents = #{parents}
-	</select>
-	
-	<select id="getNameByPno" resultType="string" parameterType="int">
-		select name from departments where no = #{no}
-	</select>
-	
-	<update id="autoSet" parameterType="int">
-		alter table departments auto_increment=#{num};
-	</update>
-	
-	<select id="getDeptByPno" parameterType="int" resultType="departmentsvo">
-		select distinct a.no as no, name, g_no as gNo, o_no as oNo, depth, b.company_no as companyNo, p_no as parents
-		from departments a, dept_com b
-		where a.no = b.departments_no
-		and to_date = '9999-01-01'
-		and a.p_no = #{pNo};
+	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
+		select a.emp_name as empName, b.사원번호 as empSeq, b.직급 as positionCode, b.직책 as dutyCode, c.부서명 as deptName, c.주부서여부 as mainDeptYn, c.사업장시퀀스 as bizSeq, c.회사시퀀스 as compSeq, c.그룹시퀀스 as groupSeq, 
+				if(b.성별 = 'M', '남', '여') as genderCode, (left(now(), 4)-left(b.생일, 4))+1 as bDay
+  		from t_co_emp_multi a,(select emp.emp_seq as 사원번호,
+  								emp.bday as 생일,
+                                emp.pic_file_id as 프로필,
+                                emp.gender_code as 성별,
+                                pmp.dp_name as 직급,
+                                pmd.dp_name as 직책,
+                                emp.email_addr as 이메일,
+                                emp.mobile_tel_num as 전화번호
+                           from t_co_emp emp
+                LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+                             ON emp.position_code = pmp.dp_seq
+                            AND pmp.lang_code = #{langCode}
+                            AND pmp.dp_type = 'POSITION'
+                LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+                             ON emp.duty_code = pmd.dp_seq
+                            AND pmd.dp_type = 'DUTY') b, ( select a.emp_seq as '사원번호',
+                                                                   e.dept_name as '부서명',
+                                                                   b.main_dept_yn as '주부서여부',
+                                                                   b.biz_seq as '사업장시퀀스',
+                                                                   b.comp_seq as '회사시퀀스',
+                                                                   b.group_seq as '그룹시퀀스'
+                                                              from t_co_emp a, t_co_emp_dept b, t_co_dept d, t_co_dept_multi e
+                                                             where a.emp_seq = b.emp_seq
+                                                               and b.dept_seq = d.dept_seq
+                                                               and d.dept_seq = e.dept_seq
+                                                               and e.lang_code = #{langCode}
+                                                               and d.dept_seq = #{seq}) c
+ 		where a.emp_seq = b.사원번호
+   		and b.사원번호 = c.사원번호;
 	</select>
 	
 </mapper>

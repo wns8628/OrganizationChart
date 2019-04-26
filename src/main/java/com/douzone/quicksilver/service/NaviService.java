@@ -72,10 +72,10 @@ public class NaviService {
 		return naviDao.getDeptList(map);
 	}
 	
-	public List<EmployeesVo> getEmpList(String seq, String langCode){
+	public List<EmployeesVo> getEmpInfo(String seq, String langCode){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("langCode", langCode);
-		return naviDao.getEmpList(map);
+		return naviDao.getEmpInfo(map);
 	}
 }
