@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +24,12 @@ public class SearchController {
 	@ResponseBody
 	@RequestMapping("/{selectSearch}/{kwd}")
 	public JSONResult search( @PathVariable String selectSearch,
-								@PathVariable String kwd) {
-		System.out.println(kwd);
-		return JSONResult.success(searchService.Employeelist(kwd, selectSearch));
+								@PathVariable String kwd, HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode));
 	}
 	
 }
