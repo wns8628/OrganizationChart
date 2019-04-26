@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.EmployeeService;
@@ -55,10 +56,10 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value = "/profileImageUpload", method = RequestMethod.POST)
-	public void profileImageUpload(@RequestPart("profilePicture") javax.servlet.http.Part profilePicture) throws IOException {
+	public void profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture) throws IOException {
 		System.out.println("여어기까지왔다");
 		
-		System.out.println(profilePicture.getSubmittedFileName());
+		System.out.println(profilePicture.getOriginalFilename());
 		fileuploadService.restore(profilePicture);
 		//profilePicture.write("/test/" + profilePicture.getSubmittedFileName());
 		
