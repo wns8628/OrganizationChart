@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,5 +38,15 @@ public class EmployeeController {
 		employeesVo.setLangCode(langCode);
 		
 		return JSONResult.success(employeeService.getdetailEmployeeInfo(employeesVo));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getEmpInfo/{seq}")
+	public JSONResult getEmpInfo(@PathVariable String seq, HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		return JSONResult.success(employeeService.getEmpInfo(seq, langCode));
 	}
 }

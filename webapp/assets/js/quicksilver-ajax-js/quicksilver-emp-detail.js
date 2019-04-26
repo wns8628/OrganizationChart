@@ -138,6 +138,7 @@ var empDetailRender = function(vo){
 $(function(){
 	$(document).on("click", "tbody tr", function(event){	
 		let empNum = this.children[0].innerHTML;
+		console.log(empNum);
 		let empPath= $(this).children().children("img").attr("src");
 		let langCode = 'kr';
 		
@@ -150,6 +151,7 @@ $(function(){
 		      dataType:"json",
 		      data:"",
 		      success: function(response){
+		    	  console.log($(response.data)[0]);
 		    	  empDetailRender($(response.data)[0]);
 		      },
 		      error: function(xhr, status, e){

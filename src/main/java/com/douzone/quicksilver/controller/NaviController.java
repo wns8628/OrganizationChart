@@ -54,7 +54,7 @@ public class NaviController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getEmpInfo/{seq}")
+	@RequestMapping("/getEmpInfoByDept/{seq}")
 	public JSONResult getEmpInfo(@PathVariable String seq, HttpSession session) {
 		String langCode = (String) session.getAttribute("langCode");
 		if(langCode == null) {

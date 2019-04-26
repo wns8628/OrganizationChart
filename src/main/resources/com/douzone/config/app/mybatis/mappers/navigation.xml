@@ -37,7 +37,7 @@
 	</select>
 
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
-		select a.emp_name as empName, b.사원번호 as empSeq, b.직급 as positionCode, b.직책 as dutyCode, c.부서명 as deptName, c.주부서여부 as mainDeptYn, c.사업장시퀀스 as bizSeq, c.회사시퀀스 as compSeq, c.그룹시퀀스 as groupSeq, 
+		select a.emp_name as empName, b.사원번호 as empNum, b.직급 as positionCode, b.직책 as dutyCode, c.부서명 as deptName, c.주부서여부 as mainDeptYn, c.사업장시퀀스 as bizSeq, c.회사시퀀스 as compSeq, c.그룹시퀀스 as groupSeq, 
 				if(b.성별 = 'M', '남', '여') as genderCode, (left(now(), 4)-left(b.생일, 4))+1 as bDay
   		from t_co_emp_multi a,(select emp.emp_seq as 사원번호,
   								emp.bday as 생일,

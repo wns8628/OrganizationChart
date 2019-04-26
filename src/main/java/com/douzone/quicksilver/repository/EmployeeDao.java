@@ -1,6 +1,7 @@
 package com.douzone.quicksilver.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,9 @@ public class EmployeeDao {
 	
 	public EmployeesVo get(EmployeesVo employeesVo) {
 		return sqlSession.selectOne("employees.getdetailEmployeeInfo", employeesVo);
+	}
+	
+	public List<EmployeesVo> getEmpInfo(Map<String, Object> map){
+		return sqlSession.selectList("employees.getEmpInfo", map);
 	}
 }

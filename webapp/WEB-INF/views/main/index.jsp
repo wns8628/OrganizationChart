@@ -112,7 +112,7 @@ var getBizList = function(seq){
 
 var getEmpInfo = function(seq){
 	$.ajax({
-		url:"${pageContext.servletContext.contextPath }/getEmpInfo/"+seq,
+		url:"${pageContext.servletContext.contextPath }/getEmpInfoByDept/"+seq,
 		type:"get",
 		dataType:"json",
 		data:"",

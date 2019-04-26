@@ -1,5 +1,9 @@
 package com.douzone.quicksilver.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,13 @@ public class EmployeeService {
 	
 	public EmployeesVo getdetailEmployeeInfo(EmployeesVo employeesVo) {
 		return employeeDao.get(employeesVo);
+	}
+	
+	public List<EmployeesVo> getEmpInfo(String seq, String langCode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("langCode", langCode);
+		return employeeDao.getEmpInfo(map);
 	}
 	
 //	public Long insertEmployee(EmployeesVo employeesVo) {
