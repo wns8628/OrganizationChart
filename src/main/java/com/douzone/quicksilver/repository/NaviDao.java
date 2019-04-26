@@ -58,7 +58,6 @@ public class NaviDao {
 	}
 	
 	public List<EmployeesVo> getEmpInfo(Map<String, Object> map){
-		System.out.println(((EmployeesVo)sqlSession.selectList("navigation.getEmpInfo", map).get(1)).getEmpSeq());
 		return sqlSession.selectList("navigation.getEmpInfo", map);
 	}
 	
