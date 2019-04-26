@@ -50,10 +50,10 @@ public class MysiteWebApplicationInitializer extends AbstractAnnotationConfigDis
 //	}
 
 	
-	@Override
-	protected void customizeRegistration(Dynamic registration) {
-		registration.setMultipartConfig( new MultipartConfigElement("/tmp/upload", 2100000, 4200000, 0));
-	}
+//	@Override
+//	protected void customizeRegistration(Dynamic registration) {
+//		registration.setMultipartConfig( new MultipartConfigElement("/tmp/upload", 2100000, 4200000, 0));
+//	}
 	
 	
 }
