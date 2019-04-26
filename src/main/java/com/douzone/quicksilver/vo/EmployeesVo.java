@@ -7,7 +7,7 @@ public class EmployeesVo {
 	 */
 	
 	private String empSeq; 					// 사용자 시퀀스
-	private String groupSeq;				// 그룹 시퀀스
+	private String groupSeq;				// 그룹 시퀀스 or 그룹명
 	private String loginId;					// 로그인 아이디
 	private String empNum;					// 사번
 	private String erpEmpNum;				// erp 사번
@@ -26,7 +26,7 @@ public class EmployeesVo {
 	private String shift;					// 근무조
 	private String jobCode;					// 직무
 	private String statusCode;				// 고용형태
-	private String mainCompSeq;				// 주 회사 시퀀스
+	private String mainCompSeq;				// 주 회사 시퀀스 or 회사명
 	private String mainCompLoginYn;			// 기본로그인회사 사용여부
 	private String dutyCode;				// 직책
 	private String positionCode;			// 직급
@@ -67,6 +67,33 @@ public class EmployeesVo {
 	
 	private String deptName;				// 부서명
 	
+	/*
+	 * 상세한 직원정보를 위한 필드
+	 */
+	
+	private Long age; 						// 나이
+	private String bizName;					// 사업장 명
+	private String langCode;				// 언어 코드
+	
+	
+	public Long getAge() {
+		return age;
+	}
+	public void setAge(Long age) {
+		this.age = age;
+	}
+	public String getBizName() {
+		return bizName;
+	}
+	public void setBizName(String bizName) {
+		this.bizName = bizName;
+	}
+	public String getLangCode() {
+		return langCode;
+	}
+	public void setLangCode(String langCode) {
+		this.langCode = langCode;
+	}
 	public String getEmpName() {
 		return empName;
 	}
@@ -409,7 +436,8 @@ public class EmployeesVo {
 				+ ", lsRoleID=" + lsRoleID + ", createSeq=" + createSeq + ", createDate=" + createDate + ", modifySeq="
 				+ modifySeq + ", modifyDate=" + modifyDate + ", springSecu=" + springSecu + ", springDate=" + springDate
 				+ ", signType=" + signType + ", empName=" + empName + ", addr=" + addr + ", detailAddr=" + detailAddr
-				+ ", mainWork=" + mainWork + "]";
+				+ ", mainWork=" + mainWork + ", deptName=" + deptName + ", age=" + age + ", bizName=" + bizName
+				+ ", langCode=" + langCode + "]";
 	}
 	
 	
