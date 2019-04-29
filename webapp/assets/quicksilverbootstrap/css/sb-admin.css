@@ -3677,6 +3677,10 @@ input[type="button"].btn-block {
   width: 100%;
 }
 
+.input-group> div {
+	padding-top:8;
+}
+
 .input-group > .form-control,
 .input-group > .form-control-plaintext,
 .input-group > .custom-select,

@@ -46,13 +46,15 @@ public class EmployeeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getEmpInfo/{seq}")
-	public JSONResult getEmpInfo(@PathVariable String seq, HttpSession session) {
+	@RequestMapping("/getEmpInfo/{seq}/{type}")
+	public JSONResult getEmpInfo(@PathVariable String seq,
+								 @PathVariable String type,
+								HttpSession session) {
 		String langCode = (String) session.getAttribute("langCode");
 		if(langCode == null) {
 			langCode = "kr";
 		}
-		return JSONResult.success(employeeService.getEmpInfo(seq, langCode));
+		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode));
 	}
 	
 	@RequestMapping(value = "/profileImageUpload", method = RequestMethod.POST)
