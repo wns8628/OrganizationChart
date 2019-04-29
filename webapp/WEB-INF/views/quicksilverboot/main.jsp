@@ -36,13 +36,11 @@
 		                  <thead>
 		                    <tr>
 		                      <th>사원번호</th>
-		                      <th>프로필</th>
 		                      <th>이름</th>
 		                      <th>나이</th>
 		                      <th>성별</th>
 		                      <th>직급</th>
-		                      <th>이메일</th>
-		                      <th>전화번호</th>
+		                      <th>직책</th>
 		                      <th>부서</th>
 		                    </tr>
 		                  </thead>

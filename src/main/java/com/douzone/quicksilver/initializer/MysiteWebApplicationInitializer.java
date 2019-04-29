@@ -1,6 +1,8 @@
 package com.douzone.quicksilver.initializer;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -48,5 +50,10 @@ public class MysiteWebApplicationInitializer extends AbstractAnnotationConfigDis
 //	}
 
 	
-
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig( new MultipartConfigElement("/usr/local/quicksilver/xorwnTest/upload", 2100000, 4200000, 0));
+	}
+	
+	
 }
