@@ -45,6 +45,7 @@ var empDetailRender = function(vo){
 		"												</form>\r\n" + 
 		"				                            </div>\r\n" +
 		" 												<form action=\"" + contextPath + "/profileImageUpload\"  method=\"POST\" th:object=\"${spitter}\" enctype=\"multipart/form-data\">\r\n" +
+		"				                                    <input type=\"hidden\" name=\"empSeq\" value=\"" + vo.empSeq + "\">\r\n" + 
 		"				                                    <input type=\"file\" name=\"profilePicture\" class=\"file-uploader pull-left\">\r\n" + 
 		"				                                    <button type=\"submit\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
 		"												</form>\r\n" + 
