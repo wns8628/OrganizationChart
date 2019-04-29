@@ -71,16 +71,19 @@ div.result-wrapper .tbl-result th{ border: 1px solid #777; }
 <script type="text/javascript">
 $(function(){
 	$("div.parent-menu").click(function(){
-		if($(this).next().css("display") == "none"){
-			$(this).addClass("active");
-			$(this).next().show();
-			$(".icon1").hide();
-			$(".icon2").show();
+		$this = $(this);
+		$icon1 = $this.children().next();
+		$icon2 = $this.children().next().next();
+		if($this.next().css("display") == "none"){
+			$this.addClass("active");
+			$this.next().show();
+			$icon1.hide();
+			$icon2.show();
 		}else{
-			$(this).removeClass("active");
-			$(this).next().hide();
-			$(".icon1").show();
-			$(".icon2").hide();
+			$this.removeClass("active");
+			$this.next().hide();
+			$icon1.show();
+			$icon2.hide();
 		}
 	});
    
@@ -105,7 +108,6 @@ $(function(){
 				<span>회사/조직관리</span>
 				<img class="icon1" alt="" src="${pageContext.servletContext.contextPath }/assets/images/triangle.png">
 				<img class="icon2" alt="" src="${pageContext.servletContext.contextPath }/assets/images/triangle2.png">
-<!-- 				<div></div> -->
 			</div>
 			<div class="menu">
 				<ul>
@@ -116,7 +118,11 @@ $(function(){
 					<li>회사그룹핑관리</li>
 				</ul>
 			</div>
-			<div class="parent-menu"><span>사원관리</span><img alt="" src="${pageContext.servletContext.contextPath }/assets/images/triangle.png"></div>
+			<div class="parent-menu">
+				<span>사원관리</span>
+				<img class="icon1" alt="" src="${pageContext.servletContext.contextPath }/assets/images/triangle.png">
+				<img class="icon2" alt="" src="${pageContext.servletContext.contextPath }/assets/images/triangle2.png">
+			</div>
 			<div class="menu">
 				<ul>
 					<li>사원정보관리</li>
