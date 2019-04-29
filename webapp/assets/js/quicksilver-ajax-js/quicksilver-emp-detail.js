@@ -41,7 +41,7 @@ var empDetailRender = function(vo){
 			"				                                <div class=\"form-inline col-md-10 col-sm-9 col-xs-12\">\r\n" + 
 			"				                                    <input type=\"hidden\" name=\"profilePicture\" accept=\"image/jpg, image/png\" class=\"file-uploader pull-left\">\r\n" + 
 			"				                                    <button style=\"display: none;\" type=\"hidden\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
-			"				                                </div>\r\n" + 
+			"				                                </div>\r\n"  + 
 		"												</form>\r\n" + 
 		"				                            </div>\r\n" +
 		" 												<form action=\"" + contextPath + "/profileImageUpload\"  method=\"POST\" th:object=\"${spitter}\" enctype=\"multipart/form-data\">\r\n" +
