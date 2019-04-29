@@ -16,6 +16,7 @@ let searchClick = function() { // 검색창에서 어떤키를 눌렀을때
 
 //매핑된 url을 전달
 var search = function(selectSearch, kwd){
+	console.log(selectSearch)
 	$(".card-header").empty();
 	renderTableDepartmentName("Search");
 	makeTable("/boot/search/" + selectSearch + "/" + kwd);
