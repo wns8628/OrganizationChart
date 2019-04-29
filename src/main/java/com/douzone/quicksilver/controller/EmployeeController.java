@@ -1,6 +1,6 @@
 package com.douzone.quicksilver.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +20,6 @@ import com.douzone.quicksilver.service.FileuploadService;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
-@RequestMapping("/{id:(?!assets|uploads).*}")
 public class EmployeeController {
 	
 	@Autowired
@@ -57,11 +57,15 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value = "/profileImageUpload", method = RequestMethod.POST)
-	public void profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture) throws IOException {
-		System.out.println("여어기까지왔다");
+	public void profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture,
+								   @RequestParam("empSeq") String empSeq) throws IOException {
 		
 		System.out.println(profilePicture.getOriginalFilename());
-		fileuploadService.restore(profilePicture);
+		String profilePicturePath = fileuploadService.restore(profilePicture);
+		System.out.println(profilePicturePath);
+		
+		System.out.println("empSeq : " + empSeq);
+		fileuploadService.updateProfilePicture(profilePicturePath, empSeq);
 		//profilePicture.write("/test/" + profilePicture.getSubmittedFileName());
 		
 	}

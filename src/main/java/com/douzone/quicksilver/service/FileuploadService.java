@@ -8,12 +8,21 @@ import java.util.Calendar;
 
 import javax.servlet.http.Part;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.douzone.quicksilver.repository.EmployeeDao;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
 public class FileuploadService 
 {	
+	@Autowired
+	private EmployeeDao employeeDao;
+	
+	private final String mappingUrl = "/uploads/images/";
+	
 	public String restore( MultipartFile profilePicture)
 	{
 		String url = "";
@@ -34,6 +43,8 @@ public class FileuploadService
 			
 			String saveFileName = generateSaveFileName(extName);
 			profilePicture.transferTo(new File(saveFileName));
+			
+			return mappingUrl + saveFileName;
 //			long filesize = profilePicture.getSize();
 //			
 //			System.out.println("###############" + originalFileName);
@@ -70,5 +81,13 @@ public class FileuploadService
 		fileName += ("." + extName);
 
 		return fileName;
+	}
+	
+	public int updateProfilePicture(String path, String empSeq) {
+		EmployeesVo employeesVo = new EmployeesVo();
+		employeesVo.setPicFileID(path);
+		employeesVo.setEmpSeq(empSeq);
+		
+		return employeeDao.update(employeesVo);
 	}
 }

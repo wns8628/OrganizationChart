@@ -203,6 +203,7 @@
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
 		<![CDATA[
 			SELECT 
+				emp.emp_seq as empSeq,
 				b.emp_name AS empName,
 				DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y') AS age,
 				if(emp.gender_code = 'M', '남', '여') AS genderCode,
@@ -258,4 +259,10 @@
 		        AND emp.emp_seq = #{empNum};
 		]]>
 	</select>
+	
+	<update id="profilePictureUpdate" parameterType="employeesvo">
+		<![CDATA[
+			update t_co_emp set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
+		]]>
+	</update>
 </mapper>

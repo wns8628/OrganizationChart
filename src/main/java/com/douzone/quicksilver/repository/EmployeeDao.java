@@ -39,4 +39,8 @@ public class EmployeeDao {
 	public List<EmployeesVo> getEmpInfo(Map<String, Object> map){
 		return sqlSession.selectList("employees.getEmpInfo", map);
 	}
+	
+	public int update(EmployeesVo employeesVo) {
+		return sqlSession.update("employees.profilePictureUpdate", employeesVo);
+	}
 }
