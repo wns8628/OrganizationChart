@@ -85,6 +85,6 @@ public class MVCConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler( "/uploads/images/**" )
-		.addResourceLocations( "/usr/local/quicksilver/xorwnTest/upload/" );
+		.addResourceLocations( "file:/usr/local/quicksilver/xorwnTest/upload/" );
 	}
 }

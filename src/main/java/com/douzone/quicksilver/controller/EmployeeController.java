@@ -19,6 +19,7 @@ import com.douzone.quicksilver.service.FileuploadService;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
+@RequestMapping("/{id:(?!assets|uploads).*}")
 public class EmployeeController {
 	
 	@Autowired
