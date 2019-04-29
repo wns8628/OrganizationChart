@@ -57,7 +57,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value = "/profileImageUpload", method = RequestMethod.POST)
-	public void profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture,
+	public String profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture,
 								   @RequestParam("empSeq") String empSeq) throws IOException {
 		
 		System.out.println(profilePicture.getOriginalFilename());
@@ -68,5 +68,6 @@ public class EmployeeController {
 		fileuploadService.updateProfilePicture(profilePicturePath, empSeq);
 		//profilePicture.write("/test/" + profilePicture.getSubmittedFileName());
 		
+		return "redirect:/boot";
 	}
 }
