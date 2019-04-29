@@ -39,8 +39,8 @@ var empDetailRender = function(vo){
 		"				                                </figure>\r\n" + 
 		" 												<form style=\"display: none;\"action=\"profileImageUpload\"  method=\"POST\" enctype=\"multipart/form-data\">\r\n" +
 			"				                                <div class=\"form-inline col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-			"				                                    <input type=\"file\" name=\"profilePicture\" accept=\"image/jpg, image/png\" class=\"file-uploader pull-left\">\r\n" + 
-			"				                                    <button type=\"submit\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
+			"				                                    <input type=\"hidden\" name=\"profilePicture\" accept=\"image/jpg, image/png\" class=\"file-uploader pull-left\">\r\n" + 
+			"				                                    <button style=\"display: none;\" type=\"hidden\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
 			"				                                </div>\r\n" + 
 		"												</form>\r\n" + 
 		"				                            </div>\r\n" +

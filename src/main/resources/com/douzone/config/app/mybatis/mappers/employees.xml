@@ -223,7 +223,7 @@
 			SELECT 
 				emp.emp_seq as empSeq,
 				b.emp_name AS empName,
-				DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y') AS age,
+				(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y')) + 1 AS age,
 				if(emp.gender_code = 'M', '남', '여') AS genderCode,
 		    (SELECT 
 		            group_name
