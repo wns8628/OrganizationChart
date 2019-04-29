@@ -20,7 +20,7 @@ var deptRender = function(vo){
 }
 
 var bizRender = function(vo){
-	var htmls = "<li class='departments dropdown-item' class='biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:10px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
+	var htmls = "<li class='biz dropdown-item' class='biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:10px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
 
@@ -195,6 +195,21 @@ $(function(){
 	   }
    });
    
+   //사업장 목록
+   $(document).on("click", ".biz", function(event){
+	  var seq = $(this).attr("data-no");
+	  if($(this).next().children().length > 0){
+		  $(this).next().children().remove();
+	  }else{
+		   getList(seq);
+	  }
+	  let departmentNo = $(this).attr('data-no');
+	  let departmentName = $(this).html();
+		makeTable("/getEmpInfo/" + seq + "/b");
+		renderTableDepartmentName(departmentName, departmentNo);
+//			getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
+   });
+	
    //부서 목록
    $(document).on("click", ".departments", function(event){
 	  var seq = $(this).attr("data-no");
@@ -205,7 +220,7 @@ $(function(){
 	  }
 	  let departmentNo = $(this).attr('data-no');
 	  let departmentName = $(this).html();
-		makeTable("/getEmpInfo/" + seq);
+		makeTable("/getEmpInfo/" + seq + "/d");
 		renderTableDepartmentName(departmentName, departmentNo);
 //		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
    });

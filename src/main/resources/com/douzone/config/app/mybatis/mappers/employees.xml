@@ -5,70 +5,61 @@
 <mapper namespace="employees">
 	
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
-		select a.emp_name as empName, b.사원번호 as empNum, b.직급 as positionCode, b.직책 as dutyCode, c.부서명 as deptName, c.주부서여부 as mainDeptYn, c.사업장시퀀스 as bizSeq, c.회사시퀀스 as compSeq, c.그룹시퀀스 as groupSeq, 
-				if(b.성별 = 'M', '남', '여') as genderCode, (left(now(), 4)-left(b.생일, 4))+1 as bDay
-  		from t_co_emp_multi a,(select emp.emp_seq as 사원번호,
-  								emp.bday as 생일,
-                                emp.pic_file_id as 프로필,
-                                emp.gender_code as 성별,
-                                pmp.dp_name as 직급,
-                                pmd.dp_name as 직책,
-                                emp.email_addr as 이메일,
-                                emp.mobile_tel_num as 전화번호
-                           from t_co_emp emp
-                LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-                             ON emp.position_code = pmp.dp_seq
-                            AND pmp.lang_code = #{langCode}
-                            AND pmp.dp_type = 'POSITION'
-                LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-                             ON emp.duty_code = pmd.dp_seq
-                            AND pmd.dp_type = 'DUTY') b, ( select a.emp_seq as '사원번호',
-                                                                   e.dept_name as '부서명',
-                                                                   b.main_dept_yn as '주부서여부',
-                                                                   b.biz_seq as '사업장시퀀스',
-                                                                   b.comp_seq as '회사시퀀스',
-                                                                   b.group_seq as '그룹시퀀스'
-                                                              from t_co_emp a, t_co_emp_dept b, t_co_dept d, t_co_dept_multi e
-                                                             where a.emp_seq = b.emp_seq
-                                                               and b.dept_seq = d.dept_seq
-                                                               and d.dept_seq = e.dept_seq
-                                                               and e.lang_code = #{langCode}
-                                                               and d.dept_seq = #{seq}) c
- 		where a.emp_seq = b.사원번호
-   		and b.사원번호 = c.사원번호;
+		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
+		    a.dp_name as dutyCode, b.dp_name as positionCode
+		from
+			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
+			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
+			where a.emp_seq = b.emp_seq
+			and b.emp_seq = c.emp_seq
+			and c.dept_seq = d.dept_seq
+			and c.duty_code = e.dp_seq
+			and b.lang_code = #{langCode}
+			and d.lang_code = #{langCode}
+			and e.lang_code = #{langCode}
+		<choose>
+			<when test='type == "b"'>
+				and c.biz_seq = #{seq}) a
+			</when>
+			<when test='type == "d"'>
+				and c.dept_seq = #{seq}) a
+			</when>
+		</choose>
+		left outer join t_co_comp_duty_position_multi b
+		on a.position_code = b.dp_seq
+		and b.lang_code = #{langCode}
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-		select distinct a.emp_name as empName, b.사원번호 as empNum, b.직급 as positionCode, b.직책 as dutyCode, c.부서명 as deptName, c.주부서여부 as mainDeptYn, c.사업장시퀀스 as bizSeq, c.회사시퀀스 as compSeq, c.그룹시퀀스 as groupSeq,
-		 		if(b.성별 = 'M', '남', '여') as genderCode, (left(now(), 4)-left(b.생일, 4))+1 as bDay
- 		from t_co_emp_multi a,(select emp.emp_seq as 사원번호,
-								emp.bday as 생일,
-                               emp.pic_file_id as 프로필,
-                               emp.gender_code as 성별,
-                               pmp.dp_name as 직급,
-                               pmd.dp_name as 직책
-                          from t_co_emp emp
-               LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-                            ON emp.position_code = pmp.dp_seq
-                           AND pmp.lang_code ='kr'
-                           AND pmp.dp_type = 'POSITION'
-               LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-                            ON emp.duty_code = pmd.dp_seq
-                           AND pmd.dp_type = 'DUTY') b, ( select a.emp_seq as '사원번호',
-                                                                  e.dept_name as '부서명',
-                                                                  b.main_dept_yn as '주부서여부',
-                                                                  b.biz_seq as '사업장시퀀스',
-                                                                  b.comp_seq as '회사시퀀스',
-                                                                  b.group_seq as '그룹시퀀스'
-                                                             from t_co_emp a, t_co_emp_dept b, t_co_emp_comp c, t_co_dept d, t_co_dept_multi e
-                                                            where a.emp_seq = b.emp_seq
-                                                              and b.dept_seq = c.dept_seq
-                                                              and b.dept_seq = d.dept_seq
-                                                              and d.dept_seq = e.dept_seq
-                                                              and e.lang_code = 'kr') c
-		where a.emp_seq = b.사원번호
-  		and b.사원번호 = c.사원번호
-  		and a.emp_name = #{kwd};
+		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
+		    a.dp_name as dutyCode, b.dp_name as positionCode
+		from	
+			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code, f.biz_name
+			   from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e, t_co_biz_multi f
+			  where a.emp_seq = b.emp_seq
+			    and b.emp_seq = c.emp_seq
+			    and c.dept_seq = d.dept_seq
+			    and c.duty_code = e.dp_seq
+		        and f.biz_seq = c.biz_seq
+		        and b.lang_code = #{langCode}
+				and d.lang_code = #{langCode}
+				and e.lang_code = #{langCode}
+  		<choose>
+			<when test='selectSearch == "emp"'>
+				and b.emp_name = #{kwd}) a
+			</when>
+			<when test='selectSearch == "dept"'>
+				and d.dept_name = #{kwd}) a
+			</when>
+			<when test='selectSearch == "biz"'>
+				and f.biz_name  = #{kwd}) a
+			</when>
+		</choose>
+		left outer join t_co_comp_duty_position_multi b
+		on a.position_code = b.dp_seq
+		and b.lang_code = #{langCode}
 	</select>
 	
 	<select id="getDepartmentEmployeeInfo" 
