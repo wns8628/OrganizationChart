@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+		select distinct a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
 			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
 		    a.dp_name as dutyCode, b.dp_name as positionCode
 		from	
