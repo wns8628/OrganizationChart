@@ -52,7 +52,7 @@ public class MysiteWebApplicationInitializer extends AbstractAnnotationConfigDis
 	
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
-		registration.setMultipartConfig( new MultipartConfigElement("/xorwnTest/upload", 2100000, 4200000, 0));
+		registration.setMultipartConfig( new MultipartConfigElement("/usr/local/quicksilver/xorwnTest/upload", 2100000, 4200000, 0));
 	}
 	
 	
