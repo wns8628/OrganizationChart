@@ -20,10 +20,11 @@ public class EmployeeService {
 		return employeeDao.get(employeesVo);
 	}
 	
-	public List<EmployeesVo> getEmpInfo(String seq, String langCode){
+	public List<EmployeesVo> getEmpInfo(String seq, String type,String langCode){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("langCode", langCode);
+		map.put("type", type);
 		return employeeDao.getEmpInfo(map);
 	}
 	

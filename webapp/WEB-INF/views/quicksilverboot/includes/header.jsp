@@ -10,14 +10,16 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
     <a class="navbar-brand mr-1" href="${pageContext.request.contextPath }/boot">Quick Silver(douzone)</a>
 	
-	<select id="search-opt">
-		<option value="emp">사원</option>
-		<option value="biz">사업장</option>
-		<option value="dept">부서</option>
-	</select>
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
       <div class="input-group">
+	    <div>
+			<select id="search-opt" class="custom-select custom-select-sm">
+					<option value="emp" >사원</option>
+					<option value="biz" >사업장</option>
+					<option value="dept">부서</option>			
+			</select>    
+	    </div>
         <input type="text" class="form-control" placeholder="검색..." aria-label="kwd" aria-describedby="basic-addon2">
         <div class="input-group-append">
           <button class="btn btn-primary search" id="search-button" type="button">

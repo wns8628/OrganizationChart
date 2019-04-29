@@ -39,8 +39,8 @@ var empDetailRender = function(vo){
 		"				                                </figure>\r\n" + 
 		" 												<form style=\"display: none;\"action=\"profileImageUpload\"  method=\"POST\" enctype=\"multipart/form-data\">\r\n" +
 			"				                                <div class=\"form-inline col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-			"				                                    <input type=\"file\" name=\"profilePicture\" accept=\"image/jpg, image/png\" class=\"file-uploader pull-left\">\r\n" + 
-			"				                                    <button type=\"submit\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
+			"				                                    <input type=\"hidden\" name=\"profilePicture\" accept=\"image/jpg, image/png\" class=\"file-uploader pull-left\">\r\n" + 
+			"				                                    <button style=\"display: none;\" type=\"hidden\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
 			"				                                </div>\r\n" + 
 		"												</form>\r\n" + 
 		"				                            </div>\r\n" +
@@ -49,7 +49,6 @@ var empDetailRender = function(vo){
 		"				                                    <input type=\"file\" name=\"profilePicture\" class=\"file-uploader pull-left\">\r\n" + 
 		"				                                    <button type=\"submit\" class=\"btn btn-sm btn-default-alt pull-left\">Update Image</button>\r\n" + 
 		"												</form>\r\n" + 
-
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
 		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">이름</label>\r\n" + 
