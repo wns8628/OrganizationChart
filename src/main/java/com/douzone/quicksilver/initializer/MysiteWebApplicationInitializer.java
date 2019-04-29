@@ -1,6 +1,6 @@
 package com.douzone.quicksilver.initializer;
 
-import javax.servlet.Filter;
+import javax.servlet.Filter; 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
@@ -54,6 +54,7 @@ public class MysiteWebApplicationInitializer extends AbstractAnnotationConfigDis
 	protected void customizeRegistration(Dynamic registration) {
 		registration.setMultipartConfig( new MultipartConfigElement("/usr/local/quicksilver/tomcat/webapps/quicksilver/xorwnTest/upload", 2100000, 4200000, 0));
 	}
+	
 	
 	
 }
