@@ -24,6 +24,7 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/deptCom.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/deptManager.xml" />   
       <mapper resource="/com/douzone/config/app/mybatis/mappers/biz.xml" />   
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/admin.xml" />   
       
       <!-- <mapper resource="/com/douzone/config/app/mybatis/mappers/mastergroup.xml" />    -->
    </mappers> 

@@ -39,7 +39,7 @@ div.navi div.menu ul{margin-left: 30px; padding-top: 10px; padding-bottom: 10px;
 div.navi div.menu li:not(:first-child){margin-top: 5px;}
 div.navi div.menu li:hover a{font-weight:bold ; color: #328CF5; cursor: pointer;}
 div.navi img.navi-icon {height: 100%; width: 16px;}
-div#contents { background-color: #f9f9f9; min-height: 484.65px; min-width: 800px; height:100%; width: 81.5%; padding: 1%; float: right;}
+div#contents { background-color: #f9f9f9; min-height: 469.47px; min-width: 800px; height:100%; width: 81.5%; padding: 1%; float: right;}
 
 div.tbl-wrapper { width : 96%; padding: 2%;}
 
@@ -47,10 +47,13 @@ div#contents .tbl-result{ width: 100%; border: 1px solid #777; border-collapse:c
 div#contents .tbl-result td{ border: 1px solid #777; text-align: center;}
 div#contents .tbl-result th{ border: 1px solid #777; }
 
-div#contents div#contents-header {height: 18px; padding-bottom: 20px;}
+div#contents div#contents-header {height: 18px; padding-bottom: 20px; width: 100%}
 div#contents div#contents-header img.home{ width: 16px; height: 16px; margin-top: 2px; margin-bottom: 2px; vertical-align: middle;}
 div#contents div#contents-header img.next{ width: 6px; height: 6px; margin: 6px 3px; vertical-align: middle;}
 div#contents div#contents-header span { width: 16px; line-height: 18px; vertical-align: middle; color: #7C7C7C; font-weight: bold;}
+div#contents table { border: 1px solid #B2B2B2;  border-collapse:collapse; width: 15%; height: 100%;}
+div#contents table td{ border: 1px solid #B2B2B2; text-align: center; height: 20px;}
+div#contents table th{ border: 1px solid #B2B2B2; height: 20px;}
 
 .icon2 {display: none;}
 

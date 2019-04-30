@@ -33,10 +33,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1234</td>
-						<td>QS케미칼</td>
-					</tr>
+					<c:forEach items="${compList }" var="vo">
+						<tr>
+							<td>${vo.compSeq }</td>
+							<td>${vo.compName }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
