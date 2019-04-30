@@ -12,4 +12,9 @@ public class AdminController {
 		
 		return "main/admin";
 	}
+	
+	@RequestMapping("/compMgr")
+	public String compMgr() {
+		return "admin/comp-mgr";
+	}
 }
