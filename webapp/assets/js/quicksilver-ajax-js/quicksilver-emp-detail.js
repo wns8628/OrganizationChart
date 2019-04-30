@@ -143,8 +143,8 @@ var empDetailRender = function(vo){
 }
 
 var getparents = function(deptSeq){
+	console.log(deptSeq + "머시여");
 	let langCode = 'kr';
-	console.log(deptSeq +"asdasdasdsada");
 	$.ajax({
 		url: contextPath + "/getdetailNavPointParents/" + deptSeq + "/" + langCode,
 		type:"get",
@@ -154,8 +154,8 @@ var getparents = function(deptSeq){
 		success: function(response){
 			 if(response.data < 100000 && response.data != null ){
 				 getparents(response.data); //재귀로 맨위에부터 펼쳐지게함 
-				 getListSearch(response.data,deptSeq);	
 				 console.log("여가나중이고");
+				 getListSearch(response.data, deptSeq);	
 			 }else{
 				 console.log("여기가먼저일거아녀");
 				 getListSearch(response.data,deptSeq);								 
@@ -189,9 +189,9 @@ $(function(){
 		    	  $("div[data-no='"+ compSeq +"']").next("ul").attr('class','dropdown-menu show');
 		    	  
 		    	  getBizList(compSeq);
+		    	  console.log("여가처음 사업장")
 		    	  getparents(deptSeq);
 		    	  console.log("언제??")
-		    	  
 		      },
 		      error: function(xhr, status, e){
 		         console.error(status+":"+e);
