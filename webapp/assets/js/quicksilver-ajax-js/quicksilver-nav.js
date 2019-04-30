@@ -14,9 +14,12 @@ var deptRender = function(vo){
 	console.log('여안옴??')
    var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.deptLevel+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
+	   console.log("사업장 바로 밑 부서가 아님")
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
-	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
+	   console.log("사업장 바로 밑 부서")
+	   console.log( $("ul[c-no=1]").children());
+	   $('ul[b-no="' + vo.parentDeptSeq + '"]').append(htmls);
    }
    
 //   $("li[data-no='"+vo.parentDeptSeq+"'] span").css("color","red"); //고치자
@@ -101,8 +104,10 @@ var getListSearch = function(seq, pseq){
       type:"get",
       dataType:"json",
       data:"",
+      async: false,
       success: function(response){   	
     	 $(response.data).each(function(index, vo){
+    		 console.log("부서렌더")
             deptRender(vo)
          });
     	 $("li[data-no!='"+pseq+"']").css("color","black");
@@ -120,6 +125,7 @@ var getBizList = function(seq){
 	      type:"get",
 	      dataType:"json",
 	      data:"",
+	      async: false,
 	      success: function(response){
 	         $(response.data).each(function(index, vo){
 	            bizRender(vo)
@@ -218,6 +224,7 @@ $(function(){
 //		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
 //	});
 	$(document).on("click", ".company", function(event){
+		console.log("회사클릭")
 	   var seq = $(this).attr("data-no");
 	   if($(this).next().children().length > 0){
 		   $(this).next().children().remove();
