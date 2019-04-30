@@ -51,9 +51,9 @@ div#contents div#contents-header {height: 18px; padding-bottom: 20px; width: 100
 div#contents div#contents-header img.home{ width: 16px; height: 16px; margin-top: 2px; margin-bottom: 2px; vertical-align: middle;}
 div#contents div#contents-header img.next{ width: 6px; height: 6px; margin: 6px 3px; vertical-align: middle;}
 div#contents div#contents-header span { width: 16px; line-height: 18px; vertical-align: middle; color: #7C7C7C; font-weight: bold;}
-div#contents table { border: 1px solid #B2B2B2;  border-collapse:collapse; width: 15%; height: 100%;}
-div#contents table td{ border: 1px solid #B2B2B2; text-align: center; height: 20px;}
-div#contents table th{ border: 1px solid #B2B2B2; height: 20px;}
+div#contents table#company-table { border: 1px solid #B2B2B2;  border-collapse:collapse; width: 15%; height: 100%; float: left;}
+div#contents table#company-table td{ border: 1px solid #B2B2B2; text-align: center; height: 20px;}
+div#contents table#company-table th{ border: 1px solid #B2B2B2; height: 20px;}
 
 .icon2 {display: none;}
 
