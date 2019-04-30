@@ -128,6 +128,7 @@ var getBizList = function(seq){
 	      async: false,
 	      success: function(response){
 	         $(response.data).each(function(index, vo){
+	        	 console.log(response.data);
 	            bizRender(vo)
 	         });
 	      },
@@ -227,7 +228,8 @@ $(function(){
 		console.log("회사클릭")
 	   var seq = $(this).attr("data-no");
 	   if($(this).next().children().length > 0){
-		   $(this).next().children().remove();
+		   console.log("사업장 다지움");
+		   //$(this).next().children().remove();
 	   }else{
 		   getBizList(seq);
 	   }
