@@ -52,64 +52,64 @@ var empDetailRender = function(vo){
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
 		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">이름</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"" + vo.empName + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" readonly class=\"form-control inputSize\" value=\"" + vo.empName + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">나이</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.age + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.age + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">성별</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.genderCode + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.genderCode + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				        \r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
 		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">그룹</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"" + vo.groupSeq + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" readonly class=\"form-control inputSize\" value=\"" + vo.groupSeq + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">회사</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.mainCompSeq + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.mainCompSeq + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">사업장</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.bizName + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.bizName + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
 		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">결혼유무</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"" + vo.weddingYn + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" readonly class=\"form-control inputSize\" value=\"" + vo.weddingYn + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">생일</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.bDay + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.bDay + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">입사일</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.joinDay + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.joinDay + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" +
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\"make\">\r\n" + 
 		"				                             		<label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">직책</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" class=\"form-control inputSize\" value=\"" + vo.dutyCode + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\"type=\"text\" readonly class=\"form-control inputSize\" value=\"" + vo.dutyCode + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">직급</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.positionCode + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.positionCode + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                                <div style=\"display: inline-block\" class=\" make\">\r\n" + 
 		"				                               		 <label style=\"display: inline\" class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">담당업무</label>\r\n" + 
-		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" class=\"form-control\" value=\"" + vo.mainWork + "\">\r\n" + 
+		"				                                    <input style=\"width: 200px; display: block;\" type=\"text\" readonly class=\"form-control\" value=\"" + vo.mainWork + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <label class=\"col-md-2 col-sm-3 col-xs-12 control-label make\">주소</label>\r\n" + 
 		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12 make\">\r\n" + 
-		"				                                    <input type=\"text\" class=\"form-control\" value=\"" + vo.detailAddr + "\">\r\n" + 
+		"				                                    <input type=\"text\" class=\"form-control\" readonly value=\"" + vo.detailAddr + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" +
 		"				                        </fieldset>\r\n" + 
@@ -118,13 +118,13 @@ var empDetailRender = function(vo){
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <label class=\"col-md-2  col-sm-3 col-xs-12 control-label\">Email</label>\r\n" + 
 		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-		"				                                    <input type=\"email\" class=\"form-control\" value=\"" + vo.emailAddr + "\">\r\n" + 
+		"				                                    <input type=\"email\" class=\"form-control\" readonly value=\"" + vo.emailAddr + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                            <div class=\"form-group\">\r\n" + 
 		"				                                <label class=\"col-md-2  col-sm-3 col-xs-12 control-label\">폰번호</label>\r\n" + 
 		"				                                <div class=\"col-md-10 col-sm-9 col-xs-12\">\r\n" + 
-		"				                                    <input type=\"text\" class=\"form-control\" value=\"" + vo.mobileTelNum + "\">\r\n" + 
+		"				                                    <input type=\"text\" class=\"form-control\" readonly value=\"" + vo.mobileTelNum + "\">\r\n" + 
 		"				                                </div>\r\n" + 
 		"				                            </div>\r\n" + 
 		"				                        </fieldset>\r\n" + 
@@ -143,8 +143,8 @@ var empDetailRender = function(vo){
 }
 
 var getparents = function(deptSeq){
-	console.log(deptSeq + "머시여");
 	let langCode = 'kr';
+	console.log(deptSeq +"asdasdasdsada");
 	$.ajax({
 		url: contextPath + "/getdetailNavPointParents/" + deptSeq + "/" + langCode,
 		type:"get",
@@ -154,8 +154,8 @@ var getparents = function(deptSeq){
 		success: function(response){
 			 if(response.data < 100000 && response.data != null ){
 				 getparents(response.data); //재귀로 맨위에부터 펼쳐지게함 
+				 getListSearch(response.data,deptSeq);	
 				 console.log("여가나중이고");
-				 getListSearch(response.data, deptSeq);	
 			 }else{
 				 console.log("여기가먼저일거아녀");
 				 getListSearch(response.data,deptSeq);								 
@@ -189,9 +189,9 @@ $(function(){
 		    	  $("div[data-no='"+ compSeq +"']").next("ul").attr('class','dropdown-menu show');
 		    	  
 		    	  getBizList(compSeq);
-		    	  console.log("여가처음 사업장")
 		    	  getparents(deptSeq);
 		    	  console.log("언제??")
+		    	  
 		      },
 		      error: function(xhr, status, e){
 		         console.error(status+":"+e);

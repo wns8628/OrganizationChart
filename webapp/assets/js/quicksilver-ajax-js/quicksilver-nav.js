@@ -11,17 +11,18 @@
 //}
 
 var deptRender = function(vo){
-   console.log(vo.parentDeptSeq+"뭐가먼절");
+	console.log('여안옴??')
    var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.deptLevel+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
-   if(parseInt(vo.parentDeptSeq) < 10000000){					
+   if(parseInt(vo.parentDeptSeq) < 10000000){
+	   console.log("사업장 바로 밑 부서가 아님")
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
-	   
-	   console.log(vo.parentDeptSeq+"일로오잔아 1000000초과라서");			
-	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
-//	   $("ul[b-no='10000001']").append(htmls);
-//	   console.log("시발뭄너암너이ㅏㄴ머이ㅏㄴ멍");
+	   console.log("사업장 바로 밑 부서")
+	   console.log( $("ul[c-no=1]").children());
+	   $('ul[b-no="' + vo.parentDeptSeq + '"]').append(htmls);
    }
+   
+//   $("li[data-no='"+vo.parentDeptSeq+"'] span").css("color","red"); //고치자
 }
 
 var bizRender = function(vo){
@@ -91,22 +92,23 @@ var getList = function(seq){
 //    	 $("li[data-no!='"+seq+"'][depth='"+ (Number(pickDepth)+1) +"']").css("color","black"); 
       },
       error: function(xhr, status, e){
-         console.error(status+":"+e);
+         console.error(status+"::"+e);
       }
       
    });
 }
 var getListSearch = function(seq, pseq){
-	console.log("머지 : " + seq);
 	
 	$.ajax({
-      url: contextPath + "/getDept/" + seq,
+      url: contextPath + "/getDept/"+seq,
       type:"get",
       dataType:"json",
+      data:"",
       async: false,
       success: function(response){   	
     	 $(response.data).each(function(index, vo){
-            deptRender(vo);
+    		 console.log("부서렌더")
+            deptRender(vo)
          });
     	 $("li[data-no!='"+pseq+"']").css("color","black");
     	 $("li[data-no='"+pseq+"']").css("color","red"); //고치자
@@ -126,6 +128,7 @@ var getBizList = function(seq){
 	      async: false,
 	      success: function(response){
 	         $(response.data).each(function(index, vo){
+	        	 console.log(response.data);
 	            bizRender(vo)
 	         });
 	      },
@@ -145,10 +148,10 @@ var makeTable = function(url) {
           bLengthChange: true,
           lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
           bAutoWidth: false,
-          processing: true,
+          processing: false,
           ordering: true,
           serverSide: false,
-          searching: true,
+          searching: false,
           scrollY: 250,
           scrollCollapse: false,
          
@@ -222,9 +225,11 @@ $(function(){
 //		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
 //	});
 	$(document).on("click", ".company", function(event){
+		console.log("회사클릭")
 	   var seq = $(this).attr("data-no");
 	   if($(this).next().children().length > 0){
-		   $(this).next().children().remove();
+		   console.log("사업장 다지움");
+		   //$(this).next().children().remove();
 	   }else{
 		   getBizList(seq);
 	   }
