@@ -11,14 +11,14 @@
 //}
 
 var deptRender = function(vo){
-	console.log('여안옴??')
+	//console.log('여안옴??')
    var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.deptLevel+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
-	   console.log("사업장 바로 밑 부서가 아님")
+	  // console.log("사업장 바로 밑 부서가 아님")
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
-	   console.log("사업장 바로 밑 부서")
-	   console.log( $("ul[c-no=1]").children());
+	   /*console.log("사업장 바로 밑 부서")
+	   console.log( $("ul[c-no=1]").children());*/
 	   $('ul[b-no="' + vo.parentDeptSeq + '"]').append(htmls);
    }
    
@@ -107,7 +107,7 @@ var getListSearch = function(seq, pseq){
       async: false,
       success: function(response){   	
     	 $(response.data).each(function(index, vo){
-    		 console.log("부서렌더")
+    		// console.log("부서렌더")
             deptRender(vo)
          });
     	 $("li[data-no!='"+pseq+"']").css("color","black");
@@ -128,7 +128,7 @@ var getBizList = function(seq){
 	      async: false,
 	      success: function(response){
 	         $(response.data).each(function(index, vo){
-	        	 console.log(response.data);
+	        	// console.log(response.data);
 	            bizRender(vo)
 	         });
 	      },

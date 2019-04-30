@@ -182,10 +182,10 @@ $(function(){
 		    	  let deptSeq = response.data.deptSeq;
 		    	  let compSeq = response.data.compSeq;
 		    	  
-		    	  console.log(response.data);
+		    	//  console.log(response.data);
 		    	  
-		    	  $(".dropdown-menu").empty();
-		    	  $("div[data-no!='"+ compSeq +"']").next("ul").attr('class','dropdown-menu');
+		    	 $("ul[c-no='" + compSeq + "']").empty();
+		    	 $("div[data-no!='"+ compSeq +"']").next("ul").attr('class','dropdown-menu');
 		    	  $("div[data-no='"+ compSeq +"']").next("ul").attr('class','dropdown-menu show');
 		    	  
 		    	  getBizList(compSeq);
