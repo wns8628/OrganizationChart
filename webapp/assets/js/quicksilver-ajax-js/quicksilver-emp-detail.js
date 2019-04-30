@@ -143,10 +143,10 @@ var empDetailRender = function(vo){
 }
 
 var getparents = function(deptSeq){
-	let langCode = 'kr';
+//	let langCode = 'kr';
 	console.log(deptSeq +"asdasdasdsada");
 	$.ajax({
-		url: contextPath + "/getdetailNavPointParents/" + deptSeq + "/" + langCode,
+		url: contextPath + "/getdetailNavPointParents/" + deptSeq,
 		type:"get",
 		dataType:"json",
 		data:"",
@@ -170,10 +170,10 @@ $(function(){
 	$(document).on("click", "tbody tr", function(event){	
 		let empNum = this.children[0].innerHTML;
 		let empPath= $(this).children().children("img").attr("src");
-		let langCode = 'kr';
+//		let langCode = 'kr';
 		
 		$.ajax({
-			  url: contextPath + "/getdetailNavPoint/" + empNum + "/" + langCode,
+			  url: contextPath + "/getdetailNavPoint/" + empNum,
 		      type:"get",
 		      dataType:"json",
 		      data:"",
@@ -199,7 +199,7 @@ $(function(){
 		});
 
 		$.ajax({
-			url: contextPath + "/getdetailEmployeeInfo/" + empNum + "/" + langCode,
+			url: contextPath + "/getdetailEmployeeInfo/" + empNum ,
 		      type:"get",
 		      dataType:"json",
 		      data:"",

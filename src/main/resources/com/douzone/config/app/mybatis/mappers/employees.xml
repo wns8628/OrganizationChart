@@ -11,7 +11,7 @@
 		from
 			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
 			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
-			where a.emp_seq = b.emp_seq
+			where a.emp_seq = b.emp_seq												
 			and b.emp_seq = c.emp_seq
 			and c.dept_seq = d.dept_seq
 			and c.duty_code = e.dp_seq
@@ -274,12 +274,13 @@
 		    t_co_emp_multi b
 		WHERE
 		    emp.emp_seq = b.emp_seq
+		    	and b.lang_code = #{langCode}
 		        AND emp.emp_seq = #{empNum};
 		]]>
 	</select>
 	
 	
-	<select id="getdetailNavPoint" parameterType="String" resultType="employeedeptinfovo">
+	<select id="getdetailNavPoint" parameterType="employeesvo" resultType="employeedeptinfovo">
 		<![CDATA[
 			select dept_seq as deptSeq,biz_seq as bizSeq,comp_seq as compSeq from t_co_emp_dept where emp_seq=#{value}; 
 		]]>

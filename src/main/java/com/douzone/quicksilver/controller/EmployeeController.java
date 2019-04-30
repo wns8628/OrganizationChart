@@ -36,28 +36,35 @@ public class EmployeeController {
 //	}
 	
 	@ResponseBody
-	@RequestMapping("/getdetailEmployeeInfo/{empNum}/{langCode}")
-	public JSONResult getdetailEmployeeInfo(@PathVariable String empNum,
-											@PathVariable String langCode) {
+	@RequestMapping("/getdetailEmployeeInfo/{empNum}")
+	public JSONResult getdetailEmployeeInfo(@PathVariable String empNum, HttpSession session) {
+		
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		
 		EmployeesVo employeesVo = new EmployeesVo();
 		employeesVo.setEmpNum(empNum);
 		employeesVo.setLangCode(langCode);
 
 		return JSONResult.success(employeeService.getdetailEmployeeInfo(employeesVo));
 	}
+
+	
+	//---------------------
+	
 	
 	@ResponseBody
-	@RequestMapping("/getdetailNavPoint/{empNum}/{langCode}")
-	public JSONResult getdetailNavPoint(@PathVariable String empNum,
-										@PathVariable String langCode) {
+	@RequestMapping("/getdetailNavPoint/{empNum}")
+	public JSONResult getdetailNavPoint(@PathVariable String empNum) {
 	
 		return JSONResult.success(employeeService.getdetailNavPoint(empNum));
 	}
 
 	@ResponseBody
-	@RequestMapping("/getdetailNavPointParents/{deptSeq}/{langCode}")
-	public JSONResult getdetailNavPointParents(@PathVariable Long deptSeq,
-											   @PathVariable String langCode) {
+	@RequestMapping("/getdetailNavPointParents/{deptSeq}")
+	public JSONResult getdetailNavPointParents(@PathVariable Long deptSeq) {
 	
 		return JSONResult.success(employeeService.getdetailNavPointParents(deptSeq));
 	}
