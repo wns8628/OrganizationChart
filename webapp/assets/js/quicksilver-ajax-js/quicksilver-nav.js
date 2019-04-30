@@ -92,7 +92,7 @@ var getList = function(seq){
 //    	 $("li[data-no!='"+seq+"'][depth='"+ (Number(pickDepth)+1) +"']").css("color","black"); 
       },
       error: function(xhr, status, e){
-         console.error(status+":"+e);
+         console.error(status+"::"+e);
       }
       
    });
