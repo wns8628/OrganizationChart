@@ -42,8 +42,24 @@ public class EmployeeController {
 		EmployeesVo employeesVo = new EmployeesVo();
 		employeesVo.setEmpNum(empNum);
 		employeesVo.setLangCode(langCode);
-		
+
 		return JSONResult.success(employeeService.getdetailEmployeeInfo(employeesVo));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getdetailNavPoint/{empNum}/{langCode}")
+	public JSONResult getdetailNavPoint(@PathVariable String empNum,
+										@PathVariable String langCode) {
+	
+		return JSONResult.success(employeeService.getdetailNavPoint(empNum));
+	}
+
+	@ResponseBody
+	@RequestMapping("/getdetailNavPointParents/{deptSeq}/{langCode}")
+	public JSONResult getdetailNavPointParents(@PathVariable Long deptSeq,
+											   @PathVariable String langCode) {
+	
+		return JSONResult.success(employeeService.getdetailNavPointParents(deptSeq));
 	}
 	
 	@ResponseBody

@@ -278,6 +278,20 @@
 		]]>
 	</select>
 	
+	
+	<select id="getdetailNavPoint" parameterType="String" resultType="employeedeptinfovo">
+		<![CDATA[
+			select dept_seq as deptSeq,biz_seq as bizSeq,comp_seq as compSeq from t_co_emp_dept where emp_seq=#{value}; 
+		]]>
+	</select>
+	
+	<select id="getdetailNavPointParents" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select parent_dept_seq from t_co_dept where dept_seq = #{value};
+		]]>
+	</select>
+	
+	
 	<update id="profilePictureUpdate" parameterType="employeesvo">
 		<![CDATA[
 			update t_co_emp set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
