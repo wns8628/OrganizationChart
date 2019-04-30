@@ -16,10 +16,10 @@ body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-widt
 ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
-a:link          { color:#696969; text-decoration:none; font-weight:bold; }
-a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
-a:active       { color:#696969; text-decoration:none; font-weight:bold; }
-a:hover       { color:#dc143c; text-decoration:none; font-weight:bold; } 
+a:link          { color:#111; text-decoration:none; }
+a:visited       { color:#111; text-decoration:none; }
+a:active    	{ color:#111; text-decoration:none; }
+a:hover     	{ color:#111; text-decoration:none; } 
 
 /* header */
 div#header ul      { height:20px } 
@@ -47,7 +47,7 @@ div.navi div.parent-menu div {height: 20px; width: 20px; float: right; backgroun
 div.navi div.menu {background-color:white ; width: 100%; height: 100%; border-bottom: 1px solid #AEAEAE; display: none;}
 div.navi div.menu ul{margin-left: 30px; padding-top: 10px; padding-bottom: 10px;}
 div.navi div.menu li:not(:first-child){margin-top: 5px;}
-div.navi div.menu li:hover{font-weight:bold ; color: #328CF5; cursor: pointer;}
+div.navi div.menu li:hover a{font-weight:bold ; color: #328CF5; cursor: pointer;}
 div.navi img.navi-icon {height: 100%; width: 16px;}
 div.contents { background-color: #ffffff; min-height: 484.65px; min-width: 800px; height:100%; width: 82.5%; padding: 0.5%; float: right;}
 
@@ -86,7 +86,13 @@ $(function(){
 			$icon2.hide();
 		}
 	});
-   
+   	
+// 	$(document).on("div.menu ul li a", function(event){
+	$("div.meun ul li a").click(function(){
+		var htmls = "<img alt='' src='${pageContext.servletContext.contextPath }/assets/images/next.png'>"+
+					"<span>"+$(this).text()+"</span>";
+		$("div#contents-header").append(htmls);
+	});
 });
 </script>
 </head>
@@ -112,7 +118,7 @@ $(function(){
 			<div class="menu">
 				<ul>
 					<li>그룹정보관리</li>
-					<li>회사정보관리</li>
+					<li><a href="${pageContext.servletContext.contextPath }/admin/compMgr">회사정보관리</a></li>
 					<li>조직도정보관리</li>
 					<li>직급직책관리</li>
 					<li>회사그룹핑관리</li>

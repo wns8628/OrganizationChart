@@ -15,7 +15,16 @@
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/admin/includes/header.jsp"/>
-		<div class="contents">
+		<div id="contents">
+			<div id="contents-header">
+				<img class="home" alt="" src="${pageContext.servletContext.contextPath }/assets/images/home.png">
+				<img class="next" alt="" src="${pageContext.servletContext.contextPath }/assets/images/next.png">
+				<span>시스템설정</span>
+				<img class="next" alt="" src="${pageContext.servletContext.contextPath }/assets/images/next.png">
+				<span>회사/조직관리</span>
+				<img class="next" alt="" src="${pageContext.servletContext.contextPath }/assets/images/next.png">
+				<span>회사정보관리</span>
+			</div>
 			<table>
 				<thead>
 					<tr>
