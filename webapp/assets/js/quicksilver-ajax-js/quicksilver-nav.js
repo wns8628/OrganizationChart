@@ -110,10 +110,10 @@ var makeTable = function(url) {
           bLengthChange: true,
           lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
           bAutoWidth: false,
-          processing: true,
+          processing: false,
           ordering: true,
           serverSide: false,
-          searching: true,
+          searching: false,
           scrollY: 250,
           scrollCollapse: false,
          
