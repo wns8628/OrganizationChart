@@ -18,27 +18,45 @@
 			and b.lang_code = #{langCode}
 			and d.lang_code = #{langCode}
 			and e.lang_code = #{langCode}
-			and c.dept_seq = #{seq}) a
+		<choose>
+			<when test='type == "b"'>
+				and c.biz_seq = #{seq}) a
+			</when>
+			<when test='type == "d"'>
+				and c.dept_seq = #{seq}) a
+			</when>
+		</choose>
 		left outer join t_co_comp_duty_position_multi b
 		on a.position_code = b.dp_seq
 		and b.lang_code = #{langCode}
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+		select distinct a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
 			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
 		    a.dp_name as dutyCode, b.dp_name as positionCode
 		from	
-			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
-			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
-			where a.emp_seq = b.emp_seq
-			and b.emp_seq = c.emp_seq
-			and c.dept_seq = d.dept_seq
-			and c.duty_code = e.dp_seq
-			and b.lang_code = #{langCode}
-			and d.lang_code = #{langCode}
-			and e.lang_code = #{langCode}
-			and b.emp_name = #{kwd}) a
+			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code, f.biz_name
+			   from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e, t_co_biz_multi f
+			  where a.emp_seq = b.emp_seq
+			    and b.emp_seq = c.emp_seq
+			    and c.dept_seq = d.dept_seq
+			    and c.duty_code = e.dp_seq
+		        and f.biz_seq = c.biz_seq
+		        and b.lang_code = #{langCode}
+				and d.lang_code = #{langCode}
+				and e.lang_code = #{langCode}
+  		<choose>
+			<when test='selectSearch == "emp"'>
+				and b.emp_name = #{kwd}) a
+			</when>
+			<when test='selectSearch == "dept"'>
+				and d.dept_name = #{kwd}) a
+			</when>
+			<when test='selectSearch == "biz"'>
+				and f.biz_name  = #{kwd}) a
+			</when>
+		</choose>
 		left outer join t_co_comp_duty_position_multi b
 		on a.position_code = b.dp_seq
 		and b.lang_code = #{langCode}
@@ -203,8 +221,9 @@
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
 		<![CDATA[
 			SELECT 
+				emp.emp_seq as empSeq,
 				b.emp_name AS empName,
-				DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y') AS age,
+				(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y')) + 1 AS age,
 				if(emp.gender_code = 'M', '남', '여') AS genderCode,
 		    (SELECT 
 		            group_name
@@ -258,4 +277,24 @@
 		        AND emp.emp_seq = #{empNum};
 		]]>
 	</select>
+	
+	
+	<select id="getdetailNavPoint" parameterType="String" resultType="employeedeptinfovo">
+		<![CDATA[
+			select dept_seq as deptSeq,biz_seq as bizSeq,comp_seq as compSeq from t_co_emp_dept where emp_seq=#{value}; 
+		]]>
+	</select>
+	
+	<select id="getdetailNavPointParents" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select parent_dept_seq from t_co_dept where dept_seq = #{value};
+		]]>
+	</select>
+	
+	
+	<update id="profilePictureUpdate" parameterType="employeesvo">
+		<![CDATA[
+			update t_co_emp set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
+		]]>
+	</update>
 </mapper>

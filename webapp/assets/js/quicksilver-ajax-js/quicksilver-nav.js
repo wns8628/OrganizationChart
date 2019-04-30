@@ -11,16 +11,19 @@
 //}
 
 var deptRender = function(vo){
-   var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.depth+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
+	console.log('여안옴??')
+   var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.deptLevel+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
 	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
+   
+//   $("li[data-no='"+vo.parentDeptSeq+"'] span").css("color","red"); //고치자
 }
 
 var bizRender = function(vo){
-	var htmls = "<li class='departments dropdown-item' class='biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:10px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
+	var htmls = "<li class='biz dropdown-item' class='biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:10px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
 
@@ -66,20 +69,48 @@ var renderLeader = function(leader){
 //}
 
 var getList = function(seq){
-   $.ajax({
+	
+	$.ajax({
       url: contextPath + "/getDept/"+seq,
       type:"get",
       dataType:"json",
       data:"",
-      success: function(response){
-         $(response.data).each(function(index, vo){
+      success: function(response){   	
+
+//    	 let pickDepth=$("li[data-no='"+seq+"']").attr("depth");
+    	 
+    	 $(response.data).each(function(index, vo){
             deptRender(vo)
          });
+    	 
+    	 $("li[data-no!='"+seq+"']").css("color","black");
+    	 $("li[data-no='"+seq+"']").css("color","red"); //고치자
+//    	 $("li[data-no!='"+seq+"'][depth='"+ pickDepth +"']").css("color","black"); 
+//    	 $("li[data-no!='"+seq+"'][depth='"+ (Number(pickDepth)+1) +"']").css("color","black"); 
       },
       error: function(xhr, status, e){
          console.error(status+":"+e);
       }
       
+   });
+}
+var getListSearch = function(seq, pseq){
+	
+	$.ajax({
+      url: contextPath + "/getDept/"+seq,
+      type:"get",
+      dataType:"json",
+      data:"",
+      success: function(response){   	
+    	 $(response.data).each(function(index, vo){
+            deptRender(vo)
+         });
+    	 $("li[data-no!='"+pseq+"']").css("color","black");
+    	 $("li[data-no='"+pseq+"']").css("color","red"); //고치자
+      },
+      error: function(xhr, status, e){
+         console.error(status+":"+e);
+      }
    });
 }
 
@@ -195,8 +226,8 @@ $(function(){
 	   }
    });
    
-   //부서 목록
-   $(document).on("click", ".departments", function(event){
+   //사업장 목록
+   $(document).on("click", ".biz", function(event){
 	  var seq = $(this).attr("data-no");
 	  if($(this).next().children().length > 0){
 		  $(this).next().children().remove();
@@ -205,7 +236,22 @@ $(function(){
 	  }
 	  let departmentNo = $(this).attr('data-no');
 	  let departmentName = $(this).html();
-		makeTable("/getEmpInfo/" + seq);
+		makeTable("/getEmpInfo/" + seq + "/b");
+		renderTableDepartmentName(departmentName, departmentNo);
+   });
+	
+   //부서 목록
+   $(document).on("click", ".departments", function(event){
+	  var seq = $(this).attr("data-no");
+	  if($(this).next().children().length > 0){
+		  $(this).next().children().remove();
+	  }else{
+		  console.log(seq) 
+		  getList(seq);
+	  }
+	  let departmentNo = $(this).attr('data-no');
+	  let departmentName = $(this).html();
+		makeTable("/getEmpInfo/" + seq + "/d");
 		renderTableDepartmentName(departmentName, departmentNo);
 //		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
    });
