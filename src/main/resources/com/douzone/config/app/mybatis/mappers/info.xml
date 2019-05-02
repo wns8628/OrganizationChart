@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="info">
+	<select id="getMainInfo" resultType="mastergroupvo">
+		select distinct(b.group_name) as groupName, d.total_comp as totalComp, e.total_biz as totalBiz, f.total_dept as totalDept,count(a.emp_seq) as totalEmp, c.age_10 as age10, c.age_20 as age20, c.age_30 as age30, c.age_40 as age40, c.age_50 as age50, c.age_60 as age60
+		  from t_co_emp a, t_co_group b, (select a.group_seq,
+												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 10 and 19 , 1, 0)) as age_10,
+												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 20 and 29 , 1, 0)) as age_20,
+												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 30 and 39 , 1, 0)) as age_30,
+												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 40 and 49 , 1, 0)) as age_40,
+												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 50 and 59 , 1, 0)) as age_50,
+												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 60 and 69 , 1, 0)) as age_60
+										   from t_co_emp a, t_co_group b
+										  where a.group_seq = b.group_seq) c, (select b.group_seq, count(a.comp_seq) as total_comp
+																				 from t_co_comp a, t_co_group b
+																				where a.group_seq = b.group_seq) d, ( select b.group_seq,count(a.biz_seq) as total_biz
+																													    from t_co_biz a, t_co_group b
+																													   where a.group_seq = b.group_seq) e, (select b.group_seq,count(dept_seq) as total_dept
+																																							  from t_co_dept a, t_co_group b
+																																							 where a.group_seq = b.group_seq) f
+		 where a.group_seq = b.group_seq
+		   and b.group_seq = c.group_seq
+		   and c.group_seq = d.group_seq
+		   and d.group_seq = e.group_seq
+		   and e.group_seq = f.group_seq;
+	</select>	
+	
+	<select id="getMainChartList" resultType="companyvo">
+		select c.comp_name as compName, count(b.comp_seq) as compEmpCount
+		  from t_co_emp_dept a, t_co_comp b, t_co_comp_multi c
+		 where a.comp_seq = b.comp_seq 	
+		   and b.comp_seq = c.comp_seq
+		   and c.lang_code = #{langCode}
+		 group by b.comp_seq;
+	</select>	
+</mapper>	
