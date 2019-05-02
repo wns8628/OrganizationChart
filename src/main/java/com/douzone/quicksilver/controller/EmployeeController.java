@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,12 +29,12 @@ public class EmployeeController {
 	@Autowired
 	private FileuploadService fileuploadService;
 	
-//	@RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
-//	public void addEmployee(@ModelAttribute EmployeesVo employeesVo) {
-//		
-//		System.out.println("employeesVo : " + employeesVo);
-//		employeeService.insertEmployee(employeesVo);
-//	}
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+	public void addEmployee(@ModelAttribute EmployeesVo employeesVo) {
+		
+		System.out.println("employeesVo : " + employeesVo);
+		employeeService.insertEmployee(employeesVo);
+	}
 	
 	@ResponseBody
 	@RequestMapping("/getdetailEmployeeInfo/{empNum}/{langCode}")

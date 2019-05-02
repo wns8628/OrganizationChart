@@ -132,9 +132,9 @@
 		
 	</select> -->
 	
-	<insert id="insert" parameterType="employeesvo">
+<!-- 	<insert id="insert" parameterType="employeesvo">
 		<choose>
-			<!-- salaires insert -->
+			salaires insert
 			<when test="name == null and age != null">
 				
 				<![CDATA[
@@ -146,7 +146,7 @@
 				]]>
 			</when>
 			
-			<!-- grade_emp insert -->
+			grade_emp insert
 			<when test="name == null and age == null and gender != null">
 				
 				<![CDATA[
@@ -169,7 +169,7 @@
 				]]>
 			</when>
 			
-			<!-- dept_emp insert -->
+			dept_emp insert
 			<when test="name == null and age == null and gender == null and phone != null">
 				<![CDATA[
 					insert into dept_emp values(null, 
@@ -180,7 +180,7 @@
 				]]>
 			</when>
 			
-			<!-- dept_manager insert -->
+			dept_manager insert
 			<when test="name == null and age == null and gender == null and phone == null">
 			
 				<![CDATA[
@@ -216,7 +216,7 @@
 				]]>
 		</selectKey>
 		
-	</insert>
+	</insert> -->
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
 		<![CDATA[
@@ -297,4 +297,16 @@
 			update t_co_emp set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
 		]]>
 	</update>
+	
+	<insert id="insert" parameterType="employeesvo">
+		
+		<choose>
+			<when test="">
+				
+			</when>
+		</choose>
+		<![CDATA[
+			
+		]]>
+	</insert>
 </mapper>
