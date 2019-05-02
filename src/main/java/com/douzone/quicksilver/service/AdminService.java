@@ -16,4 +16,8 @@ public class AdminService {
 	public List<CompanyVo> getCompList(String langCode){
 		return adminDao.getCompList(langCode);
 	}
+	
+	public CompanyVo getCompInfo(String compSeq) {
+		return adminDao.getCompInfo(compSeq);
+	}
 }

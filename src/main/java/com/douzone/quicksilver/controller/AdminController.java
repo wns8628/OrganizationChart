@@ -5,8 +5,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.AdminService;
 
 @Controller
@@ -29,5 +32,11 @@ public class AdminController {
 		}
 		model.addAttribute("compList", adminService.getCompList(langCode));
 		return "admin/comp-mgr";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getCompInfo/{compSeq}")
+	public JSONResult getEmpInfo(@PathVariable("compSeq") String compSeq) {
+		return JSONResult.success(adminService.getCompInfo(compSeq));
 	}
 }
