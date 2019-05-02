@@ -26,7 +26,7 @@ div.content-head-wrapper div.head-btn{ float: right; display: inline; border: 1p
 div.content-head-wrapper div.head-btn:hover{ cursor: pointer;}
 
 div#contents table#company-content-table  {border-collapse:collapse; border-spacing:0;   background-color: white; width: 100%;}
-div#contents table#company-content-table td{font-family:Arial, sans-serif;font-size:12px;border-style:solid;border-width:1px;overflow:hidden; word-break:normal;border-color:black;}
+div#contents table#company-content-table td{font-family:Arial, sans-serif;font-size:12px;border-style:solid;border-width:1px;overflow:hidden; word-break:normal;border-color:black; height: 24px;}
 div#contents table#company-content-table th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;border-style:solid;border-width:1px; overflow:hidden; border-color:black; }
 div#contents table#company-content-table .tg-9anz{border-color:#333333;text-align:right;}
 div#contents table#company-content-table .tg-dvpl{border-color:inherit;text-align:right; background-color: #f9f9f9; padding-right: 10px;}
@@ -61,7 +61,7 @@ var getCompInfo = function(compSeq){
 			for(var i=0; i<$td.length; i++){
 				for(var key in response.data){
 					if($td[i].getAttribute('id') == key){
-						$td[i].value = response.data[key];
+						$td[i].innerHTML = response.data[key];
 					}
 				}
 			}
@@ -86,6 +86,12 @@ $(function(){
 		$("#company-table tbody").append("<tr><td></td><td></td></tr>");
 		$("#company-table tbody tr:last").addClass("company-table-active");
 		$("#company-content-table textarea").val("");
+	});
+	
+	$("#company-update-btn").click(function(){
+		/// 여기 해야함
+		$("#company-content-table td.tg-cont textarea").show();
+		$("#company-content-table td.tg-cont").text("");
 	});
 	
 });
@@ -134,6 +140,7 @@ $(function(){
 					<div class="content-head-wrapper">
 						<span>* 회사기본정보</span>
 						<div class="head-btn">저장</div>
+						<div id="company-update-btn" class="head-btn">수정</div>
 					</div>
 					<form id="company-add-form">
 						<table id="company-content-table" style="table-layout: fixed;">
