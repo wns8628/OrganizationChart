@@ -47,9 +47,6 @@
 <!-- 원래바디밑에임  -->
 <!-- Bootstrap core JavaScript-->
  
-<%-- 
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
- --%>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
   
   <!-- Core plugin JavaScript-->
@@ -64,9 +61,12 @@
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin.min.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
   
+  
   <!-- Demo scripts for this page-->
-  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-area-demo.js"></script>
+<%--   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-bar-demo.js"></script>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-pie-demo.js"></script>
+
 <!--  -->
 
  <!--  -->

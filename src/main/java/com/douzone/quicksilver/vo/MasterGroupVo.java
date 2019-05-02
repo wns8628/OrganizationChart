@@ -27,6 +27,18 @@ public class MasterGroupVo {
 	private String masterPasswd;
 	private String groupEmailDomain;
 	
+	//그룹에대한 정보들
+	private String totalComp;
+	private String totalBiz;
+	private String totalEmp;
+	private String totalDept;
+	private int age10;
+	private int age20;
+	private int age30;
+	private int age40;
+	private int age50;
+	private int age60;
+	//
 	public String getGroupSeq() {
 		return groupSeq;
 	}
@@ -171,6 +183,66 @@ public class MasterGroupVo {
 	public void setGroupEmailDomain(String groupEmailDomain) {
 		this.groupEmailDomain = groupEmailDomain;
 	}
+	public String getTotalComp() {
+		return totalComp;
+	}
+	public void setTotalComp(String totalComp) {
+		this.totalComp = totalComp;
+	}
+	public String getTotalBiz() {
+		return totalBiz;
+	}
+	public void setTotalBiz(String totalBiz) {
+		this.totalBiz = totalBiz;
+	}
+	public String getTotalEmp() {
+		return totalEmp;
+	}
+	public void setTotalEmp(String totalEmp) {
+		this.totalEmp = totalEmp;
+	}
+	public String getTotalDept() {
+		return totalDept;
+	}
+	public void setTotalDept(String totalDept) {
+		this.totalDept = totalDept;
+	}
+	public int getAge10() {
+		return age10;
+	}
+	public void setAge10(int age10) {
+		this.age10 = age10;
+	}
+	public int getAge20() {
+		return age20;
+	}
+	public void setAge20(int age20) {
+		this.age20 = age20;
+	}
+	public int getAge30() {
+		return age30;
+	}
+	public void setAge30(int age30) {
+		this.age30 = age30;
+	}
+	public int getAge40() {
+		return age40;
+	}
+	public void setAge40(int age40) {
+		this.age40 = age40;
+	}
+	public int getAge50() {
+		return age50;
+	}
+	public void setAge50(int age50) {
+		this.age50 = age50;
+	}
+	public int getAge60() {
+		return age60;
+	}
+	public void setAge60(int age60) {
+		this.age60 = age60;
+	}
 	
 	@Override
 	public String toString() {
@@ -181,8 +253,12 @@ public class MasterGroupVo {
 				+ ", edmsUrl=" + edmsUrl + ", smsUrl=" + smsUrl + ", smsUseYn=" + smsUseYn + ", useYn=" + useYn
 				+ ", createDate=" + createDate + ", modifySeq=" + modifySeq + ", modifyDate=" + modifyDate
 				+ ", mobileGatewayUrl=" + mobileGatewayUrl + ", bill35624Url=" + bill35624Url + ", setupVersionSeq="
-				+ setupVersionSeq + ", masterPasswd=" + masterPasswd + ", groupEmailDomain=" + groupEmailDomain + "]";
+				+ setupVersionSeq + ", masterPasswd=" + masterPasswd + ", groupEmailDomain=" + groupEmailDomain
+				+ ", totalComp=" + totalComp + ", totalBiz=" + totalBiz + ", totalEmp=" + totalEmp + ", totalDept="
+				+ totalDept + ", age10=" + age10 + ", age20=" + age20 + ", age30=" + age30 + ", age40=" + age40
+				+ ", age50=" + age50 + ", age60=" + age60 + "]";
 	}
+
 	
 	
 }
