@@ -1,5 +1,3 @@
-
-
 let check = true;	
 let searchClick = function() { // 검색창에서 어떤키를 눌렀을때
 	if( check == true){ // keydown시 꾹 누르면 이벤트가 계속발생하는걸 방지하기위해 제약

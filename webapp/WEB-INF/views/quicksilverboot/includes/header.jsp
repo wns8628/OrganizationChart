@@ -5,11 +5,41 @@
     pageEncoding="UTF-8"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-login.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-search.js"></script>
-    
+  
     
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
     <a class="navbar-brand mr-1" href="${pageContext.request.contextPath }/boot">Quick Silver(douzone)</a>
-	
+
+	<!-- 다국어 -->
+	 <c:choose>
+		<c:when test="${ langCode eq 'kr' or empty langCode }" >
+			<div class="btn-group btn-group-toggle" data-toggle="">
+			  <a href="${pageContext.servletContext.contextPath }/boot/kr"
+			     class="btn btn-secondary active">
+			    <input type="radio" name="options" id="option1" autocomplete="off" checked>한국어
+			  </a>
+			  <a href="${pageContext.servletContext.contextPath }/boot/en"
+			     class="btn btn-secondary">
+			    <input type="radio" name="options" id="option2" autocomplete="off">영어 
+			  </a>
+			</div>			
+		</c:when>		
+		<c:when test="${ langCode eq 'en' }" >
+			<div class="btn-group btn-group-toggle" data-toggle="">
+			  <a href="${pageContext.servletContext.contextPath }/boot/kr"
+			     class="btn btn-secondary">
+			    <input type="radio" name="options" id="option1" autocomplete="off">Korean
+			  </a>
+			  <a href="${pageContext.servletContext.contextPath }/boot/en"
+			     class="btn btn-secondary active">
+			    <input type="radio" name="options" id="option2" autocomplete="off" checked>English 
+			  </a>
+			</div>			
+		</c:when>	
+	 </c:choose>
+	 
+<!--  -->
+
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
       <div class="input-group">

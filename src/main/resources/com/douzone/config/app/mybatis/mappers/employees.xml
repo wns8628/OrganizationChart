@@ -11,7 +11,7 @@
 		from
 			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
 			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
-			where a.emp_seq = b.emp_seq
+			where a.emp_seq = b.emp_seq												
 			and b.emp_seq = c.emp_seq
 			and c.dept_seq = d.dept_seq
 			and c.duty_code = e.dp_seq
@@ -32,11 +32,11 @@
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-		select distinct a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
+		select distinct a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName,
 			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
 		    a.dp_name as dutyCode, b.dp_name as positionCode
 		from	
-			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code, f.biz_name
+			(select a.emp_seq, b.emp_name, dept_name, gender_code, bday, e.dp_name, a.position_code, f.biz_name
 			   from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e, t_co_biz_multi f
 			  where a.emp_seq = b.emp_seq
 			    and b.emp_seq = c.emp_seq
@@ -132,9 +132,9 @@
 		
 	</select> -->
 	
-	<insert id="insert" parameterType="employeesvo">
+<!-- 	<insert id="insert" parameterType="employeesvo">
 		<choose>
-			<!-- salaires insert -->
+			salaires insert
 			<when test="name == null and age != null">
 				
 				<![CDATA[
@@ -146,7 +146,7 @@
 				]]>
 			</when>
 			
-			<!-- grade_emp insert -->
+			grade_emp insert
 			<when test="name == null and age == null and gender != null">
 				
 				<![CDATA[
@@ -169,7 +169,7 @@
 				]]>
 			</when>
 			
-			<!-- dept_emp insert -->
+			dept_emp insert
 			<when test="name == null and age == null and gender == null and phone != null">
 				<![CDATA[
 					insert into dept_emp values(null, 
@@ -180,7 +180,7 @@
 				]]>
 			</when>
 			
-			<!-- dept_manager insert -->
+			dept_manager insert
 			<when test="name == null and age == null and gender == null and phone == null">
 			
 				<![CDATA[
@@ -216,7 +216,7 @@
 				]]>
 		</selectKey>
 		
-	</insert>
+	</insert> -->
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
 		<![CDATA[
@@ -274,12 +274,13 @@
 		    t_co_emp_multi b
 		WHERE
 		    emp.emp_seq = b.emp_seq
+		    	and b.lang_code = #{langCode}
 		        AND emp.emp_seq = #{empNum};
 		]]>
 	</select>
 	
 	
-	<select id="getdetailNavPoint" parameterType="String" resultType="employeedeptinfovo">
+	<select id="getdetailNavPoint" parameterType="employeesvo" resultType="employeedeptinfovo">
 		<![CDATA[
 			select dept_seq as deptSeq,biz_seq as bizSeq,comp_seq as compSeq from t_co_emp_dept where emp_seq=#{value}; 
 		]]>
@@ -297,4 +298,16 @@
 			update t_co_emp set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
 		]]>
 	</update>
+	
+	<insert id="insert" parameterType="employeesvo">
+		
+		<choose>
+			<when test="">
+				
+			</when>
+		</choose>
+		<![CDATA[
+			
+		]]>
+	</insert>
 </mapper>
