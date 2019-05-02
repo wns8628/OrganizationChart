@@ -16,4 +16,8 @@ public class AdminDao {
 	public List<CompanyVo> getCompList(String langCode){
 		return sqlSession.selectList("admin.getCompList", langCode);
 	}
+	
+	public CompanyVo getCompInfo(String compSeq) {
+		return sqlSession.selectOne("admin.getCompInfo", compSeq);
+	}
 }

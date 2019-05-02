@@ -10,5 +10,27 @@
 		where lang_code = #{langCode}
 		order by comp_seq + 0;
 	</select>
+	
+	<select id="getCompInfo" parameterType="string" resultType="companyvo">
+		select a.comp_seq as compSeq, a.use_yn as useYn, a.owner_name as ownerName, a.comp_regist_num as compRegistNum,
+			a.comp_num as compNum, a.standard_code as standardCode, a.comp_cd as compCd, a.order_num as orderNum,
+			a.biz_condition as bizCondition, a.item, a.tel_num as telNum, a.fax_num as faxNum, a.zip_code as zipCode,
+		    a.addr, a.detail_addr as detailAddr, a.homepg_addr as homepgAddr, a.native_lang_code as nativeLangCode, 
+		    a.comp_domain as compDomain, b.comp_name as compName, c.comp_name as compNameEn
+		from
+			(select a.comp_seq, a.use_yn, b.owner_name, a.comp_regist_num, a.comp_num, a.standard_code,
+					a.comp_cd, a.order_num, b.biz_condition, b.item, a.tel_num, a.fax_num, a.zip_code,
+			        b.addr, b.detail_addr, a.homepg_addr, a.native_lang_code, a.comp_domain
+			from t_co_comp a, t_co_comp_multi b
+			where a.comp_seq = b.comp_seq
+			and b.lang_code = 'kr'
+			and a.comp_seq = #{compSeq}) a
+		left outer join t_co_comp_multi b
+		on a.comp_seq = b.comp_seq
+		and b.lang_code = 'kr'
+		left outer join t_co_comp_multi c
+		on a.comp_seq = c.comp_seq
+		and c.lang_code = 'en'
+	</select>
 
 </mapper>

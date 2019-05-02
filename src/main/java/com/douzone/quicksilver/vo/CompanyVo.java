@@ -40,9 +40,17 @@ public class CompanyVo {
 	private String item;
 	private String addr;
 	private String detailAddr;
+	private String compNameEn;
 	
 	private int compEmpCount;
 
+	public String getCompNameEn() {
+		return compNameEn;
+	}
+	
+	public void setCompNameEn(String compNameEn) {
+		this.compNameEn = compNameEn;
+	}
 	public String getCompSeq() {
 		return compSeq;
 	}
