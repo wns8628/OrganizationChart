@@ -38,8 +38,35 @@ public class EmployeeService {
 	}
 	
 	public int insertEmployee(EmployeesVo employeesVo) {
+				
+		// insert t_co_emp
+		employeeDao.insert(employeesVo);
 		
+		// insert t_co_emp_multi
+		employeesVo.setErpEmpNum("213213");
+		employeeDao.insert(employeesVo);
+		
+		// insert t_co_emp_comp
+		employeesVo.setOutMail("45435");
+		employeeDao.insert(employeesVo);
+		
+		// insert t_co_emp_dept
+		employeesVo.setOutDomain("fdsfdsf");
+		employeeDao.insert(employeesVo);
+		
+		// insert t_co_emp_dept_multi
+		employeesVo.setAddr("345345");
+		employeeDao.insert(employeesVo);
+		
+		// insert t_co_emp_dept_multi en
+		employeesVo.setShift("fdsfdsf");
+		employeeDao.insert(employeesVo);
+		
+		// insert t_co_emp_multi en
+		employeesVo.setSignType("#$%435");
 		return employeeDao.insert(employeesVo);
+
+		
 	}
 	
 	

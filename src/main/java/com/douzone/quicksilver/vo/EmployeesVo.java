@@ -61,10 +61,12 @@ public class EmployeesVo {
 	 */
 	
 	private String empName;					// 사용자 명
+	private String enEmpName;				// 영어 사용자 명
 	private String addr;					// 우편 주소
 	private String detailAddr;				// 상세 주소
+	private String enDetailAddr;			// 영어 상세 주소
 	private String mainWork;				// 담당 업무
-	
+	private String enMainWork;				// 영어 담당 업무
 	private String deptName;				// 부서명
 	
 	/*
@@ -76,6 +78,27 @@ public class EmployeesVo {
 	private String langCode;				// 언어 코드
 	
 	
+	
+	
+	
+	public String getEnMainWork() {
+		return enMainWork;
+	}
+	public void setEnMainWork(String enMainWork) {
+		this.enMainWork = enMainWork;
+	}
+	public String getEnDetailAddr() {
+		return enDetailAddr;
+	}
+	public void setEnDetailAddr(String enDetailAddr) {
+		this.enDetailAddr = enDetailAddr;
+	}
+	public String getEnEmpName() {
+		return enEmpName;
+	}
+	public void setEnEmpName(String enEmpName) {
+		this.enEmpName = enEmpName;
+	}
 	public Long getAge() {
 		return age;
 	}
@@ -435,8 +458,9 @@ public class EmployeesVo {
 				+ zipCode + ", picFileID=" + picFileID + ", signFileID=" + signFileID + ", useYn=" + useYn
 				+ ", lsRoleID=" + lsRoleID + ", createSeq=" + createSeq + ", createDate=" + createDate + ", modifySeq="
 				+ modifySeq + ", modifyDate=" + modifyDate + ", springSecu=" + springSecu + ", springDate=" + springDate
-				+ ", signType=" + signType + ", empName=" + empName + ", addr=" + addr + ", detailAddr=" + detailAddr
-				+ ", mainWork=" + mainWork + ", deptName=" + deptName + ", age=" + age + ", bizName=" + bizName
+				+ ", signType=" + signType + ", empName=" + empName + ", enEmpName=" + enEmpName + ", addr=" + addr
+				+ ", detailAddr=" + detailAddr + ", enDetailAddr=" + enDetailAddr + ", mainWork=" + mainWork
+				+ ", enMainWork=" + enMainWork + ", deptName=" + deptName + ", age=" + age + ", bizName=" + bizName
 				+ ", langCode=" + langCode + "]";
 	}
 	

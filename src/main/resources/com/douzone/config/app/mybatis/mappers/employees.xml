@@ -301,12 +301,191 @@
 	<insert id="insert" parameterType="employeesvo">
 		
 		<choose>
-			<when test="">
+			<when test="erpEmpNum == null ">
+				<!-- insert t_co_emp -->
+				
+				<![CDATA[
+					
+					insert into t_co_emp values ( (select empSeq from (select max(emp_seq + 0) + 1 as empSeq from t_co_emp) a), 
+																			  #{groupSeq}, 
+																			   #{loginId}, 
+												  (select empSeq from (select max(emp_seq + 0) + 1 as empSeq from t_co_emp) a), 
+												  									 null, 
+												  						     #{emailAddr}, 
+												  						     		 null, 
+												  						     		 null, 
+												  						 #{loginPassword}, 
+												  						 			 null, 
+												  		  date_format( now(), '%Y-%m-%d'), 
+												  		  							  	0, 
+												  		  							 null, 
+												  		  							  'P', 
+												  		  							  'Y', 
+												  		  							  'Y', 
+												  		  							  'Y', 
+												  		  							 null, 
+												  		  		   floor(1 + rand() * 20), 
+												  		  		   floor(1 + rand() * 20), 
+												  		  		      	   #{mainCompSeq}, 
+												  		  		      	   			  'Y',
+												  		  		      	   	  #{dutyCode}, 
+												  		  		      	  #{positionCode}, 
+												  		  		      	#{nativeLangCode}, 
+												  		  		      				  'Y', 
+												  		  date_format( now(), '%Y-%m-%d'), 
+												  		  							 null, 
+												  		  					#{genderCode}, 
+												  		 date_format(#{bDay}, '%m월 %d일'), 
+												  		 							  'Y', 
+												  		 							  999, 
+												  		 							 null, 
+												  		 				  #{mobileTelNum}, 
+												  		 				     #{weddingYn}, 
+												  date_format( #{weddingDay}, '%Y-%m-%d'), 
+												  									  'Y', 
+												  									 null, 
+												  							 #{picFileID}, 
+												  							 		 null, 
+												  							 		  'Y', 
+												  							 		 null, 
+												  							 	   '0101', 
+												  		  date_format( now(), '%Y-%m-%d'), 
+												  		  							 null, 
+												  		  							 null, 
+												  		  							 null, 
+												  		  							 null, 
+												  		  							 null)
+				]]>
+			</when>
+			
+			<when test="outMail == null">
+				<!-- insert t_co_emp_multi -->
+				
+	 			<![CDATA[
+					insert into t_co_emp_multi values ( (select max(emp_seq + 0) from t_co_emp), 
+																						   'kr', 
+																					#{groupSeq}, 
+																					 #{empName}, 
+																					       null, 
+																				  #{detailAddr}, 
+																				    #{mainWork}, 
+																				    		'Y', 
+																				    	 '0101', 
+																 date_format(now(), '%Y-%m-%d'), 
+																 						   null, 
+																 						   null)
+				]]> 
 				
 			</when>
-		</choose>
-		<![CDATA[
 			
-		]]>
+			<when test="outDomain == null">
+				<!-- insert t_co_emp_comp -->
+				
+				<![CDATA[
+					insert into t_co_emp_comp values ( 							   (select max(emp_seq + 0) from t_co_emp), 
+																											   #{groupSeq}, 
+																											#{mainCompSeq}, 
+																												#{bizName}, 
+																											   #{deptName}, 
+																											   		  null, 
+																											   		  null, 
+																											   		  null, 
+																											   		  null, 
+																											   		  null, 
+																											   		   'Y', 
+																											   		  null, 
+																											   		   '2', 
+																											   		   '1', 
+																											   		  null, 
+																											   		 '999', 
+																											   		   'Y',
+																											   		   'Y',
+																											   	    '0101', 
+																							date_format(now(), '%Y-%m-%d'), 
+																													  null, 
+																													  null)
+					
+				]]>
+			</when>
+			
+			<when test="addr == null">
+				<!-- insert t_co_emp_dept -->
+				<![CDATA[
+					insert into t_co_emp_dept values ( #{deptName}, 
+						   (select max(emp_seq + 0) from t_co_emp), 
+						   							   #{groupSeq}, 
+						   							#{mainCompSeq}, 
+						   								#{bizName}, 
+						   									   'Y', 
+						   							   #{dutyCode}, 
+						   						   #{positionCode}, 
+						   						   			  null, 
+						   						   			  null, 
+						   						   			  null, 
+						   						   			   'Y', 
+						   						   			   'Y', 
+						   						   			  null, 
+						   						   			  null, 
+						   						   			   'Y', 
+						   						   			'0101', 
+						   		    date_format(now(), '%Y-%m-%d'), 
+						   		    						  null, 
+						   		    						  null)
+					
+				]]>
+			</when>
+			
+			<when test="signType == null">
+				<!-- insert t_co_emp_dept_multi -->
+				
+				<![CDATA[
+					insert into t_co_emp_dept_multi values ( #{deptName}, 
+								 (select max(emp_seq + 0) from t_co_emp),
+				]]>
+					<choose>
+						<when test="shift == null">
+							'kr',
+						</when>
+						<otherwise>
+							'en',
+						</otherwise>
+					</choose>
+				
+				<![CDATA[
+															 #{groupSeq}, 
+								 						  #{mainCompSeq}, 
+								 						  	  #{bizName}, 
+								 						  	  		null, 
+								 						  	  		null, 
+								 						  	  		 'Y', 
+								 						  	  	  '0101', 
+								 		  date_format(now(), '%Y-%m-%d'), 
+								 		  							null, 
+								 		  							null)
+				]]>		
+	
+			</when>
+			
+			<when test="age == null">
+				<!-- insert t_co_emp_multi en -->
+				
+				<![CDATA[
+					insert into t_co_emp_multi values ( (select max(emp_seq + 0) from t_co_emp),
+																						   'en', 
+																				    #{groupSeq}, 
+																				     #{empName}, 
+																				           null, 
+																				#{enDetailAddr}, 
+																				  #{enMainWork}, 
+																							'Y', 
+																					 	 '0101', 
+																 date_format(now(), '%Y-%m-%d'), 
+																 						   null, 
+																 						   null)
+				]]>
+			</when>
+			
+		</choose>
+		
 	</insert>
 </mapper>

@@ -29,10 +29,11 @@ public class EmployeeController {
 	@Autowired
 	private FileuploadService fileuploadService;
 	
-	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
 	public void addEmployee(@ModelAttribute EmployeesVo employeesVo) {
 		
 		System.out.println("employeesVo : " + employeesVo);
+		
 		employeeService.insertEmployee(employeesVo);
 	}
 	
