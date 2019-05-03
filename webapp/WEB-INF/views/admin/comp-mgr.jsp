@@ -57,14 +57,20 @@ var getCompInfo = function(compSeq){
 		dataType : "json",
 		data : "",
 		success : function(response) {
-			$td = $("#company-content-table td");
-			for(var i=0; i<$td.length; i++){
+			$("#company-content-table td span").each(function(index, item){
 				for(var key in response.data){
-					if($td[i].getAttribute('id') == key){
-						$td[i].innerHTML = response.data[key];
+					if($(item).attr('id') == key){
+						if(response.data[key] == null) {
+							response.data[key] = "";
+						}
+						if($("#company-update-btn").css("display") == "none"){
+							$(item).next().val(response.data[key]);
+						}else{
+							$(item).text(response.data[key]);
+						}
 					}
 				}
-			}
+			});
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -74,6 +80,8 @@ var getCompInfo = function(compSeq){
 }
 
 $(function(){
+	$("#company-table tbody tr:first").addClass("company-table-active");
+	
 	$("#company-table tbody tr").click(function(){
 		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
 		var compSeq = $(this).children(":first").text();
@@ -81,17 +89,58 @@ $(function(){
 		getCompInfo(compSeq);
 	});
 	
-	$("#comp-add-btn").click(function(){
-		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
-		$("#company-table tbody").append("<tr><td></td><td></td></tr>");
-		$("#company-table tbody tr:last").addClass("company-table-active");
-		$("#company-content-table textarea").val("");
+// 	$("#comp-add-btn").click(function(){
+// 		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
+// 		$("#company-table tbody").append("<tr><td></td><td></td></tr>");
+// 		$("#company-table tbody tr:last").addClass("company-table-active");
+// 		$("#company-content-table textarea").val("");
+// 	});
+	
+	$(".update-toggle").click(function(){
+		if($("#company-update-btn").css("display") != "none"){
+			$("#update-cancel-btn").show();
+			$("#update-save-btn").show();
+			$("#company-update-btn").hide();
+			
+			$("#company-content-table span").each(function(index, item){
+				$(item).next().val($(item).text());
+				$(item).hide();
+			});
+			$("#company-content-table textarea").show();
+		} else if($("#company-table tbody tr.company-table-active").length === 0){
+			$("#company-table tbody tr:first").addClass("company-table-active");
+			$("#company-content-table textarea").hide();
+			$("#company-content-table span").show();
+			getCompInfo($("#company-table thead th:first").text());
+			$("#update-cancel-btn").hide();
+			$("#update-save-btn").hide();
+			$("#company-update-btn").show();
+		} else{
+			$("#update-cancel-btn").hide();
+			$("#update-save-btn").hide();
+			$("#company-update-btn").show();
+			
+			$("#company-content-table textarea").each(function(index, item){
+				$(item).prev().text($(item).val());
+			});
+			$("#company-content-table textarea").prev().show();
+			$("#company-content-table textarea").hide();
+			
+		}
 	});
 	
-	$("#company-update-btn").click(function(){
-		/// 여기 해야함
-		$("#company-content-table td.tg-cont textarea").show();
-		$("#company-content-table td.tg-cont").text("");
+	$("#comp-add-btn").click(function(){
+		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
+		
+		$("#update-cancel-btn").show();
+		$("#update-save-btn").show();
+		$("#company-update-btn").hide();
+		
+		$("#company-content-table span").each(function(index, item){
+			$(item).next().val("");
+			$(item).hide();
+		});
+		$("#company-content-table textarea").show();
 	});
 	
 });
@@ -139,8 +188,9 @@ $(function(){
 				<div id="content-table-wrapper">
 					<div class="content-head-wrapper">
 						<span>* 회사기본정보</span>
-						<div class="head-btn">저장</div>
-						<div id="company-update-btn" class="head-btn">수정</div>
+						<div id="update-cancel-btn" class="head-btn update-toggle" style="display:none;">취소</div>
+						<div id="update-save-btn" class="head-btn" style="display:none;">저장</div>
+						<div id="company-update-btn" class="head-btn update-toggle">수정</div>
 					</div>
 					<form id="company-add-form">
 						<table id="company-content-table" style="table-layout: fixed;">
@@ -156,7 +206,7 @@ $(function(){
 									<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
 									회사코드
 								</td>
-								<td id="compSeq" class="tg-cont"><textarea id="compSeq"></textarea> </td>
+								<td id="compSeq" class="tg-cont"><span id="compSeq">${firstCompInfo.compSeq}</span><textarea id="compSeq"></textarea> </td>
 								<td class="tg-dvpl">사용여부</td>
 								<td class="tg-de2y"></td>
 							</tr>
@@ -169,65 +219,125 @@ $(function(){
 									<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
 									한국어
 								</td>
-								<td id="compName" class="tg-cont"><textarea id="compName"></textarea></td>
+								<td id="compName" class="tg-cont">
+									<span id="compName">${firstCompInfo.compName}</span>
+									<textarea id="compName"></textarea>
+								</td>
 								<td class="tg-dvpl">대표자명</td>
-								<td id="ownerName" class="tg-cont"><textarea id="ownerName"></textarea></td>
+								<td id="ownerName" class="tg-cont">
+									<span id="ownerName">${firstCompInfo.ownerName}</span>
+									<textarea id="ownerName"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl">영어</td>
-								<td id="compNameEn" class="tg-cont"><textarea id="compNameEn"></textarea></td>
+								<td id="compNameEn" class="tg-cont">
+									<span id="compNameEn">${firstCompInfo.compNameEn}</span>
+									<textarea id="compNameEn"></textarea>
+								</td>
 								<td class="tg-dvpl">사업자번호</td>
-								<td id="compRegistNum" class="tg-cont"><textarea id="compRegistNum"></textarea></td>
+								<td id="compRegistNum" class="tg-cont">
+									<span id="compRegistNum">${firstCompInfo.compRegistNum}</span>
+									<textarea id="compRegistNum"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl">일본어</td>
-								<td id="compNameJp" class="tg-cont"><textarea id="compNameJp"></textarea></td>
+								<td id="compNameJp" class="tg-cont">
+									<span id="compNameJp"></span>
+									<textarea id="compNameJp"></textarea>
+								</td>
 								<td class="tg-dvpl">법인번호</td>
-								<td id="compNum" class="tg-cont"><textarea id="compNum"></textarea></td>
+								<td id="compNum" class="tg-cont">
+									<span id="compNum">${firstCompInfo.compNum}</span>
+									<textarea id="compNum"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl">중국어</td>
-								<td id="compNameCn" class="tg-cont"><textarea id="compNameCn"></textarea></td>
+								<td id="compNameCn" class="tg-cont">
+									<span id="compNameCn"></span>
+									<textarea id="compNameCn"></textarea>
+								</td>
 								<td class="tg-dvpl">정부기준코드</td>
-								<td id="standardCode" class="tg-cont"><textarea id="standardCode"></textarea></td>
+								<td id="standardCode" class="tg-cont">
+									<span id="standardCode">${firstCompInfo.standardCode}</span>
+									<textarea id="standardCode"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">회사약칭</td>
-								<td id="compCd" class="tg-cont"><textarea id="compCd"></textarea></td>
+								<td id="compCd" class="tg-cont">
+									<span id="compCd">${firstCompInfo.compCd}</span>
+									<textarea id="compCd"></textarea>
+								</td>
 								<td class="tg-dvpl">정렬순서</td>
-								<td id="orderNum" class="tg-cont"><textarea id="orderNum"></textarea></td>
+								<td id="orderNum" class="tg-cont">
+									<span id="orderNum">${firstCompInfo.orderNum}</span>
+									<textarea id="orderNum"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">업태</td>
-								<td id="bizCondition" class="tg-cont"><textarea id="bizCondition"></textarea></td>
+								<td id="bizCondition" class="tg-cont">
+									<span id="bizCondition">${firstCompInfo.bizCondition}</span>
+									<textarea id="bizCondition"></textarea>
+								</td>
 								<td class="tg-dvpl">종목</td>
-								<td id="item" class="tg-cont"><textarea id="item"></textarea></td>
+								<td id="item" class="tg-cont">
+									<span id="item">${firstCompInfo.item}</span>
+									<textarea id="item"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">대표전화</td>
-								<td id="telNum" class="tg-cont"><textarea id="telNum"></textarea></td>
+								<td id="telNum" class="tg-cont">
+									<span id="telNum">${firstCompInfo.telNum}</span>
+									<textarea id="telNum"></textarea>
+								</td>
 								<td class="tg-dvpl">대표팩스</td>
-								<td id="faxNum" class="tg-cont"><textarea id="faxNum"></textarea></td>
+								<td id="faxNum" class="tg-cont">
+									<span id="faxNum">${firstCompInfo.faxNum}</span>
+									<textarea id="faxNum"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2" rowspan="3">회사주소</td>
-								<td id="zipCode" class="tg-cont" colspan="3"><textarea id="zipCode"></textarea></td>
+								<td id="zipCode" class="tg-cont" colspan="3">
+									<span id="zipCode">${firstCompInfo.zipCode}</span>
+									<textarea id="zipCode"></textarea>
+								</td>
 							</tr>
 							<tr>
-								<td id="addr" class="tg-cont" colspan="3"><textarea id="addr"></textarea></td>
+								<td id="addr" class="tg-cont" colspan="3">
+									<span id="addr">${firstCompInfo.addr}</span>
+									<textarea id="addr"></textarea>
+								</td>
 							</tr>
 							<tr>
-								<td id="detailAddr" class="tg-cont" colspan="3"><textarea id="detailAddr"></textarea></td>
+								<td id="detailAddr" class="tg-cont" colspan="3">
+									<span id="detailAddr">${firstCompInfo.detailAddr}</span>
+									<textarea id="detailAddr"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">홈페이지주소</td>
-								<td id="homepgAddr" class="tg-cont"><textarea id="homepgAddr"></textarea></td>
+								<td id="homepgAddr" class="tg-cont">
+									<span id="homepgAddr">${firstCompInfo.homepgAddr}</span>
+									<textarea id="homepgAddr"></textarea>
+								</td>
 								<td class="tg-dvpl">기본언어</td>
-								<td id="nativeLangCode" class="tg-cont"><textarea id="nativeLangCode"></textarea></td>
+								<td id="nativeLangCode" class="tg-cont">
+									<span id="nativeLangCode">${firstCompInfo.nativeLangCode}</span>
+									<textarea id="nativeLangCode"></textarea>
+								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">기본도메인</td>
-								<td id="compDomain" class="tg-cont" colspan="3"><textarea id="compDomain"></textarea></td>
+								<td id="compDomain" class="tg-cont" colspan="3">
+									<span id="compDomain">${firstCompInfo.compDomain}</span>
+									<textarea id="compDomain"></textarea>
+								</td>
 							</tr>
 						</table>
 					</form>

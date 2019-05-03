@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.AdminService;
+import com.douzone.quicksilver.vo.CompanyVo;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,7 +33,9 @@ public class AdminController {
 		if(langCode == null) {
 			langCode = "kr";
 		}
-		model.addAttribute("compList", adminService.getCompList(langCode));
+		List<CompanyVo> compList = adminService.getCompList(langCode);
+		model.addAttribute("compList", compList);
+		model.addAttribute("firstCompInfo", adminService.getCompInfo(compList.get(0).getCompSeq()));
 		return "admin/comp-mgr";
 	}
 	
