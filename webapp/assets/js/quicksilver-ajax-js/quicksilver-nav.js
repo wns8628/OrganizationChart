@@ -120,6 +120,7 @@ var getListSearch = function(seq, pseq){
 }
 
 var getBizList = function(seq){
+	console.log(seq+"이건 seq입니다.")
 	$.ajax({
 		url: contextPath + "/getBiz/"+seq,
 	      type:"get",
@@ -197,39 +198,13 @@ var getLeader = function(url){
 
 $(function(){
 	$('#dataTable').dataTable();
-//	// 자회사 목록
-//	$(document).on("click", ".company", function(event){
-//		console.log("오나..")
-//		var no = $(this).attr("data-no") * -1;
-//		if($(this).next().children().length > 0){
-//			$(this).next().children().remove();
-//		}else{
-//			getList(no);
-//		}
-//	});
-//
-//	// 부서 목록
-//	$(document).on("click", ".departments", function(event){
-//		//왼쪽에 부서뿌리기
-//		var no = $(this).attr("data-no");
-//		if($(this).next().children().length > 0){
-//			$(this).next().children().remove();
-//		}else{
-//			getList(no);
-//		}
-//		//부서클릭시 뿌리고 직원테이블뿌리기
-//		let departmentNo = $(this).attr('data-no');
-//		let departmentName = $(this).html();
-//		makeTable("/boot/getDepartmentEmployeeInfo/" + departmentNo);
-//		renderTableDepartmentName(departmentName, departmentNo);
-//		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
-//	});
+
 	$(document).on("click", ".company", function(event){
 		console.log("회사클릭")
 	   var seq = $(this).attr("data-no");
 	   if($(this).next().children().length > 0){
 		   console.log("사업장 다지움");
-		   //$(this).next().children().remove();
+		   $(this).next().children().remove();
 	   }else{
 		   getBizList(seq);
 	   }
@@ -239,14 +214,16 @@ $(function(){
    $(document).on("click", ".biz", function(event){
 	  var seq = $(this).attr("data-no");
 	  if($(this).next().children().length > 0){
+		  console.log("닫을때 실행?");
 		  $(this).next().children().remove();
 	  }else{
 		   getList(seq);
+		   let departmentNo = $(this).attr('data-no');
+		   let departmentName = $(this).html();
+		   makeTable("/getEmpInfo/" + seq + "/b");
+		   renderTableDepartmentName(departmentName, departmentNo);
 	  }
-	  let departmentNo = $(this).attr('data-no');
-	  let departmentName = $(this).html();
-		makeTable("/getEmpInfo/" + seq + "/b");
-		renderTableDepartmentName(departmentName, departmentNo);
+
    });
 	
    //부서 목록
@@ -257,11 +234,11 @@ $(function(){
 	  }else{
 		  console.log(seq) 
 		  getList(seq);
-	  }
-	  let departmentNo = $(this).attr('data-no');
-	  let departmentName = $(this).html();
-		makeTable("/getEmpInfo/" + seq + "/d");
-		renderTableDepartmentName(departmentName, departmentNo);
+		  let departmentNo = $(this).attr('data-no');
+		  let departmentName = $(this).html();
+		  makeTable("/getEmpInfo/" + seq + "/d");
+		  renderTableDepartmentName(departmentName, departmentNo);
 //		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
+	  }
    });
 });

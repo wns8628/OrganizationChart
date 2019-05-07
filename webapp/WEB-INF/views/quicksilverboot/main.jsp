@@ -23,14 +23,13 @@
 			    <!-- Breadcrumbs-->
 		        <ol class="breadcrumb">
 		          <li class="breadcrumb-item">
-		            <a href="#">${mainInfo.groupName }</a>
+		            <a href="#" class="Info">${mainInfo.groupName }</a>
 		          </li>
 		          <li class="breadcrumb-item active">douzone</li>
 		        </ol>
 			
 		      <!-- Main Content -->
 		      <div id="content">
-		
 				 <!-- Icon Cards-->
 		        <div class="row" style="margin-left: 0px;">
 		        	<div class="col-xl-6 row">
@@ -41,18 +40,28 @@
 			                <div class="card-body-icon">
 			                  <i class="fas fa-fw fa-list"></i>
 			                </div>
-			                <ul style="padding-left: 20px;">
+			          		<%--  
+			               <ul style="padding-left: 20px;">
 				                <li><div class="mr-5">자회사 : ${mainInfo.totalComp} 개</div></li>
 				                <li><div class="mr-5">사업장 : ${mainInfo.totalBiz} 개</div></li>
 				                <li><div class="mr-5">부서 : ${mainInfo.totalDept} 개</div></li>
-			                </ul>
+			                </ul> 
+			                --%>
+			                    <div class="mr-5 Info">● 자회사 : ${mainInfo.totalComp} 개</div>
+				                <div class="mr-5 Info">● 사업장 : ${mainInfo.totalBiz} 개</div>
+				                <div class="mr-5 Info">● 부서 : ${mainInfo.totalDept} 개</div>
+			                
 			              </div>
-			<!--               <a class="card-footer text-white clearfix small z-1" href="#">
+			              
+						 <!--           
+					     <a class="card-footer text-white clearfix small z-1" href="#">
 			                <span class="float-left">View Details</span>
 			                <span class="float-right">
 			                  <i class="fas fa-angle-right"></i>
 			                </span>
-			              </a> -->
+			              </a>
+			             -->
+			             
 			            </div>
 			          </div>
 			          <div class="col-sm-6"
@@ -62,15 +71,15 @@
 			                <div class="card-body-icon">
 			                  <i class="fas fa-fw fa-life-ring"></i>
 			                </div>
-			                  <div class="mr-5">● 총 직원 수 : ${mainInfo.totalEmp} 명</div>
+			                  <div class="mr-5 Info">● 총 직원 수 : ${mainInfo.totalEmp} 명</div>
 			               
 							  <div style="display:none">
-				                <div class="mr-5" data-age="1">10대:${mainInfo.age10}</div>	
-				                <div class="mr-5" data-age="2">20대:${mainInfo.age20}</div>	
-				                <div class="mr-5" data-age="3">30대:${mainInfo.age30}</div>	
-				                <div class="mr-5" data-age="4">40대:${mainInfo.age40}</div>	
-				                <div class="mr-5" data-age="5">50대:${mainInfo.age50}</div>	
-				                <div class="mr-5" data-age="6">60대:${mainInfo.age60}</div>
+				                <div class="mr-5 Info" data-age="1">10대:${mainInfo.age10}</div>	
+				                <div class="mr-5 Info" data-age="2">20대:${mainInfo.age20}</div>	
+				                <div class="mr-5 Info" data-age="3">30대:${mainInfo.age30}</div>	
+				                <div class="mr-5 Info" data-age="4">40대:${mainInfo.age40}</div>	
+				                <div class="mr-5 Info" data-age="5">50대:${mainInfo.age50}</div>	
+				                <div class="mr-5 Info" data-age="6">60대:${mainInfo.age60}</div>
 							  </div>
 			              </div>
 			              <!-- <a class="card-footer text-white clearfix small z-1" href="#">
@@ -85,10 +94,10 @@
 			          <!-- 원차트  -->
                    	 <div class="col-sm-12" style="margin-top: 15px;">
 			            <div class="card mb-3">
-			              <div class="card-header">
-			                <i class="fas fa-chart-pie"></i>
-			                	연령대별 직원 비율</div>
-			              <div class="card-body">
+			              <div class="card-header"> 
+			                <i class="fas fa-chart-pie"> 연령대별 직원 비율</i>
+			                </div>
+			              <div class="card-body" id="graph-container-pie">
 			                <canvas id="myPieChart" width="100%" height="30"></canvas>
 			              </div>
 			              <div class="card-footer small text-muted">Quick Silver / douzone</div>
@@ -101,9 +110,9 @@
 			          <div class="">
 			            <div class="card mb-3">
 			              <div class="card-header">
-			                <i class="fas fa-chart-bar"></i>
-			                	자회사별 직원 수</div>
-			              <div class="card-body">
+			                <i class="fas fa-chart-bar"> 자회사별 직원 수</i>
+			                </div>
+			              <div class="card-body" id="graph-container-bar">
 			                <canvas id="myBarChart" width="100%" height="50"></canvas>
 			              </div>
 			              <div class="card-footer small text-muted">Quick Silver / douzone</div>

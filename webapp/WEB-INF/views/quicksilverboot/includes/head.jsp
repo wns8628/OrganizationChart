@@ -39,6 +39,8 @@
   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 	
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-emp-detail.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-info.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-scroll.js"></script>
 	
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
