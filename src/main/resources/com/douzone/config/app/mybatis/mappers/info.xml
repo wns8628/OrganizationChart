@@ -35,4 +35,46 @@
 		   and c.lang_code = #{langCode}
 		 group by b.comp_seq;
 	</select>	
+	
+	<!-- 회사 정보 -->
+	<select id="getCompInfo" resultType="companyvo">
+	select * from 
+			 (select f.comp_name as compName,count(distinct(a.emp_seq)) as totalEmp,
+						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 10 and 19 , 1, 0)) as age10,
+						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 20 and 29 , 1, 0)) as age20,
+						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 30 and 39 , 1, 0)) as age30,
+						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 40 and 49 , 1, 0)) as age40,
+						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 50 and 59 , 1, 0)) as age50,
+						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 60 and 69 , 1, 0)) as age60
+			  from t_co_emp_dept a, t_co_biz b, t_co_comp c, t_co_group d, t_co_emp e, t_co_comp_multi f
+			 where a.biz_seq = b.biz_seq
+			   and a.comp_seq = c.comp_seq 
+			   and a.group_seq = d.group_seq
+			   and a.emp_seq = e.emp_seq
+               and c.comp_seq = f.comp_seq
+			   and a.comp_seq=#{compSeq}
+			   and f.lang_code=#{langCode}) a,
+								(select count(a.biz_seq) as totalbiz
+								  from t_co_biz a, t_co_comp b, t_co_group c
+								 where a.comp_seq = b.comp_seq
+								   and b.group_seq = c.group_seq
+								   and a.comp_seq = #{compSeq}) b,
+												(select count(a.dept_seq) as totalDept
+												  from t_co_dept a, t_co_biz b, t_co_comp c,t_co_group d
+												 where a.biz_seq = b.biz_seq
+												   and b.comp_seq = c.comp_seq
+												   and c.group_seq = d.group_seq
+												   and a.comp_seq = #{compSeq}) c;
+	</select>	
+
+	<select id="getBizChartList" resultType="bizvo">
+		  select b.biz_name as bizName, count(distinct(d.emp_seq)) as bizEmpCount
+		    from t_co_biz a, t_co_biz_multi b, t_co_comp c,t_co_emp_dept d
+		   where a.biz_seq= b.biz_seq 
+		     and a.comp_seq = c.comp_seq
+		     and a.biz_seq = d.biz_seq
+		     and b.lang_code = #{langCode}
+		     and a.comp_seq = #{compSeq}
+		group by a.biz_seq;
+	</select>	
 </mapper>	

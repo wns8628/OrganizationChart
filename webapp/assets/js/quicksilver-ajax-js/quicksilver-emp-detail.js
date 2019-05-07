@@ -190,8 +190,6 @@ $(function(){
 		    	  
 		    	  getBizList(compSeq);
 		    	  getparents(deptSeq);
-		    	  console.log("언제??")
-		    	  
 		      },
 		      error: function(xhr, status, e){
 		         console.error(status+":"+e);
@@ -206,6 +204,7 @@ $(function(){
 		      success: function(response){
 		    	  console.log($(response.data)[0]);
 		    	  empDetailRender($(response.data)[0]);
+		    	  empDetailScroll();
 		      },
 		      error: function(xhr, status, e){
 		         console.error(status+":"+e);
