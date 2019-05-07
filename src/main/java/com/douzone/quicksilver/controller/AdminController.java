@@ -21,7 +21,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@RequestMapping("/main")
+	@RequestMapping({"","/main"})
 	public String main() {
 		
 		return "main/admin";

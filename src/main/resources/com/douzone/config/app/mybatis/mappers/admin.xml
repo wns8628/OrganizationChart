@@ -5,10 +5,11 @@
 <mapper namespace="admin">
 	
 	<select id="getCompList" parameterType="string" resultType="companyvo">
-		select comp_seq as compSeq, comp_name as compName 
-		from t_co_comp_multi
-		where lang_code = #{langCode}
-		order by comp_seq + 0;
+		select a.comp_seq as compSeq, b.comp_cd as compCd, a.comp_name as compName 
+		from t_co_comp_multi a, t_co_comp b
+		where a.comp_seq = b.comp_seq
+		and lang_code = #{langCode}
+		order by a.comp_seq + 0;
 	</select>
 	
 	<select id="getCompInfo" parameterType="string" resultType="companyvo">

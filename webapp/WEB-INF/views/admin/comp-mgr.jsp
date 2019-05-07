@@ -63,7 +63,8 @@ var getCompInfo = function(compSeq){
 						if(response.data[key] == null) {
 							response.data[key] = "";
 						}
-						if($("#company-update-btn").css("display") == "none"){
+						if(($("#company-update-btn").css("display") == "none") &&
+								($("#company-table tbody tr.company-table-active").length != 0)){
 							$(item).next().val(response.data[key]);
 						}else{
 							$(item).text(response.data[key]);
@@ -83,10 +84,23 @@ $(function(){
 	$("#company-table tbody tr:first").addClass("company-table-active");
 	
 	$("#company-table tbody tr").click(function(){
-		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
-		var compSeq = $(this).children(":first").text();
-		$(this).addClass("company-table-active");
-		getCompInfo(compSeq);
+		if($("#company-table tbody tr.company-table-active").length == 0){
+			$("#update-cancel-btn").hide();
+			$("#update-save-btn").hide();
+			$("#company-update-btn").show();
+			var compSeq = $(this).children(":first").text();
+			console.log(compSeq);
+			$("#company-content-table textarea").val("").hide();
+			$("#company-content-table textarea").prev().show();
+			console.log($("#company-table tbody tr.company-table-active").length);
+			getCompInfo(compSeq);
+			$(this).addClass("company-table-active");
+		}else{
+			$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
+			var compSeq = $(this).children(":first").text();
+			$(this).addClass("company-table-active");
+			getCompInfo(compSeq);
+		}
 	});
 	
 // 	$("#comp-add-btn").click(function(){
@@ -111,7 +125,7 @@ $(function(){
 			$("#company-table tbody tr:first").addClass("company-table-active");
 			$("#company-content-table textarea").hide();
 			$("#company-content-table span").show();
-			getCompInfo($("#company-table thead th:first").text());
+			getCompInfo($("#company-table tbody tr:first td:first").text());
 			$("#update-cancel-btn").hide();
 			$("#update-save-btn").hide();
 			$("#company-update-btn").show();
@@ -136,13 +150,21 @@ $(function(){
 		$("#update-save-btn").show();
 		$("#company-update-btn").hide();
 		
-		$("#company-content-table span").each(function(index, item){
-			$(item).next().val("");
-			$(item).hide();
-		});
-		$("#company-content-table textarea").show();
+// 		$("#company-content-table span").each(function(index, item){
+// 			$(item).next().val("");
+// 			$(item).hide();
+// 		});
+		$("#company-content-table span").text("").hide();
+		$("#company-content-table textarea").val("").show();
 	});
 	
+	var menuList = $("div.menu li");
+	for(var i=0; i<menuList.length; i++){
+		if($(menuList[i]).text() === $("#contents-header span:last").text()){
+			$(menuList[i]).parent().parent().show().prev().addClass("active");
+			$(menuList[i]).children().css("color","#328CF5").css("font-weight","bold");
+		}
+	}
 });
 </script>
 </head>
@@ -160,7 +182,7 @@ $(function(){
 						src="${pageContext.servletContext.contextPath }/assets/images/next.png">
 					<span>회사/조직관리</span> <img class="next" alt=""
 						src="${pageContext.servletContext.contextPath }/assets/images/next.png">
-					<span style="color:#279EF5">회사정보관리</span>
+					<span>회사정보관리</span>
 				</div>
 				<div id="company-table-wrapper">
 					<div class="content-head-wrapper">
@@ -171,6 +193,7 @@ $(function(){
 					<table id="company-table">
 						<thead>
 							<tr>
+								<th>seq</th>
 								<th>회사코드</th>
 								<th>회사명</th>
 							</tr>
@@ -179,6 +202,7 @@ $(function(){
 							<c:forEach items="${compList }" var="vo">
 								<tr>
 									<td>${vo.compSeq }</td>
+									<td>${vo.compCd }</td>
 									<td>${vo.compName }</td>
 								</tr>
 							</c:forEach>
