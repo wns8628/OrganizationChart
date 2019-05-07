@@ -23,7 +23,7 @@ div#contents div#content-table-wrapper {float: right; width:80%;}
 
 div.content-head-wrapper {margin: 5px 5px; width: 100%; height: 20px;}
 div.content-head-wrapper span {font-weight: bold;}
-div.head-btn{ float: right; display: inline; border: 1px black solid; margin: 0 5px; padding: 0 10px;}
+div.content-head-wrapper div.head-btn{ float: right; display: inline; border: 1px black solid; margin: 0 5px; padding: 0 10px;}
 div.content-head-wrapper div.head-btn:hover{ cursor: pointer;}
 
 div#contents table#company-content-table  {border-collapse:collapse; border-spacing:0;   background-color: white; width: 100%;}
@@ -36,11 +36,13 @@ div#contents table#company-content-table .tg-0pky{border-color:inherit;text-alig
 div#contents table#company-content-table .tg-cont{border-color:inherit;text-align:center; padding: 5px 5px; background-color: white;}
 div#contents table#company-content-table textarea{height: 18px; width: 100%; display: none;}
 div#contents table#company-content-table th div{float: right;}
-div#contents table#company-content-table textarea#zipCode { width: 100px;}
-
+div#contents table#company-content-table textarea#zipCode { width: 100px; float: left;}
+div#contents table#company-content-table div#zip-btn {float:left; width: 50px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer;}
+div#contents table#company-content-table .update-unit {display: none;}
+div#contents table#company-content-table select {width: 80%;}
 </style>
 <script type="text/javascript">
-function sample6_execDaumPostcode() {
+function postcode() {
     new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -72,18 +74,19 @@ function sample6_execDaumPostcode() {
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
                 }
+                console.log(extraAddr);
                 // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("sample6_extraAddress").value = extraAddr;
+//                 document.getElementById("sample6_extraAddress").value = extraAddr;
             
             } else {
-                document.getElementById("sample6_extraAddress").value = '';
+//                 document.getElementById("sample6_extraAddress").value = '';
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById("sample6_address").value = addr;
+            $("textarea#zipCode").val(data.zonecode);
+            $("textarea#addr").val(addr + extraAddr);
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("sample6_detailAddress").focus();
+            $("textarea#detailAddr").focus();
         }
     }).open();
 }
@@ -142,8 +145,7 @@ $(function(){
 			var compSeq = $(this).children(":first").text();
 			console.log(compSeq);
 			$("#company-content-table textarea").val("").hide();
-			$("#company-content-table textarea").prev().show();
-			console.log($("#company-table tbody tr.company-table-active").length);
+			$("#company-content-table span").show();
 			getCompInfo(compSeq);
 			$(this).addClass("company-table-active");
 		}else{
@@ -166,7 +168,7 @@ $(function(){
 			$("#update-cancel-btn").show();
 			$("#update-save-btn").show();
 			$("#company-update-btn").hide();
-			
+			$(".update-unit").show();
 			$("#company-content-table span").each(function(index, item){
 				$(item).next().val($(item).text());
 				$(item).hide();
@@ -180,15 +182,16 @@ $(function(){
 			$("#update-cancel-btn").hide();
 			$("#update-save-btn").hide();
 			$("#company-update-btn").show();
+			$(".update-unit").hide();
 		} else{
 			$("#update-cancel-btn").hide();
 			$("#update-save-btn").hide();
 			$("#company-update-btn").show();
-			
+			$(".update-unit").hide();
 			$("#company-content-table textarea").each(function(index, item){
 				$(item).prev().text($(item).val());
 			});
-			$("#company-content-table textarea").prev().show();
+			$("#company-content-table span").show();
 			$("#company-content-table textarea").hide();
 			
 		}
@@ -200,7 +203,7 @@ $(function(){
 		$("#update-cancel-btn").show();
 		$("#update-save-btn").show();
 		$("#company-update-btn").hide();
-		
+		$(".update-unit").show();
 // 		$("#company-content-table span").each(function(index, item){
 // 			$(item).next().val("");
 // 			$(item).hide();
@@ -288,8 +291,11 @@ $(function(){
 								<td id="compSeq" class="tg-cont"><span id="compSeq">${firstCompInfo.compSeq}</span><textarea id="compSeq"></textarea> </td>
 								<td class="tg-dvpl">사용여부</td>
 								<td class="tg-de2y">
-									<input type="radio" name="useYn" value="Y">사용
-									<input type="radio" name="useYn" value="N">미사용
+									<span id="useYn">${firstCompInfo.useYn}</span>
+									<div class="update-unit">
+										<input type="radio" name="useYn" value="Y">사용
+										<input type="radio" name="useYn" value="N">미사용
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -388,7 +394,7 @@ $(function(){
 								<td id="zipCode" class="tg-de2y" colspan="3">
 									<span id="zipCode">${firstCompInfo.zipCode}</span>
 									<textarea id="zipCode"></textarea>
-									<div id="zip-btn" class="head-btn">우편번호</div>
+									<div id="zip-btn" onclick="postcode()" class="head-btn update-unit">우편번호</div>
 								</td>
 							</tr>
 							<tr>
@@ -400,7 +406,7 @@ $(function(){
 							<tr>
 								<td id="detailAddr" class="tg-cont" colspan="3">
 									<span id="detailAddr">${firstCompInfo.detailAddr}</span>
-									<textarea id="detailAddr"></textarea>
+									<textarea id="detailAddr" placeholder="상세주소입력"></textarea>
 								</td>
 							</tr>
 							<tr>
@@ -412,7 +418,12 @@ $(function(){
 								<td class="tg-dvpl">기본언어</td>
 								<td id="nativeLangCode" class="tg-cont">
 									<span id="nativeLangCode">${firstCompInfo.nativeLangCode}</span>
-									<textarea id="nativeLangCode"></textarea>
+									<select class="update-unit" name="nativeLangCode">
+										<option value="kr" selected="selected">한국어</option>
+										<option value="en">영어</option>
+										<option value="jp">일본어</option>
+										<option value="cn">중국어</option>
+									</select>
 								</td>
 							</tr>
 							<tr>
