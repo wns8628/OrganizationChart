@@ -13,10 +13,10 @@
 	</select>
 	
 	<select id="getCompInfo" parameterType="string" resultType="companyvo">
-		select a.comp_seq as compSeq, a.use_yn as useYn, a.owner_name as ownerName, a.comp_regist_num as compRegistNum,
+		select a.comp_seq as compSeq, if(a.use_yn = 'Y', '사용', '미사용') as useYn, a.owner_name as ownerName, a.comp_regist_num as compRegistNum,
 			a.comp_num as compNum, a.standard_code as standardCode, a.comp_cd as compCd, a.order_num as orderNum,
 			a.biz_condition as bizCondition, a.item, a.tel_num as telNum, a.fax_num as faxNum, a.zip_code as zipCode,
-		    a.addr, a.detail_addr as detailAddr, a.homepg_addr as homepgAddr, a.native_lang_code as nativeLangCode, 
+		    a.addr, a.detail_addr as detailAddr, a.homepg_addr as homepgAddr, (case(a.native_lang_code)when'kr' then '한국어' else '영어' end) as nativeLangCode, 
 		    a.comp_domain as compDomain, b.comp_name as compName, c.comp_name as compNameEn
 		from
 			(select a.comp_seq, a.use_yn, b.owner_name, a.comp_regist_num, a.comp_num, a.standard_code,

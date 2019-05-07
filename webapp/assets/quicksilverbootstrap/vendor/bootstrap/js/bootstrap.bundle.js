@@ -4234,9 +4234,16 @@
 //
 //      this._element.setAttribute('aria-expanded', true);
 
-      $(this._menu).toggleClass(ClassName$4.SHOW);
-      
+//      $(this._menu).toggleClass(ClassName$4.SHOW);      
 //    $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
+      
+      console.log("찾기어렵지 : 열때만 적용되는 차트");      
+      if(($(this._menu).toggleClass(ClassName$4.SHOW)[0].classList.value) == "dropdown-menu show"){
+    	  var seq = $(this).prev().prevObject[0]._config.no;    	
+    	  getCompInfo(seq);
+    	  InfoBar(seq, "biz");		
+	  }
+
     };
 
     _proto.show = function show() {

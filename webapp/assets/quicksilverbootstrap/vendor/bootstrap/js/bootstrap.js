@@ -3978,8 +3978,8 @@
 
 
   $(document).on(Event$9.CLICK_DATA_API, Selector$9.DATA_TOGGLE, function (event) {
-    event.preventDefault();
 
+    event.preventDefault();
     Tab._jQueryInterface.call($(this), 'show');
   });
   /**

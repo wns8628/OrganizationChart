@@ -2,7 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
 <configuration> 
    <typeAliases> 
-         <typeAlias alias="companyvo" type="com.douzone.quicksilver.vo.CompanyVo"/>
+         <typeAlias alias="companyvo" type="com.douzone.quicksilver.vo.CompanyVo"/>         
          <typeAlias alias="departmentsvo" type="com.douzone.quicksilver.vo.DepartmentsVo"/>
          <typeAlias alias="employeesvo" type="com.douzone.quicksilver.vo.EmployeesVo"/>
          <typeAlias alias="bizvo" type="com.douzone.quicksilver.vo.BizVo"/>
