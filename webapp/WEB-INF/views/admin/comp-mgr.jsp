@@ -88,8 +88,12 @@ function postcode() {
     }).open();
 }
 
-var compRender = function(){
+var compRender = function(vo){
+	var htmls = "<tr><td>"+vo.compSeq+"</td><td>"+vo.compName+"</td></tr>";
+	$("#company-table tbody").append(htmls);
+	$("#company-table tbody tr:last").addClass("company-table-active");
 	
+	removeForm();
 }
 
 var getCompInfo = function(compSeq){
@@ -140,7 +144,7 @@ var addComp = function(){
 		dataType : "json",
 		data : formData,
 		success : function(response) {
-			console.log(response.data);
+			compRender(response.data);
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -173,8 +177,9 @@ var removeForm = function(){
 	$("#update-save-btn").hide();
 	$("#company-update-btn").show();
 	$(".update-unit").hide();
-	$("#company-content-table input[type='text']").each(function(index, item){
+	$("#company-content-table input").each(function(index, item){
 		$(item).prev().text($(item).val());
+		console.log($(item).val());
 	});
 	$("#company-content-table span").show();
 	$("#company-content-table input[type='text']").hide();
@@ -183,7 +188,9 @@ var removeForm = function(){
 $(function(){
 	$("#company-table tbody tr:first").addClass("company-table-active");
 	
-	$("#company-table tbody tr").click(function(){
+	// live event (미래에 동적으로 생성될 엘리먼트의 이벤트)
+	$(document).on("click", "#company-table tbody tr", function(event){
+		event.preventDefault();
 		if($("#company-table tbody tr.company-table-active").length == 0){
 			$("#update-cancel-btn").hide();
 			$("#update-save-btn").hide();
@@ -201,13 +208,6 @@ $(function(){
 			getCompInfo(compSeq);
 		}
 	});
-	
-// 	$("#comp-add-btn").click(function(){
-// 		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
-// 		$("#company-table tbody").append("<tr><td></td><td></td></tr>");
-// 		$("#company-table tbody tr:last").addClass("company-table-active");
-// 		$("#company-content-table textarea").val("");
-// 	});
 	
 	$(".update-toggle").click(function(){
 		if($("#company-update-btn").css("display") != "none"){
