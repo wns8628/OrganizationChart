@@ -33,5 +33,17 @@
 		on a.comp_seq = c.comp_seq
 		and c.lang_code = 'en'
 	</select>
-
+	
+	<insert id="insertComp" parameterType="companyvo">
+		
+		insert into t_co_comp values(#{compSeq}, 'demo', #{compCd}, '0', 'B', #{compRegistNum},
+		 #{compNum}, #{standardCode}, 'Y', #{telNum}, #{faxNum}, #{homepgAddr}, null, #{compDomain}, null,
+		  '', #{zipCode}, 'N', '', '', #{nativeLangCode}, (select max(a.order_num)+1 from t_co_comp a), #{useYn}, 'eap', '0101', now(),
+		   null, null, 'N', 'N', 'N')
+	</insert>
+	
+	<insert id="insertCompMulti" parameterType="companyvo">
+		insert into t_co_comp_multi values(#{compSeq}, #{langCode}, 'demo', #{compName}, null,
+		 '김세준', null, null, null, #{addr}, #{detailAddr}, #{useYn}, '1010', now(), null, null, #{compNickname})
+	</insert>
 </mapper>

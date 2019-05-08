@@ -20,4 +20,20 @@ public class AdminService {
 	public CompanyVo getCompInfo(String compSeq) {
 		return adminDao.getCompInfo(compSeq);
 	}
+	
+	public void addComp(CompanyVo vo) {
+		adminDao.insertComp(vo);
+		System.out.println(vo.getCompSeq());
+		if("".equals(vo.getCompName()) == false) {
+			System.out.println(vo.getCompName());
+			vo.setLangCode("kr");
+			adminDao.insertCompMulti(vo);
+		}
+		if("".equals(vo.getCompNameEn()) == false) {
+			vo.setLangCode("en");
+			vo.setCompName(vo.getCompNameEn());
+			adminDao.insertCompMulti(vo);
+		}
+		
+	}
 }

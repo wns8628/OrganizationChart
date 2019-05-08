@@ -34,14 +34,17 @@ div#contents table#company-content-table .tg-dvpl{border-color:inherit;text-alig
 div#contents table#company-content-table .tg-de2y{border-color:inherit;text-align:left; padding: 5px 5px; background-color: white;}
 div#contents table#company-content-table .tg-0pky{border-color:inherit;text-align:left;}
 div#contents table#company-content-table .tg-cont{border-color:inherit;text-align:center; padding: 5px 5px; background-color: white;}
-div#contents table#company-content-table textarea{height: 18px; width: 100%; display: none;}
+div#contents table#company-content-table input[type='text']{height: 18px; width: 99%; display: none;}
 div#contents table#company-content-table th div{float: right;}
-div#contents table#company-content-table textarea#zipCode { width: 100px; float: left;}
+div#contents table#company-content-table input[name='zipCode'] { width: 100px; float: left;}
 div#contents table#company-content-table div#zip-btn {float:left; width: 50px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer;}
 div#contents table#company-content-table .update-unit {display: none;}
 div#contents table#company-content-table select {width: 80%;}
+
 </style>
 <script type="text/javascript">
+var contextPath = "${pageContext.servletContext.contextPath }";
+
 function postcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -74,37 +77,23 @@ function postcode() {
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
                 }
-                console.log(extraAddr);
-                // 조합된 참고항목을 해당 필드에 넣는다.
-//                 document.getElementById("sample6_extraAddress").value = extraAddr;
-            
-            } else {
-//                 document.getElementById("sample6_extraAddress").value = '';
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            $("textarea#zipCode").val(data.zonecode);
-            $("textarea#addr").val(addr + extraAddr);
+            $("input[name='zipCode']").val(data.zonecode);
+            $("input[name='addr']").val(addr + extraAddr);
             // 커서를 상세주소 필드로 이동한다.
-            $("textarea#detailAddr").focus();
+            $("input[name='detailAddr']").focus();
         }
     }).open();
 }
 
-var contextPath = "${pageContext.servletContext.contextPath }";
+var compRender = function(){
+	
+}
+
 var getCompInfo = function(compSeq){
-// 	$("#company-content-table").DataTable({
-// 		ajax: {
-// 			"type" : "get",
-// 			"url" : contextPath+"/admin/getCompInfo/"+compSeq,
-// 			"dataType" : "JSON"
-// 		},
-// 		columns : [
-// 			{data : "compSeq"},
-// 			{data : ""},
-// 			{data : "ownerName"},
-// 		]
-// 	});
+	
 	$.ajax({
 		url : contextPath + "/admin/getCompInfo/" + compSeq,
 		type : "get",
@@ -120,8 +109,16 @@ var getCompInfo = function(compSeq){
 						if(($("#company-update-btn").css("display") == "none") &&
 								($("#company-table tbody tr.company-table-active").length != 0)){
 							$(item).next().val(response.data[key]);
+							if(key == 'useYn'){
+								$("input[data-id='"+response.data[key]+"']").attr("checked","checked");
+								console.log($("input[data-id='"+response.data[key]+"']"));
+							}
+							if(key == 'nativeLangCode'){
+								$("option[data-id='"+response.data[key]+"']").attr("checked","checked");
+							}
 						}else{
 							$(item).text(response.data[key]);
+							$(".update-unit").hide();
 						}
 					}
 				}
@@ -134,6 +131,55 @@ var getCompInfo = function(compSeq){
 	});
 }
 
+var addComp = function(){
+	
+	var formData = $("#company-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/addComp",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		success : function(response) {
+			console.log(response.data);
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+	
+}
+
+var updateForm = function(){
+	$("#update-cancel-btn").show();
+	$("#update-save-btn").show();
+	$("#company-update-btn").hide();
+	$(".update-unit").show();
+	$("#company-content-table span").each(function(index, item){
+		if($(this).attr("id") == "useYn"){
+			$("input[data-id='"+$(this).text()+"']").attr("checked","checked");
+		}
+		if($(this).attr("id") == "nativeLangCode"){
+			$("option[data-id='"+$(this).text()+"']").attr("checked","checked");
+		}
+		$(item).next().val($(item).text());
+		$(item).hide();
+	});
+	$("#company-content-table input[type='text']").show();
+}
+
+var removeForm = function(){
+	$("#update-cancel-btn").hide();
+	$("#update-save-btn").hide();
+	$("#company-update-btn").show();
+	$(".update-unit").hide();
+	$("#company-content-table input[type='text']").each(function(index, item){
+		$(item).prev().text($(item).val());
+	});
+	$("#company-content-table span").show();
+	$("#company-content-table input[type='text']").hide();
+}
+
 $(function(){
 	$("#company-table tbody tr:first").addClass("company-table-active");
 	
@@ -144,7 +190,7 @@ $(function(){
 			$("#company-update-btn").show();
 			var compSeq = $(this).children(":first").text();
 			console.log(compSeq);
-			$("#company-content-table textarea").val("").hide();
+			$("#company-content-table input[type='text']").val("").hide();
 			$("#company-content-table span").show();
 			getCompInfo(compSeq);
 			$(this).addClass("company-table-active");
@@ -165,51 +211,23 @@ $(function(){
 	
 	$(".update-toggle").click(function(){
 		if($("#company-update-btn").css("display") != "none"){
-			$("#update-cancel-btn").show();
-			$("#update-save-btn").show();
-			$("#company-update-btn").hide();
-			$(".update-unit").show();
-			$("#company-content-table span").each(function(index, item){
-				$(item).next().val($(item).text());
-				$(item).hide();
-			});
-			$("#company-content-table textarea").show();
+			updateForm();
 		} else if($("#company-table tbody tr.company-table-active").length === 0){
 			$("#company-table tbody tr:first").addClass("company-table-active");
-			$("#company-content-table textarea").hide();
-			$("#company-content-table span").show();
+			removeForm();
 			getCompInfo($("#company-table tbody tr:first td:first").text());
-			$("#update-cancel-btn").hide();
-			$("#update-save-btn").hide();
-			$("#company-update-btn").show();
-			$(".update-unit").hide();
 		} else{
-			$("#update-cancel-btn").hide();
-			$("#update-save-btn").hide();
-			$("#company-update-btn").show();
-			$(".update-unit").hide();
-			$("#company-content-table textarea").each(function(index, item){
-				$(item).prev().text($(item).val());
-			});
-			$("#company-content-table span").show();
-			$("#company-content-table textarea").hide();
+			removeForm();
 			
 		}
 	});
 	
 	$("#comp-add-btn").click(function(){
 		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
-		
-		$("#update-cancel-btn").show();
-		$("#update-save-btn").show();
-		$("#company-update-btn").hide();
-		$(".update-unit").show();
-// 		$("#company-content-table span").each(function(index, item){
-// 			$(item).next().val("");
-// 			$(item).hide();
-// 		});
-		$("#company-content-table span").text("").hide();
-		$("#company-content-table textarea").val("").show();
+		updateForm();
+		$("#company-content-table span").text("");
+		$("#company-content-table input[type='text']").val("");
+		$(".update-unit").removeAttr("checked");
 	});
 	
 	var menuList = $("div.menu li");
@@ -222,6 +240,12 @@ $(function(){
 	
 	$("#zip-btn").click(function(){
 		sample6_execDaumPostcode();
+	});
+	
+	$("#update-save-btn").click(function(){
+		if($("#company-table tbody tr.company-table-active").length === 0){
+			addComp();
+		}
 	});
 });
 </script>
@@ -251,7 +275,6 @@ $(function(){
 					<table id="company-table">
 						<thead>
 							<tr>
-								<th>seq</th>
 								<th>회사코드</th>
 								<th>회사명</th>
 							</tr>
@@ -260,7 +283,6 @@ $(function(){
 							<c:forEach items="${compList }" var="vo">
 								<tr>
 									<td>${vo.compSeq }</td>
-									<td>${vo.compCd }</td>
 									<td>${vo.compName }</td>
 								</tr>
 							</c:forEach>
@@ -274,7 +296,7 @@ $(function(){
 						<div id="update-save-btn" class="head-btn" style="display:none;">저장</div>
 						<div id="company-update-btn" class="head-btn update-toggle">수정</div>
 					</div>
-					<form id="company-add-form">
+					<form id="company-form">
 						<table id="company-content-table" style="table-layout: fixed;">
 							<colgroup>
 								<col style="width: 61px">
@@ -288,13 +310,13 @@ $(function(){
 									<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
 									회사코드
 								</td>
-								<td id="compSeq" class="tg-cont"><span id="compSeq">${firstCompInfo.compSeq}</span><textarea id="compSeq"></textarea> </td>
+								<td id="compSeq" class="tg-cont"><span id="compSeq">${firstCompInfo.compSeq}</span><input type="text" name="compSeq"></td>
 								<td class="tg-dvpl">사용여부</td>
 								<td class="tg-de2y">
 									<span id="useYn">${firstCompInfo.useYn}</span>
 									<div class="update-unit">
-										<input type="radio" name="useYn" value="Y">사용
-										<input type="radio" name="useYn" value="N">미사용
+										<input type="radio" data-id="사용" name="useYn" value="Y">사용
+										<input type="radio" data-id="미사용" name="useYn" value="N">미사용
 									</div>
 								</td>
 							</tr>
@@ -309,120 +331,120 @@ $(function(){
 								</td>
 								<td id="compName" class="tg-cont">
 									<span id="compName">${firstCompInfo.compName}</span>
-									<textarea id="compName"></textarea>
+									<input type="text" name="compName">
 								</td>
 								<td class="tg-dvpl">대표자명</td>
 								<td id="ownerName" class="tg-cont">
 									<span id="ownerName">${firstCompInfo.ownerName}</span>
-									<textarea id="ownerName"></textarea>
+									<input type="text" name="ownerName">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl">영어</td>
 								<td id="compNameEn" class="tg-cont">
 									<span id="compNameEn">${firstCompInfo.compNameEn}</span>
-									<textarea id="compNameEn"></textarea>
+									<input type="text" name="compNameEn">
 								</td>
 								<td class="tg-dvpl">사업자번호</td>
 								<td id="compRegistNum" class="tg-cont">
 									<span id="compRegistNum">${firstCompInfo.compRegistNum}</span>
-									<textarea id="compRegistNum"></textarea>
+									<input type="text" name="compRegistNum">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl">일본어</td>
 								<td id="compNameJp" class="tg-cont">
 									<span id="compNameJp"></span>
-									<textarea id="compNameJp"></textarea>
+									<input type="text" name="compNameJp">
 								</td>
 								<td class="tg-dvpl">법인번호</td>
 								<td id="compNum" class="tg-cont">
 									<span id="compNum">${firstCompInfo.compNum}</span>
-									<textarea id="compNum"></textarea>
+									<input type="text" name="compNum">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl">중국어</td>
 								<td id="compNameCn" class="tg-cont">
 									<span id="compNameCn"></span>
-									<textarea id="compNameCn"></textarea>
+									<input type="text" name="compNameCn">
 								</td>
 								<td class="tg-dvpl">정부기준코드</td>
 								<td id="standardCode" class="tg-cont">
 									<span id="standardCode">${firstCompInfo.standardCode}</span>
-									<textarea id="standardCode"></textarea>
+									<input type="text" name="standardCode">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">회사약칭</td>
 								<td id="compCd" class="tg-cont">
 									<span id="compCd">${firstCompInfo.compCd}</span>
-									<textarea id="compCd"></textarea>
+									<input type="text" name="compCd">
 								</td>
 								<td class="tg-dvpl">정렬순서</td>
 								<td id="orderNum" class="tg-cont">
 									<span id="orderNum">${firstCompInfo.orderNum}</span>
-									<textarea id="orderNum"></textarea>
+									<input type="text" name="orderNum">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">업태</td>
 								<td id="bizCondition" class="tg-cont">
 									<span id="bizCondition">${firstCompInfo.bizCondition}</span>
-									<textarea id="bizCondition"></textarea>
+									<input type="text" name="bizCondition">
 								</td>
 								<td class="tg-dvpl">종목</td>
 								<td id="item" class="tg-cont">
 									<span id="item">${firstCompInfo.item}</span>
-									<textarea id="item"></textarea>
+									<input type="text" name="item">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">대표전화</td>
 								<td id="telNum" class="tg-cont">
 									<span id="telNum">${firstCompInfo.telNum}</span>
-									<textarea id="telNum"></textarea>
+									<input type="text" name="telNum">
 								</td>
 								<td class="tg-dvpl">대표팩스</td>
 								<td id="faxNum" class="tg-cont">
 									<span id="faxNum">${firstCompInfo.faxNum}</span>
-									<textarea id="faxNum"></textarea>
+									<input type="text" name="faxNum">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2" rowspan="3">회사주소</td>
 								<td id="zipCode" class="tg-de2y" colspan="3">
 									<span id="zipCode">${firstCompInfo.zipCode}</span>
-									<textarea id="zipCode"></textarea>
+									<input type="text" name="zipCode">
 									<div id="zip-btn" onclick="postcode()" class="head-btn update-unit">우편번호</div>
 								</td>
 							</tr>
 							<tr>
 								<td id="addr" class="tg-cont" colspan="3">
 									<span id="addr">${firstCompInfo.addr}</span>
-									<textarea id="addr"></textarea>
+									<input type="text" name="addr">
 								</td>
 							</tr>
 							<tr>
 								<td id="detailAddr" class="tg-cont" colspan="3">
 									<span id="detailAddr">${firstCompInfo.detailAddr}</span>
-									<textarea id="detailAddr" placeholder="상세주소입력"></textarea>
+									<input type="text" name="detailAddr" placeholder="상세주소입력">
 								</td>
 							</tr>
 							<tr>
 								<td class="tg-dvpl" colspan="2">홈페이지주소</td>
 								<td id="homepgAddr" class="tg-cont">
 									<span id="homepgAddr">${firstCompInfo.homepgAddr}</span>
-									<textarea id="homepgAddr"></textarea>
+									<input type="text" name="homepgAddr">
 								</td>
 								<td class="tg-dvpl">기본언어</td>
 								<td id="nativeLangCode" class="tg-cont">
 									<span id="nativeLangCode">${firstCompInfo.nativeLangCode}</span>
 									<select class="update-unit" name="nativeLangCode">
-										<option value="kr" selected="selected">한국어</option>
-										<option value="en">영어</option>
-										<option value="jp">일본어</option>
-										<option value="cn">중국어</option>
+										<option data-id="한국어" value="kr">한국어</option>
+										<option data-id="영어" value="en">영어</option>
+										<option data-id="일본어" value="jp">일본어</option>
+										<option data-id="중국어" value="cn">중국어</option>
 									</select>
 								</td>
 							</tr>
@@ -430,7 +452,7 @@ $(function(){
 								<td class="tg-dvpl" colspan="2">기본도메인</td>
 								<td id="compDomain" class="tg-cont" colspan="3">
 									<span id="compDomain">${firstCompInfo.compDomain}</span>
-									<textarea id="compDomain"></textarea>
+									<input type="text" name="compDomain">
 								</td>
 							</tr>
 						</table>

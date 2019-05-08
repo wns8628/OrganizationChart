@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,7 +42,17 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping("/getCompInfo/{compSeq}")
-	public JSONResult getEmpInfo(@PathVariable("compSeq") String compSeq) {
+	public JSONResult getCompInfo(@PathVariable("compSeq") String compSeq) {
 		return JSONResult.success(adminService.getCompInfo(compSeq));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/addComp")
+	public JSONResult addComp(@ModelAttribute CompanyVo vo) {
+		System.out.println(vo);
+		adminService.addComp(vo);
+		
+		System.out.println(vo.getCompSeq());
+		return JSONResult.success(vo.getCompSeq());
 	}
 }
