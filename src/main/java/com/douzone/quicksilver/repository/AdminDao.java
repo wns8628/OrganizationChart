@@ -20,4 +20,12 @@ public class AdminDao {
 	public CompanyVo getCompInfo(String compSeq) {
 		return sqlSession.selectOne("admin.getCompInfo", compSeq);
 	}
+	
+	public int insertComp(CompanyVo vo) {
+		return sqlSession.insert("admin.insertComp", vo);
+	}
+	
+	public int insertCompMulti(CompanyVo vo) {
+		return sqlSession.insert("admin.insertCompMulti", vo);
+	}
 }
