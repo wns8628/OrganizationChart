@@ -186,7 +186,6 @@ var getLeader = function(url){
 			console.log("아니오라고요 ...");
 			
 			renderLeader(response.data)
-
 		},
 		error: function(xhr, status, e){
 			console.error(status+":"+e);
