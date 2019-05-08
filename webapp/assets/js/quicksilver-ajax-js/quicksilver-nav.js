@@ -32,12 +32,12 @@ var bizRender = function(vo){
 
 //테이블에부서이름뿌리기
 var renderTableDepartmentName = function(departmentName,departmentNo){
-	   $(".card-header").empty();
+	   $(".dept").empty();
 	   let htmls = "<h6 class='m-0 font-weight-bold text-primary'>" + 
 	   					departmentName + 
 	   				"</h6>";
 	   
-	   $(".card-header").append(htmls);
+	   $(".dept").append(htmls);
   
 }
 //테이블에팀장이름뿌리기
@@ -46,10 +46,10 @@ var renderLeader = function(leader){
 		console.log(leader.name);
 		
 	   let htmlLeader = "<div class='m-0 font-weight-bold text-danger'>┖ 팀장 : "+ 
-	   					leader.name + "(" + leader.empNo + ")"
+	   					leader.empName + "(" + leader.empSeq + ")"
 					"</div>";	
 		
-	   $(".card-header").append(htmlLeader);
+	   $(".dept").append(htmlLeader);
 }
 
 //부서리스트가져오기
@@ -185,9 +185,8 @@ var getLeader = function(url){
 			console.log(response);
 			console.log("아니오라고요 ...");
 			
-			$(response.data).each(function(index, vo){
-				renderLeader(vo)
-			});
+			renderLeader(response.data)
+
 		},
 		error: function(xhr, status, e){
 			console.error(status+":"+e);
@@ -207,6 +206,7 @@ $(function(){
 		   $(this).next().children().remove();
 	   }else{
 		   getBizList(seq);
+		   //그담코드는 bootstrap.bundle.js 안에 _proto.toggle = function toggle() { 4168번째줄이 계속실행됨 누를때마다
 	   }
    });
    
@@ -214,14 +214,13 @@ $(function(){
    $(document).on("click", ".biz", function(event){
 	  var seq = $(this).attr("data-no");
 	  if($(this).next().children().length > 0){
-		  console.log("닫을때 실행?");
 		  $(this).next().children().remove();
 	  }else{
 		   getList(seq);
-		   let departmentNo = $(this).attr('data-no');
+		   
 		   let departmentName = $(this).html();
 		   makeTable("/getEmpInfo/" + seq + "/b");
-		   renderTableDepartmentName(departmentName, departmentNo);
+		   renderTableDepartmentName(departmentName, seq);
 	  }
 
    });
@@ -234,11 +233,11 @@ $(function(){
 	  }else{
 		  console.log(seq) 
 		  getList(seq);
-		  let departmentNo = $(this).attr('data-no');
+		  
 		  let departmentName = $(this).html();
 		  makeTable("/getEmpInfo/" + seq + "/d");
-		  renderTableDepartmentName(departmentName, departmentNo);
-//		getLeader("/boot/getDepartmentEmployeeInfo/" + departmentNo);
+		  renderTableDepartmentName(departmentName, seq);
+		  getLeader("/boot/getDepartmentEmployeeInfo/" + seq);
 	  }
    });
 });

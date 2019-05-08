@@ -54,6 +54,7 @@
 		left outer join t_co_comp_duty_position_multi b
 		on a.position_code = b.dp_seq
 		and b.lang_code = #{langCode}
+		order by bDay desc;
 	</select>
 	
 </mapper>
