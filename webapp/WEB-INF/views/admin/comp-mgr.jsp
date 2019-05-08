@@ -104,6 +104,7 @@ var getCompInfo = function(compSeq){
 		dataType : "json",
 		data : "",
 		success : function(response) {
+			$("input,option").prop("checked",false);
 			$("#company-content-table td span").each(function(index, item){
 				for(var key in response.data){
 					if($(item).attr('id') == key){
@@ -114,11 +115,10 @@ var getCompInfo = function(compSeq){
 								($("#company-table tbody tr.company-table-active").length != 0)){
 							$(item).next().val(response.data[key]);
 							if(key == 'useYn'){
-								$("input[data-id='"+response.data[key]+"']").attr("checked","checked");
-								console.log($("input[data-id='"+response.data[key]+"']"));
+								$("input[data-id='"+response.data[key]+"']").prop("checked",true);
 							}
 							if(key == 'nativeLangCode'){
-								$("option[data-id='"+response.data[key]+"']").attr("checked","checked");
+								$("option[data-id='"+response.data[key]+"']").prop("checked",true);
 							}
 						}else{
 							$(item).text(response.data[key]);
@@ -161,10 +161,10 @@ var updateForm = function(){
 	$(".update-unit").show();
 	$("#company-content-table span").each(function(index, item){
 		if($(this).attr("id") == "useYn"){
-			$("input[data-id='"+$(this).text()+"']").attr("checked","checked");
+			$("input[data-id='"+$(this).text()+"']").prop("checked",true);
 		}
 		if($(this).attr("id") == "nativeLangCode"){
-			$("option[data-id='"+$(this).text()+"']").attr("checked","checked");
+			$("option[data-id='"+$(this).text()+"']").prop("checked",true);
 		}
 		$(item).next().val($(item).text());
 		$(item).hide();
@@ -177,10 +177,13 @@ var removeForm = function(){
 	$("#update-save-btn").hide();
 	$("#company-update-btn").show();
 	$(".update-unit").hide();
-	$("#company-content-table input").each(function(index, item){
+	
+	$("#company-content-table input[type='text']").each(function(index, item){
 		$(item).prev().text($(item).val());
-		console.log($(item).val());
 	});
+	$("input:checked").parent().prev().text($("input:checked").attr("data-id"));
+	$("option:checked").parent().prev().text($("option:checked").attr("data-id"));
+
 	$("#company-content-table span").show();
 	$("#company-content-table input[type='text']").hide();
 }
@@ -227,7 +230,8 @@ $(function(){
 		updateForm();
 		$("#company-content-table span").text("");
 		$("#company-content-table input[type='text']").val("");
-		$(".update-unit").removeAttr("checked");
+		$("input[type='radio']:first").prop("checked", true);
+		$("option:first").prop("checked",true);
 	});
 	
 	var menuList = $("div.menu li");
