@@ -32,7 +32,9 @@ public class MainBoot {
 		}
 		
 		model.addAttribute("companyList", naviService.getCompList(langCode));
-		model.addAttribute("mainInfo", mainService.getMainInfo());
+
+		//차트관련 
+//		model.addAttribute("mainInfo", mainService.getMainInfo());
 
 		return "quicksilverboot/main";
 	}
@@ -43,7 +45,8 @@ public class MainBoot {
 	}
 	
 	
-	//메인정보뿌리기
+//-차트관련----------------------------------------------------------------------------------
+	//차트관련
 	@ResponseBody
 	@RequestMapping("/getMainChart")
 	public JSONResult getMainChart(HttpSession session) {
@@ -55,7 +58,7 @@ public class MainBoot {
 		return JSONResult.success(mainService.getMainChart(langCode));
 	}
 	
-	
+	//차트관련
     @ResponseBody	  
     @RequestMapping("/getBizInfo/{compSeq}")
     public JSONResult getBizInfo(HttpSession session,
@@ -69,7 +72,7 @@ public class MainBoot {
 		companyvo.setLangCode(langCode);
 		return JSONResult.success(mainService.getCompChart(companyvo));
 	}
-    
+    //차트관련
     @ResponseBody	  
     @RequestMapping("/getBizChart/{compSeq}")
     public JSONResult getBizChart(HttpSession session,  
@@ -83,6 +86,7 @@ public class MainBoot {
 		bizvo.setLangCode(langCode);
 		return JSONResult.success(mainService.getBizChart(bizvo));
 	}
+//------------------------------------------------------------------------------------    
     
     
     

@@ -125,5 +125,5 @@ var resetCanvasBar = function(){
 };
 
 $(function(){
-	InfoBar();
+	//InfoBar();
 });
