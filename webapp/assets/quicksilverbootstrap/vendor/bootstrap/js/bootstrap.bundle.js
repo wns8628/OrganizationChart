@@ -4241,7 +4241,12 @@
       if(($(this._menu).toggleClass(ClassName$4.SHOW)[0].classList.value) == "dropdown-menu show"){
     	  var seq = $(this).prev().prevObject[0]._config.no;    	
     	  getCompInfo(seq);
-    	  InfoBar(seq, "biz");		
+    	  InfoBar(seq, "biz");
+    	  
+    	  let departmentName = $(this).prev().prevObject[0]._element.innerHTML;
+    	  
+		  makeTable("/getEmpInfo/" + seq + "/a");
+		  renderTableDepartmentName(departmentName, seq);
 	  }
 
     };

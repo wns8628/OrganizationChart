@@ -122,13 +122,12 @@
 		        </div>
 		        
 		
-		
 		      <!-- Begin Page Content -->
 		        <div class="container-fluid">
 		
 		          <!-- DataTales Example -->
 		          <div class="card shadow mb-4">
-		            <div class="card-header py-3">
+		            <div class="card-header py-3 dept">
 		            </div>
 		            <div class="card-body">
 		              <div class="table-responsive">

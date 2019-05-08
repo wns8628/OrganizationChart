@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
-import com.douzone.quicksilver.vo.DeptManagerVo;
 import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
@@ -22,26 +21,30 @@ public class DepartmentsDao {
 	public List<EmployeesVo> getList(Long dept_no){		
 		return sqlSession.selectList("employees.getDepartmentEmployeeInfo", dept_no);
 	}
-
-	public DeptManagerVo get(Long dept_no){		
-		return sqlSession.selectOne("employees.getDepartmentEmployeeInfoLeader", dept_no);
+	//
+	public DepartmentsVo get(DepartmentsVo departmentsvo) { 
+		return sqlSession.selectOne("departments.get_t_co_dept_info", departmentsvo);
+	}	
+	public EmployeesVo getLeader(DepartmentsVo departmentsvo){		
+		
+		System.out.println(departmentsvo.getLangCode());
+		System.out.println(departmentsvo.getDeptSeq());
+		
+		
+		return sqlSession.selectOne("departments.getDepartmentEmployeeInfoLeader", departmentsvo);
+	}
+	//
+	public BizVo get(BizVo bizvo) { 
+		return sqlSession.selectOne("departments.get_t_co_biz_info", bizvo);
 	}
 	
-	public DepartmentsVo get(DepartmentsVo departmentsVo) { 
-		return sqlSession.selectOne("departments.get_t_co_dept_info", departmentsVo);
+	public List<EmployeeDeptInfoVo> get(EmployeeDeptInfoVo employeeDeptInfovo) { 
+		return sqlSession.selectList("departments.get", employeeDeptInfovo);
 	}
 	
-	public BizVo get(BizVo bizVo) { 
-		return sqlSession.selectOne("departments.get_t_co_biz_info", bizVo);
-	}
-	
-	public List<EmployeeDeptInfoVo> get(EmployeeDeptInfoVo employeeDeptInfoVo) { 
-		return sqlSession.selectList("departments.get", employeeDeptInfoVo);
-	}
-	
-	public long insert(DepartmentsVo departmentsVo) {
-		sqlSession.insert("departments.add_t_co_dept", departmentsVo);
-		return sqlSession.insert("departments.add_t_co_dept_multi", departmentsVo);
+	public long insert(DepartmentsVo departmentsvo) {
+		sqlSession.insert("departments.add_t_co_dept", departmentsvo);
+		return sqlSession.insert("departments.add_t_co_dept_multi", departmentsvo);
 
 	}
 	

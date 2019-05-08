@@ -19,6 +19,9 @@
 			and d.lang_code = #{langCode}
 			and e.lang_code = #{langCode}
 		<choose>
+			<when test='type == "a"'>
+				and c.comp_seq = #{seq}) a 
+			</when>
 			<when test='type == "b"'>
 				and c.biz_seq = #{seq}) a
 			</when>
@@ -86,17 +89,6 @@
 		]]>
 	</select>
 	
-	<select id="getDepartmentEmployeeInfoLeader" 
-		parameterType="Long" resultType="deptmanagervo">
-		
-		<![CDATA[
-		select emp_no as empNo, b.name as name
-		  from dept_manager a, employees b 
-		 where a.emp_no = b.no
-		   and departments_no = ${value}
-		   and a.to_date = '9999-01-01';
-		]]>
-	</select>
 	
 	<!-- <select id="search" 
 		parameterType="map" resultType="employeesvo">

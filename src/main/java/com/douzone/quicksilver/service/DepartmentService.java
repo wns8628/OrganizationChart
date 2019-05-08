@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.quicksilver.repository.DepartmentsDao;
-import com.douzone.quicksilver.repository.DeptComDao;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
-import com.douzone.quicksilver.vo.DeptComVo;
-import com.douzone.quicksilver.vo.DeptManagerVo;
 import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
@@ -26,8 +23,8 @@ public class DepartmentService {
 	public List<EmployeesVo> getDepartmentEmployeeInfo(Long dept_no){		
 		return departmentsDao.getList(dept_no);
 	}
-	public DeptManagerVo getDepartmentEmployeeInfoLeader(Long dept_no){		
-		return departmentsDao.get(dept_no);
+	public EmployeesVo getDepartmentEmployeeInfoLeader(DepartmentsVo departmentsvo){		
+		return departmentsDao.getLeader(departmentsvo);
 	}
 	
 	//추가
