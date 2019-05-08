@@ -28,4 +28,8 @@ public class AdminDao {
 	public int insertCompMulti(CompanyVo vo) {
 		return sqlSession.insert("admin.insertCompMulti", vo);
 	}
+	
+	public int insertCompHistory(CompanyVo vo) {
+		return sqlSession.insert("admin.insertCompHistory", vo);
+	}
 }

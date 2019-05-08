@@ -52,7 +52,6 @@ public class AdminController {
 		System.out.println(vo);
 		adminService.addComp(vo);
 		
-		System.out.println(vo.getCompSeq());
-		return JSONResult.success(vo.getCompSeq());
+		return JSONResult.success(vo);
 	}
 }

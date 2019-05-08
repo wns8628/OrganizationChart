@@ -23,7 +23,7 @@ public class AdminService {
 	
 	public void addComp(CompanyVo vo) {
 		adminDao.insertComp(vo);
-		System.out.println(vo.getCompSeq());
+		adminDao.insertCompHistory(vo);
 		if("".equals(vo.getCompName()) == false) {
 			System.out.println(vo.getCompName());
 			vo.setLangCode("kr");

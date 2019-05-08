@@ -46,4 +46,10 @@
 		insert into t_co_comp_multi values(#{compSeq}, #{langCode}, 'demo', #{compName}, null,
 		 '김세준', null, null, null, #{addr}, #{detailAddr}, #{useYn}, '1010', now(), null, null, #{compNickname})
 	</insert>
+	
+	<insert id="insertCompHistory" parameterType="companyvo">
+		insert into t_co_comp_history values( (select max(a.seq)+1 from t_co_comp_history a), 'I', now(), 'demo', #{compSeq}, null, 'B', #{compRegistNum},
+		 #{compNum}, #{standardCode}, #{telNum}, #{faxNum}, #{homepgAddr}, #{compDomain}, #{emailAddr}, #{emailDomain}, #{zipCode}, null, null, #{nativeLangCode}, #{orderNum}, #{useYn},
+		  'eap', '1010', now(), null, null, 'N', 'N', 'N');
+	</insert>
 </mapper>
