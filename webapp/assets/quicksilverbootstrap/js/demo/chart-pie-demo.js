@@ -61,5 +61,5 @@ var resetCanvasPie = function(){
 
 
 $(function(){
-	makePieInfo();
+	//makePieInfo();
 });

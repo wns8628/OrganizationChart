@@ -1,14 +1,3 @@
-//부서뿌리기
-//var render = function(vo){
-//	var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.no+"' g-no='"+vo.gNo+"' p-no='"+vo.parents+"' depth='"+vo.depth+"' style='padding-left:"+vo.depth*10+"px'>"+vo.name+"</li>" +
-//   			    "<ul data-no='"+vo.no+"'></ul>";
-//
-//	if(vo.parents > 0){
-//		$("ul[data-no='"+vo.parents+"']").append(htmls);
-//	}else{
-//		$("ul[c-no='"+vo.companyNo+"']").append(htmls);
-//	}
-//}
 
 var deptRender = function(vo){
 	//console.log('여안옴??')
@@ -52,25 +41,6 @@ var renderLeader = function(leader){
 	   $(".dept").append(htmlLeader);
 }
 
-//부서리스트가져오기
-//var getList = function(parents){
-//	$.ajax({
-//		url: contextPath + "/getDept/" + parents,
-//		type:"get",
-//		dataType:"json",
-//		data:"",
-//		success: function(response){
-//			console.log(response);
-//			$(response.data).each(function(index, vo){
-//				render(vo)
-//			});
-//		},
-//		error: function(xhr, status, e){
-//			console.error(status+":"+e);
-//		}
-//	});
-//}
-
 var getList = function(seq){
 	
 	$.ajax({
@@ -80,23 +50,20 @@ var getList = function(seq){
       data:"",
       success: function(response){   	
 
-//    	 let pickDepth=$("li[data-no='"+seq+"']").attr("depth");
-    	 
     	 $(response.data).each(function(index, vo){
             deptRender(vo)
          });
     	 
     	 $("li[data-no!='"+seq+"']").css("color","black");
     	 $("li[data-no='"+seq+"']").css("color","red"); //고치자
-//    	 $("li[data-no!='"+seq+"'][depth='"+ pickDepth +"']").css("color","black"); 
-//    	 $("li[data-no!='"+seq+"'][depth='"+ (Number(pickDepth)+1) +"']").css("color","black"); 
-      },
+    },
       error: function(xhr, status, e){
          console.error(status+"::"+e);
       }
       
    });
 }
+
 var getListSearch = function(seq, pseq){
 	
 	$.ajax({
@@ -174,6 +141,7 @@ var makeTable = function(url) {
       });	
 	
 };
+
 //팀장가져오기 
 var getLeader = function(url){
 	$.ajax({

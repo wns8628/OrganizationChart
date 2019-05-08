@@ -4237,16 +4237,16 @@
 //      $(this._menu).toggleClass(ClassName$4.SHOW);      
 //    $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
       
-      console.log("찾기어렵지 : 열때만 적용되는 차트");      
+      console.log("찾기어렵지 : 열때만 적용");      
       if(($(this._menu).toggleClass(ClassName$4.SHOW)[0].classList.value) == "dropdown-menu show"){
-    	  var seq = $(this).prev().prevObject[0]._config.no;    	
-    	  getCompInfo(seq);
-    	  InfoBar(seq, "biz");
-    	  
+    	  var seq = $(this).prev().prevObject[0]._config.no; 
+    	  //차트관련
+    	  //getCompInfo(seq);
+    	  //InfoBar(seq, "biz");  
     	  let departmentName = $(this).prev().prevObject[0]._element.innerHTML;
-    	  
-		  makeTable("/getEmpInfo/" + seq + "/a");
-		  renderTableDepartmentName(departmentName, seq);
+    	  //회사클릭시 다가져와서 렌더링 -
+    	  //makeTable("/getEmpInfo/" + seq + "/a");
+    	  //renderTableDepartmentName(departmentName, seq);
 	  }
 
     };
