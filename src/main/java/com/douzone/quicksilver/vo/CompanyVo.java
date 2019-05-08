@@ -1,7 +1,5 @@
 package com.douzone.quicksilver.vo;
 
-import java.math.BigDecimal;
-
 public class CompanyVo {
 
 	private String compSeq;
@@ -25,7 +23,7 @@ public class CompanyVo {
 	private String smsId;
 	private String smsPasswd;
 	private String nativeLangCode;
-	private BigDecimal orderNum;
+	private int orderNum;
 	private String useYn;
 	private String eaType;
 	private String createSeq;
@@ -43,7 +41,6 @@ public class CompanyVo {
 	private String addr;
 	private String detailAddr;
 	private String compNameEn;
-	private String compNickname;
 	
 	private int compEmpCount;
 
@@ -184,6 +181,12 @@ public class CompanyVo {
 	}
 	public void setNativeLangCode(String nativeLangCode) {
 		this.nativeLangCode = nativeLangCode;
+	}
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 	public String getUseYn() {
 		return useYn;
@@ -347,19 +350,7 @@ public class CompanyVo {
 	public void setAge60(int age60) {
 		this.age60 = age60;
 	}
-	public BigDecimal getOrderNum() {
-		return orderNum;
-	}
-	public void setOrderNum(BigDecimal orderNum) {
-		this.orderNum = orderNum;
-	}
 	
-	public String getCompNickname() {
-		return compNickname;
-	}
-	public void setCompNickname(String compNickname) {
-		this.compNickname = compNickname;
-	}
 	@Override
 	public String toString() {
 		return "CompanyVo [compSeq=" + compSeq + ", groupSeq=" + groupSeq + ", compCd=" + compCd + ", parentCompSeq="
