@@ -62,7 +62,6 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item">   
-         
         <div id="admin-login" class="form-control btn-primary">
        		 관리자 로그인
 	     	<!--  -->
