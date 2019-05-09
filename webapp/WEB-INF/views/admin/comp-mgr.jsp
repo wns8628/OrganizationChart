@@ -97,7 +97,6 @@ var compRender = function(vo){
 }
 
 var getCompInfo = function(compSeq){
-	
 	$.ajax({
 		url : contextPath + "/admin/getCompInfo/" + compSeq,
 		type : "get",
@@ -118,7 +117,7 @@ var getCompInfo = function(compSeq){
 								$("input[data-id='"+response.data[key]+"']").prop("checked",true);
 							}
 							if(key == 'nativeLangCode'){
-								$("option[data-id='"+response.data[key]+"']").prop("checked",true);
+								$("option[data-id='"+response.data[key]+"']").prop("selected",true);
 							}
 						}else{
 							$(item).text(response.data[key]);
@@ -135,8 +134,24 @@ var getCompInfo = function(compSeq){
 	});
 }
 
+var deleteComp = function(){
+	var formData = $("#company-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/deleteComp",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		success : function(response) {
+			console.log("삭제성공");
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+}
+
 var addComp = function(){
-	
 	var formData = $("#company-form").serialize();
 	$.ajax({
 		url : contextPath + "/admin/addComp",
@@ -151,7 +166,22 @@ var addComp = function(){
 		}
 
 	});
-	
+}
+
+var updateComp = function(){
+	var formData = $("#company-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/updateComp",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		success : function(response) {
+			console.log(response.data);
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+	});
 }
 
 var updateForm = function(){
@@ -160,13 +190,14 @@ var updateForm = function(){
 	$("#company-update-btn").hide();
 	$(".update-unit").show();
 	$("#company-content-table span").each(function(index, item){
+		$(item).next().val($(item).text());
 		if($(this).attr("id") == "useYn"){
 			$("input[data-id='"+$(this).text()+"']").prop("checked",true);
 		}
 		if($(this).attr("id") == "nativeLangCode"){
-			$("option[data-id='"+$(this).text()+"']").prop("checked",true);
+			console.log($(this).text());
+			$("option[data-id='"+$(this).text()+"']").prop("selected",true);
 		}
-		$(item).next().val($(item).text());
 		$(item).hide();
 	});
 	$("#company-content-table input[type='text']").show();
@@ -225,6 +256,7 @@ $(function(){
 		}
 	});
 	
+	//회사추가폼생성
 	$("#comp-add-btn").click(function(){
 		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
 		updateForm();
@@ -232,6 +264,44 @@ $(function(){
 		$("#company-content-table input[type='text']").val("");
 		$("input[type='radio']:first").prop("checked", true);
 		$("option:first").prop("checked",true);
+	});
+	
+	//회사추가
+	$("#update-save-btn").click(function(){
+		if($("#company-table tbody tr.company-table-active").length === 0){
+			addComp();
+		}
+	});
+	
+	//회사삭제
+	$("#comp-delete-btn").click(function(){
+		var activeComp = $("#company-table tbody tr.company-table-active");
+		if($(activeComp).length != 0){
+			$("#company-content-table span").each(function(index, item){
+				if($(this).attr("id") == "useYn"){
+					$("input[data-id='"+$(this).text()+"']").prop("checked",true);
+				}
+				if($(this).attr("id") == "nativeLangCode"){
+					$("option[data-id='"+$(this).text()+"']").prop("checked",true);
+				}
+				$(item).next().val($(item).text());
+			});
+			
+			deleteComp();
+			$(activeComp).remove();
+			$("#company-table tbody tr:first").addClass("company-table-active");
+			getCompInfo($("#company-table tbody tr:first td:first").text());
+			
+			console.log("3");
+		}
+	})
+	
+	//회사수정
+	$("#update-save-btn").click(function(){
+		if($("#company-table tbody tr.company-table-active").length != 0){
+			updateComp();
+			removeForm();
+		}
 	});
 	
 	var menuList = $("div.menu li");
@@ -246,11 +316,6 @@ $(function(){
 		sample6_execDaumPostcode();
 	});
 	
-	$("#update-save-btn").click(function(){
-		if($("#company-table tbody tr.company-table-active").length === 0){
-			addComp();
-		}
-	});
 });
 </script>
 </head>
@@ -273,7 +338,7 @@ $(function(){
 				<div id="company-table-wrapper">
 					<div class="content-head-wrapper">
 						<span>* 회사목록</span>
-						<div class="head-btn">삭제</div>
+						<div id="comp-delete-btn" class="head-btn">삭제</div>
 						<div id="comp-add-btn" class="head-btn">추가</div>
 					</div>
 					<table id="company-table">
@@ -446,7 +511,7 @@ $(function(){
 									<span id="nativeLangCode">${firstCompInfo.nativeLangCode}</span>
 									<select class="update-unit" name="nativeLangCode">
 										<option data-id="한국어" value="kr">한국어</option>
-										<option data-id="영어" value="en">영어</option>
+										<option data-id="영어" value="en" selected="selected">영어</option>
 										<option data-id="일본어" value="jp">일본어</option>
 										<option data-id="중국어" value="cn">중국어</option>
 									</select>

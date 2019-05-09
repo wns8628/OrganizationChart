@@ -29,7 +29,35 @@ public class AdminDao {
 		return sqlSession.insert("admin.insertCompMulti", vo);
 	}
 	
-	public int insertCompHistory(CompanyVo vo) {
-		return sqlSession.insert("admin.insertCompHistory", vo);
+	public int deleteComp(CompanyVo vo) {
+		return sqlSession.delete("admin.deleteComp", vo);
 	}
+
+	public int deleteCompMulti(CompanyVo vo) {
+		return sqlSession.delete("admin.deleteCompMulti", vo);
+	}
+	
+	public int updateComp(CompanyVo vo) {
+		return sqlSession.update("admin.updateComp", vo);
+	}
+	
+	public int updateCompMulti(CompanyVo vo) {
+		return sqlSession.update("admin.updateCompMulti", vo);
+	}
+	
+	public int updateCompHistory(CompanyVo vo) {
+		return sqlSession.insert("admin.updateCompHistory", vo);
+	}
+	public int updateCompMultiHistory(CompanyVo vo) {
+		return sqlSession.insert("admin.updateCompMultiHistory", vo);
+	}
+	
+	public CompanyVo getCompAll(CompanyVo vo) {
+		return sqlSession.selectOne("admin.getCompAll", vo);
+	}
+	
+	public CompanyVo getCompMultiAll(CompanyVo vo) {
+		return sqlSession.selectOne("admin.getCompMultiAll", vo);
+	}
+	
 }

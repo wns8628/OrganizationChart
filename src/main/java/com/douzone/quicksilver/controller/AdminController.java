@@ -49,9 +49,22 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/addComp")
 	public JSONResult addComp(@ModelAttribute CompanyVo vo) {
-		System.out.println(vo);
 		adminService.addComp(vo);
 		
 		return JSONResult.success(vo);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteComp")
+	public JSONResult deleteComp(@ModelAttribute CompanyVo vo) {
+		adminService.deleteComp(vo);
+		return JSONResult.success(vo);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateComp")
+	public JSONResult updateComp(@ModelAttribute CompanyVo vo) {
+		adminService.updateComp(vo);
+		return JSONResult.success("성공");
 	}
 }
