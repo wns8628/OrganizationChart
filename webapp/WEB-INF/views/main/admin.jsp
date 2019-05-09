@@ -8,67 +8,18 @@
 <html>
 <head>
 <title></title>
-<style type="text/css">
-
-/* reset */
-*            { margin:0; padding:0 }
-body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-width: 1000px;}
-ul, ol, li         { list-style-type: none }
-fieldset      { border:none }
-
-a:link          { color:#111; text-decoration:none; }
-a:visited       { color:#111; text-decoration:none; }
-a:active    	{ color:#111; text-decoration:none; }
-a:hover     	{ color:#111; text-decoration:none; } 
-
-/* header */
-div#header ul      { height:20px } 
-div#header li      { float:right; margin-right:10px; }
-div#header li a    { color:#fff; font-weight:bold; text-decoration:none; }
-
-div.header-wrapper { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
-div.header-wrapper span {color : white; font-size: 20px;}
-div.header-menubar { background: transparent; width: 40%; height: 30px; display: inline; float: right;}
-div.header-menubar button {background: transparent; color:white; font-size: 20px; float: right;}
-
-div#footer { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
-div#footer p { color: white; text-align: center;}
-
-div#navigation{ width: 100%; height: 100%;}
-
-div.navi { background-color: #E7ECF2; height:100%; width: 16%; min-height: 500px; min-width: 180px; display: inline-block; border-right: 7.588px solid #E7E7E7;}
-div.navi div.menu-title {width:90%; height: 30px; border-bottom: 1px solid #AEAEAE; padding-left: 10%; padding-top: 10px; padding-bottom: 10px; font-size:20px; font-weight:bold; color: white; background-color: #3A86D2; }
-div.navi div.menu-title img {width: 20px; height: 20px; float: right; margin-top: 5px; margin-right: 10px;}
-div.navi div.parent-menu {width:90%; height: 30px; border-bottom: 1px solid #AEAEAE; padding-left: 10%; padding-top: 10px; cursor: pointer;}
-div.navi div.parent-menu:hover {background-color: #89ADD1; color: white;}
-div.navi div span {height:200px; font-weight: bold; font-size: 15px;}
-div.navi div.parent-menu img {height: 5px; width: 4px; float: right; margin-top: 9px; margin-right: 10px;}
-div.navi div.parent-menu div {height: 20px; width: 20px; float: right; background: url('../../../assets/images/triangle.png') no-repeat;}
-div.navi div.menu {background-color:white ; width: 100%; height: 100%; border-bottom: 1px solid #AEAEAE; display: none;}
-div.navi div.menu ul{margin-left: 30px; padding-top: 10px; padding-bottom: 10px;}
-div.navi div.menu li:not(:first-child){margin-top: 5px;}
-div.navi div.menu li:hover a{font-weight:bold ; color: #328CF5; cursor: pointer;}
-div.navi img.navi-icon {height: 100%; width: 16px;}
-div.contents { background-color: #ffffff; min-height: 484.65px; min-width: 800px; height:100%; width: 82.5%; padding: 0.5%; float: right;}
-
-div.tbl-wrapper { width : 96%; padding: 2%;}
-div.contents .tbl-result{ width: 100%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
-div.contents .tbl-result td{ border: 1px solid #777; text-align: center;}
-div.contents .tbl-result th{ border: 1px solid #777; }
-
-.icon2 {display: none;}
-
-.active{
-	color:white; 
-	background-color: #89ADD1;
-}
-</style>
+<link
+	href="${pageContext.servletContext.contextPath }/assets/css/admin.css"
+	rel="stylesheet" type="text/css">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <%-- 
 <link href="${pageContext.servletContext.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
  --%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
+function win_pop(){
+	window.open('admin/popup', '조직도', 'width=1200, height=600');
+}
 $(function(){
 	$("div.parent-menu").click(function(){
 		$this = $(this);
@@ -93,11 +44,15 @@ $(function(){
 					"<span>"+$(this).text()+"</span>";
 		$("div#contents-header").append(htmls);
 	});
+	
+	$("#popup-btn").click(function(){
+		win_pop();
+	});
 });
 </script>
 </head>
 <body>
-	<div id="header">
+	<%-- <div id="header">
 		<div class="header-wrapper">
 			<span>quicksilver</span>
 			<div class="header-menubar">
@@ -161,6 +116,16 @@ $(function(){
 	</div>
 	<div id="footer">
 		<p>copyright 2019</p>
+	</div> --%>
+	<div id="container">
+		<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+		<div id="wrapper">
+			<div id="contents">
+				<div id="popup-btn">조직도</div>
+			</div>
+			<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
+		</div>
+		<c:import url="/WEB-INF/views/admin/includes/footer.jsp" />
 	</div>
 </body>
 </html>
