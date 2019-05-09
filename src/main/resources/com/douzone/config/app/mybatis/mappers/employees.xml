@@ -5,282 +5,211 @@
 <mapper namespace="employees">
 	
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
-		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,
-			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
-		    a.dp_name as dutyCode, b.dp_name as positionCode
-		from
-			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
-			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
-			where a.emp_seq = b.emp_seq												
-			and b.emp_seq = c.emp_seq
-			and c.dept_seq = d.dept_seq
-			and c.duty_code = e.dp_seq
-			and b.lang_code = #{langCode}
-			and d.lang_code = #{langCode}
-			and e.lang_code = #{langCode}
+		select 
+			  emp.emp_seq as empSeq,
+			  emp.dept_seq as deptSeq,
+			  emp.dept_name as deptName,
+			  pmp.dp_name as positionCode,
+			  pmd.dp_name as dutyCode,
+			  emp.emp_name as empName,
+			  emp.login_id as loginId,
+			  emp.home_tel_num as homeTelNum,
+			  emp.mobile_tel_num as mobileTelNum,
+			  emp.emp_seq
+		from (select
+					d.dept_name,
+					b.position_code as positionDuty,
+					b.duty_code as deptDuty,
+					e.emp_name,
+					a.login_id,
+					a.home_tel_num,
+					a.mobile_tel_num,
+					a.emp_seq,
+					b.comp_seq,
+                    b.biz_seq,
+                    b.dept_seq
+				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+				 where a.emp_seq = b.emp_seq
+				   and b.dept_seq = c.dept_seq
+				   and c.dept_seq = d.dept_seq 
+				   and a.emp_seq = e.emp_seq
+				   and e.lang_code = #{langCode}
+				   and d.lang_code = #{langCode}) emp    
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+				ON emp.positionDuty = pmp.dp_seq
+				AND pmp.lang_code = #{langCode}
+				AND pmp.dp_type = 'POSITION'
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+				ON emp.deptDuty = pmd.dp_seq
+				AND pmd.lang_code = #{langCode}
+				AND pmd.dp_type = 'DUTY'
+			where	
 		<choose>
 			<when test='type == "a"'>
-				and c.comp_seq = #{seq}) a 
+				emp.comp_seq = #{seq};
 			</when>
 			<when test='type == "b"'>
-				and c.biz_seq = #{seq}) a
+				emp.biz_seq = #{seq};
 			</when>
 			<when test='type == "d"'>
-				and c.dept_seq = #{seq}) a
+				emp.dept_seq = #{seq};
 			</when>
 		</choose>
-		left outer join t_co_comp_duty_position_multi b
-		on a.position_code = b.dp_seq
-		and b.lang_code = #{langCode}
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-		select distinct a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName,
-			if(a.gender_code = 'M', '남', '여') as genderCode, (left(now(), 4)-left(a.bday, 4))+1 as bDay, 
-		    a.dp_name as dutyCode, b.dp_name as positionCode
-		from	
-			(select a.emp_seq, b.emp_name, dept_name, gender_code, bday, e.dp_name, a.position_code, f.biz_name
-			   from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e, t_co_biz_multi f
-			  where a.emp_seq = b.emp_seq
-			    and b.emp_seq = c.emp_seq
-			    and c.dept_seq = d.dept_seq
-			    and c.duty_code = e.dp_seq
-		        and f.biz_seq = c.biz_seq
-		        and b.lang_code = #{langCode}
-				and d.lang_code = #{langCode}
-				and e.lang_code = #{langCode}
-  		<choose>
-			<when test='selectSearch == "emp"'>
-				and b.emp_name = #{kwd}) a
-			</when>
-			<when test='selectSearch == "dept"'>
-				and d.dept_name = #{kwd}) a
-			</when>
-			<when test='selectSearch == "biz"'>
-				and f.biz_name  = #{kwd}) a
-			</when>
-		</choose>
-		left outer join t_co_comp_duty_position_multi b
-		on a.position_code = b.dp_seq
-		and b.lang_code = #{langCode}
+		select 
+			  emp.emp_seq as empSeq,
+			  emp.dept_seq as deptSeq,
+			  emp.dept_name as deptName,
+			  pmp.dp_name as positionCode,
+			  pmd.dp_name as dutyCode,
+			  emp.emp_name as empName,
+			  emp.login_id as loginId,
+			  emp.home_tel_num as homeTelNum,
+			  emp.mobile_tel_num as mobileTelNum,
+			  emp.emp_seq
+		from (select
+					d.dept_name,
+					b.position_code as positionDuty,
+					b.duty_code as deptDuty,
+					e.emp_name,
+					a.login_id,
+					a.home_tel_num,
+					a.mobile_tel_num,
+					a.emp_seq,
+					b.dept_seq
+				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+				 where a.emp_seq = b.emp_seq
+				   and b.dept_seq = c.dept_seq
+				   and c.dept_seq = d.dept_seq 
+				   and a.emp_seq = e.emp_seq
+				   and e.lang_code =#{langCode}
+				   and d.lang_code =#{langCode}) emp    
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+				ON emp.positionDuty = pmp.dp_seq
+				AND pmp.lang_code =#{langCode}
+				AND pmp.dp_type = 'POSITION'
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+				ON emp.deptDuty = pmd.dp_seq
+				AND pmd.lang_code =#{langCode}
+				AND pmd.dp_type = 'DUTY'
+		  where	
+	  <choose>
+		<when test='selectSearch == "emp"'>			
+	  		 (emp.login_id like #{kwd}  
+			 or emp.emp_name like #{kwd}); 
+		</when>
+		<when test='selectSearch == "dept"'>
+		 		emp.dept_name like #{kwd};
+		</when>
+		<when test='selectSearch == "position"'>
+				pmp.dp_name like #{kwd};
+		</when>
+		<when test='selectSearch == "duty"'>
+				pmd.dp_name like #{kwd};
+		</when>
+		<when test='selectSearch == "call"'>
+				emp.home_tel_num like #{kwd}';
+		</when>
+		<when test='selectSearch == "phone"'>
+				emp.mobile_tel_num like #{kwd};
+		</when>
+		
+		<when test='selectSearch == "all"'>
+		   (emp.login_id like #{kwd}
+			  or emp.emp_name like #{kwd}
+			  or emp.dept_name like #{kwd}
+			  or pmp.dp_name like #{kwd}
+			  or pmd.dp_name like #{kwd}
+			  or emp.home_tel_num like #{kwd}
+			  or emp.mobile_tel_num like #{kwd});
+		</when>
+	</choose> 
 	</select>
 	
-	<select id="getDepartmentEmployeeInfo" 
-		parameterType="Long" resultType="employeesvo">
-		
-		<![CDATA[
-		select a.no as no,
-			   a.profile as profile,
-	           a.name as name,
-	           a.age as age,
-	           a.gender as gender,
-	           c.name as grade,
-	           a.email as email,
-	           a.phone as phone,
-	           e.name as departments
-		  from employees a, grade_emp b, grade c, dept_emp d, departments e 
-		 where a.no = b.emp_no
-	       and c.no = b.grade_no
-	       and a.no = d.emp_no
-	       and e.no = d.departments_no
-	       and b.to_date = '9999-01-01'
-	       and d.to_date = '9999-01-01'
-	       and d.departments_no = ${value};
-		]]>
-	</select>
-	
-	
-	<!-- <select id="search" 
-		parameterType="map" resultType="employeesvo">
-		
-		<![CDATA[
-			select a.no as no,
-			   a.profile as profile,
-	           a.name as name,
-	           a.age as age,
-	           a.gender as gender,
-	           c.name as grade,
-	           a.email as email,
-	           a.phone as phone,
-	           e.name as departments
-		  from employees a, grade_emp b, grade c, dept_emp d, departments e 
-		 where a.no = b.emp_no
-	       and c.no = b.grade_no
-	       and a.no = d.emp_no
-	       and e.no = d.departments_no
-	       and b.to_date = '9999-01-01'
-	       and d.to_date = '9999-01-01'
-		]]>
-		
-		<choose>
-			<when test="selectSearch == 1"> 이름 검색
-				AND a.name = #{kwd}
-			</when>
-			
-			<when test="selectSearch == 2"> 부서 검색
-			 	AND c.name = #{kwd}
-			</when>
-		</choose>
-		
-	</select> -->
-	
-<!-- 	<insert id="insert" parameterType="employeesvo">
-		<choose>
-			salaires insert
-			<when test="name == null and age != null">
-				
-				<![CDATA[
-					insert into salaries values(null, 
-												#{no}, 
-												(select hire_date from employees where no = #{no}), 
-												(select age from employees where no = #{no}) * 100,
-												'9999-01-01' );
-				]]>
-			</when>
-			
-			grade_emp insert
-			<when test="name == null and age == null and gender != null">
-				
-				<![CDATA[
-					insert into grade_emp values(null, 
-												(SELECT CASE 
-														WHEN age >= 60 THEN 8 
-														WHEN age >= 55 THEN 7 
-														WHEN age >= 50 THEN 6 
-														WHEN age >= 45 THEN 5 
-														WHEN age >= 40 THEN 4 
-														WHEN age >= 35 THEN 3 
-														WHEN age >= 30 THEN 2 
-														ELSE 1 
-														END 
-														FROM (SELECT age FROM employees WHERE no = #{no}) a
-													), 
-													#{no}, 
-													(select hire_date from employees where no = #{no}), 
-													'9999-01-01')
-				]]>
-			</when>
-			
-			dept_emp insert
-			<when test="name == null and age == null and gender == null and phone != null">
-				<![CDATA[
-					insert into dept_emp values(null, 
-												#{departmentsNo}, 
-												#{no}, 
-												(select hire_date from employees where no = #{no}), 
-												'9999-01-01')
-				]]>
-			</when>
-			
-			dept_manager insert
-			<when test="name == null and age == null and gender == null and phone == null">
-			
-				<![CDATA[
-					insert into dept_manager values(null, 
-													#{no}, 
-													#{departmentsNo}, 
-													(select hire_date from employees where no = #{no}),
-													 '9999-01-01');
-				]]>
-			</when>
-			
-			<otherwise>
-				<![CDATA[
-					insert into employees values(null, #{name},
-													   #{age}, 
-													   #{gender}, 
-													   #{phone}, 
-													   #{address}, 
-													   #{residentNum}, 
-													   #{profile}, 
-													   #{email},
-													   #{hireDate} );
-				]]>
-			
-			</otherwise>
-			
-		</choose>
-		
-		<selectKey keyProperty="no" resultType="Long" order="AFTER">
-			
-				<![CDATA[
-					select last_insert_id()
-				]]>
-		</selectKey>
-		
-	</insert> -->
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
-		<![CDATA[
-			SELECT 
-				emp.emp_seq as empSeq,
-				b.emp_name AS empName,
-				(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(emp.bday, '%Y')) + 1 AS age,
-				if(emp.gender_code = 'M', '남', '여') AS genderCode,
-		    (SELECT 
-		            group_name
-		        FROM
-		            t_co_group
-		        WHERE
-		            group_seq = emp.group_seq) AS groupSeq,
-		    (SELECT 
-		            comp_name
-		        FROM
-		            t_co_comp_multi
-		        WHERE
-		            comp_seq = emp.main_comp_seq
-		                AND lang_code = #{langCode}) AS mainCompSeq,
-		    (SELECT 
-		            biz_name AS bizName
-		        FROM
-		            t_co_biz_multi
-		        WHERE
-		            biz_seq = (SELECT 
-		                    biz_seq
-		                FROM
-		                    t_co_emp_dept
-		                WHERE
-		                    emp_seq = emp.emp_seq)
-		                AND lang_code = #{langCode}) AS bizName,
-		    emp.wedding_yn AS weddingYn,
-		    b.main_work AS mainWork,
-		    emp.join_day AS joinDay,
-		    pmp.dp_name as positionCode,
-		    pmd.dp_name as dutyCode,
-		    date_format(emp.bday, '%m월 %d일') as bDay,
-		    b.detail_addr as detailAddr,
-		    emp.pic_file_id as picFileID,
-		    emp.mobile_tel_num as mobileTelNum,
-		    emp.email_addr as emailAddr
-		    
-		FROM
-		    t_co_emp emp
-		        LEFT OUTER JOIN
-		    t_co_comp_duty_position_multi pmp ON emp.position_code = pmp.dp_seq
-		        AND pmp.lang_code = #{langCode}
-		        AND pmp.dp_type = 'POSITION'
-		        LEFT OUTER JOIN
-		    t_co_comp_duty_position_multi pmd ON emp.duty_code = pmd.dp_seq
-		        AND pmd.lang_code = #{langCode}
-		        AND pmd.dp_type = 'DUTY',
-		    t_co_emp_multi b
-		WHERE
-		    emp.emp_seq = b.emp_seq
-		    	and b.lang_code = #{langCode}
-		        AND emp.emp_seq = #{empNum};
-		]]>
+		select 			
+			  emp.pic_file_id as picFileID,	
+			  emp.comp_name as compName,
+			  emp.emp_name as empName,
+			  emp.login_id as loginId, 
+			  emp.bday,
+              pmp.dp_name as positionCode,
+			  pmd.dp_name as dutyCode,
+			  emp.dept_name as deptName,
+              emp.mobile_tel_num as mobileTelNum,
+			  emp.home_tel_num as homeTelNum,
+              emp.fax_num as faxNum,
+			  emp.comp_domain as compDomain,
+              emp.email_addr as emailAddr,
+              emp.main_work as mainWork
+		from (select
+					a.pic_file_id,
+					h.comp_name,
+					d.dept_name,
+					b.position_code as positionDuty,
+					b.duty_code as deptDuty,
+					e.emp_name,
+					a.login_id,
+                    a.bday,
+					a.home_tel_num,
+					a.mobile_tel_num,
+					a.emp_seq,
+                    b.fax_num,
+                    a.email_addr,
+                    f.comp_domain,
+                    g.main_work,
+				    b.comp_seq,
+                    b.biz_seq,
+                    b.dept_seq
+				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp f, t_co_emp_multi g, t_co_comp_multi h
+				 where a.emp_seq = b.emp_seq
+				   and b.dept_seq = c.dept_seq
+				   and c.dept_seq = d.dept_seq 
+				   and a.emp_seq = e.emp_seq
+                   and b.comp_seq = f.comp_seq
+                   and a.emp_seq = g.emp_seq
+                   and b.comp_seq = h.comp_seq
+                   and h.lang_code = 'kr'
+				   and e.lang_code = #{langCode}
+				   and d.lang_code = #{langCode}
+				   and g.lang_code = #{langCode})emp    
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+				ON emp.positionDuty = pmp.dp_seq
+				AND pmp.lang_code = #{langCode}
+				AND pmp.dp_type = 'POSITION'
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+				ON emp.deptDuty = pmd.dp_seq
+				AND pmd.lang_code = #{langCode}
+				AND pmd.dp_type = 'DUTY'
+		   where emp.emp_seq=#{empSeq}
+           and emp.dept_seq=#{deptSeq};
 	</select>
 	
 	
 	<select id="getdetailNavPoint" parameterType="employeesvo" resultType="employeedeptinfovo">
 		<![CDATA[
-			select dept_seq as deptSeq,biz_seq as bizSeq,comp_seq as compSeq from t_co_emp_dept where emp_seq=#{value}; 
+			select dept_seq as deptSeq,biz_seq as bizSeq,comp_seq as compSeq from t_co_emp_dept where emp_seq=#{empSeq} and dept_seq=#{deptSeq}; 
 		]]>
 	</select>
 	
-	<select id="getdetailNavPointParents" parameterType="Long" resultType="Long">
-		<![CDATA[
-			select parent_dept_seq from t_co_dept where dept_seq = #{value};
+	<select id="getdetailNavPointParents" parameterType="departmentsvo" resultType="departmentsvo">
+		<![CDATA[			
+			 select a.parent_dept_seq as parentDeptSeq, (select dept_name
+											  from t_co_dept_multi
+											 where dept_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})
+											   and lang_code = #{langCode}) as deptName,
+														( select biz_name 
+														    from t_co_biz_multi 
+														   where biz_seq 
+														     and lang_code = #{langCode}
+														     and biz_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})) as bizName																				 
+			  from t_co_dept a, t_co_dept_multi b
+			 where a.dept_seq = b.dept_seq 
+			   and a.dept_seq = #{deptSeq}
+			   and b.lang_code= #{langCode};
 		]]>
 	</select>
 	

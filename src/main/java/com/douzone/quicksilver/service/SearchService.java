@@ -21,7 +21,7 @@ public class SearchService {
 	public List<EmployeesVo> Employeelist(String kwd, String selectSearch, String langCode){
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("kwd", kwd);
+		map.put("kwd", "%"+kwd+"%");
 		map.put("selectSearch", selectSearch);
 		map.put("langCode", langCode);
 		return searchDao.getList(map);

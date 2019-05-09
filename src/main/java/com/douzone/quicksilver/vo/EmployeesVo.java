@@ -66,6 +66,7 @@ public class EmployeesVo {
 	private String mainWork;				// 담당 업무
 	
 	private String deptName;				// 부서명
+	private String deptSeq;				// 부서번호
 	
 	/*
 	 * 상세한 직원정보를 위한 필드
@@ -74,350 +75,383 @@ public class EmployeesVo {
 	private Long age; 						// 나이
 	private String bizName;					// 사업장 명
 	private String langCode;				// 언어 코드
-	
-	
-	public Long getAge() {
-		return age;
-	}
-	public void setAge(Long age) {
-		this.age = age;
-	}
-	public String getBizName() {
-		return bizName;
-	}
-	public void setBizName(String bizName) {
-		this.bizName = bizName;
-	}
-	public String getLangCode() {
-		return langCode;
-	}
-	public void setLangCode(String langCode) {
-		this.langCode = langCode;
-	}
-	public String getEmpName() {
-		return empName;
-	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-	public String getAddr() {
-		return addr;
-	}
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-	public String getDetailAddr() {
-		return detailAddr;
-	}
-	public void setDetailAddr(String detailAddr) {
-		this.detailAddr = detailAddr;
-	}
-	public String getMainWork() {
-		return mainWork;
-	}
-	public void setMainWork(String mainWork) {
-		this.mainWork = mainWork;
-	}
+	private String faxNum;					// 부서팩스
+	private String compName;				// 회사명
+	private String compDomain;				// 홈피주소 
+	private String compEmail;				// 회사메일
 	public String getEmpSeq() {
 		return empSeq;
-	}
-	public void setEmpSeq(String empSeq) {
-		this.empSeq = empSeq;
 	}
 	public String getGroupSeq() {
 		return groupSeq;
 	}
-	public void setGroupSeq(String groupSeq) {
-		this.groupSeq = groupSeq;
-	}
 	public String getLoginId() {
 		return loginId;
-	}
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
 	}
 	public String getEmpNum() {
 		return empNum;
 	}
-	public void setEmpNum(String empNum) {
-		this.empNum = empNum;
-	}
 	public String getErpEmpNum() {
 		return erpEmpNum;
-	}
-	public void setErpEmpNum(String erpEmpNum) {
-		this.erpEmpNum = erpEmpNum;
 	}
 	public String getEmailAddr() {
 		return emailAddr;
 	}
-	public void setEmailAddr(String emailAddr) {
-		this.emailAddr = emailAddr;
-	}
 	public String getOutMail() {
 		return outMail;
-	}
-	public void setOutMail(String outMail) {
-		this.outMail = outMail;
 	}
 	public String getOutDomain() {
 		return outDomain;
 	}
-	public void setOutDomain(String outDomain) {
-		this.outDomain = outDomain;
-	}
 	public String getLoginPassword() {
 		return loginPassword;
-	}
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
 	}
 	public String getApprPassword() {
 		return apprPassword;
 	}
-	public void setApprPassword(String apprPassword) {
-		this.apprPassword = apprPassword;
-	}
 	public String getPasswdDate() {
 		return passwdDate;
-	}
-	public void setPasswdDate(String passwdDate) {
-		this.passwdDate = passwdDate;
 	}
 	public String getPasswdInputFailCount() {
 		return passwdInputFailCount;
 	}
-	public void setPasswdInputFailCount(String passwdInputFailCount) {
-		this.passwdInputFailCount = passwdInputFailCount;
-	}
 	public String getPayPasswd() {
 		return payPasswd;
-	}
-	public void setPayPasswd(String payPasswd) {
-		this.payPasswd = payPasswd;
 	}
 	public String getPasswdStatusCode() {
 		return passwdStatusCode;
 	}
-	public void setPasswdStatusCode(String passwdStatusCode) {
-		this.passwdStatusCode = passwdStatusCode;
-	}
 	public String getMobileUseYn() {
 		return mobileUseYn;
-	}
-	public void setMobileUseYn(String mobileUseYn) {
-		this.mobileUseYn = mobileUseYn;
 	}
 	public String getMessangerUseYn() {
 		return messangerUseYn;
 	}
-	public void setMessangerUseYn(String messangerUseYn) {
-		this.messangerUseYn = messangerUseYn;
-	}
 	public String getCheckWorkYn() {
 		return checkWorkYn;
-	}
-	public void setCheckWorkYn(String checkWorkYn) {
-		this.checkWorkYn = checkWorkYn;
 	}
 	public String getShift() {
 		return shift;
 	}
-	public void setShift(String shift) {
-		this.shift = shift;
-	}
 	public String getJobCode() {
 		return jobCode;
-	}
-	public void setJobCode(String jobCode) {
-		this.jobCode = jobCode;
 	}
 	public String getStatusCode() {
 		return statusCode;
 	}
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
-	}
 	public String getMainCompSeq() {
 		return mainCompSeq;
-	}
-	public void setMainCompSeq(String mainCompSeq) {
-		this.mainCompSeq = mainCompSeq;
 	}
 	public String getMainCompLoginYn() {
 		return mainCompLoginYn;
 	}
-	public void setMainCompLoginYn(String mainCompLoginYn) {
-		this.mainCompLoginYn = mainCompLoginYn;
-	}
 	public String getDutyCode() {
 		return dutyCode;
-	}
-	public void setDutyCode(String dutyCode) {
-		this.dutyCode = dutyCode;
 	}
 	public String getPositionCode() {
 		return positionCode;
 	}
-	public void setPositionCode(String positionCode) {
-		this.positionCode = positionCode;
-	}
 	public String getNativeLangCode() {
 		return nativeLangCode;
-	}
-	public void setNativeLangCode(String nativeLangCode) {
-		this.nativeLangCode = nativeLangCode;
 	}
 	public String getLicenceCheckYn() {
 		return licenceCheckYn;
 	}
-	public void setLicenceCheckYn(String licenceCheckYn) {
-		this.licenceCheckYn = licenceCheckYn;
-	}
 	public String getJoinDay() {
 		return joinDay;
-	}
-	public void setJoinDay(String joinDay) {
-		this.joinDay = joinDay;
 	}
 	public String getResignDay() {
 		return resignDay;
 	}
-	public void setResignDay(String resignDay) {
-		this.resignDay = resignDay;
-	}
 	public String getGenderCode() {
 		return genderCode;
-	}
-	public void setGenderCode(String genderCode) {
-		this.genderCode = genderCode;
 	}
 	public String getbDay() {
 		return bDay;
 	}
-	public void setbDay(String bDay) {
-		this.bDay = bDay;
-	}
 	public String getLunarYn() {
 		return lunarYn;
-	}
-	public void setLunarYn(String lunarYn) {
-		this.lunarYn = lunarYn;
 	}
 	public String getWorkStatus() {
 		return workStatus;
 	}
-	public void setWorkStatus(String workStatus) {
-		this.workStatus = workStatus;
-	}
 	public String getHomeTelNum() {
 		return homeTelNum;
-	}
-	public void setHomeTelNum(String homeTelNum) {
-		this.homeTelNum = homeTelNum;
 	}
 	public String getMobileTelNum() {
 		return mobileTelNum;
 	}
-	public void setMobileTelNum(String mobileTelNum) {
-		this.mobileTelNum = mobileTelNum;
-	}
 	public String getWeddingYn() {
 		return weddingYn;
-	}
-	public void setWeddingYn(String weddingYn) {
-		this.weddingYn = weddingYn;
 	}
 	public String getWeddingDay() {
 		return weddingDay;
 	}
-	public void setWeddingDay(String weddingDay) {
-		this.weddingDay = weddingDay;
-	}
 	public String getPrivateYn() {
 		return privateYn;
-	}
-	public void setPrivateYn(String privateYn) {
-		this.privateYn = privateYn;
 	}
 	public String getZipCode() {
 		return zipCode;
 	}
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
 	public String getPicFileID() {
 		return picFileID;
-	}
-	public void setPicFileID(String picFileID) {
-		this.picFileID = picFileID;
 	}
 	public String getSignFileID() {
 		return signFileID;
 	}
-	public void setSignFileID(String signFileID) {
-		this.signFileID = signFileID;
-	}
 	public String getUseYn() {
 		return useYn;
-	}
-	public void setUseYn(String useYn) {
-		this.useYn = useYn;
 	}
 	public String getLsRoleID() {
 		return lsRoleID;
 	}
-	public void setLsRoleID(String lsRoleID) {
-		this.lsRoleID = lsRoleID;
-	}
 	public String getCreateSeq() {
 		return createSeq;
-	}
-	public void setCreateSeq(String createSeq) {
-		this.createSeq = createSeq;
 	}
 	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
 	public String getModifySeq() {
 		return modifySeq;
-	}
-	public void setModifySeq(String modifySeq) {
-		this.modifySeq = modifySeq;
 	}
 	public String getModifyDate() {
 		return modifyDate;
 	}
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
 	public String getSpringSecu() {
 		return springSecu;
-	}
-	public void setSpringSecu(String springSecu) {
-		this.springSecu = springSecu;
 	}
 	public String getSpringDate() {
 		return springDate;
 	}
-	public void setSpringDate(String springDate) {
-		this.springDate = springDate;
-	}
 	public String getSignType() {
 		return signType;
 	}
-	public void setSignType(String signType) {
-		this.signType = signType;
+	public String getEmpName() {
+		return empName;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public String getDetailAddr() {
+		return detailAddr;
+	}
+	public String getMainWork() {
+		return mainWork;
 	}
 	public String getDeptName() {
 		return deptName;
 	}
+	public String getDeptSeq() {
+		return deptSeq;
+	}
+	public Long getAge() {
+		return age;
+	}
+	public String getBizName() {
+		return bizName;
+	}
+	public String getLangCode() {
+		return langCode;
+	}
+	public String getFaxNum() {
+		return faxNum;
+	}
+	public String getCompName() {
+		return compName;
+	}
+	public String getCompDomain() {
+		return compDomain;
+	}
+	public String getCompEmail() {
+		return compEmail;
+	}
+	public void setEmpSeq(String empSeq) {
+		this.empSeq = empSeq;
+	}
+	public void setGroupSeq(String groupSeq) {
+		this.groupSeq = groupSeq;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+	public void setEmpNum(String empNum) {
+		this.empNum = empNum;
+	}
+	public void setErpEmpNum(String erpEmpNum) {
+		this.erpEmpNum = erpEmpNum;
+	}
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
+	}
+	public void setOutMail(String outMail) {
+		this.outMail = outMail;
+	}
+	public void setOutDomain(String outDomain) {
+		this.outDomain = outDomain;
+	}
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
+	}
+	public void setApprPassword(String apprPassword) {
+		this.apprPassword = apprPassword;
+	}
+	public void setPasswdDate(String passwdDate) {
+		this.passwdDate = passwdDate;
+	}
+	public void setPasswdInputFailCount(String passwdInputFailCount) {
+		this.passwdInputFailCount = passwdInputFailCount;
+	}
+	public void setPayPasswd(String payPasswd) {
+		this.payPasswd = payPasswd;
+	}
+	public void setPasswdStatusCode(String passwdStatusCode) {
+		this.passwdStatusCode = passwdStatusCode;
+	}
+	public void setMobileUseYn(String mobileUseYn) {
+		this.mobileUseYn = mobileUseYn;
+	}
+	public void setMessangerUseYn(String messangerUseYn) {
+		this.messangerUseYn = messangerUseYn;
+	}
+	public void setCheckWorkYn(String checkWorkYn) {
+		this.checkWorkYn = checkWorkYn;
+	}
+	public void setShift(String shift) {
+		this.shift = shift;
+	}
+	public void setJobCode(String jobCode) {
+		this.jobCode = jobCode;
+	}
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
+	}
+	public void setMainCompSeq(String mainCompSeq) {
+		this.mainCompSeq = mainCompSeq;
+	}
+	public void setMainCompLoginYn(String mainCompLoginYn) {
+		this.mainCompLoginYn = mainCompLoginYn;
+	}
+	public void setDutyCode(String dutyCode) {
+		this.dutyCode = dutyCode;
+	}
+	public void setPositionCode(String positionCode) {
+		this.positionCode = positionCode;
+	}
+	public void setNativeLangCode(String nativeLangCode) {
+		this.nativeLangCode = nativeLangCode;
+	}
+	public void setLicenceCheckYn(String licenceCheckYn) {
+		this.licenceCheckYn = licenceCheckYn;
+	}
+	public void setJoinDay(String joinDay) {
+		this.joinDay = joinDay;
+	}
+	public void setResignDay(String resignDay) {
+		this.resignDay = resignDay;
+	}
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
+	}
+	public void setbDay(String bDay) {
+		this.bDay = bDay;
+	}
+	public void setLunarYn(String lunarYn) {
+		this.lunarYn = lunarYn;
+	}
+	public void setWorkStatus(String workStatus) {
+		this.workStatus = workStatus;
+	}
+	public void setHomeTelNum(String homeTelNum) {
+		this.homeTelNum = homeTelNum;
+	}
+	public void setMobileTelNum(String mobileTelNum) {
+		this.mobileTelNum = mobileTelNum;
+	}
+	public void setWeddingYn(String weddingYn) {
+		this.weddingYn = weddingYn;
+	}
+	public void setWeddingDay(String weddingDay) {
+		this.weddingDay = weddingDay;
+	}
+	public void setPrivateYn(String privateYn) {
+		this.privateYn = privateYn;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	public void setPicFileID(String picFileID) {
+		this.picFileID = picFileID;
+	}
+	public void setSignFileID(String signFileID) {
+		this.signFileID = signFileID;
+	}
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+	public void setLsRoleID(String lsRoleID) {
+		this.lsRoleID = lsRoleID;
+	}
+	public void setCreateSeq(String createSeq) {
+		this.createSeq = createSeq;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public void setModifySeq(String modifySeq) {
+		this.modifySeq = modifySeq;
+	}
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public void setSpringSecu(String springSecu) {
+		this.springSecu = springSecu;
+	}
+	public void setSpringDate(String springDate) {
+		this.springDate = springDate;
+	}
+	public void setSignType(String signType) {
+		this.signType = signType;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	public void setDetailAddr(String detailAddr) {
+		this.detailAddr = detailAddr;
+	}
+	public void setMainWork(String mainWork) {
+		this.mainWork = mainWork;
+	}
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
+	public void setDeptSeq(String deptSeq) {
+		this.deptSeq = deptSeq;
+	}
+	public void setAge(Long age) {
+		this.age = age;
+	}
+	public void setBizName(String bizName) {
+		this.bizName = bizName;
+	}
+	public void setLangCode(String langCode) {
+		this.langCode = langCode;
+	}
+	public void setFaxNum(String faxNum) {
+		this.faxNum = faxNum;
+	}
+	public void setCompName(String compName) {
+		this.compName = compName;
+	}
+	public void setCompDomain(String compDomain) {
+		this.compDomain = compDomain;
+	}
+	public void setCompEmail(String compEmail) {
+		this.compEmail = compEmail;
+	}
+	
 	@Override
 	public String toString() {
 		return "EmployeesVo [empSeq=" + empSeq + ", groupSeq=" + groupSeq + ", loginId=" + loginId + ", empNum="
@@ -436,8 +470,9 @@ public class EmployeesVo {
 				+ ", lsRoleID=" + lsRoleID + ", createSeq=" + createSeq + ", createDate=" + createDate + ", modifySeq="
 				+ modifySeq + ", modifyDate=" + modifyDate + ", springSecu=" + springSecu + ", springDate=" + springDate
 				+ ", signType=" + signType + ", empName=" + empName + ", addr=" + addr + ", detailAddr=" + detailAddr
-				+ ", mainWork=" + mainWork + ", deptName=" + deptName + ", age=" + age + ", bizName=" + bizName
-				+ ", langCode=" + langCode + "]";
+				+ ", mainWork=" + mainWork + ", deptName=" + deptName + ", deptSeq=" + deptSeq + ", age=" + age
+				+ ", bizName=" + bizName + ", langCode=" + langCode + ", faxNum=" + faxNum + ", compName=" + compName
+				+ ", compDomain=" + compDomain + ", compEmail=" + compEmail + "]";
 	}
 	
 	

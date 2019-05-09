@@ -45,9 +45,13 @@
       <div class="input-group">
 	    <div>
 			<select id="search-opt" class="custom-select custom-select-sm">
-					<option value="emp" >사원</option>
-					<option value="biz" >사업장</option>
-					<option value="dept">부서</option>			
+					<option value="all" >전체</option>			
+					<option value="emp" >사원명(ID)</option> <!--  -->
+					<option value="dept">부서명</option>	<!--  -->	
+					<option value="position">직급</option>	
+					<option value="duty">직책</option>	
+					<option value="call">전화번호</option>
+					<option value="phone">휴대전화</option>	
 			</select>    
 	    </div>
         <input type="text" class="form-control" placeholder="검색..." aria-label="kwd" aria-describedby="basic-addon2">

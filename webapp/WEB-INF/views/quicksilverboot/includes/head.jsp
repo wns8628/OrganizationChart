@@ -41,6 +41,10 @@
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-emp-detail.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-info.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-scroll.js"></script>
+ 
+  <!-- 직원 디테일표시 css-->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/quicksilver-detailemp.css">
+	
 	
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";

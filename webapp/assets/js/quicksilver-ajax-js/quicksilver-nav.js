@@ -130,13 +130,15 @@ var makeTable = function(url) {
           },
           
           columns : [
-              {data: "empNum"},
-              {data: "empName"},
-              {data: "bDay"},
-              {data: "genderCode"},
+        	  {data: "empSeq"},
+        	  {data: "deptSeq"},
+              {data: "deptName"},
               {data: "positionCode"},
-              {data: "dutyCode"},              
-              {data: "deptName"}
+              {data: "dutyCode"},
+              {data: "empName"},
+              {data: "loginId"},
+              {data: "homeTelNum"},              
+              {data: "mobileTelNum"}
           ]
       });	
 	
