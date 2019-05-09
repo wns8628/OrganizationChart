@@ -30,6 +30,7 @@ public class CompanyVo {
 	private String eaType;
 	private String createSeq;
 	private String createDate;
+	private String modifySeq;
 	private String modifyDate;
 	private String compEmailYn;
 	private String erpUseYn;
@@ -44,6 +45,7 @@ public class CompanyVo {
 	private String detailAddr;
 	private String compNameEn;
 	private String compNickname;
+	private String opCode;
 	
 	private int compEmpCount;
 
@@ -359,6 +361,19 @@ public class CompanyVo {
 	}
 	public void setCompNickname(String compNickname) {
 		this.compNickname = compNickname;
+	}
+	public String getOpCode() {
+		return opCode;
+	}
+	public void setOpCode(String opCode) {
+		this.opCode = opCode;
+	}
+	
+	public String getModifySeq() {
+		return modifySeq;
+	}
+	public void setModifySeq(String modifySeq) {
+		this.modifySeq = modifySeq;
 	}
 	@Override
 	public String toString() {

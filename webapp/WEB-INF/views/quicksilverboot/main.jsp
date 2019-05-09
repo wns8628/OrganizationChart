@@ -49,13 +49,15 @@
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                  <thead>
 		                    <tr>
-		                      <th>사원번호</th>
-		                      <th>이름</th>
-		                      <th>나이</th>
-		                      <th>성별</th>
+		                  	  <th>사번 </th>
+		                  	  <th>부서번호 </th>
+		                      <th>부서</th>
 		                      <th>직급</th>
 		                      <th>직책</th>
-		                      <th>부서</th>
+		                      <th>사원명</th>
+		                      <th>ID</th>
+		                      <th>전화번호</th>
+		                      <th>휴대전화</th>
 		                    </tr>
 		                  </thead>
 		                  <tbody>
