@@ -35,21 +35,100 @@
 	</select>
 	
 	<insert id="insertComp" parameterType="companyvo">
-		
 		insert into t_co_comp values(#{compSeq}, 'demo', #{compCd}, '0', 'B', #{compRegistNum},
 		 #{compNum}, #{standardCode}, 'Y', #{telNum}, #{faxNum}, #{homepgAddr}, null, #{compDomain}, null,
-		  '', #{zipCode}, 'N', '', '', #{nativeLangCode}, (select max(a.order_num)+1 from t_co_comp a), #{useYn}, 'eap', '0101', now(),
+		  '', #{zipCode}, 'N', null, null, #{nativeLangCode}, (select max(a.order_num)+1 from t_co_comp a), #{useYn}, 'eap', '0101', now(),
 		   null, null, 'N', 'N', 'N')
 	</insert>
 	
 	<insert id="insertCompMulti" parameterType="companyvo">
 		insert into t_co_comp_multi values(#{compSeq}, #{langCode}, 'demo', #{compName}, null,
-		 '김세준', null, null, null, #{addr}, #{detailAddr}, #{useYn}, '1010', now(), null, null, #{compNickname})
+		 #{ownerName}, null, #{bizCondition}, #{item}, #{addr}, #{detailAddr}, #{useYn}, '1010', now(), null, null, #{compNickname})
 	</insert>
 	
-	<insert id="insertCompHistory" parameterType="companyvo">
-		insert into t_co_comp_history values( (select max(a.seq)+1 from t_co_comp_history a), 'I', now(), 'demo', #{compSeq}, null, 'B', #{compRegistNum},
+	<delete id="deleteComp" parameterType="companyvo">
+		delete from t_co_comp where comp_seq = #{compSeq}
+	</delete>
+	
+	<delete id="deleteCompMulti" parameterType="companyvo">
+		delete from t_co_comp_multi where comp_seq = #{compSeq} and lang_code = #{langCode}
+	</delete>
+	
+	<update id="updateComp" parameterType="companyvo">
+		update t_co_comp set comp_cd = #{compCd}, comp_regist_num = #{compRegistNum}, comp_num = #{compNum},
+							standard_code = #{standardCode}, tel_num = #{telNum}, fax_num = #{faxNum}, homepg_addr = #{homepgAddr},
+							comp_domain = #{compDomain}, zip_code = #{zipCode}, native_lang_code = #{nativeLangCode}, order_num = #{orderNum},
+							 use_yn = #{useYn}, modify_seq = '0101', modify_date = now() 
+						where comp_seq = #{compSeq}
+	</update>
+	
+	<update id="updateCompMulti" parameterType="companyvo">
+		update t_co_comp_multi set comp_name = #{compName}, owner_name = #{ownerName},
+								biz_condition = #{bizCondition}, item = #{item}, addr = #{addr}, detail_addr = #{detailAddr},
+								use_yn = #{useYn}, modify_seq = '0101', modify_date = now()
+							where comp_seq = #{compSeq}
+							and lang_code = #{langCode}
+	</update>
+	
+	<insert id="updateCompHistory" parameterType="companyvo">
+		insert into t_co_comp_history values( (select max(a.seq)+1 from t_co_comp_history a), 
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		 now(), #{groupSeq}, #{compSeq}, null, #{loginType}, #{compRegistNum},
 		 #{compNum}, #{standardCode}, #{telNum}, #{faxNum}, #{homepgAddr}, #{compDomain}, #{emailAddr}, #{emailDomain}, #{zipCode}, null, null, #{nativeLangCode}, #{orderNum}, #{useYn},
-		  'eap', '1010', now(), null, null, 'N', 'N', 'N');
+		  #{eaType}, #{createSeq}, #{createDate}, #{modifySeq}, #{modifyDate}, 'N', 'N', 'N')
 	</insert>
+	
+	<insert id="updateCompMultiHistory" parameterType="companyvo">
+		insert into t_co_comp_multi_history values( (select max(a.seq)+1 from t_co_comp_multi_history a), 
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), 'demo', #{compSeq}, #{langCode}, #{compName},
+		null, #{ownerName}, null, #{bizCondition}, #{item}, #{addr}, #{detailAddr}, #{useYn}, 
+		<if test="opCode eq 'I'.toString()">
+			'0101', now(),
+		</if>
+		<if test="opCode neq 'I'.toString()">
+			#{createSeq}, #{createDate}, 
+		</if>
+		#{modifySeq}, #{modifyDate}, null  )
+	</insert>
+	
+	<select id="getCompAll" parameterType="companyvo" resultType="companyvo">
+		select comp_seq as compSeq, group_seq as groupSeq, comp_cd as compCd, login_type as loginType, comp_regist_num as compRegistNum,
+				comp_num as compNum, standard_code as standardCode, erp_use as erpUse, tel_num as telNum, fax_num as faxNum, homepg_addr as homepg_Addr,
+				comp_mail_url as compMailUrl, comp_domain as compDomain, email_addr as emailAddr, email_domain as emailDomain, zip_code as zipCode, 
+				sms_use as smsUse, sms_id as smsId, sms_passwd as smsPasswd, native_lang_code as nativeLangCode, order_num as orderNum, use_yn as useYn, 
+				ea_type as eaType, create_seq as createSeq, create_date as createDate, modify_seq as modifySeq, modify_date as modifyDate, 
+				comp_email_yn as compEmailYn, erp_use_yn as erpUseYn, sms_use_yn as smsUseYn
+		from t_co_comp
+		where comp_seq = #{compSeq}
+	</select>
+	
+	<select id="getCompMultiAll" parameterType="companyvo" resultType="companyvo">
+		select comp_seq as compSeq, lang_code as langCode, group_seq as groupSeq, comp_name as compName, comp_display_name as compDisplayName, 
+				owner_name as ownerName, sender_name as senderName, biz_condition as bizCondition, item, addr, detail_addr as detailAddr, 
+				use_yn as useYn, create_seq as createSeq, create_date as createDate, modify_seq as modifySeq, modify_date as modifyDate, comp_nickname as compNickname
+		from t_co_comp_multi
+		where comp_seq = #{compSeq}
+		and lang_code = #{langCode}
+	</select>
 </mapper>

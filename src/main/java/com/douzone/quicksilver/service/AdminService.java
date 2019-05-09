@@ -23,17 +23,100 @@ public class AdminService {
 	
 	public void addComp(CompanyVo vo) {
 		adminDao.insertComp(vo);
-		adminDao.insertCompHistory(vo);
+		CompanyVo compAll = adminDao.getCompAll(vo);
+		compAll.setOpCode("I");
+		System.out.println(compAll.getOpCode());
+		adminDao.updateCompHistory(compAll);
 		if("".equals(vo.getCompName()) == false) {
 			System.out.println(vo.getCompName());
 			vo.setLangCode("kr");
 			adminDao.insertCompMulti(vo);
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			compMulti.setOpCode("I");
+			adminDao.updateCompMultiHistory(compMulti);
 		}
 		if("".equals(vo.getCompNameEn()) == false) {
 			vo.setLangCode("en");
 			vo.setCompName(vo.getCompNameEn());
 			adminDao.insertCompMulti(vo);
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			compMulti.setOpCode("I");
+			adminDao.updateCompMultiHistory(compMulti);
 		}
 		
+	}
+	
+	public void deleteComp(CompanyVo vo) {
+		CompanyVo compAll = adminDao.getCompAll(vo);
+		compAll.setOpCode("D");
+		adminDao.updateCompHistory(compAll);
+		adminDao.deleteComp(vo);
+		if("".equals(vo.getCompName()) == false) {
+			vo.setLangCode("kr");
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			compMulti.setOpCode("D");
+			adminDao.updateCompMultiHistory(compMulti);
+			adminDao.deleteCompMulti(vo);
+		}
+		if("".equals(vo.getCompNameEn()) == false) {
+			vo.setLangCode("en");
+			vo.setCompName(vo.getCompNameEn());
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			compMulti.setOpCode("D");
+			adminDao.updateCompMultiHistory(compMulti);
+			adminDao.deleteCompMulti(vo);
+		}
+	}
+	
+	public void updateComp(CompanyVo vo) {
+		CompanyVo compAll = adminDao.getCompAll(vo);
+		compAll.setOpCode("U");
+		adminDao.updateCompHistory(compAll);
+		adminDao.updateComp(vo);
+		if("".equals(vo.getCompName()) == false) {
+			vo.setLangCode("kr");
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			if("".equals(compMulti.getCompName())){
+				vo.setOpCode("I");
+				adminDao.insertCompMulti(vo);
+				adminDao.updateCompMultiHistory(vo);
+			}else if(vo.getCompName().equals(compMulti.getCompName()) == false) {
+				compMulti.setOpCode("U");
+				adminDao.updateCompMultiHistory(compMulti);
+				adminDao.updateCompMulti(vo);
+			}
+		}else{
+			vo.setLangCode("kr");
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			if("".equals(compMulti.getCompName()) == false) {
+				compMulti.setOpCode("D");
+				adminDao.updateCompMultiHistory(compMulti);
+				adminDao.deleteCompMulti(vo);
+			}
+		}
+		
+		if("".equals(vo.getCompNameEn()) == false) {
+			vo.setLangCode("en");
+			vo.setCompName(vo.getCompNameEn());
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			if(compMulti == null){
+				vo.setOpCode("I");
+				adminDao.insertCompMulti(vo);
+				adminDao.updateCompMultiHistory(vo);
+			}else if(vo.getCompName().equals(compMulti.getCompName()) == false) {
+				compMulti.setOpCode("U");
+				adminDao.updateCompMultiHistory(compMulti);
+				adminDao.updateCompMulti(vo);
+			}
+		}else{
+			vo.setLangCode("en");
+			vo.setCompName(vo.getCompNameEn());
+			CompanyVo compMulti = adminDao.getCompMultiAll(vo);
+			if(compMulti != null) {
+				compMulti.setOpCode("D");
+				adminDao.updateCompMultiHistory(compMulti);
+				adminDao.deleteCompMulti(vo);
+			}
+		}
 	}
 }
