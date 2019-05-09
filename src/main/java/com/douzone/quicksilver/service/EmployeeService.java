@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.quicksilver.repository.EmployeeDao;
+import com.douzone.quicksilver.vo.DepartmentsVo;
 import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
@@ -21,12 +22,12 @@ public class EmployeeService {
 		return employeeDao.get(employeesVo);
 	}
 	
-	public EmployeeDeptInfoVo getdetailNavPoint(String empSeq) {
-		return employeeDao.get(empSeq);
+	public EmployeeDeptInfoVo getdetailNavPoint(EmployeeDeptInfoVo employeedeptinfovo) {
+		return employeeDao.get(employeedeptinfovo);
 	}
 
-	public Long getdetailNavPointParents(Long deptSeq) {
-		return employeeDao.get(deptSeq);
+	public DepartmentsVo getdetailNavPointParents(DepartmentsVo departmentsvo) {
+		return employeeDao.get(departmentsvo);
 	}
 	
 	public List<EmployeesVo> getEmpInfo(String seq, String type,String langCode){
@@ -34,6 +35,7 @@ public class EmployeeService {
 		map.put("seq", seq);
 		map.put("langCode", langCode);
 		map.put("type", type);
+		
 		return employeeDao.getEmpInfo(map);
 	}
 	

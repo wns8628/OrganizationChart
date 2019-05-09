@@ -1,6 +1,6 @@
 package com.douzone.quicksilver.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.EmployeeService;
 import com.douzone.quicksilver.service.FileuploadService;
+import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
@@ -37,19 +39,18 @@ public class EmployeeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getdetailEmployeeInfo/{empNum}")
-	public JSONResult getdetailEmployeeInfo(@PathVariable String empNum, HttpSession session) {
+	@RequestMapping("/getdetailEmployeeInfo/{empSeq}/{deptSeq}")
+	public JSONResult getdetailEmployeeInfo(@ModelAttribute EmployeesVo employeesvo,
+											HttpSession session) {
 		
 		String langCode = (String) session.getAttribute("langCode");
 		if(langCode == null) {
 			langCode = "kr";
 		}
-		
-		EmployeesVo employeesVo = new EmployeesVo();
-		employeesVo.setEmpNum(empNum);
-		employeesVo.setLangCode(langCode);
 
-		return JSONResult.success(employeeService.getdetailEmployeeInfo(employeesVo));
+		employeesvo.setLangCode(langCode);
+
+		return JSONResult.success(employeeService.getdetailEmployeeInfo(employeesvo));
 	}
 
 	
@@ -57,17 +58,24 @@ public class EmployeeController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/getdetailNavPoint/{empNum}")
-	public JSONResult getdetailNavPoint(@PathVariable String empNum) {
+	@RequestMapping("/getdetailNavPoint/{empSeq}/{deptSeq}")
+	public JSONResult getdetailNavPoint(@ModelAttribute EmployeeDeptInfoVo employeedeptinfovo) {
 	
-		return JSONResult.success(employeeService.getdetailNavPoint(empNum));
+		return JSONResult.success(employeeService.getdetailNavPoint(employeedeptinfovo));
 	}
 
 	@ResponseBody
 	@RequestMapping("/getdetailNavPointParents/{deptSeq}")
-	public JSONResult getdetailNavPointParents(@PathVariable Long deptSeq) {
-	
-		return JSONResult.success(employeeService.getdetailNavPointParents(deptSeq));
+	public JSONResult getdetailNavPointParents(@ModelAttribute DepartmentsVo departmentsvo,
+									   	 	   HttpSession session) {
+		
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		departmentsvo.setLangCode(langCode);
+		
+		return JSONResult.success(employeeService.getdetailNavPointParents(departmentsvo));
 	}
 	
 	@ResponseBody
