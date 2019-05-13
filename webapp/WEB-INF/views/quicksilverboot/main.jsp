@@ -10,71 +10,121 @@
  	<c:import url="/WEB-INF/views/quicksilverboot/includes/head.jsp"/>
 </head>
 
-	<body id="page-top">
-		  <c:import url="/WEB-INF/views/quicksilverboot/includes/header.jsp"/>
-
-	<div id="wrapper">
+	<body id="page-top" class="frame">
+		
+	<div class="header">  
+	  <c:import url="/WEB-INF/views/quicksilverboot/includes/header.jsp"/>
+	</div>
+	
+	<div id="wrapper" class="container">
+		<div class="navi">
 		  <c:import url="/WEB-INF/views/quicksilverboot/includes/navigation.jsp"/>
+		</div>
+		<br>	
 	
 		<!--  -->
 		    <!-- Content Wrapper -->
-			 <div id="content-wrapper" class="d-flex flex-column">
-			
+		<!-- 	 <div id="content-wrapper" class="d-flex flex-column">
+		 -->	
 			    <!-- Breadcrumbs-->
-		        <ol class="breadcrumb">
+		        <!-- <ol class="breadcrumb">
 		          <li class="breadcrumb-item">
 		            <a href="#" class="dept">QuickSilver</a>
 		          </li>
 		          <li class="breadcrumb-item active">douzone</li>
-		        </ol>
+		        </ol> -->
 			
 		      <!-- Main Content -->
-		      <div id="content">
-		      
+		    <!--   <div id="content">
+		     -->  
 				 <!-- chart일단뺌 -->
 				<%--
 				  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
 	 			--%>
 		        
-		
+				<!-- Navbar Search -->
+				<span class="search">
+				   <!--  <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
+				    -->
+			         <!-- <div class="input-group"> -->
+					    <!-- <div> -->
+					  	   <span class="select-box">
+						  	 	<label for="select"></label>
+								<select id="search-opt" class="custom-select custom-select-sm">
+										<option value="all" >전체</option>			
+										<option value="emp" >사원명(ID)</option> <!--  -->
+										<option value="dept">부서명</option>	<!--  -->	
+										<option value="position">직급</option>	
+										<option value="duty">직책</option>	
+										<option value="call">전화번호</option>
+										<option value="phone">휴대전화</option>	
+								</select> 
+							</span>   
+					    <!-- </div> -->
+				        <input type="text" class="form-control input-text" placeholder="검색어를 입력하세요" aria-label="kwd" aria-describedby="basic-addon2">
+				        <!-- <div class="input-group-append"> -->
+				          <button class="btn btn-primary search sch-submit" id="search-button" type="button">
+				            	검색
+				          </button>
+				        <!-- </div> -->        
+				      <!-- </div> -->
+				    <!-- </form> -->
+			    </span>
+			    <br>	
+			    <!---->
+			    
+			    <!--  -->
+				<div class="header2">
+					<span class="title">● 사원목록 </span>
+					<span class="exelbtn">
+						<button type= "submit" class="exel-submit">엑셀 저장</button>
+					</span>
+				</div>
+		    	<!--  -->
+				
 		      <!-- Begin Page Content -->
-		        <div class="container-fluid">
-		
+		  <!--       <div class="frame"> -->
+		        
+				    
 		          <!-- DataTales Example -->
-		          <div class="card shadow mb-4">
-		            <div class="card-header py-3 dept">
+<!-- 		          <div class="">card shadow mb-4
+		            <div class="">card-header py-3 dept 
 		            </div>
-		            <div class="card-body">
-		              <div class="table-responsive">
-		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		                  <thead>
-		                    <tr>
-		                  	  <th>사번 </th>
-		                  	  <th>부서번호 </th>
-		                      <th>부서</th>
-		                      <th>직급</th>
-		                      <th>직책</th>
-		                      <th>사원명</th>
-		                      <th>ID</th>
-		                      <th>전화번호</th>
-		                      <th>휴대전화</th>
-		                    </tr>
-		                  </thead>
-		                  <tbody>
-		                   	
-		                  </tbody>
-		                </table>
-		              </div>
+		            <div class="">card-body
+		              <div class="">table-responsive -->
+		         <div style="width:70%; float:left; padding-left:50px">
+	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >                  <thead>
+	                    <tr>
+	                  	  <th>사번 </th>
+	                  	  <th>부서번호 </th>
+	                      <th>부서</th>
+	                      <th>직급</th>
+	                      <th>직책</th>
+	                      <th>사원명</th>
+	                      <th>ID</th>
+	                      <th>전화번호</th>
+	                      <th>휴대전화</th>
+	                    </tr>
+	                  </thead>
+	                  <tbody>
+	                   	
+	                  </tbody>
+	                </table>
+			                
+	                <div class="pagePre">이전</div>
+	                <div class="pageNext" data-no="1" data-seq="1" data-kwd="" data-selectSearch="">다음</div>
+                 </div>
+		     <!--          </div>
 		            </div>
-		          </div>
-		        </div>		        		       	
-		      </div>		      
+		          </div> -->
 				<!-- 디테일  -->
-				<div class="container">
+				<div class="container-detail">
 				
 				</div>
 				<!--  -->
-			</div>
+		       <!--  </div> -->		        		       	
+		     <!--  </div> -->		      
+			<!-- </div> -->
  	<%-- 	 
 	      <footer class="sticky-footer">
 			  <c:import url="/WEB-INF/views/quicksilverboot/includes/footer.jsp"/>

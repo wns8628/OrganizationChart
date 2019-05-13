@@ -29,6 +29,7 @@ public class BizVo {
 	private String item;			//종목
 	private String addr;			//우편주소
 	private String detailAddr;		//상세주소
+	private int childCount;			//자식 개수
 	
 	private int bizEmpCount; //사업장별 직원수구할때씀
 
@@ -262,6 +263,14 @@ public class BizVo {
 
 	public void setBizEmpCount(int bizEmpCount) {
 		this.bizEmpCount = bizEmpCount;
+	}
+	
+	public int getChildCount() {
+		return childCount;
+	}
+
+	public void setChildCount(int childCount) {
+		this.childCount = childCount;
 	}
 
 	@Override
