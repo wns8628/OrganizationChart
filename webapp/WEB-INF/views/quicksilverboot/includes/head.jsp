@@ -18,8 +18,9 @@
   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
  --%>
   <!-- Page level plugin CSS-->
-<%--   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
- --%>
+  <%--
+   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+   --%>
   <!-- Custom styles for this template-->
 <%--   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/sb-admin.css" rel="stylesheet">
  --%>
@@ -35,10 +36,12 @@
  	--%>
 
   <!-- 관리자로그인css -->
-<%--   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
- --%>
+   
+   <%--
+   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
+   --%>
  <!-- 제이쿼리 -->
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -59,14 +62,15 @@
 
 <!-- 원래바디밑에임  -->
 <!-- Bootstrap core JavaScript-->
- <%-- 
-	 <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-   --%>
+  <%--
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  --%> 
+  
   <!-- Core plugin JavaScript-->
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
+  <%--<script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script> --%>
+  
   <!-- Page level plugin JavaScript-->
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/chart.js/Chart.min.js"></script>
+  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/chart.js/Chart.min.js"></script> --%>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/jquery.dataTables.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.js"></script>
 
@@ -77,7 +81,7 @@
   --%>
   
   <!-- Demo scripts for this page-->
-<%--   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
+  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-bar-demo.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-pie-demo.js"></script>
 
