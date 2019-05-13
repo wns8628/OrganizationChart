@@ -216,27 +216,50 @@ div.navi div.li-div {padding: 2px 0; display: inline-block;}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-var deptRender = function(vo, index, length, last){
+var deptRender = function(vo, index, length, last, depthCount){
 	var btn = "";
 	var padding = "";
 	var px = 20;
+	
 	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	
+	if(vo.deptLevel > 1){
+		if(last){
+			console.log(depthCount);
+			if(depthCount == 0){
+				px = px * vo.deptLevel
+				depth = "";
+			}else{
+				for(var i=1; i<depthCount; i++){
+					depth += depth;
+				}
+				px = px * (vo.deptLevel - depthCount);
+			}
+			padding = "style='padding-left:"+px+"px'";
+		}else{
+			if(depthCount == 0){
+				vo.deptLevel - 
+			}
+			for(var i=1; i<vo.deptLevel; i++){
+				depth += depth;
+			}
+		}
+	}else{
+		if(last){
+			depth = "";
+			padding = "style='padding-left:"+px+"px'";
+		}
+	}
+	
 	
 	var child = "<img class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
 	var lastChild = "<img class='tree-icon last' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
 	var tree = "";
+	
 	if(index+1 == length){
 		tree += lastChild;
 	}else{
 		tree = child;
-	}
-	
-	if(vo.deptLevel > 1){
-		
-	}else{
-		if(last){
-			depth = "";
-		}
 	}
 	
 	if(vo.childCount > 0){
@@ -284,7 +307,7 @@ var tableRender = function(vo){
 	$("tbody").append(htmls);
 }
 
-var getDeptList = function(seq, last){
+var getDeptList = function(seq, last, depthCount){
    $.ajax({
       url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
       type:"get",
@@ -292,7 +315,7 @@ var getDeptList = function(seq, last){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            deptRender(vo, index, response.data.length, last);
+            deptRender(vo, index, response.data.length, last, depthCount);
          });
       },
       error: function(xhr, status, e){
@@ -365,9 +388,9 @@ $(function(){
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");
 	   if($parent.children('img.last').length > 0){
-		   getDeptList(seq, true);
+		   getDeptList(seq, true, $parent.children('img.depth').length);
 	   }else{
-		   getDeptList(seq, false);
+		   getDeptList(seq, false, $parent.children('img.depth').length);
 	   }
 	   $(this).hide();
 	   $(this).next().show();
