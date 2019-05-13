@@ -46,15 +46,16 @@
 			where	
 		<choose>
 			<when test='type == "a"'>
-				emp.comp_seq = #{seq};
+				emp.comp_seq = #{seq}
 			</when>
 			<when test='type == "b"'>
-				emp.biz_seq = #{seq};
+				emp.biz_seq = #{seq}
 			</when>
 			<when test='type == "d"'>
-				emp.dept_seq = #{seq};
+				emp.dept_seq = #{seq}
 			</when>
 		</choose>
+		 limit #{startboard}, #{manyboard};
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
@@ -98,22 +99,22 @@
 	  <choose>
 		<when test='selectSearch == "emp"'>			
 	  		 (emp.login_id like #{kwd}  
-			 or emp.emp_name like #{kwd}); 
+			 or emp.emp_name like #{kwd})
 		</when>
 		<when test='selectSearch == "dept"'>
-		 		emp.dept_name like #{kwd};
+		 		emp.dept_name like #{kwd}
 		</when>
 		<when test='selectSearch == "position"'>
-				pmp.dp_name like #{kwd};
+				pmp.dp_name like #{kwd}
 		</when>
 		<when test='selectSearch == "duty"'>
-				pmd.dp_name like #{kwd};
+				pmd.dp_name like #{kwd}
 		</when>
 		<when test='selectSearch == "call"'>
-				emp.home_tel_num like #{kwd}';
+				emp.home_tel_num like #{kwd}'
 		</when>
 		<when test='selectSearch == "phone"'>
-				emp.mobile_tel_num like #{kwd};
+				emp.mobile_tel_num like #{kwd}
 		</when>
 		
 		<when test='selectSearch == "all"'>
@@ -123,9 +124,10 @@
 			  or pmp.dp_name like #{kwd}
 			  or pmd.dp_name like #{kwd}
 			  or emp.home_tel_num like #{kwd}
-			  or emp.mobile_tel_num like #{kwd});
+			  or emp.mobile_tel_num like #{kwd})
 		</when>
 	</choose> 
+		limit #{startboard}, #{manyboard};
 	</select>
 	
 	
