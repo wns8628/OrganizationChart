@@ -92,7 +92,7 @@
 		            </div>
 		            <div class="">card-body
 		              <div class="">table-responsive -->
-		         <div style="width:70%; float:left; padding-left:50px">
+		         <div class="table-body">
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >                  <thead>
 	                    <tr>
 	                  	  <th>사번 </th>
