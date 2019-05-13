@@ -54,7 +54,7 @@ public class EmployeeController {
 	}
 
 	
-	//---------------------
+	// --------------------------
 	
 	
 	@ResponseBody
@@ -81,14 +81,19 @@ public class EmployeeController {
 	@ResponseBody
 	@RequestMapping("/getEmpInfo/{seq}/{type}")
 	public JSONResult getEmpInfo(@PathVariable String seq,
-								 @PathVariable String type,
-								HttpSession session) {
+								 @PathVariable String type,			
+								 @RequestParam (value="pageNo",required=false, defaultValue="1") Integer pageNo,
+								 HttpSession session) {
+		
 		String langCode = (String) session.getAttribute("langCode");
 		if(langCode == null) {
 			langCode = "kr";
 		}
-		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode));
+		
+		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode, pageNo));
 	}
+	
+	
 	
 	@RequestMapping(value = "/profileImageUpload", method = RequestMethod.POST)
 	public String profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture,

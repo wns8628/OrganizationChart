@@ -12,39 +12,46 @@
 
   <title>SB Admin - Dashboard</title>
  
+
   <!-- Custom fonts for this template-->
+<%-- 
   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
-
+ --%>
   <!-- Page level plugin CSS-->
-  <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-
+<%--   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+ --%>
   <!-- Custom styles for this template-->
-  <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/sb-admin.css" rel="stylesheet">
-
+<%--   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/sb-admin.css" rel="stylesheet">
+ --%>
   <!-- 테이블 CSS -->
+  <%--
   <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
+   --%>
+   
   <!-- 자세히보기 CSS,js -->
-  <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/profile.css" rel="stylesheet">
+	<%--
+   <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/profile.css" rel="stylesheet">
+ 	--%>
 
   <!-- 관리자로그인css -->
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%--   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
-	
-  <!--  -->
+ --%>
+ <!-- 제이쿼리 -->
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-	
+
+ 
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-emp-detail.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-info.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-scroll.js"></script>
  
-  <!-- 직원 디테일표시 css-->
+  <!-- 직원 테이블 디테일 css-->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/quicksilver-detailemp.css">
-	
+
 	
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
@@ -52,9 +59,9 @@
 
 <!-- 원래바디밑에임  -->
 <!-- Bootstrap core JavaScript-->
- 
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-  
+ <%-- 
+	 <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+   --%>
   <!-- Core plugin JavaScript-->
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -64,9 +71,10 @@
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.js"></script>
 
   <!-- Custom scripts for all pages-->
+  <%--
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin.min.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
-  
+  --%>
   
   <!-- Demo scripts for this page-->
 <%--   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
@@ -77,6 +85,5 @@
 
  <!--  -->
  <style type="text/css">
-
    #login-cancel{float:right; padding:5px;}
  </style>

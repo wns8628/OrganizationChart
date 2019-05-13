@@ -47,7 +47,8 @@ public class DepartmentsVo {
 	private String deptNickName;		// 부서 약칭
 	
 	private String bizName;		//전체부서보기할떄필요
-
+	private int childCount;		// 자식 개수
+	
 	public String getDeptSeq() {
 		return deptSeq;
 	}
@@ -326,6 +327,14 @@ public class DepartmentsVo {
 
 	public void setBizName(String bizName) {
 		this.bizName = bizName;
+	}
+	
+	public int getChildCount() {
+		return childCount;
+	}
+
+	public void setChildCount(int childCount) {
+		this.childCount = childCount;
 	}
 
 	@Override
