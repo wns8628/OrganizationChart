@@ -64,7 +64,7 @@ var deptRender = function(vo, index, length, check){
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
 	
-   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+depth+tree+btn+
+   var htmls = "<li class='dept department' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+depth+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
    				"<span>"+vo.deptName+"<span></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
@@ -93,7 +93,7 @@ var bizRender = function(vo,index, length){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
-	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+tree+btn+
+	var htmls = "<li class='dept biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
 				"<img class='navi-icon close' alt='' src='"+contextPath+"/assets/images/close.png'>"+
 				"<span>"+vo.bizName+"<span></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
@@ -146,7 +146,7 @@ var getList = function(seq, check, padding){
    });
 }
 
-var getListSearch = function(seq, pseq){
+var getListSearch = function(seq, pseq,padding){
 	
 	$.ajax({
       url: contextPath + "/getDept/"+seq,
@@ -157,7 +157,8 @@ var getListSearch = function(seq, pseq){
       success: function(response){   	
     	 $(response.data).each(function(index, vo){
     		// console.log("부서렌더")
-            deptRender(vo)
+//            deptRender(vo)
+            deptRender(vo, index, response.data.length, check , padding);  
          });
     	 $("li[data-no!='"+pseq+"']").css("color","black");
     	 $("li[data-no='"+pseq+"']").css("color","red"); //고치자
@@ -305,27 +306,52 @@ $(function(){
    });
    
    //사업장 목록
-   $(document).on("click", ".biz", function(event){			
-	  if($(this).next().children().length > 0){
-		  $(this).next().children().remove();
-	  }else{
-		  $('.pagePre').show();
-		  $('.pageNext').show();
+   $(document).on("click", "li.biz span", function(event){		
+//		  $('.pagePre').show();
+//		  $('.pageNext').show();
+//
+//		  $(".pageNext").attr("data-no", 1);	  
+//		  $(".pageNext").attr("data-kwd","");
+//		  let seq = $(this).attr("data-no");
+//		  $parent = $(this).parent().parent();
+//	      var seq = $parent.attr("data-no");
+//	      
+//		  pageNo = $(".pageNext").attr("data-no");
+//		  		   $(".pageNext").attr("data-seq", seq);
+//		   getList(seq);
+//		   let departmentName = $(this).html();
+//		   makeTable("/getEmpInfo/" + seq + "/b?pageNo="+pageNo); 
+//		   renderTableDepartmentName(departmentName, seq); 
+   });
+   
+   //부서 목록
+   $(document).on("click", "li.department span", function(event){
 
-		  $(".pageNext").attr("data-no", 1);	  
+	   	  $parent = $(this).parent().parent();
+	      var seq = $parent.attr("data-no");
+
+	  	  $('.pagePre').show();
+		  $('.pageNext').show();
+		  $(".pageNext").attr("data-no", 1);
 		  $(".pageNext").attr("data-kwd","");
-		  let seq = $(this).attr("data-no");
+			
+//		  let seq = $(this).attr("data-no");
 		  pageNo = $(".pageNext").attr("data-no");
 		  		   $(".pageNext").attr("data-seq", seq);
 
-		   getList(seq);
-		   let departmentName = $(this).html();
-		   makeTable("/getEmpInfo/" + seq + "/b?pageNo="+pageNo); 
-		   renderTableDepartmentName(departmentName, seq);
-	  }
+		  
+		  console.log(seq) 
+//		  getList(seq);
+	
+//		  let departmentName = $(this).html();
+		  makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo);
+//		  renderTableDepartmentName(departmentName, seq);
+//		  getLeader("/boot/getDepartmentEmployeeInfo/" + seq);
+	  
    });
    
-   //사업장 목록
+
+   //여닫이
    $(document).on("click", "li.dept img.open-btn", function(event){			
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");
@@ -343,34 +369,15 @@ $(function(){
 	   $(this).next().next().children('.open').show();
 	   $(this).next().next().children('.close').hide();
    });
-   
-   //부서 목록
-   $(document).on("click", ".departments", function(event){
-			
-	  if($(this).next().children().length > 0){
-		  $(this).next().children().remove();
-	  }else{
-	  	  $('.pagePre').show();
-		  $('.pageNext').show();
-		  $(".pageNext").attr("data-no", 1);
-		  $(".pageNext").attr("data-kwd","");
-			
-		  let seq = $(this).attr("data-no");
-		  pageNo = $(".pageNext").attr("data-no");
-		  		   $(".pageNext").attr("data-seq", seq);
-
-		  
-		  console.log(seq) 
-		  getList(seq);
-		  
-		  let departmentName = $(this).html();
-		  makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo);
-		  renderTableDepartmentName(departmentName, seq);
-		  getLeader("/boot/getDepartmentEmployeeInfo/" + seq);
-	  }
+   $(document).on("click", "li.dept img.close-btn", function(event){
+	   $parent = $(this).parent();
+	   $parent.next().children().remove();
+	   $(this).hide();
+	   $(this).prev().show();
+	   $(this).next().children('.close').show();
+	   $(this).next().children('.open').hide();
    });
-     
-   
+         
    //페이징 에이젝 다음
    $(document).on("click", ".pageNext", function(event){
 		  let seq = $(this).attr("data-seq");

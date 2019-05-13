@@ -23,7 +23,7 @@ let search = function(selectSearch, kwd){
 	
 	console.log(selectSearch)
 	$(".card-header").empty();
-	renderTableDepartmentName("Search");
+//	renderTableDepartmentName("Search");
 	makeTable("/boot/search/" + selectSearch + "/" + kwd +"/?pageNo="+pageNo );
 }
 
