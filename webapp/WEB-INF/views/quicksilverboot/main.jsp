@@ -42,6 +42,7 @@
 				  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
 	 			--%>
 		        
+	        <div>
 				<!-- Navbar Search -->
 				<span class="search">
 				   <!--  <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
@@ -76,9 +77,11 @@
 			    <!--  -->
 				<div class="header2">
 					<span class="title">● 사원목록 </span>
-					<span class="exelbtn">
+					<!--
+ 					<span class="exelbtn">
 						<button type= "submit" class="exel-submit">엑셀 저장</button>
 					</span>
+					 -->
 				</div>
 		    	<!--  -->
 				
@@ -93,7 +96,8 @@
 		            <div class="">card-body
 		              <div class="">table-responsive -->
 		         <div class="table-body">
-	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >                  <thead>
+	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
+                       <thead>
 	                    <tr>
 	                  	  <th>사번 </th>
 	                  	  <th>부서번호 </th>
@@ -125,6 +129,8 @@
 		       <!--  </div> -->		        		       	
 		     <!--  </div> -->		      
 			<!-- </div> -->
+			
+		 </div>	
  	<%-- 	 
 	      <footer class="sticky-footer">
 			  <c:import url="/WEB-INF/views/quicksilverboot/includes/footer.jsp"/>
