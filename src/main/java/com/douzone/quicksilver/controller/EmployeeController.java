@@ -99,6 +99,7 @@ public class EmployeeController {
 	public String profileImageUpload(@RequestPart("profilePicture") MultipartFile profilePicture,
 								   @RequestParam("empSeq") String empSeq) throws IOException {
 		
+		
 		System.out.println(profilePicture.getOriginalFilename());
 		String profilePicturePath = fileuploadService.restore(profilePicture);
 		System.out.println(profilePicturePath);
