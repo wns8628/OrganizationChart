@@ -36,12 +36,11 @@
  	--%>
 
   <!-- 관리자로그인css -->
-   
-   <%--
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-   <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
-   --%>
+   <link href="${pageContext.request.contextPath }/assets/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+<!--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ -->	<%--
+    <link href="${pageContext.request.contextPath }/assets/quicksilverbootstrap/css/admin-login.css" rel="stylesheet">
+    --%>
  <!-- 제이쿼리 -->
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
