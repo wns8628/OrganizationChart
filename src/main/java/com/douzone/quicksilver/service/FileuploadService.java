@@ -14,7 +14,6 @@ import com.douzone.quicksilver.repository.EmployeeDao;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
 import javax.media.jai.*;
 
 
@@ -29,9 +28,7 @@ public class FileuploadService
 	public String restore( MultipartFile profilePicture)
 	{
 		String url = "/usr/local/quicksilver/xorwnTest/upload/";
-		//		String loadFile = "C:/temp/Lighthouse.jpg";  //원본 이미지
-		//		String saveFile = "C:/temp/Lighthouse_s.jpeg"; //생성될 썸네일이미지명
-		int zoom = 5;               //축소하고 싶은 비율
+		int zoom = 6; //축소하고 싶은 비율
 
 		try
 		{
@@ -40,33 +37,10 @@ public class FileuploadService
 				return url;
 			}
 
-			String originalFileName = profilePicture.getOriginalFilename();
-
-			//확장자 분리
-			String extName = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
-
-			String saveFileName = generateSaveFileName(extName);
-
-			createImage(profilePicture, url + saveFileName, zoom);
-
-			//profilePicture.transferTo(new File(saveFileName));
-
+			String saveFileName = generateSaveFileName();
+			profilePicture.transferTo(new File(saveFileName));
+			createImage( url + saveFileName, url + saveFileName, zoom);
 			return mappingUrl + saveFileName;
-			//			long filesize = profilePicture.getSize();
-			//			
-			//			System.out.println("###############" + originalFileName);
-			//			System.out.println("###############" + extName);
-			//			System.out.println("###############" + saveFileName);
-			//			System.out.println("###############" + filesize);
-			//	
-			//			byte[] fileData = profilePicture.
-			//			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + 
-
-			//saveFileName);
-			//			os.write( fileData );
-			//			os.close();
-			//			
-			//			url = URL + "/" + saveFileName;
 		}
 		catch (IOException e) 
 		{
@@ -75,7 +49,7 @@ public class FileuploadService
 		return url;
 	}
 
-	private String generateSaveFileName(String extName)
+	private String generateSaveFileName()
 	{
 		String fileName = "";
 		Calendar calendar = Calendar.getInstance();
@@ -100,18 +74,17 @@ public class FileuploadService
 		return employeeDao.update(employeesVo);
 	}
 
-	public static void createImage(MultipartFile loadFile, String saveFile, int zoom) 
-
-			throws IOException{
+	public static void createImage(String loadFile, String saveFile, int zoom) throws IOException{
 
 		File  thum = new File(saveFile);//썸네일 이미지에 대한 파일 객체 생성
+		System.out.println(loadFile);
 		RenderedOp render = JAI.create("fileload", loadFile); //원본 이미지에 대
 
 		BufferedImage bi = render.getAsBufferedImage();//BufferImage 객체를 얻어옴
 		if(zoom <= 0) zoom = 1;//축소비율이 0이 될수없으므로
 		int width = bi.getWidth()  / zoom;
 		int height = bi.getHeight() / zoom;
-
+		
 		BufferedImage bufferIm = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D  g2 = bufferIm.createGraphics();//Graphics2D 객체 생성
 		g2.drawImage(bi, 0, 0, width, height, null);//이미지를 가로 ,세로 크기로

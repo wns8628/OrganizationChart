@@ -52,7 +52,8 @@ var empDetailRender = function(vo, alldept){
 				"            \r\n" + 
 				"        </div>";
 	
-	let html2 = "<form action=" + contextPath + "'/profileImageUpload' method='POST' enctype='multipart/form-data'>" +
+	let html2 = "<form action='" + contextPath + "/profileImageUpload' method='POST' enctype='multipart/form-data'>" +
+			"<input type='hidden' name='empSeq' value='" + vo.empSeq + "'/>" +
 			"<input type='file' name='profilePicture' accept='image/jpeg, image/png, image/jpg\' />" +
 			"<input type='submit' value='수정'/>" +
 			"</form>";
