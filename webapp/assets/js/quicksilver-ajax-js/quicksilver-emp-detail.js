@@ -1,10 +1,10 @@
 var empDetailRender = function(vo, alldept){
-	$(".container").children().remove();
+	$(".container-detail").children().remove();
 	
 	let htmls ="    <table class=\"detail\">\r\n" + 
 				"                <tr>\r\n" + 
 				"                    <th>사원명(ID)</th>\r\n" + 
-				"                    <td>"+ vo.empName +"</td>\r\n" + 
+				"                    <td>"+ vo.empName + "("+vo.loginId+")</td>\r\n" + 
 				"                    <th>생년월일</th>\r\n" + 
 				"                    <td>"+ vo.bDay +"</td>\r\n" + 
 				"                <tr>\r\n" + 
@@ -52,7 +52,7 @@ var empDetailRender = function(vo, alldept){
 				"            \r\n" + 
 				"        </div>";
 	
-	$(".container").append(htmls);
+	$(".container-detail").append(htmls);
 }
 
 let deptInfoList = [];

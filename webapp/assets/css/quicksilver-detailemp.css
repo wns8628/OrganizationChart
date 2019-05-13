@@ -1,4 +1,3 @@
-@charset "UTF-8";
 body {
 	font: 14px/1.0 Arial, Helvetica, sans-serif;
 }
@@ -174,3 +173,31 @@ table.detail td {
 	padding: 10px;
 	font-weight: bold;
 }
+
+/* navi */
+*            { margin:0; padding:0 }
+body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-width: 1000px;}
+ul, ol, li         { list-style-type: none }
+fieldset      { border:none }
+
+a:link          { color:#696969; text-decoration:none; font-weight:bold; }
+a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
+a:active       { color:#696969; text-decoration:none; font-weight:bold; }
+a:hover       { color:#dc143c; text-decoration:none; font-weight:bold; } 
+
+div.content{ width: 100%; height: 100%;}
+
+div.navi { height:80%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
+div.navi li {font: 2em; display: block;}
+div.navi li.comp:not(:first-child) { padding-top: 4px;}
+div.navi li.dept { font: 1.5em; }
+div.navi li.biz { font: 1.5em; }
+div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;/* padding: 4px 0 4px 5px; */}
+div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left; /* padding: 4px 0; */}
+div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top;}
+div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
+div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -14px; top: -3px; cursor: pointer;}
+div.navi img.open {display: none;}
+div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
+
+div.navi div.li-div {padding: 2px 0; display: inline-block;}

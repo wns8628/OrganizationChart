@@ -199,22 +199,73 @@ a:hover       { color:#dc143c; text-decoration:none; font-weight:bold; }
 div.content{ width: 100%; height: 100%;}
 
 div.navi { height:80%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
-div.navi li {margin-bottom: 2px; margin-top: 2px; font: 2em;}
+div.navi li {font: 2em; display: block;}
+div.navi li.comp:not(:first-child) { padding-top: 4px;}
 div.navi li.dept { font: 1.5em; }
 div.navi li.biz { font: 1.5em; }
-div.navi span {cursor: pointer;}
-div.navi img.navi-icon {height: 100%; width: 16px;}
+div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;/* padding: 4px 0 4px 5px; */}
+div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left; /* padding: 4px 0; */}
+div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top;}
+div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
+div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -14px; top: -3px; cursor: pointer;}
+div.navi img.open {display: none;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
+
+div.navi div.li-div {padding: 2px 0; display: inline-block;}
 
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript" src="jstree-pre1.0_fix_1/jquery.jstree.js"></script>
-<script type="text/javascript" src="jstree-pre1.0_fix_1/_lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="jstree-pre1.0_fix_1/_lib/jquery.hotkey.js"></script>
 <script type="text/javascript">
 
-var deptRender = function(vo){
-   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.depth+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
+var deptRender = function(vo, index, length, check){
+	var padding = "";
+	var px = 20;
+	var depth = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	console.log(vo.deptLevel);
+	if(check){
+		for(var i=1; i<vo.deptLevel; i++){
+			depth += depth;
+		}
+	}else{
+		if(vo.deptLevel == 1){
+			depth = "";
+		}
+// 		for(var i=1; i<vo.deptLevel-1; i++){
+// 			depth += depth;
+// 		}
+		if(padding){
+			console.log("dd");
+			for(var i=1; i<vo.deptLevel-1; i++){
+				px += px;
+			}
+		}else{
+			for(var i=1; i<vo.deptLevel-1; i++){
+				depth += depth;
+			}
+		}
+		
+		padding = "style='padding-left: "+px+"px'";
+	}
+	
+	var child = "<img class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
+	var lastChild = "<img data='last' class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+	var tree = "";
+	if(index+1 == length){
+		tree += lastChild;
+	}else{
+		tree = child;
+	}
+	
+	var btn = "";
+	if(vo.childCount > 0){
+		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
+		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
+	}
+	
+   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+depth+tree+btn+
+				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
+   				"<img class='navi-icon close' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
+   				"<span>"+vo.deptName+"<span></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
@@ -222,8 +273,25 @@ var deptRender = function(vo){
    }
 }
 
-var bizRender = function(vo){
-	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"' style='padding-left:10px'><span>"+vo.bizName+"<span></li><ul b-no='"+vo.bizSeq+"'></ul>";
+var bizRender = function(vo, index, length){
+	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
+	var lastChild = "<img data='last' class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+	var tree = "";
+	if(index+1 == length){
+		tree += lastChild;
+	}else{
+		tree = child;
+	}
+	
+	var btn = "";
+	if(vo.childCount > 0){
+		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
+		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
+	}
+	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+tree+btn+
+				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
+				"<img class='navi-icon close' alt='' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
+				"<span>"+vo.bizName+"<span></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
 
@@ -233,7 +301,7 @@ var tableRender = function(vo){
 	$("tbody").append(htmls);
 }
 
-var getList = function(seq){
+var getDeptList = function(seq, check, padding){
    $.ajax({
       url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
       type:"get",
@@ -241,7 +309,7 @@ var getList = function(seq){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            deptRender(vo)
+            deptRender(vo, index, response.data.length, check , padding);
          });
       },
       error: function(xhr, status, e){
@@ -259,7 +327,7 @@ var getBizList = function(seq){
 	      data:"",
 	      success: function(response){
 	         $(response.data).each(function(index, vo){
-	            bizRender(vo)
+	            bizRender(vo, index, response.data.length)
 	         });
 	      },
 	      error: function(xhr, status, e){
@@ -283,25 +351,6 @@ var getEmpInfo = function(seq){
 }
 $(function(){
    
-   //자회사 목록
-//    $(document).on("click", "h3", function(event){
-// 	   var no = $(this).attr("data-no") * -1;
-// 	   if($(this).next().children().length > 0){
-// 		   $(this).next().children().remove();
-// 	   }else{
-// 		   getList(no);
-// 	   }
-//    });
-   
-//    $("div.navi").jstree({
-// 		"themes" : {
-// 			"theme" : "classic",
-// 			"dots" : true,
-// 			"icons" : false
-// 		},
-// 		"plugins" : ["themes", "html_data"]
-// 	});
-   
    $(document).on("click", "li.comp span", function(event){
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");
@@ -314,17 +363,48 @@ $(function(){
    
    //부서 목록
    $(document).on("click", "li.dept span", function(event){
-	  $parent = $(this).parent();
+	  $parent = $(this).parent().parent();
       var seq = $parent.attr("data-no");
-      if($parent.next().children().length > 0){
-    	  $parent.next().children().remove();
-	  }else{
-		   getList(seq);
+//       if($parent.next().children().length > 0){
+//     	  $parent.next().children().remove();
+//     	  $(this).prev().prev().hide();
+// 		   $(this).prev().show();
+// 	  }else{
+// 		   $(this).prev().hide();
+// 		   $(this).prev().prev().show();
+// 		   getDeptList(seq);
 		   $("tbody tr").remove();
 		   getEmpInfo(seq);
-	  }
+// 	  }
    });
    
+   $(document).on("click", "li.dept img.open-btn", function(event){
+	   $parent = $(this).parent();
+	   var seq = $parent.attr("data-no");
+	   if($(this).prev().attr('data')=="last"){
+		   if($parent.children().length == 4){
+			   getDeptList(seq, false, false);
+		   }else{
+			   getDeptList(seq, false, true);
+		   }
+	   }else{
+		   getDeptList(seq, true, true);
+	   }
+	   $(this).hide();
+	   $(this).next().show();
+	   $(this).next().next().children('.open').show();
+	   $(this).next().next().children('.close').hide();
+   });
+   
+   $(document).on("click", "li.dept img.close-btn", function(event){
+	   $parent = $(this).parent();
+	   $parent.next().children().remove();
+	   $(this).hide();
+	   $(this).prev().show();
+	   $(this).next().children('.close').show();
+	   $(this).next().children('.open').hide();
+   });
+
 });
 </script>
 </head>
@@ -338,7 +418,7 @@ $(function(){
 				<ul>
 				<c:forEach items="${companyList }" var="vo">
 				<li class='comp' data-no='${vo.compSeq }'>
-					<img class="navi-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/group.png">
+					<img class="navi-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/comp.png">
 					<span>${vo.compName }</span>
 				</li>
 				<ul c-no='${vo.compSeq }'></ul>
