@@ -216,23 +216,32 @@ div.navi div.li-div {padding: 2px 0; display: inline-block;}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-
-var deptRender = function(vo, index, length, check){
+var deptRender = function(vo, index, length, check, padding){
 	var padding = "";
-	var depth = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
-	console.log(vo.deptLevel);
+	var px = 20;
+	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
 	if(check){
 		for(var i=1; i<vo.deptLevel; i++){
 			depth += depth;
 		}
 	}else{
+		console.log(vo.deptLevel);
 		if(vo.deptLevel == 1){
 			depth = "";
 		}
 		for(var i=1; i<vo.deptLevel-1; i++){
 			depth += depth;
 		}
-		padding = "style='padding-left: 20px'";
+		
+		if(padding){
+			px *= vo.deptLevel;
+			console.log("padding true :"+px);
+		}else{
+			px *= vo.deptLevel-1;
+			console.log("padding false :"+px);
+		}
+		
+		padding = "style='padding-left: "+px+"px'";
 	}
 	
 	var child = "<img class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
@@ -259,6 +268,7 @@ var deptRender = function(vo, index, length, check){
    }else{
 	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
+   
 }
 
 var bizRender = function(vo, index, length){
@@ -289,7 +299,7 @@ var tableRender = function(vo){
 	$("tbody").append(htmls);
 }
 
-var getDeptList = function(seq, check){
+var getDeptList = function(seq, check, padding){
    $.ajax({
       url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
       type:"get",
@@ -297,7 +307,7 @@ var getDeptList = function(seq, check){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            deptRender(vo, index, response.data.length, check);
+            deptRender(vo, index, response.data.length, check, padding);
          });
       },
       error: function(xhr, status, e){
@@ -350,9 +360,9 @@ $(function(){
    });
    
    //부서 목록
-//    $(document).on("click", "li.dept span", function(event){
-// 	  $parent = $(this).parent().parent();
-//       var seq = $parent.attr("data-no");
+   $(document).on("click", "li.dept span", function(event){
+	  $parent = $(this).parent().parent();
+      var seq = $parent.attr("data-no");
 //       if($parent.next().children().length > 0){
 //     	  $parent.next().children().remove();
 //     	  $(this).prev().prev().hide();
@@ -361,18 +371,23 @@ $(function(){
 // 		   $(this).prev().hide();
 // 		   $(this).prev().prev().show();
 // 		   getDeptList(seq);
-// 		   $("tbody tr").remove();
-// 		   getEmpInfo(seq);
+		   $("tbody tr").remove();
+		   getEmpInfo(seq);
 // 	  }
-//    });
+   });
    
    $(document).on("click", "li.dept img.open-btn", function(event){
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");
+	   console.log($parent.children('.depth'));
 	   if($(this).prev().attr('data')=="last"){
-		   getDeptList(seq, false);
+		   if($parent.children('.depth').length == 0){
+			   getDeptList(seq, false, true);
+		   }else{
+			   getDeptList(seq, false, false);
+		   }
 	   }else{
-		   getDeptList(seq, true);
+		   getDeptList(seq, true, false);
 	   }
 	   $(this).hide();
 	   $(this).next().show();
