@@ -238,31 +238,28 @@ var deptRender = function(vo, index, length, last, depthCount){
 			console.log(depthCount);
 			if(depthCount == 0){
 				px = px * vo.deptLevel
-// 				depth = "";
 			}else{
-// 				for(var i=1; i<depthCount; i++){
-// 					depth += depth;
-// 				}
 				px = px * (vo.deptLevel - depthCount);
-				depth = depthLogic(depthCount-1, px);
+				depth = depthLogic(depthCount, 0);
 			}
 			padding = "style='padding-left:"+px+"px'";
 		}else{
 			if(depthCount == 0){
-				console.log(vo.deptLevel);
 				px = px * (vo.deptLevel - 1);
-				depth = depthLogic(vo.deptLevel-1, px);
+				depth = depthLogic(1, px);
 			}else{
 // 				for(var i=1; i<vo.deptLevel; i++){
 // 					depth += depth;
 // 				}
-				depth = depthLogic(depthCount-1, 0);
+				depth = depthLogic(vo.deptLevel, 0);
 			}
 		}
 	}else{
 		if(last){
-// 			depth = "";
 			padding = "style='padding-left:"+px+"px'";
+		}else{
+			px = 0;
+			depth = depthLogic(1, px);
 		}
 	}
 	

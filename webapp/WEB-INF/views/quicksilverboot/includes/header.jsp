@@ -7,7 +7,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-search.js"></script>
 
 	 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-		    <a class="navbar-brand mr-1" href="${pageContext.request.contextPath }/boot">Quick Silver(조직도)</a>
+		    <a class="navbar-brand mr-1 main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver(조직도)</a>
 			<!-- 다국어 -->
 			 <c:choose>
 				<c:when test="${ langCode eq 'kr' or empty langCode }" >
