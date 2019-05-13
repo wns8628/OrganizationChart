@@ -1,12 +1,10 @@
 package com.douzone.quicksilver.service;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Calendar;
-
-import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,49 +13,60 @@ import org.springframework.web.multipart.MultipartFile;
 import com.douzone.quicksilver.repository.EmployeeDao;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+import javax.media.jai.*;
+
+
 @Service
 public class FileuploadService 
 {	
 	@Autowired
 	private EmployeeDao employeeDao;
-	
+
 	private final String mappingUrl = "/uploads/images/";
-	
+
 	public String restore( MultipartFile profilePicture)
 	{
-		String url = "";
-		
+		String url = "/usr/local/quicksilver/xorwnTest/upload/";
+		//		String loadFile = "C:/temp/Lighthouse.jpg";  //원본 이미지
+		//		String saveFile = "C:/temp/Lighthouse_s.jpeg"; //생성될 썸네일이미지명
+		int zoom = 5;               //축소하고 싶은 비율
+
 		try
 		{
 			if( profilePicture.getSize() == 0 )
 			{
 				return url;
 			}
-			
-			// 오리지널로 저장하면 덮어버릴수있다 and 한글로 저장될수있음 and 디렉터리가 감당할수있는 파일의수가 정해져있음 그래서 일련번호(자세한 시간으로)로 쫙세우는게 좋음
-			// 디렉토리를 여러개만들어둠  시간으로 만든 일련번호의 맨 마지막자리에 맞는 디렉터리에 저장  확장자를 붙여야함 (파일이름이 시간이니까)?
+
 			String originalFileName = profilePicture.getOriginalFilename();
-			
+
 			//확장자 분리
 			String extName = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
-			
+
 			String saveFileName = generateSaveFileName(extName);
-			profilePicture.transferTo(new File(saveFileName));
-			
+
+			createImage(profilePicture, url + saveFileName, zoom);
+
+			//profilePicture.transferTo(new File(saveFileName));
+
 			return mappingUrl + saveFileName;
-//			long filesize = profilePicture.getSize();
-//			
-//			System.out.println("###############" + originalFileName);
-//			System.out.println("###############" + extName);
-//			System.out.println("###############" + saveFileName);
-//			System.out.println("###############" + filesize);
-//	
-//			byte[] fileData = profilePicture.
-//			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFileName);
-//			os.write( fileData );
-//			os.close();
-//			
-//			url = URL + "/" + saveFileName;
+			//			long filesize = profilePicture.getSize();
+			//			
+			//			System.out.println("###############" + originalFileName);
+			//			System.out.println("###############" + extName);
+			//			System.out.println("###############" + saveFileName);
+			//			System.out.println("###############" + filesize);
+			//	
+			//			byte[] fileData = profilePicture.
+			//			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + 
+
+			//saveFileName);
+			//			os.write( fileData );
+			//			os.close();
+			//			
+			//			url = URL + "/" + saveFileName;
 		}
 		catch (IOException e) 
 		{
@@ -65,12 +74,12 @@ public class FileuploadService
 		}
 		return url;
 	}
-	
+
 	private String generateSaveFileName(String extName)
 	{
 		String fileName = "";
 		Calendar calendar = Calendar.getInstance();
-		
+
 		fileName += calendar.get(Calendar.YEAR);
 		fileName += calendar.get(Calendar.MONTH);
 		fileName += calendar.get(Calendar.DATE);
@@ -78,16 +87,34 @@ public class FileuploadService
 		fileName += calendar.get(Calendar.MINUTE);
 		fileName += calendar.get(Calendar.SECOND);
 		fileName += calendar.get(Calendar.MILLISECOND);
-		fileName += ("." + extName);
+		fileName += (".jpeg");
 
 		return fileName;
 	}
-	
+
 	public int updateProfilePicture(String path, String empSeq) {
 		EmployeesVo employeesVo = new EmployeesVo();
 		employeesVo.setPicFileID(path);
 		employeesVo.setEmpSeq(empSeq);
-		
+
 		return employeeDao.update(employeesVo);
+	}
+
+	public static void createImage(MultipartFile loadFile, String saveFile, int zoom) 
+
+			throws IOException{
+
+		File  thum = new File(saveFile);//썸네일 이미지에 대한 파일 객체 생성
+		RenderedOp render = JAI.create("fileload", loadFile); //원본 이미지에 대
+
+		BufferedImage bi = render.getAsBufferedImage();//BufferImage 객체를 얻어옴
+		if(zoom <= 0) zoom = 1;//축소비율이 0이 될수없으므로
+		int width = bi.getWidth()  / zoom;
+		int height = bi.getHeight() / zoom;
+
+		BufferedImage bufferIm = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics2D  g2 = bufferIm.createGraphics();//Graphics2D 객체 생성
+		g2.drawImage(bi, 0, 0, width, height, null);//이미지를 가로 ,세로 크기로
+		ImageIO.write(bufferIm, "jpeg", thum);//그려진 이
 	}
 }

@@ -284,6 +284,25 @@ $(function(){
 	  }
    });
    
+   //사업장 목록
+   $(document).on("click", "li.dept img.open-btn", function(event){			
+	   $parent = $(this).parent();
+	   var seq = $parent.attr("data-no");
+	   if($(this).prev().attr('data')=="last"){
+		   if($parent.children().length == 4){
+			   getDeptList(seq, false, false);
+		   }else{
+			   getDeptList(seq, false, true);
+		   }
+	   }else{
+		   getDeptList(seq, true, true);
+	   }
+	   $(this).hide();
+	   $(this).next().show();
+	   $(this).next().next().children('.open').show();
+	   $(this).next().next().children('.close').hide();
+   });
+   
    //부서 목록
    $(document).on("click", ".departments", function(event){
 			
