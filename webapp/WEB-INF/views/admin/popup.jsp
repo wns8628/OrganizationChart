@@ -216,46 +216,52 @@ div.navi div.li-div {padding: 2px 0; display: inline-block;}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-var deptRender = function(vo, index, length, check, pCheck){
+var deptRender = function(vo, index, length, last, depthCount){
+	var btn = "";
 	var padding = "";
 	var px = 20;
+	
 	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
-	if(check){
-		for(var i=1; i<vo.deptLevel; i++){
-			depth += depth;
-		}
-		console.log("dd");
-	}else{
-		console.log(vo.deptLevel);
-		if(vo.deptLevel == 1){
-			depth = "";
-		}
-		for(var i=1; i<vo.deptLevel-1; i++){
-			depth += depth;
-		}
-		console.log(pCheck);
-		if(pCheck){
-			px *= vo.deptLevel;
-			console.log("padding true :"+px);
-			depth = "";
+	
+	if(vo.deptLevel > 1){
+		if(last){
+			console.log(depthCount);
+			if(depthCount == 0){
+				px = px * vo.deptLevel
+				depth = "";
+			}else{
+				for(var i=1; i<depthCount; i++){
+					depth += depth;
+				}
+				px = px * (vo.deptLevel - depthCount);
+			}
+			padding = "style='padding-left:"+px+"px'";
 		}else{
-			px *= vo.deptLevel-1;
-			console.log("padding false :"+px);
+			if(depthCount == 0){
+				vo.deptLevel - 
+			}
+			for(var i=1; i<vo.deptLevel; i++){
+				depth += depth;
+			}
 		}
-		
-		padding = "style='padding-left: "+px+"px'";
+	}else{
+		if(last){
+			depth = "";
+			padding = "style='padding-left:"+px+"px'";
+		}
 	}
 	
+	
 	var child = "<img class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
-	var lastChild = "<img data='last' class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+	var lastChild = "<img class='tree-icon last' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
 	var tree = "";
+	
 	if(index+1 == length){
 		tree += lastChild;
 	}else{
 		tree = child;
 	}
 	
-	var btn = "";
 	if(vo.childCount > 0){
 		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
@@ -275,10 +281,10 @@ var deptRender = function(vo, index, length, check, pCheck){
 
 var bizRender = function(vo, index, length){
 	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
-	var lastChild = "<img data='last' class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
 	var tree = "";
 	if(index+1 == length){
-		tree += lastChild;
+		tree = lastChild;
 	}else{
 		tree = child;
 	}
@@ -301,7 +307,7 @@ var tableRender = function(vo){
 	$("tbody").append(htmls);
 }
 
-var getDeptList = function(seq, check, pCheck){
+var getDeptList = function(seq, last, depthCount){
    $.ajax({
       url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
       type:"get",
@@ -309,7 +315,7 @@ var getDeptList = function(seq, check, pCheck){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            deptRender(vo, index, response.data.length, check, pCheck);
+            deptRender(vo, index, response.data.length, last, depthCount);
          });
       },
       error: function(xhr, status, e){
@@ -381,15 +387,10 @@ $(function(){
    $(document).on("click", "li.dept img.open-btn", function(event){
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");
-	   console.log($parent.children('.depth'));
-	   if($(this).prev().attr('data')=="last"){
-		   if($parent.children('.depth').length == 0){
-			   getDeptList(seq, false, true);
-		   }else{
-			   getDeptList(seq, false, false);
-		   }
+	   if($parent.children('img.last').length > 0){
+		   getDeptList(seq, true, $parent.children('img.depth').length);
 	   }else{
-		   getDeptList(seq, true, false);
+		   getDeptList(seq, false, $parent.children('img.depth').length);
 	   }
 	   $(this).hide();
 	   $(this).next().show();
