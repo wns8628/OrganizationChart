@@ -9,32 +9,34 @@ body {
 }
 /* 헤더  */
 .header {
-	width:100%; height: 50px;
+	width:100%; height: 40px;
 	background-color: #1f87d8;
 }
 .main-logo{
 	color : #ffffff;
 	font-weight: bold;
-    font-size: large;
+    font-size: larger;
     padding-left:10px;
     padding-top:10px; 
     float:left;    
 }
 .multi{
-	color : #ffffff;
+ 	color : #ffffff;
 	font-weight: bold;
-    font-size: large;
+    font-size: unset;
     padding-left:10px;
-    padding-top:10px; 
-    float:left;    
+    padding-top:5px; 
+    float:left; 
 }
 #admin-login{
+	width:150px;
 	color : #ffffff;
 	font-weight: bold;
-    font-size: large;
+    font-size: unset;
 	float:right; 
 	padding-right:15px;
     padding-top:10px; 
+    text-align: center;
 }
 /* --  */
 
@@ -43,11 +45,11 @@ body {
 	width: 100%;
 	/* height: 30px; */
 	/* margin : 5px 20px 0 0; */
- 	margin: 5px 0px 0px 0px;
+ 	margin: 5px 0px 5px 0px;
 	/* 	float: right; */
 	text-align: left;
 }
-.container {
+.body-container {
 /* 	background-color: green;
  */	height: 875px;
 	width: 100%;
@@ -146,8 +148,9 @@ body {
 	 float:left;
 	 padding-left:35px;
 }
-
-
+.table-boot{
+	padding:0px;
+}
 table.member {
 	width: 100%;
 	border: 1px solid #ececec;
@@ -155,7 +158,7 @@ table.member {
 	border-spacing: 1px;
 	text-align: center;
 	line-height: 1.5;
- 	margin: 5px 20px 5px 0;
+ 	margin: 0px 0px 5px 0;
  	float: right;
 }
 table.member th {
@@ -190,7 +193,8 @@ table.detail {
 	border-spacing: 1px;
 	line-height: 1.5;
  	margin: 10px 20px 20px 0;
-	float: right;
+	float: right; 
+	clear:both;
 }
 table.detail th {
 	height: 20px;
@@ -207,16 +211,27 @@ table.detail td {
 	vertical-align: top;
 }
 
+
 .title {
 	padding: 10px;
 	font-weight: bold;
 	margin-left:8px;
 }
-
-.paginate_button {
-	float:left;
-	
+.page-position{
+	float:right;
 }
+.page-ajax{
+	float:right;
+    width: 77px;
+}
+.pagePre{
+	float:left;	
+}
+.pageNext{
+	float:right;	
+}
+
+
 
 /* navi */
 *            { margin:0; padding:0 }
@@ -224,7 +239,7 @@ body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-widt
 ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
-a:link          { color:#696969; text-decoration:none; font-weight:bold; }
+a:link          { color:#ffffff; text-decoration:none; font-weight:bold; }
 a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
 a:active       { color:#696969; text-decoration:none; font-weight:bold; }
 a:hover       { color:#f0f0f0; text-decoration:none; font-weight:bold; } 

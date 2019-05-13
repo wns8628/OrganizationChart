@@ -46,9 +46,9 @@ var DataTable = $.fn.dataTable;
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
 	dom:
-		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+		"<'row'<''l><''f>>" +
+		"<'row'<'col-12 table-boot'tr>>" +
+		"<'row page-position'<''i><''p>>",
 	renderer: 'bootstrap'
 } );
 
@@ -133,7 +133,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 								settings.sTableId +'_'+ button :
 								null
 						} )
-						.append( $('<a>', {
+						.append( $('<div>', {
 								'href': '#',
 								'aria-controls': settings.sTableId,
 								'aria-label': aria[ button ],

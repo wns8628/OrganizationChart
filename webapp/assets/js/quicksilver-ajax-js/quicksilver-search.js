@@ -29,16 +29,16 @@ let search = function(selectSearch, kwd){
 
 $(function(){  
 	 // 검색창 focus
-	 $(document).on("focus", ".form-control", function (event) { // 검색창 눌렀을때 인식		 
+	 $(document).on("focus", ".input-text", function (event) { // 검색창 눌렀을때 인식		 
 		console.log("focus");		
-		$('.form-control').keydown( function(event) {			
+		$('.input-text').keydown( function(event) {			
 			console.log(event.keyCode);	 	
 			if( event.keyCode == 13){ // 검색창에서 엔터 눌렀을때
 				//console.log("엔터");
 				searchClick();
 			}
 		});
-		$('.form-control').keyup( function(event) { // 키를 뗄때 다시 누를수있도록 설정
+		$('.sch-submit').keyup( function(event) { // 키를 뗄때 다시 누를수있도록 설정
 			check = true;
 		});
 	});
