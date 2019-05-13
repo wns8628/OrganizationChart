@@ -247,6 +247,7 @@ var makeTable = function(url) {
           ]
       });	
 	
+	$('.dataTables_info').hide()
 };
 
 //팀장가져오기 
@@ -274,11 +275,11 @@ $(function(){
 	
 	$('#dataTable').dataTable();
 	$('#dataTable_filter').hide();
-	$('.dataTables_length').hide();
+//	$('.dataTables_length').hide();
 	$('.dataTables_info').hide();
-	$('.dataTables_paginate').hide();
-	$('.pagePre').hide();
-	$('.pageNext').hide();
+//	$('.dataTables_paginate').hide();
+//	$('.pagePre').hide();
+//	$('.pageNext').hide();
 	
 	$(document).on("click", "li.comp span", function(event){
 		console.log("회사클릭")
@@ -329,7 +330,7 @@ $(function(){
 
 	   	  $parent = $(this).parent().parent();
 	      var seq = $parent.attr("data-no");
-
+	      
 	  	  $('.pagePre').show();
 		  $('.pageNext').show();
 		  $(".pageNext").attr("data-no", 1);

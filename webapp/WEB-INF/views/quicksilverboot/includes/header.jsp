@@ -6,18 +6,18 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-login.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-search.js"></script>
 
-	 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-		    <a class="navbar-brand mr-1 main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver(조직도)</a>
+	 <nav class="">
+		    <a class="main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver (조직도)</a>
 			<!-- 다국어 -->
 			 <c:choose>
 				<c:when test="${ langCode eq 'kr' or empty langCode }" >
 					<div class="btn-group btn-group-toggle multi" data-toggle="">
 					  <a href="${pageContext.servletContext.contextPath }/boot/kr"
-					     class="btn btn-secondary active">
+					     class="btn btn-secondary btn-sm active">
 					    <input type="radio" name="options" id="option1" autocomplete="off" checked>한국어
 					  </a>
 					  <a href="${pageContext.servletContext.contextPath }/boot/en"
-					     class="btn btn-secondary">
+					     class="btn btn-secondary btn-sm">
 					    <input type="radio" name="options" id="option2" autocomplete="off">영어 
 					  </a>
 					</div>			
@@ -25,11 +25,11 @@
 				<c:when test="${ langCode eq 'en' }" >
 					<div class="btn-group btn-group-toggle multi" data-toggle="">
 					  <a href="${pageContext.servletContext.contextPath }/boot/kr"
-					     class="btn btn-secondary">
+					     class="btn btn-secondary btn-sm">
 					    <input type="radio" name="options" id="option1" autocomplete="off">Korean
 					  </a>
 					  <a href="${pageContext.servletContext.contextPath }/boot/en"
-					     class="btn btn-secondary active">
+					     class="btn btn-secondary btn-sm active">
 					    <input type="radio" name="options" id="option2" autocomplete="off" checked>English 
 					  </a>
 					</div>			
@@ -42,7 +42,7 @@
 	    <!-- Navbar -->
 	    <ul class="navbar-nav ml-auto ml-md-0">
 	      <li class="nav-item">   
-	        <div id="admin-login" class="form-control btn-primary">
+	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm">
 	       		 관리자 로그인
 		     	<!--  -->
 		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  

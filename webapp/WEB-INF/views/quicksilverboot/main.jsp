@@ -16,28 +16,14 @@
 	  <c:import url="/WEB-INF/views/quicksilverboot/includes/header.jsp"/>
 	</div>
 	
-	<div id="wrapper" class="container">
+	<div id="wrapper" class="body-container">
 		<div class="navi">
 		  <c:import url="/WEB-INF/views/quicksilverboot/includes/navigation.jsp"/>
 		</div>
 		<br>	
 	
 		<!--  -->
-		    <!-- Content Wrapper -->
-		<!-- 	 <div id="content-wrapper" class="d-flex flex-column">
-		 -->	
-			    <!-- Breadcrumbs-->
-		        <!-- <ol class="breadcrumb">
-		          <li class="breadcrumb-item">
-		            <a href="#" class="dept">QuickSilver</a>
-		          </li>
-		          <li class="breadcrumb-item active">douzone</li>
-		        </ol> -->
-			
-		      <!-- Main Content -->
-		    <!--   <div id="content">
-		     -->  
-				 <!-- chart일단뺌 -->
+  			   <!-- chart일단뺌 -->
 				<%--
 				  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
 	 			--%>
@@ -45,13 +31,9 @@
 	        <div class="main-body">
 				<!-- Navbar Search -->
 				<span class="search-body">
-				   <!--  <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
-				    -->
-			         <!-- <div class="input-group"> -->
-					    <!-- <div> -->
 					  	   <span class="select-box">
 						  	 	<label for="select"></label>
-								<select id="search-opt" class="custom-select custom-select-sm">
+								<select id="search-opt" class=""><!-- custom-select custom-select-sm -->
 										<option value="all" >전체</option>			
 										<option value="emp" >사원명(ID)</option> <!--  -->
 										<option value="dept">부서명</option>	<!--  -->	
@@ -62,14 +44,11 @@
 								</select> 
 							</span>   
 					    <!-- </div> -->
-				        <input type="text" class="form-control input-text" placeholder="" aria-label="kwd" aria-describedby="basic-addon2">
+				        <input type="text" class="input-text" placeholder="" aria-label="kwd" aria-describedby="basic-addon2">
 				        <!-- <div class="input-group-append"> -->
-				          <button class="btn btn-primary search sch-submit" id="search-button" type="button">
+				          <button class="search sch-submit" id="search-button" type="button">
 				            	검색
 				          </button>
-				        <!-- </div> -->        
-				      <!-- </div> -->
-				    <!-- </form> -->
 			    </span>
 			    <br>	
 			    <!---->
@@ -86,15 +65,8 @@
 		    	<!--  -->
 				
 		      <!-- Begin Page Content -->
-		  <!--       <div class="frame"> -->
-		        
-				    
-		          <!-- DataTales Example -->
-<!-- 		          <div class="">card shadow mb-4
-		            <div class="">card-header py-3 dept 
-		            </div>
-		            <div class="">card-body
-		              <div class="">table-responsive -->
+ 
+		         <!-- DataTales Example -->
 		         <div class="table-body">
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
                        <thead>
@@ -114,28 +86,30 @@
 	                   	
 	                  </tbody>
 	                </table>
-			                
-	                <div class="pagePre">이전</div>
-	                <div class="pageNext" data-no="1" data-seq="1" data-kwd="" data-selectSearch="">다음</div>
                  </div>
-		     <!--          </div>
-		            </div>
-		          </div> -->
+                 
+                <div class="page-ajax"> 
+                	<div class="btn-group">
+		                <button type="button" class="pagePre btn btn-sm btn-outline-secondary" >이전</button >
+		                <button type="button" class="pageNext btn btn-sm btn-outline-secondary" data-no="1" data-seq="1" data-kwd="" data-selectSearch="">다음</button>   
+					</div>
+				</div>
+
+				
 				<!-- 디테일  -->
 				<div class="container-detail">
 				
+				
 				</div>
-				<!--  -->
-		       <!--  </div> -->		        		       	
-		     <!--  </div> -->		      
-			<!-- </div> -->
+
 			
 		 </div>	
- 	<%-- 	 
+		 
+ 		<%-- 	 
 	      <footer class="sticky-footer">
 			  <c:import url="/WEB-INF/views/quicksilverboot/includes/footer.jsp"/>
 	      </footer>
-	 --%>
+		 --%>
 	  </div>
 	</body>	
 </html>
