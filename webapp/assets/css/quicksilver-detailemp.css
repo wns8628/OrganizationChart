@@ -113,6 +113,13 @@ body {
 	border: 1px solid #ececec;
 }
 
+.table-body{
+	 width:70%;
+	 float:left;
+	 padding-left:35px;
+}
+
+
 table.member {
 	width: 71%;
 	border: 1px solid #ececec;

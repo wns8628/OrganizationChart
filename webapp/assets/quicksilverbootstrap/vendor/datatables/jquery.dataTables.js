@@ -1871,7 +1871,7 @@
 					left: $(window).scrollLeft()*-1, // allow for scrolling
 					height: 1,
 					width: 1,
-					overflow: 'hidden'
+//					overflow: 'hidden'
 				} )
 				.append(
 					$('<div/>')
@@ -5088,7 +5088,7 @@
 			.append(
 				$(_div, { 'class': classes.sScrollHead } )
 					.css( {
-						overflow: 'hidden',
+//						overflow: 'hidden',
 						position: 'relative',
 						border: 0,
 						width: scrollX ? size(scrollX) : '100%'
@@ -5114,7 +5114,7 @@
 				$(_div, { 'class': classes.sScrollBody } )
 					.css( {
 						position: 'relative',
-						overflow: 'auto',
+//						overflow: 'auto',
 						width: size( scrollX )
 					} )
 					.append( table )
