@@ -39,6 +39,12 @@
   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 	
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-emp-detail.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-info.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-scroll.js"></script>
+ 
+  <!-- 직원 디테일표시 css-->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/quicksilver-detailemp.css">
+	
 	
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
@@ -47,9 +53,6 @@
 <!-- 원래바디밑에임  -->
 <!-- Bootstrap core JavaScript-->
  
-<%-- 
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
- --%>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.js"></script>
   
   <!-- Core plugin JavaScript-->
@@ -64,9 +67,12 @@
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin.min.js"></script>
   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
   
+  
   <!-- Demo scripts for this page-->
-  <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
-  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-area-demo.js"></script>
+<%--   <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-bar-demo.js"></script>
+  <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/chart-pie-demo.js"></script>
+
 <!--  -->
 
  <!--  -->

@@ -186,7 +186,7 @@ $(function(){
 		</div>
 		<div class="result-wrapper">
 			<!-- 더미데이터 버튼 -->
-			<%-- <a href="${pageContext.request.contextPath }/addDept">add</a> --%>
+			<a href="${pageContext.request.contextPath }/addDept">add</a>
 			<div class="tbl-header"></div>
 			<div class="tbl-wrapper">
 				<table class="tbl-result">

@@ -16,17 +16,20 @@ div#header ul      { height:20px }
 div#header li      { float:right; margin-right:10px; }
 div#header li a    { color:#fff; font-weight:bold; text-decoration:none; }
 
+div#container { width: 100%;}
+
 div.header-wrapper { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
 div.header-wrapper span {color : white; font-size: 20px;}
 div.header-menubar { background: transparent; width: 40%; height: 30px; display: inline; float: right;}
 div.header-menubar button {background: transparent; color:white; font-size: 20px; float: right;}
 
-div#footer { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */}
+div#footer { width: 100%; height: 30px; background-color: #111111; vertical-align: middle; /* padding: 5px 10px;  */ display: inline-block;}
 div#footer p { color: white; text-align: center;}
 
-div#navigation{ width: 100%; height: 100%; float: left;}
+div#wrapper {width: 100%; height: 100%}
+div.navigation{ width: 16%; height: 100%; }
 
-div.navi { background-color: #E7ECF2; height:100%; width: 16%; min-height: 500px; min-width: 180px; display: inline-block; border-right: 7.588px solid #E7E7E7;}
+div.navi { background-color: #E7ECF2; height:100%; width: 16%; min-height: 550px; /* min-width: 180px; */ display: inline-block; border-right: 7.588px solid #E7E7E7; float: left; display: inline; }
 div.navi div.menu-title {width:90%; height: 30px; border-bottom: 1px solid #AEAEAE; padding-left: 10%; padding-top: 10px; padding-bottom: 10px; font-size:20px; font-weight:bold; color: white; background-color: #3A86D2; }
 div.navi div.menu-title img {width: 20px; height: 20px; float: right; margin-top: 5px; margin-right: 10px;}
 div.navi div.parent-menu {width:90%; height: 30px; border-bottom: 1px solid #AEAEAE; padding-left: 10%; padding-top: 10px; cursor: pointer;}
@@ -34,12 +37,12 @@ div.navi div.parent-menu:hover {background-color: #89ADD1; color: white;}
 div.navi div span {height:200px; font-weight: bold; font-size: 15px;}
 div.navi div.parent-menu img {height: 5px; width: 4px; float: right; margin-top: 9px; margin-right: 10px;}
 div.navi div.parent-menu div {height: 20px; width: 20px; float: right; background: url('../../../assets/images/triangle.png') no-repeat;}
-div.navi div.menu {background-color:white ; width: 100%; height: 100%; border-bottom: 1px solid #AEAEAE; display: none;}
+div.navi div.menu {background-color:white ; width: 100%; border-bottom: 1px solid #AEAEAE; display: none;}
 div.navi div.menu ul{margin-left: 30px; padding-top: 10px; padding-bottom: 10px;}
 div.navi div.menu li:not(:first-child){margin-top: 5px;}
 div.navi div.menu li:hover a{font-weight:bold ; color: #328CF5; cursor: pointer;}
 div.navi img.navi-icon {height: 100%; width: 16px;}
-div#contents { background-color: #f9f9f9; min-height: 484.65px; min-width: 800px; height:100%; width: 81.5%; padding: 1%; float: right;}
+div#contents { background-color: #ffffff; min-height: 550px; /* min-width: 800px; */ height:100%; width: 81.5%; padding: 0 1%; float: right;}
 
 div.tbl-wrapper { width : 96%; padding: 2%;}
 
@@ -47,14 +50,28 @@ div#contents .tbl-result{ width: 100%; border: 1px solid #777; border-collapse:c
 div#contents .tbl-result td{ border: 1px solid #777; text-align: center;}
 div#contents .tbl-result th{ border: 1px solid #777; }
 
-div#contents div#contents-header {height: 18px; padding-bottom: 20px;}
+div#contents div#contents-header {height: 18px; padding-bottom: 20px; width: 99%; margin-top: 1%;}
 div#contents div#contents-header img.home{ width: 16px; height: 16px; margin-top: 2px; margin-bottom: 2px; vertical-align: middle;}
 div#contents div#contents-header img.next{ width: 6px; height: 6px; margin: 6px 3px; vertical-align: middle;}
 div#contents div#contents-header span { width: 16px; line-height: 18px; vertical-align: middle; color: #7C7C7C; font-weight: bold;}
-
+div#contents div#contents-header>span:last-child { color:#328CF5;}
+div#contents div#company-table-wrapper {float: left; width: 19%; height: 100%; padding-right: 1%; min-width: 180px;}
+div#contents table#company-table { border: 1px solid #B2B2B2;  border-collapse:collapse; width: 100%;}
+div#contents table#company-table td{ border: 1px solid #B2B2B2; text-align: center; height: 20px;}
+div#contents table#company-table th{ border: 1px solid #B2B2B2; height: 20px; background-color:#F9F9F9;}
+div#contents table#company-table tbody tr:hover { background-color: #E9F2FB; cursor: pointer;}
 .icon2 {display: none;}
 
 .active{
 	color:white; 
 	background-color: #89ADD1;
 }
+
+.company-table-active{
+	background-color: #E9F2FB;
+}
+
+.mini-icon{
+	width: 13px; height: 13px;
+}
+

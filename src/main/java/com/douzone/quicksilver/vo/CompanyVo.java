@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.vo;
 
+import java.math.BigDecimal;
+
 public class CompanyVo {
 
 	private String compSeq;
@@ -23,11 +25,12 @@ public class CompanyVo {
 	private String smsId;
 	private String smsPasswd;
 	private String nativeLangCode;
-	private int orderNum;
+	private BigDecimal orderNum;
 	private String useYn;
 	private String eaType;
 	private String createSeq;
 	private String createDate;
+	private String modifySeq;
 	private String modifyDate;
 	private String compEmailYn;
 	private String erpUseYn;
@@ -40,7 +43,24 @@ public class CompanyVo {
 	private String item;
 	private String addr;
 	private String detailAddr;
+	private String compNameEn;
+	private String compNickname;
+	private String opCode;
 	
+	private int compEmpCount;
+
+	//
+	//회사에 대한 정보들
+	private String totalEmp;
+	private String totalBiz;
+	private String totalDept;
+	private int age10;
+	private int age20;
+	private int age30;
+	private int age40;
+	private int age50;
+	private int age60;
+	//
 	public String getCompSeq() {
 		return compSeq;
 	}
@@ -167,12 +187,6 @@ public class CompanyVo {
 	public void setNativeLangCode(String nativeLangCode) {
 		this.nativeLangCode = nativeLangCode;
 	}
-	public int getOrderNum() {
-		return orderNum;
-	}
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
-	}
 	public String getUseYn() {
 		return useYn;
 	}
@@ -221,7 +235,6 @@ public class CompanyVo {
 	public void setSmsUseYn(String smsUseYn) {
 		this.smsUseYn = smsUseYn;
 	}
-	
 	public String getLangCode() {
 		return langCode;
 	}
@@ -270,6 +283,98 @@ public class CompanyVo {
 	public void setDetailAddr(String detailAddr) {
 		this.detailAddr = detailAddr;
 	}
+	public String getCompNameEn() {
+		return compNameEn;
+	}
+	public void setCompNameEn(String compNameEn) {
+		this.compNameEn = compNameEn;
+	}
+	public int getCompEmpCount() {
+		return compEmpCount;
+	}
+	public void setCompEmpCount(int compEmpCount) {
+		this.compEmpCount = compEmpCount;
+	}
+	public String getTotalEmp() {
+		return totalEmp;
+	}
+	public void setTotalEmp(String totalEmp) {
+		this.totalEmp = totalEmp;
+	}
+	public String getTotalBiz() {
+		return totalBiz;
+	}
+	public void setTotalBiz(String totalBiz) {
+		this.totalBiz = totalBiz;
+	}
+	public String getTotalDept() {
+		return totalDept;
+	}
+	public void setTotalDept(String totalDept) {
+		this.totalDept = totalDept;
+	}
+	public int getAge10() {
+		return age10;
+	}
+	public void setAge10(int age10) {
+		this.age10 = age10;
+	}
+	public int getAge20() {
+		return age20;
+	}
+	public void setAge20(int age20) {
+		this.age20 = age20;
+	}
+	public int getAge30() {
+		return age30;
+	}
+	public void setAge30(int age30) {
+		this.age30 = age30;
+	}
+	public int getAge40() {
+		return age40;
+	}
+	public void setAge40(int age40) {
+		this.age40 = age40;
+	}
+	public int getAge50() {
+		return age50;
+	}
+	public void setAge50(int age50) {
+		this.age50 = age50;
+	}
+	public int getAge60() {
+		return age60;
+	}
+	public void setAge60(int age60) {
+		this.age60 = age60;
+	}
+	public BigDecimal getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(BigDecimal orderNum) {
+		this.orderNum = orderNum;
+	}
+	
+	public String getCompNickname() {
+		return compNickname;
+	}
+	public void setCompNickname(String compNickname) {
+		this.compNickname = compNickname;
+	}
+	public String getOpCode() {
+		return opCode;
+	}
+	public void setOpCode(String opCode) {
+		this.opCode = opCode;
+	}
+	
+	public String getModifySeq() {
+		return modifySeq;
+	}
+	public void setModifySeq(String modifySeq) {
+		this.modifySeq = modifySeq;
+	}
 	@Override
 	public String toString() {
 		return "CompanyVo [compSeq=" + compSeq + ", groupSeq=" + groupSeq + ", compCd=" + compCd + ", parentCompSeq="
@@ -280,7 +385,14 @@ public class CompanyVo {
 				+ smsUse + ", smsId=" + smsId + ", smsPasswd=" + smsPasswd + ", nativeLangCode=" + nativeLangCode
 				+ ", orderNum=" + orderNum + ", useYn=" + useYn + ", eaType=" + eaType + ", createSeq=" + createSeq
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", compEmailYn=" + compEmailYn
-				+ ", erpUseYn=" + erpUseYn + ", smsUseYn=" + smsUseYn + "]";
+				+ ", erpUseYn=" + erpUseYn + ", smsUseYn=" + smsUseYn + ", langCode=" + langCode + ", compName="
+				+ compName + ", ownerName=" + ownerName + ", senderName=" + senderName + ", bizCondition="
+				+ bizCondition + ", item=" + item + ", addr=" + addr + ", detailAddr=" + detailAddr + ", compNameEn="
+				+ compNameEn + ", compEmpCount=" + compEmpCount + ", totalEmp=" + totalEmp + ", totalBiz=" + totalBiz
+				+ ", totalDept=" + totalDept + ", age10=" + age10 + ", age20=" + age20 + ", age30=" + age30 + ", age40="
+				+ age40 + ", age50=" + age50 + ", age60=" + age60 + "]";
 	}
+
+	
 	
 }

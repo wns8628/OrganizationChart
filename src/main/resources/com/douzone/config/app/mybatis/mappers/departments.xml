@@ -11,6 +11,20 @@
 	  order by a.g_no asc, a.o_no asc
 	</select>
 	
+	
+	<select id="getDepartmentEmployeeInfoLeader" resultType="employeesvo">
+		 select c.emp_seq as empSeq, d.emp_name as empName
+		   from t_co_dept a, t_co_dept_multi b, t_co_emp_dept c, t_co_emp_multi d
+		  where a.dept_seq = b.dept_seq
+		    and a.dept_seq = c.dept_seq
+		    and a.dept_manager = c.emp_seq
+		    and c.emp_seq = d.emp_seq
+		    and b.lang_code = #{langCode}
+		    and d.lang_code = #{langCode}
+		    and c.dept_seq= #{deptSeq};	
+	</select>
+	
+	
 	<insert id="add_t_co_dept" parameterType="departmentsvo">
 		<![CDATA[
 			insert into t_co_dept VALUES

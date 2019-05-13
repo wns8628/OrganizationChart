@@ -1,13 +1,17 @@
 package com.douzone.quicksilver.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.DepartmentService;
+import com.douzone.quicksilver.vo.DepartmentsVo;
 import com.douzone.quicksilver.vo.DeptManagerVo;
 
 @Controller
@@ -17,7 +21,7 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
 	
-	// 부서 정보를 가져와서 테이블에 출력
+	// 부서 정보를 가져와서 테이블에 출력 안씀 디비바뀌고
 	@ResponseBody
 	@RequestMapping("/{dept_no}")
 	public JSONResult getDepartmentEmployeeInfo(@PathVariable Long dept_no) {
@@ -27,10 +31,17 @@ public class DepartmentController {
 	
 	// 부서 정보를 가져와서 팀장출력
 	@ResponseBody
-	@RequestMapping("/{dept_no}/getLeader")
-	public JSONResult getDepartmentEmployeeInfoGetLeader(@PathVariable Long dept_no) {
-			DeptManagerVo deptLeader = departmentService.getDepartmentEmployeeInfoLeader(dept_no);
-		return JSONResult.success(deptLeader);
+	@RequestMapping("/{deptSeq}/getLeader")
+	public JSONResult getDepartmentEmployeeInfoGetLeader(HttpSession session,
+														 @ModelAttribute DepartmentsVo departmentsvo) {
+		
+		String langCode = (String)session.getAttribute("langCode");		
+		if(langCode == null) { 
+			langCode = "kr"; 
+		}
+		departmentsvo.setLangCode(langCode);
+
+		return JSONResult.success(departmentService.getDepartmentEmployeeInfoLeader(departmentsvo));
 	}
 	
 	@RequestMapping({"/addDepartment/{parentNo}/{departmentName}"})

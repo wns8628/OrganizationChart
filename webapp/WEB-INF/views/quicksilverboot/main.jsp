@@ -20,28 +20,44 @@
 		    <!-- Content Wrapper -->
 			 <div id="content-wrapper" class="d-flex flex-column">
 			
+			    <!-- Breadcrumbs-->
+		        <ol class="breadcrumb">
+		          <li class="breadcrumb-item">
+		            <a href="#" class="dept">QuickSilver</a>
+		          </li>
+		          <li class="breadcrumb-item active">douzone</li>
+		        </ol>
+			
 		      <!-- Main Content -->
 		      <div id="content">
+		      
+				 <!-- chart일단뺌 -->
+				<%--
+				  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
+	 			--%>
+		        
 		
 		      <!-- Begin Page Content -->
 		        <div class="container-fluid">
 		
 		          <!-- DataTales Example -->
 		          <div class="card shadow mb-4">
-		            <div class="card-header py-3">
+		            <div class="card-header py-3 dept">
 		            </div>
 		            <div class="card-body">
 		              <div class="table-responsive">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                  <thead>
 		                    <tr>
-		                      <th>사원번호</th>
-		                      <th>이름</th>
-		                      <th>나이</th>
-		                      <th>성별</th>
+		                  	  <th>사번 </th>
+		                  	  <th>부서번호 </th>
+		                      <th>부서</th>
 		                      <th>직급</th>
 		                      <th>직책</th>
-		                      <th>부서</th>
+		                      <th>사원명</th>
+		                      <th>ID</th>
+		                      <th>전화번호</th>
+		                      <th>휴대전화</th>
 		                    </tr>
 		                  </thead>
 		                  <tbody>
