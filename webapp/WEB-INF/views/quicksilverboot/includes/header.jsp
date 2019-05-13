@@ -11,7 +11,7 @@
 			<!-- 다국어 -->
 			 <c:choose>
 				<c:when test="${ langCode eq 'kr' or empty langCode }" >
-					<div class="btn-group btn-group-toggle" data-toggle="">
+					<div class="btn-group btn-group-toggle multi" data-toggle="">
 					  <a href="${pageContext.servletContext.contextPath }/boot/kr"
 					     class="btn btn-secondary active">
 					    <input type="radio" name="options" id="option1" autocomplete="off" checked>한국어
@@ -23,7 +23,7 @@
 					</div>			
 				</c:when>		
 				<c:when test="${ langCode eq 'en' }" >
-					<div class="btn-group btn-group-toggle" data-toggle="">
+					<div class="btn-group btn-group-toggle multi" data-toggle="">
 					  <a href="${pageContext.servletContext.contextPath }/boot/kr"
 					     class="btn btn-secondary">
 					    <input type="radio" name="options" id="option1" autocomplete="off">Korean

@@ -18,10 +18,26 @@ body {
     font-size: large;
     padding-left:10px;
     padding-top:10px; 
-    float:left;
-    
+    float:left;    
+}
+.multi{
+	color : #ffffff;
+	font-weight: bold;
+    font-size: large;
+    padding-left:10px;
+    padding-top:10px; 
+    float:left;    
+}
+#admin-login{
+	color : #ffffff;
+	font-weight: bold;
+    font-size: large;
+	float:right; 
+	padding-right:15px;
+    padding-top:10px; 
 }
 /* --  */
+
 
 .header2 {
 	width: 100%;
@@ -59,19 +75,19 @@ body {
 	검색창
 */
 .select-box {
-	position: relative;
+	/* position: relative;
 	width: 50px;
 	border: 1px solid #c6c6c6;
 	border-radius: 5px;
-/* 	margin: -2px 0 0 5px;
- */	z-index: 1;
-	/*focus 효과 */
+	margin: -2px 0 0 5px;
+	z-index: 1;
+	focus 효과
 	
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
 	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; */
 }
 .search-box {
 	
@@ -91,7 +107,8 @@ body {
 }
 .input-text {
 	width : 300px; height: 25px;
- 	margin: 15px;
+ 	margin-top: 15px;
+ 	margin-bottom: 15px;
  	border: 1px solid #c6c6c6;
 	line-height: 20px;
 	font-weight: bold;
@@ -167,7 +184,7 @@ table.member td {
 }
 
 table.detail {
-	width: 50%; 
+	width: 75%; 
 	border: 1px solid #d6d4d4;
 	border-collapse: seprate;
 	border-spacing: 1px;
@@ -196,6 +213,11 @@ table.detail td {
 	margin-left:8px;
 }
 
+.paginate_button {
+	float:left;
+	
+}
+
 /* navi */
 *            { margin:0; padding:0 }
 body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-width: 1000px;}
@@ -205,7 +227,7 @@ fieldset      { border:none }
 a:link          { color:#696969; text-decoration:none; font-weight:bold; }
 a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
 a:active       { color:#696969; text-decoration:none; font-weight:bold; }
-a:hover       { color:#dc143c; text-decoration:none; font-weight:bold; } 
+a:hover       { color:#f0f0f0; text-decoration:none; font-weight:bold; } 
 
 div.content{ width: 100%; height: 100%;}
 

@@ -199,73 +199,40 @@ a:hover       { color:#dc143c; text-decoration:none; font-weight:bold; }
 div.content{ width: 100%; height: 100%;}
 
 div.navi { height:80%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
-div.navi li {font: 2em; display: block;}
+div.navi li {font: 2em; display: block; vertical-align: middle; height: 20px;}
 div.navi li.comp:not(:first-child) { padding-top: 4px;}
 div.navi li.dept { font: 1.5em; }
 div.navi li.biz { font: 1.5em; }
 div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;/* padding: 4px 0 4px 5px; */}
 div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left; /* padding: 4px 0; */}
-div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top;}
+div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top; display: inline-block;}
 div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
 div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -14px; top: -3px; cursor: pointer;}
 div.navi img.open {display: none;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
-div.navi div.li-div {padding: 2px 0; display: inline-block;}
+div.navi div.li-div {padding: 2px 0;  display: inline-block; position:relative; top: -20%;}
 div.space { width: 20px; height: 20px; display: inline-block;}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-var depthLogic = function(count, px){
-	console.log(px);
-	var str = "";
-	var html = "<img class='tree-icon depth' style='padding-left:"+px+"px' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
-	for(var i=0; i<count; i++){
-		str += html;
-	}
-	return str;
-}
+// var depthLogic = function(count, px){
+// 	console.log(px);
+// 	var str = "";
+// 	var html = "<img class='tree-icon depth' style='padding-left:"+px+"px' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+// 	for(var i=0; i<count; i++){
+// 		str += html;
+// 	}
+// 	return str;
+// }
 
-var deptRender = function(vo, index, length, last, depthCount){
+var deptRender = function(vo, index, length, last){
 	var btn = "";
-	var padding = "";
-	var px = 20;
-	var depth = "";
-// 	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+
 	
-	if(vo.deptLevel > 1){
-		if(last){
-			console.log(depthCount);
-			if(depthCount == 0){
-				px = px * vo.deptLevel
-			}else{
-				px = px * (vo.deptLevel - depthCount);
-				depth = depthLogic(depthCount, 0);
-			}
-			padding = "style='padding-left:"+px+"px'";
-		}else{
-			if(depthCount == 0){
-				px = px * (vo.deptLevel - 1);
-				depth = depthLogic(1, px);
-			}else{
-// 				for(var i=1; i<vo.deptLevel; i++){
-// 					depth += depth;
-// 				}
-				depth = depthLogic(vo.deptLevel, 0);
-			}
-		}
-	}else{
-		if(last){
-			padding = "style='padding-left:"+px+"px'";
-		}else{
-			px = 0;
-			depth = depthLogic(1, px);
-		}
-	}
-	
-	
-	var child = "<img class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
-	var lastChild = "<img class='tree-icon last' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+	var depth = "<img class='tree-icon depth' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
+	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
 	var tree = "";
 	
 	if(index+1 == length){
@@ -279,7 +246,8 @@ var deptRender = function(vo, index, length, last, depthCount){
 		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
 	}
 	
-   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+depth+tree+btn+
+   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
+  				depth+"<div class='space'></div>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
    				"<span>"+vo.deptName+"<span></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
@@ -327,7 +295,7 @@ var getDeptList = function(seq, last, depthCount){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            deptRender(vo, index, response.data.length, last, depthCount);
+            deptRender(vo, index, response.data.length, last);
          });
       },
       error: function(xhr, status, e){
@@ -400,9 +368,9 @@ $(function(){
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");
 	   if($parent.children('img.last').length > 0){
-		   getDeptList(seq, true, $parent.children('img.depth').length);
+		   getDeptList(seq, true);
 	   }else{
-		   getDeptList(seq, false, $parent.children('img.depth').length);
+		   getDeptList(seq, false);
 	   }
 	   $(this).hide();
 	   $(this).next().show();

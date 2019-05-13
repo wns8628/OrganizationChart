@@ -1871,7 +1871,7 @@
 					left: $(window).scrollLeft()*-1, // allow for scrolling
 					height: 1,
 					width: 1,
-//					overflow: 'hidden'
+					overflow: 'hidden'
 				} )
 				.append(
 					$('<div/>')
