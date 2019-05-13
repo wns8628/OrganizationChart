@@ -19,19 +19,60 @@
 //		$(".page").append(htmls);
 //}
 
-var deptRender = function(vo,index, length){
-	//console.log('여안옴??')
-   var htmls = "<li class='departments dropdown-item' class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"' depth='"+vo.deptLevel+"' style='padding-left:"+(vo.deptLevel+1)*10+"px'><span>"+vo.deptName+"<span></li><ul data-no='"+vo.deptSeq+"'></ul>";
+var deptRender = function(vo, index, length, check){
+	var padding = "";
+	var px = 20;
+	var depth = "<img class='tree-icon' src='"+contextPath+"/assets/images/depth.png'>";
+	console.log(vo.deptLevel);
+	if(check){
+		for(var i=1; i<vo.deptLevel; i++){
+			depth += depth;
+		}
+	}else{
+		if(vo.deptLevel == 1){
+			depth = "";
+		}
+// 		for(var i=1; i<vo.deptLevel-1; i++){
+// 			depth += depth;
+// 		}
+		if(padding){
+			console.log("dd");
+			for(var i=1; i<vo.deptLevel-1; i++){
+				px += px;
+			}
+		}else{
+			for(var i=1; i<vo.deptLevel-1; i++){
+				depth += depth;
+			}
+		}
+		
+		padding = "style='padding-left: "+px+"px'";
+	}
+	
+	var child = "<img class='tree-icon' "+padding+" src='"+contextPath+"/assets/images/child.png'>";
+	var lastChild = "<img data='last' class='tree-icon' "+padding+" src='"+contextPath+"/assets/images/last_child.png'>"
+	var tree = "";
+	if(index+1 == length){
+		tree += lastChild;
+	}else{
+		tree = child;
+	}
+	
+	var btn = "";
+	if(vo.childCount > 0){
+		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
+		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
+	}
+	
+   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+depth+tree+btn+
+				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+   				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
+   				"<span>"+vo.deptName+"<span></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
-	  // console.log("사업장 바로 밑 부서가 아님")
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
-	   /*console.log("사업장 바로 밑 부서")
-	   console.log( $("ul[c-no=1]").children());*/
-	   $('ul[b-no="' + vo.parentDeptSeq + '"]').append(htmls);
+	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
-   
-//   $("li[data-no='"+vo.parentDeptSeq+"'] span").css("color","red"); //고치자
 }
 
 var bizRender = function(vo,index, length){
@@ -82,7 +123,7 @@ var renderLeader = function(leader){
 	   $(".dept").append(htmlLeader);
 }
 
-var getList = function(seq){
+var getList = function(seq, check, padding){
 	
 	$.ajax({
       url: contextPath + "/getDept/"+seq,
@@ -90,9 +131,9 @@ var getList = function(seq){
       dataType:"json",
       data:"",
       success: function(response){   	
-
     	 $(response.data).each(function(index, vo){
-            deptRender(vo)
+//            deptRender(vo)
+    		  deptRender(vo, index, response.data.length, check , padding);    
          });
     	 
     	 $("li[data-no!='"+seq+"']").css("color","black");
@@ -290,12 +331,12 @@ $(function(){
 	   var seq = $parent.attr("data-no");
 	   if($(this).prev().attr('data')=="last"){
 		   if($parent.children().length == 4){
-			   getDeptList(seq, false, false);
+			   getList(seq, false, false);
 		   }else{
-			   getDeptList(seq, false, true);
+			   getList(seq, false, true);
 		   }
 	   }else{
-		   getDeptList(seq, true, true);
+		   getList(seq, true, true);
 	   }
 	   $(this).hide();
 	   $(this).next().show();
