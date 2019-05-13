@@ -42,9 +42,9 @@
 				  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
 	 			--%>
 		        
-	        <div>
+	        <div class="main-body">
 				<!-- Navbar Search -->
-				<span class="search">
+				<span class="search-body">
 				   <!--  <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"  onsubmit="return false">
 				    -->
 			         <!-- <div class="input-group"> -->
@@ -62,7 +62,7 @@
 								</select> 
 							</span>   
 					    <!-- </div> -->
-				        <input type="text" class="form-control input-text" placeholder="검색어를 입력하세요" aria-label="kwd" aria-describedby="basic-addon2">
+				        <input type="text" class="form-control input-text" placeholder="" aria-label="kwd" aria-describedby="basic-addon2">
 				        <!-- <div class="input-group-append"> -->
 				          <button class="btn btn-primary search sch-submit" id="search-button" type="button">
 				            	검색
@@ -77,11 +77,11 @@
 			    <!--  -->
 				<div class="header2">
 					<span class="title">● 사원목록 </span>
-					<!--
+					
  					<span class="exelbtn">
 						<button type= "submit" class="exel-submit">엑셀 저장</button>
 					</span>
-					 -->
+					 
 				</div>
 		    	<!--  -->
 				
