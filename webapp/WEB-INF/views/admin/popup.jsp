@@ -216,37 +216,52 @@ div.navi div.li-div {padding: 2px 0; display: inline-block;}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
+var depthLogic = function(count, px){
+	console.log(px);
+	var str = "";
+	var html = "<img class='tree-icon depth' style='padding-left:"+px+"px' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	for(var i=0; i<count; i++){
+		str += html;
+	}
+	return str;
+}
+
 var deptRender = function(vo, index, length, last, depthCount){
 	var btn = "";
 	var padding = "";
 	var px = 20;
-	
-	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	var depth = "";
+// 	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
 	
 	if(vo.deptLevel > 1){
 		if(last){
 			console.log(depthCount);
 			if(depthCount == 0){
 				px = px * vo.deptLevel
-				depth = "";
+// 				depth = "";
 			}else{
-				for(var i=1; i<depthCount; i++){
-					depth += depth;
-				}
+// 				for(var i=1; i<depthCount; i++){
+// 					depth += depth;
+// 				}
 				px = px * (vo.deptLevel - depthCount);
+				depth = depthLogic(depthCount-1, px);
 			}
 			padding = "style='padding-left:"+px+"px'";
 		}else{
 			if(depthCount == 0){
-				vo.deptLevel - 
-			}
-			for(var i=1; i<vo.deptLevel; i++){
-				depth += depth;
+				console.log(vo.deptLevel);
+				px = px * (vo.deptLevel - 1);
+				depth = depthLogic(vo.deptLevel-1, px);
+			}else{
+// 				for(var i=1; i<vo.deptLevel; i++){
+// 					depth += depth;
+// 				}
+				depth = depthLogic(depthCount-1, 0);
 			}
 		}
 	}else{
 		if(last){
-			depth = "";
+// 			depth = "";
 			padding = "style='padding-left:"+px+"px'";
 		}
 	}
