@@ -41,16 +41,6 @@ public class AdminController {
 		return "admin/popup";
 	}
 	
-	@RequestMapping("/popupTest")
-	public String popupTest(Model model, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		model.addAttribute("companyList", naviService.getCompList(langCode));
-		return "admin/popup-test";
-	}
-	
 	@RequestMapping("/popup/{langCode}")
 	public String lang(@PathVariable String langCode, HttpSession session) {
 		session.setAttribute("langCode", langCode);
@@ -67,6 +57,15 @@ public class AdminController {
 		model.addAttribute("compList", compList);
 		model.addAttribute("firstCompInfo", adminService.getCompInfo(compList.get(0).getCompSeq()));
 		return "admin/comp-mgr";
+	}
+	
+	@RequestMapping("/deptMgr")
+	public String deptMgr(HttpSession session, Model model) {
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+		}
+		return "admin/dept-mgr";
 	}
 	
 	@ResponseBody

@@ -14,7 +14,7 @@ body {
 }
 
 .frame {
-	width: 100%; height: 875px;
+	width: 100%; height: 830px;
 /* 	margin: 0 auto;
  */	border: 1px solid #1f87d8;
 }
@@ -35,7 +35,7 @@ body {
 }
 .container {
 /* 	background-color: green;
- */	height: 875px;
+ */	height: 820px;
 	width: 100%;
 }
 .footer {
@@ -196,77 +196,64 @@ a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
 a:active       { color:#696969; text-decoration:none; font-weight:bold; }
 a:hover       { color:#dc143c; text-decoration:none; font-weight:bold; } 
 
+div.header {margin: auto 0;}
+div.header select {float: right; margin: 3px 10px;}
+div.header span {margin: 5px;}
+
 div.content{ width: 100%; height: 100%;}
 
-div.navi { height:80%; width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
-div.navi li {font: 2em; display: block;}
+div.navi { height: 86.5%; overflow-y:auto;
+		width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;
+		
+}
+div.navi li {font: 2em; display: block; height: 20px; position: relative;}
 div.navi li.comp:not(:first-child) { padding-top: 4px;}
 div.navi li.dept { font: 1.5em; }
 div.navi li.biz { font: 1.5em; }
-div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;/* padding: 4px 0 4px 5px; */}
-div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left; /* padding: 4px 0; */}
-div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top;}
+div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;}
+div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left;}
+div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top; display: inline-block; float: left;}
 div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
-div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -14px; top: -3px; cursor: pointer;}
+div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -13px; top: -3px; cursor: pointer;}
 div.navi img.open {display: none;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
-div.navi div.li-div {padding: 2px 0; display: inline-block;}
-div.space { width: 20px; height: 20px; display: inline-block;}
+div.navi div.li-div {padding: 2px 0;  display: inline-block;}
+div.space { width: 20px; height: 20px; display: inline-block; float: left;}
+div.wrap {height: 20px; display: inline-block; float: left}
+.active-span{
+	background-color: #BEEBFF;
+}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
-var depthLogic = function(count, px){
-	console.log(px);
-	var str = "";
-	var html = "<img class='tree-icon depth' style='padding-left:"+px+"px' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
-	for(var i=0; i<count; i++){
-		str += html;
-	}
-	return str;
-}
 
-var deptRender = function(vo, index, length, last, depthCount){
+var deptRender = function(vo, index, length, last, str){
 	var btn = "";
-	var padding = "";
-	var px = 20;
-	var depth = "";
-// 	var depth = "<img class='tree-icon depth' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	var space = "";
 	
+	var depth = "<img class='tree-icon depth' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
+	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+	var tree = "";
 	if(vo.deptLevel > 1){
-		if(last){
-			console.log(depthCount);
-			if(depthCount == 0){
-				px = px * vo.deptLevel
-			}else{
-				px = px * (vo.deptLevel - depthCount);
-				depth = depthLogic(depthCount, 0);
-			}
-			padding = "style='padding-left:"+px+"px'";
+		if(last == "true"){
+			console.log("1");
+			depth="";
+			space="<div class='space'></div>";
 		}else{
-			if(depthCount == 0){
-				px = px * (vo.deptLevel - 1);
-				depth = depthLogic(1, px);
-			}else{
-// 				for(var i=1; i<vo.deptLevel; i++){
-// 					depth += depth;
-// 				}
-				depth = depthLogic(vo.deptLevel, 0);
-			}
+			
 		}
 	}else{
-		if(last){
-			padding = "style='padding-left:"+px+"px'";
+		if(last == "true"){
+			console.log("3");
+			depth="";
+			space="<div class='space'></div>";
 		}else{
-			px = 0;
-			depth = depthLogic(1, px);
+			
 		}
 	}
 	
-	
-	var child = "<img class='tree-icon' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
-	var lastChild = "<img class='tree-icon last' "+padding+" src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
-	var tree = "";
 	
 	if(index+1 == length){
 		tree += lastChild;
@@ -279,16 +266,19 @@ var deptRender = function(vo, index, length, last, depthCount){
 		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
 	}
 	
-   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+depth+tree+btn+
+   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
+  				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
-   				"<span>"+vo.deptName+"<span></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   				"<span>"+vo.deptName+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
 	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
-   
+   if(str != null){
+	   $("li[data-no='"+vo.deptSeq+"'] div.prev").prepend(str);
+   }
 }
 
 var bizRender = function(vo, index, length){
@@ -306,10 +296,10 @@ var bizRender = function(vo, index, length){
 		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
 	}
-	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+tree+btn+
+	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
 				"<img class='navi-icon close' alt='' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
-				"<span>"+vo.bizName+"<span></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
+				"<span>"+vo.bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
 
@@ -319,7 +309,7 @@ var tableRender = function(vo){
 	$("tbody").append(htmls);
 }
 
-var getDeptList = function(seq, last, depthCount){
+var getDeptList = function(seq, last, str){
    $.ajax({
       url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
       type:"get",
@@ -327,7 +317,7 @@ var getDeptList = function(seq, last, depthCount){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-            deptRender(vo, index, response.data.length, last, depthCount);
+            deptRender(vo, index, response.data.length, last, str);
          });
       },
       error: function(xhr, status, e){
@@ -379,30 +369,34 @@ $(function(){
 	   }
    });
    
-   //부서 목록
+   
+   //부서별 사원 목록 테이블 출력
    $(document).on("click", "li.dept span", function(event){
 	  $parent = $(this).parent().parent();
       var seq = $parent.attr("data-no");
-//       if($parent.next().children().length > 0){
-//     	  $parent.next().children().remove();
-//     	  $(this).prev().prev().hide();
-// 		   $(this).prev().show();
-// 	  }else{
-// 		   $(this).prev().hide();
-// 		   $(this).prev().prev().show();
-// 		   getDeptList(seq);
+			$("div.li-div").removeClass("active-span");
+			$(this).parent().addClass("active-span");
 		   $("tbody tr").remove();
 		   getEmpInfo(seq);
-// 	  }
    });
    
+   // 하위 부서 목록 출력
    $(document).on("click", "li.dept img.open-btn", function(event){
-	   $parent = $(this).parent();
+	   $parent = $(this).parent().parent();
 	   var seq = $parent.attr("data-no");
-	   if($parent.children('img.last').length > 0){
-		   getDeptList(seq, true, $parent.children('img.depth').length);
+	   if($parent.children().length >= 2 ){
+		   var str = $parent.children(".prev").html();
+		   if($parent.children('.wrap').children('img.last').length > 0){
+			   getDeptList(seq, "true" , str);
+		   }else{
+			   getDeptList(seq, "false", str);
+		   }
 	   }else{
-		   getDeptList(seq, false, $parent.children('img.depth').length);
+		   if($parent.children('.wrap').children('img.last').length > 0){
+			   getDeptList(seq, "true" , null);
+		   }else{
+			   getDeptList(seq, "false", null);
+		   }
 	   }
 	   $(this).hide();
 	   $(this).next().show();
@@ -410,8 +404,9 @@ $(function(){
 	   $(this).next().next().children('.close').hide();
    });
    
+// 하위 부서 목록 제거
    $(document).on("click", "li.dept img.close-btn", function(event){
-	   $parent = $(this).parent();
+	   $parent = $(this).parent().parent();
 	   $parent.next().children().remove();
 	   $(this).hide();
 	   $(this).prev().show();
@@ -425,7 +420,11 @@ $(function(){
 <body>
 	<div class="frame">
 		<div class="header">
-		 	조직도
+			<span>조직도</span>
+		 	<select id="langcode">
+		 		<option value="kr">한국어
+		 		<option value="en">영어
+		 	</select>
 		</div>
 		<div class="container">
 			<div class="navi">
