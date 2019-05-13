@@ -146,7 +146,8 @@
               emp.fax_num as faxNum,
 			  emp.comp_domain as compDomain,
               emp.email_addr as emailAddr,
-              emp.main_work as mainWork
+              emp.main_work as mainWork,
+              emp.emp_seq as empSeq
 		from (select
 					a.pic_file_id,
 					h.comp_name,
