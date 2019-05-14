@@ -249,7 +249,7 @@ a:hover       { color:#f0f0f0; text-decoration:none; font-weight:bold; }
 
 div.content{ width: 100%; height: 100%;}
 
-div.navi { height: 90%; overflow-y:auto;
+div.navi { height: 95%; overflow-y:auto;
 		width: 17%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;
 }
 div.navi li {font: 2em; display: block; height: 20px; position: relative;}
