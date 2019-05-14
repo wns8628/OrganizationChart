@@ -49,41 +49,57 @@
 	</select>
 
 	<select id="getPageinfomationSearch" parameterType="map" resultType="Integer">
-		select 
-			  count(emp.emp_seq)
-		from (select
-					d.dept_name,
-					b.position_code as positionDuty,
-					b.duty_code as deptDuty,
-					e.emp_name,
-					a.login_id,
-					a.home_tel_num,
-					a.mobile_tel_num,
-					a.emp_seq,
-					b.dept_seq
-				  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
-				 where a.emp_seq = b.emp_seq
-				   and b.dept_seq = c.dept_seq
-				   and c.dept_seq = d.dept_seq 
-				   and a.emp_seq = e.emp_seq
-				   and e.lang_code =#{langCode}
-				   and d.lang_code =#{langCode}) emp    
-			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-				ON emp.positionDuty = pmp.dp_seq
-				AND pmp.lang_code =#{langCode}
-				AND pmp.dp_type = 'POSITION'
-			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-				ON emp.deptDuty = pmd.dp_seq
-				AND pmd.lang_code =#{langCode}
-				AND pmd.dp_type = 'DUTY'
-		  where	
+		<![CDATA[
+			select 
+			@NO:=@NO+1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) dummy, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and 
+		]]>
+		
 	  <choose>
-		<when test='selectSearch == "emp"'>			
-	  		 (emp.login_id like #{kwd}  
-			 or emp.emp_name like #{kwd})
+		<when test='selectSearch == "emp"'>	
+			<![CDATA[
+				 match(a.login_id) against(#{kwd} in boolean mode)
+	  		 union all
+	  		 	select 
+			@NO:=@NO+1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) tmp, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and e.emp_name like #{kwd}
+			]]>		
+	  		
 		</when>
 		<when test='selectSearch == "dept"'>
-		 		emp.dept_name like #{kwd}
+		 		match(d.dept_name) against(#{kwd} in boolean mode)
 		</when>
 		<when test='selectSearch == "position"'>
 				pmp.dp_name like #{kwd}
@@ -92,20 +108,130 @@
 				pmd.dp_name like #{kwd}
 		</when>
 		<when test='selectSearch == "call"'>
-				emp.home_tel_num like #{kwd}'
+				match(a.home_tel_num) against(#{kwd} in boolean mode)
 		</when>
 		<when test='selectSearch == "phone"'>
-				emp.mobile_tel_num like #{kwd}
+				match(a.mobile_tel_num) against(#{kwd} in boolean mode)
 		</when>
 		
 		<when test='selectSearch == "all"'>
-		   (emp.login_id like #{kwd}
-			  or emp.emp_name like #{kwd}
-			  or emp.dept_name like #{kwd}
-			  or pmp.dp_name like #{kwd}
-			  or pmd.dp_name like #{kwd}
-			  or emp.home_tel_num like #{kwd}
-			  or emp.mobile_tel_num like #{kwd})
+			<![CDATA[
+				match(a.login_id) against(#{kwd} in boolean mode)
+				
+		   union all
+		   
+			  select 
+			@NO:=@NO+1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) tmp, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and
+			  match(d.dept_name) against(#{kwd} in boolean mode)
+			  
+			  union all
+			  
+			  select 
+			@NO:=@NO+1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) tmp, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and pmp.dp_name like #{kwd}
+					
+			union all
+			
+			select 
+			@NO:=@NO+1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) tmp, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and pmd.dp_name like #{kwd}
+					
+			union all
+			
+			select 
+			@NO:=@NO+1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) tmp, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and 
+				match(a.home_tel_num) against(#{kwd} in boolean mode)
+				
+				union all
+				
+				select 
+			@NO:=@NO + 1 as rownum
+		from t_co_emp2 a
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+			ON a.position_code = pmp.dp_seq
+			AND pmp.lang_code = #{langCode}
+			AND pmp.dp_type = 'POSITION'
+		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+			ON a.duty_code = pmd.dp_seq
+			AND pmd.lang_code = #{langCode}
+			AND pmd.dp_type = 'DUTY',
+			(select @NO:=0) tmp, t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+					where a.emp_seq = b.emp_seq
+					and b.dept_seq = c.dept_seq
+					and c.dept_seq = d.dept_seq
+					and a.emp_seq = e.emp_seq
+					and e.lang_code =#{langCode}
+					and d.lang_code = #{langCode}
+					and 
+				match(a.mobile_tel_num) against(#{kwd} in boolean mode)
+			]]>
+		   
 		</when>
 	</choose> 
 	</select>
