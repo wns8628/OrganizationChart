@@ -49,7 +49,7 @@ body {
 /* 	margin: 5px 0 0 0;
  */	border: 1px solid #ececec;
 }
-.navi {
+.tree {
 	float: left;
 	width: 25%; height: 800px;
 	border: 1px solid #ececec;
@@ -202,23 +202,23 @@ div.header span {margin: 5px;}
 
 div.content{ width: 100%; height: 100%;}
 
-div.navi { height: 86.5%; overflow-y:auto;
+div.tree { height: 86.5%; overflow-y:auto;
 		width: 20%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;
 		
 }
-div.navi li {font: 2em; display: block; height: 20px; position: relative;}
-div.navi li.comp:not(:first-child) { padding-top: 4px;}
-div.navi li.dept { font: 1.5em; }
-div.navi li.biz { font: 1.5em; }
-div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;}
-div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left;}
-div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top; display: inline-block; float: left;}
-div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
-div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -13px; top: -3px; cursor: pointer;}
-div.navi img.open {display: none;}
+div.tree li {font: 2em; display: block; height: 20px; position: relative;}
+div.tree li.comp:not(:first-child) { padding-top: 4px;}
+div.tree li.dept { font: 1.5em; }
+div.tree li.biz { font: 1.5em; }
+div.tree span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;}
+div.tree img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left;}
+div.tree img.tree-icon {height: 20px; width: 20px; vertical-align: top; display: inline-block; float: left;}
+div.tree img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
+div.tree img.close-btn {height: 6px; width: 6px; position: relative; left: -13px; top: -3px; cursor: pointer;}
+div.tree img.open {display: none;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
-div.navi div.li-div {padding: 2px 0;  display: inline-block;}
+div.tree div.li-div {padding: 2px 0;  display: inline-block;}
 div.space { width: 20px; height: 20px; display: inline-block; float: left;}
 div.wrap {height: 20px; display: inline-block; float: left}
 .active-span{
@@ -226,193 +226,194 @@ div.wrap {height: 20px; display: inline-block; float: left}
 }
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
 <script type="text/javascript">
-
-var deptRender = function(vo, index, length, last, str){
-	var btn = "";
-	var space = "";
+var contextPath = "${pageContext.servletContext.contextPath }";
+// var deptRender = function(vo, index, length, last, str){
+// 	var btn = "";
+// 	var space = "";
 	
-	var depth = "<img class='tree-icon depth' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
-	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
-	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
-	var tree = "";
-	if(vo.deptLevel > 1){
-		if(last == "true"){
-			console.log("1");
-			depth="";
-			space="<div class='space'></div>";
-		}else{
+// 	var depth = "<img class='tree-icon depth' src='${pageContext.servletContext.contextPath }/assets/images/depth.png'>";
+// 	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
+// 	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+// 	var tree = "";
+// 	if(vo.deptLevel > 1){
+// 		if(last == "true"){
+// 			console.log("1");
+// 			depth="";
+// 			space="<div class='space'></div>";
+// 		}else{
 			
-		}
-	}else{
-		if(last == "true"){
-			console.log("3");
-			depth="";
-			space="<div class='space'></div>";
-		}else{
+// 		}
+// 	}else{
+// 		if(last == "true"){
+// 			console.log("3");
+// 			depth="";
+// 			space="<div class='space'></div>";
+// 		}else{
 			
-		}
-	}
+// 		}
+// 	}
 	
 	
-	if(index+1 == length){
-		tree += lastChild;
-	}else{
-		tree = child;
-	}
+// 	if(index+1 == length){
+// 		tree += lastChild;
+// 	}else{
+// 		tree = child;
+// 	}
 	
-	if(vo.childCount > 0){
-		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
-		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
-	}
+// 	if(vo.childCount > 0){
+// 		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
+// 		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
+// 	}
 	
-   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
-  				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
-				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
-   				"<img class='navi-icon close' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
-   				"<span>"+vo.deptName+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
-   if(parseInt(vo.parentDeptSeq) < 10000000){
-	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
-   }else{
-	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
-   }
-   if(str != null){
-	   $("li[data-no='"+vo.deptSeq+"'] div.prev").prepend(str);
-   }
-}
+//    var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
+//   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
+// 				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
+//    				"<img class='navi-icon close' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
+//    				"<span>"+vo.deptName+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+//    if(parseInt(vo.parentDeptSeq) < 10000000){
+// 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
+//    }else{
+// 	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
+//    }
+//    if(str != null){
+// 	   $("li[data-no='"+vo.deptSeq+"'] div.prev").prepend(str);
+//    }
+// }
 
-var bizRender = function(vo, index, length){
-	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
-	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
-	var tree = "";
-	if(index+1 == length){
-		tree = lastChild;
-	}else{
-		tree = child;
-	}
+// var bizRender = function(vo, index, length){
+// 	var child = "<img class='tree-icon' src='${pageContext.servletContext.contextPath }/assets/images/child.png'>";
+// 	var lastChild = "<img class='tree-icon last' src='${pageContext.servletContext.contextPath }/assets/images/last_child.png'>"
+// 	var tree = "";
+// 	if(index+1 == length){
+// 		tree = lastChild;
+// 	}else{
+// 		tree = child;
+// 	}
 	
-	var btn = "";
-	if(vo.childCount > 0){
-		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
-		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
-	}
-	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
-				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
-				"<img class='navi-icon close' alt='' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
-				"<span>"+vo.bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
-	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
-}
+// 	var btn = "";
+// 	if(vo.childCount > 0){
+// 		btn = "<img class='open-btn close' src='${pageContext.servletContext.contextPath }/assets/images/openbtn.png'>"+
+// 		"<img class='close-btn open' src='${pageContext.servletContext.contextPath }/assets/images/closebtn.png'>"
+// 	}
+// 	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
+// 				"<div class='li-div'><img class='navi-icon open' src='${pageContext.servletContext.contextPath }/assets/images/open.png'>"+
+// 				"<img class='navi-icon close' alt='' src='${pageContext.servletContext.contextPath }/assets/images/close.png'>"+
+// 				"<span>"+vo.bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
+// 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
+// }
 
-var tableRender = function(vo){
-	var htmls = "<tr data-no='"+vo.empNum+"'><td>"+vo.empNum+"</td><td>"+vo.empName+"</td><td>"+vo.bDay+"</td><td>"+vo.genderCode+"</td><td>"+vo.positionCode+"</td>"+
-				"<td>"+vo.dutyCode+"</td><td>"+vo.deptName+"</td></tr>";
-	$("tbody").append(htmls);
-}
+// var tableRender = function(vo){
+// 	var htmls = "<tr data-no='"+vo.empNum+"'><td>"+vo.empNum+"</td><td>"+vo.empName+"</td><td>"+vo.bDay+"</td><td>"+vo.genderCode+"</td><td>"+vo.positionCode+"</td>"+
+// 				"<td>"+vo.dutyCode+"</td><td>"+vo.deptName+"</td></tr>";
+// 	$("tbody").append(htmls);
+// }
 
-var getDeptList = function(seq, last, str){
-   $.ajax({
-      url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
-      type:"get",
-      dataType:"json",
-      data:"",
-      success: function(response){
-         $(response.data).each(function(index, vo){
-            deptRender(vo, index, response.data.length, last, str);
-         });
-      },
-      error: function(xhr, status, e){
-         console.error(status+":"+e);
-      }
+// var getDeptList = function(seq, last, str){
+//    $.ajax({
+//       url:"${pageContext.servletContext.contextPath }/getDept/"+seq,
+//       type:"get",
+//       dataType:"json",
+//       data:"",
+//       success: function(response){
+//          $(response.data).each(function(index, vo){
+//             deptRender(vo, index, response.data.length, last, str);
+//          });
+//       },
+//       error: function(xhr, status, e){
+//          console.error(status+":"+e);
+//       }
       
-   });
-}
+//    });
+// }
 
-var getBizList = function(seq){
-	$.ajax({
-		url:"${pageContext.servletContext.contextPath }/getBiz/"+seq,
-	      type:"get",
-	      dataType:"json",
-	      data:"",
-	      success: function(response){
-	         $(response.data).each(function(index, vo){
-	            bizRender(vo, index, response.data.length)
-	         });
-	      },
-	      error: function(xhr, status, e){
-	         console.error(status+":"+e);
-	      }
-	});
-}
+// var getBizList = function(seq){
+// 	$.ajax({
+// 		url:"${pageContext.servletContext.contextPath }/getBiz/"+seq,
+// 	      type:"get",
+// 	      dataType:"json",
+// 	      data:"",
+// 	      success: function(response){
+// 	         $(response.data).each(function(index, vo){
+// 	            bizRender(vo, index, response.data.length)
+// 	         });
+// 	      },
+// 	      error: function(xhr, status, e){
+// 	         console.error(status+":"+e);
+// 	      }
+// 	});
+// }
 
-var getEmpInfo = function(seq){
-	$.ajax({
-		url:"${pageContext.servletContext.contextPath }/getEmpInfoByDept/"+seq,
-		type:"get",
-		dataType:"json",
-		data:"",
-		success: function(response){
-			$(response.data).each(function(index, vo){
-				tableRender(vo);
-			});
-		}
-	});
-}
+// var getEmpInfo = function(seq){
+// 	$.ajax({
+// 		url:"${pageContext.servletContext.contextPath }/getEmpInfoByDept/"+seq,
+// 		type:"get",
+// 		dataType:"json",
+// 		data:"",
+// 		success: function(response){
+// 			$(response.data).each(function(index, vo){
+// 				tableRender(vo);
+// 			});
+// 		}
+// 	});
+// }
 $(function(){
    
-   $(document).on("click", "li.comp span", function(event){
-	   $parent = $(this).parent();
-	   var seq = $parent.attr("data-no");
-	   if($parent.next().children().length > 0){
-		   $parent.next().children().remove();
-	   }else{
-		   getBizList(seq);
-	   }
-   });
+//    $(document).on("click", "li.comp span", function(event){
+// 	   $parent = $(this).parent();
+// 	   var seq = $parent.attr("data-no");
+// 	   if($parent.next().children().length > 0){
+// 		   $parent.next().children().remove();
+// 	   }else{
+// 		   getBizList(seq);
+// 	   }
+//    });
    
    
-   //부서별 사원 목록 테이블 출력
-   $(document).on("click", "li.dept span", function(event){
-	  $parent = $(this).parent().parent();
-      var seq = $parent.attr("data-no");
-			$("div.li-div").removeClass("active-span");
-			$(this).parent().addClass("active-span");
-		   $("tbody tr").remove();
-		   getEmpInfo(seq);
-   });
+//    //부서별 사원 목록 테이블 출력
+//    $(document).on("click", "li.dept span", function(event){
+// 	  $parent = $(this).parent().parent();
+//       var seq = $parent.attr("data-no");
+// 			$("div.li-div").removeClass("active-span");
+// 			$(this).parent().addClass("active-span");
+// 		   $("tbody tr").remove();
+// 		   getEmpInfo(seq);
+//    });
    
-   // 하위 부서 목록 출력
-   $(document).on("click", "li.dept img.open-btn", function(event){
-	   $parent = $(this).parent().parent();
-	   var seq = $parent.attr("data-no");
-	   if($parent.children().length >= 2 ){
-		   var str = $parent.children(".prev").html();
-		   if($parent.children('.wrap').children('img.last').length > 0){
-			   getDeptList(seq, "true" , str);
-		   }else{
-			   getDeptList(seq, "false", str);
-		   }
-	   }else{
-		   if($parent.children('.wrap').children('img.last').length > 0){
-			   getDeptList(seq, "true" , null);
-		   }else{
-			   getDeptList(seq, "false", null);
-		   }
-	   }
-	   $(this).hide();
-	   $(this).next().show();
-	   $(this).next().next().children('.open').show();
-	   $(this).next().next().children('.close').hide();
-   });
+//    // 하위 부서 목록 출력
+//    $(document).on("click", "li.dept img.open-btn", function(event){
+// 	   $parent = $(this).parent().parent();
+// 	   var seq = $parent.attr("data-no");
+// 	   if($parent.children().length >= 2 ){
+// 		   var str = $parent.children(".prev").html();
+// 		   if($parent.children('.wrap').children('img.last').length > 0){
+// 			   getDeptList(seq, "true" , str);
+// 		   }else{
+// 			   getDeptList(seq, "false", str);
+// 		   }
+// 	   }else{
+// 		   if($parent.children('.wrap').children('img.last').length > 0){
+// 			   getDeptList(seq, "true" , null);
+// 		   }else{
+// 			   getDeptList(seq, "false", null);
+// 		   }
+// 	   }
+// 	   $(this).hide();
+// 	   $(this).next().show();
+// 	   $(this).next().next().children('.open').show();
+// 	   $(this).next().next().children('.close').hide();
+//    });
    
-// 하위 부서 목록 제거
-   $(document).on("click", "li.dept img.close-btn", function(event){
-	   $parent = $(this).parent().parent();
-	   $parent.next().children().remove();
-	   $(this).hide();
-	   $(this).prev().show();
-	   $(this).next().children('.close').show();
-	   $(this).next().children('.open').hide();
-   });
+// // 하위 부서 목록 제거
+//    $(document).on("click", "li.dept img.close-btn", function(event){
+// 	   $parent = $(this).parent().parent();
+// 	   $parent.next().children().remove();
+// 	   $(this).hide();
+// 	   $(this).prev().show();
+// 	   $(this).next().children('.close').show();
+// 	   $(this).next().children('.open').hide();
+//    });
 
 });
 </script>
@@ -427,7 +428,7 @@ $(function(){
 		 	</select>
 		</div>
 		<div class="container">
-			<div class="navi">
+			<div class="tree">
 				<ul>
 				<c:forEach items="${companyList }" var="vo">
 				<li class='comp' data-no='${vo.compSeq }'>

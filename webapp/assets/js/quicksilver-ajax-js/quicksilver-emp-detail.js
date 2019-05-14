@@ -77,21 +77,32 @@ var getparents = function(deptSeq){
 			 let parentDeptSeq = response.data.parentDeptSeq;
 			 let deptName = response.data.deptName; //전체부서표시용
 			 let bizName = response.data.bizName; //전체부서표시용
-
+			 
+			 console.log(parentDeptSeq+": parentDeptSeq")
+			
+			 var str;
+			 
 			 if(parentDeptSeq < 100000 && parentDeptSeq != null ){
 				 
 				 deptInfoList.push(deptName);
-				 
+			
 				 getparents(parentDeptSeq); //재귀로 맨위에부터 펼쳐지게함 
-				 getListSearch(parentDeptSeq,deptSeq);	
+				 
+				 str = $("li[data-no='"+parentDeptSeq+"']").children(".prev").html();
+				 getListSearch(parentDeptSeq, "true", str, deptSeq);	
+				 
+				 $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".close-btn ").show();
+				 $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();
 				 console.log("여가나중이고");
 			 }else{
+				 
 				 console.log("여기가먼저일거아녀");
 				 
 				 deptInfoList.push(bizName);
-				 
-				 getListSearch(parentDeptSeq,deptSeq);
-				 
+				 getListSearch(parentDeptSeq, "false" , null, deptSeq);
+				 $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".close-btn ").show();
+				 $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();
+				
 			 }
 			},
 	      error: function(xhr, status, e){
@@ -100,7 +111,7 @@ var getparents = function(deptSeq){
 	});
 }
 $(function(){
-	$(document).on("click", "tbody tr", function(event){	
+	$(document).on("click", "tbody tr[role='row']", function(event){	
 		deptInfoList=[];
 		let empSeq = this.children[0].innerHTML;
 		let deptSeq = this.children[1].innerHTML;
@@ -151,7 +162,7 @@ $(function(){
 		    	  console.log(alldept);
 		    	  
 		    	  empDetailRender($(response.data)[0], alldept);
-		    	  empDetailScroll();
+//		    	  empDetailScroll();
 		      },
 		      error: function(xhr, status, e){
 		         console.error(status+":"+e);

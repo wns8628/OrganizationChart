@@ -41,10 +41,14 @@ div.navi div.menu {background-color:white ; width: 100%; border-bottom: 1px soli
 div.navi div.menu ul{margin-left: 30px; padding-top: 10px; padding-bottom: 10px;}
 div.navi div.menu li:not(:first-child){margin-top: 5px;}
 div.navi div.menu li:hover a{font-weight:bold ; color: #328CF5; cursor: pointer;}
-div.navi img.navi-icon {height: 100%; width: 16px;}
 div#contents { background-color: #ffffff; min-height: 550px; /* min-width: 800px; */ height:100%; width: 81.5%; padding: 0 1%; float: right;}
 
 div.tbl-wrapper { width : 96%; padding: 2%;}
+
+div.content-head-wrapper {margin: 5px 5px; width: 100%; height: 20px;}
+div.content-head-wrapper span {font-weight: bold; font-size: 13px;}
+div.content-head-wrapper div.head-btn{ float: right; display: inline; border: 1px black solid; margin: 0 5px; padding: 0 10px;}
+div.content-head-wrapper div.head-btn:hover{ cursor: pointer;}
 
 div#contents .tbl-result{ width: 100%; border: 1px solid #777; border-collapse:collapse; margin: 0 auto;}
 div#contents .tbl-result td{ border: 1px solid #777; text-align: center;}
