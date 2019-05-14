@@ -19,7 +19,7 @@
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
 function win_pop(){
-	window.open( contextPath+'/admin/popup', '조직도', 'width=1200, height=800');
+	window.open( contextPath+'/boot', '조직도', 'width=1300, height=800');
 }
 $(function(){
 	$("div.parent-menu").click(function(){
