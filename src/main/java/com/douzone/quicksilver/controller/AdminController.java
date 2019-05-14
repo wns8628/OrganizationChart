@@ -98,6 +98,13 @@ public class AdminController {
 		return JSONResult.success("성공");
 	}
 	
+//	@ResponseBody
+//	@RequestMapping("/getDeptInfo/{deptSeq}")
+//	public JSONResult getDeptInfo(@PathVariable("deptSeq") String seq) {
+//		
+//		return JSONResult.success();
+//	}
+	
 	
 	//////navi
 	
@@ -130,4 +137,5 @@ public class AdminController {
 		}
 		return JSONResult.success(naviService.getEmpInfo(seq, langCode));
 	}
+	
 }

@@ -96,6 +96,7 @@ var compRender = function(compSeq, compName){
 				"<span>"+compName+"</span></li><ul c-no='"+compSeq+"'></ul>";
 	$("div#tree-mini ul").append(htmls);
 }
+
 $(function(){
 	var menuList = $("div.menu li");
 	for(var i=0; i<menuList.length; i++){
@@ -155,92 +156,6 @@ $(function(){
 					<div class="head-btn">저장</div>
 					<div class="head-btn">삭제</div>
 				</div>
-				<!-- <div class="content-wrapper">
-					<div id="tree">
-						
-					</div>
-					<div id="tbl-wrapper">
-						
-					</div>
-				</div> -->
-				<%-- <table id="content-wrapper">
-					<tr>
-						<td>
-							<div id="tree-mini" class="tree">
-								<ul>
-								
-								</ul>
-							</div>
-						</td>
-						<td>
-							<div id="tbl-content">
-								<div id="tbl-header">
-									<span>기본정보</span><span>부서원정보</span>
-								</div>
-								<div id="tbl-wrapper">
-									<table class="tg" style="table-layout: fixed; ">
-										<colgroup>
-											<col style="width: 90px">
-											<col style="width: 74px">
-											<col style="width: 195px">
-										</colgroup>
-										<tr>
-											<th class="tg-lqy6">상위부서</th>
-											<th class="tg-0lax" colspan="2"></th>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">유형</td>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">부서코드</td>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6" rowspan="4">부서명</td>
-											<td class="tg-lqy6">한국어</td>
-											<td class="tg-0lax"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">영어</td>
-											<td class="tg-0lax"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">일본어</td>
-											<td class="tg-0lax"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">중국어</td>
-											<td class="tg-0lax"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">부서약칭</td>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">사용여부</td>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6">정렬</td>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-lqy6" rowspan="3">주소</td>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-										<tr>
-											<td class="tg-0lax" colspan="2"></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table> --%>
 				<div id="content-wrapper">
 					<div id="tree-mini" class="tree">
 						<ul>
@@ -260,24 +175,37 @@ $(function(){
 								</colgroup>
 								<tr>
 									<th class="tg-lqy6">상위부서</th>
-									<th class="tg-0lax" colspan="2"></th>
+									<th class="tg-0lax" colspan="2">
+										<span id="parentDeptSeq"></span>
+									</th>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">유형</td>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<select>
+											<option value="biz">사업장
+											<option value="dept">부서
+										</select>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">부서코드</td>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="deptSeq"></span>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6" rowspan="4">부서명</td>
 									<td class="tg-lqy6">한국어</td>
-									<td class="tg-0lax"></td>
+									<td class="tg-0lax">
+										<span id="deptName"></span>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">영어</td>
-									<td class="tg-0lax"></td>
+									<td class="tg-0lax">
+										<span id="deptNameEn"></span>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">일본어</td>
@@ -289,25 +217,37 @@ $(function(){
 								</tr>
 								<tr>
 									<td class="tg-lqy6">부서약칭</td>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="deptNickname"></span>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">사용여부</td>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="useYn"></span>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">정렬</td>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="orderNum"></span>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6" rowspan="3">주소</td>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="zipCode"></span>
+									</td>
 								</tr>
 								<tr>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="addr"></span>
+									</td>
 								</tr>
 								<tr>
-									<td class="tg-0lax" colspan="2"></td>
+									<td class="tg-0lax" colspan="2">
+										<span id="detailAddr"></span>
+									</td>
 								</tr>
 							</table>
 						</div>
