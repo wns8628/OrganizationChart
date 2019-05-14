@@ -29,6 +29,7 @@ public class MainBoot {
 		String langCode = (String) session.getAttribute("langCode");
 		if(langCode == null) {
 			langCode = "kr";
+			session.setAttribute("langCode", langCode);
 		}
 		
 		model.addAttribute("companyList", naviService.getCompList(langCode));

@@ -7,7 +7,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-search.js"></script>
 
 	 <nav class="">
+	 		<c:if test="${langCode eq 'kr' }">
 		    <a class="main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver (조직도)</a>
+		    </c:if>
+	 		<c:if test="${langCode eq 'en' }">
+		    <a class="main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver (Organization Chart)</a>
+		    </c:if>
 			<!-- 다국어 -->
 			 <c:choose>
 				<c:when test="${ langCode eq 'kr' or empty langCode }" >
@@ -43,14 +48,24 @@
 	    <ul class="navbar-nav ml-auto ml-md-0">
 	      <li class="nav-item">   
 	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm">
+	        <c:if test="${langCode eq 'kr' }">
 	       		 관리자 로그인
+	       	</c:if>
+	        <c:if test="${langCode eq 'en' }">
+	       		 Admin Login
+	       	</c:if>
 		     	<!--  -->
 		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
 					  <div id="formContent" >
 					    <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
 					    <!-- Tabs Titles -->
 						<!-- Icon -->	
+						<c:if test="${langCode eq 'kr' }">
 				        <h2>관리자</h2>
+				        </c:if>
+						<c:if test="${langCode eq 'en' }">
+				        <h2>Admin</h2>
+				        </c:if>
 					     <div class="fadeIn first">
 					  <%--
 					       <img src="${pageContext.request.contextPath }/assets/images/quicksilver.jpg" id="icon" alt="User Icon" />
