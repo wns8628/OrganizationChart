@@ -34,8 +34,8 @@ public class SearchService {
 		int manyboard = 50; // 몇개당 한페이지할건지
 		int limitcount = 5; // 게시글이 10000개라도 한페이지당 10개의 페이지네이션이나오게 - 여기서안씀?
 
-		Integer totalboardcount = paginationdao.getPageinfomationSearch(map);
-
+		Integer totalboardcount = paginationdao.getPageinfomationSearch(map).size();
+		System.out.println("totalboardcount : " + totalboardcount);
 		int modVal = (totalboardcount % manyboard);
 		int divVal = (totalboardcount / manyboard);
 		int totalpage = (modVal > 0) ? divVal + 1 : divVal;

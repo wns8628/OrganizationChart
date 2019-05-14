@@ -1,5 +1,6 @@
 package com.douzone.quicksilver.repository;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,7 +15,7 @@ public class PaginationDao {
 	public Integer getPageinfomation(Map<String, Object> map) {
 		return sqlSession.selectOne("pagination.getPageinfomation", map);
 	}
-	public Integer getPageinfomationSearch(Map<String, Object> map) {
-		return sqlSession.selectOne("pagination.getPageinfomationSearch", map);
+	public List<Integer> getPageinfomationSearch(Map<String, Object> map) {
+		return sqlSession.selectList("pagination.getPageinfomationSearch", map);
 	}
 }
