@@ -65,6 +65,8 @@ public class AdminController {
 		if(langCode == null) {
 			langCode = "kr";
 		}
+		List<CompanyVo> compList = adminService.getCompList(langCode);
+		model.addAttribute("compList", compList);
 		return "admin/dept-mgr";
 	}
 	

@@ -17,8 +17,9 @@
  --%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
+var contextPath = "${pageContext.servletContext.contextPath }";
 function win_pop(){
-	window.open('admin/popup', '조직도', 'width=1200, height=800');
+	window.open( contextPath+'/admin/popup', '조직도', 'width=1200, height=800');
 }
 $(function(){
 	$("div.parent-menu").click(function(){
