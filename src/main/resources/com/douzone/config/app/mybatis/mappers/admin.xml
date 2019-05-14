@@ -34,6 +34,19 @@
 		and c.lang_code = 'en'
 	</select>
 	
+	<select id="getBizInfo" parameterType="string" resultType="bizvo">
+		select a.biz_seq as bizSeq, a.comp_seq as compSeq, a.order_num as orderNum, a.use_yn, a.zip_code, a.biz_name, a.biz_nickname, a.addr, a.detail_addr, b.biz_name
+		from
+			(select a.biz_seq, a.comp_seq, a.order_num, a.use_yn, a.zip_code, b.biz_name, b.biz_nickname, b.addr, b.detail_addr
+			from t_co_biz a, t_co_biz_multi b
+			where a.biz_seq = b.biz_seq
+			and b.lang_code = 'kr'
+			and a.biz_seq = '10000001') a
+		left outer join t_co_biz_multi b
+		on a.biz_seq = b.biz_seq
+		and b.lang_code = 'en';
+	</select>
+	
 	<insert id="insertComp" parameterType="companyvo">
 		insert into t_co_comp values(#{compSeq}, 'demo', #{compCd}, '0', 'B', #{compRegistNum},
 		 #{compNum}, #{standardCode}, 'Y', #{telNum}, #{faxNum}, #{homepgAddr}, null, #{compDomain}, null,
