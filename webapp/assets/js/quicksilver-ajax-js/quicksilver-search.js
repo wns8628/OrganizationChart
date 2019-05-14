@@ -9,7 +9,7 @@ let searchClick = function() { // 검색창에서 어떤키를 눌렀을때
 		}
 		let option = $("#search-opt option:selected").val();
 		search(option, kwd);
-		searchScroll();
+//		searchScroll();
 	}
 };
 

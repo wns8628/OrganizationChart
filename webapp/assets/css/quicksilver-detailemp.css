@@ -5,7 +5,7 @@ body {
 .frame {
 	width: 100%; height: 950px;
 	/* margin: 0 auto; */
- 	border: 1px solid #1f87d8;
+ 	/* border: 1px solid #1f87d8; */
 }
 /* 헤더  */
 .header {
@@ -130,7 +130,7 @@ body {
 .pic {
 	display: table;
 	border: 1px solid #ececec;
-	width: 20%; height: 350px;
+	width: 20%; height: 314px;
  	margin: 10px 10px 20px 0;
   	float: right;
   	text-align: center;
@@ -187,7 +187,7 @@ table.member td {
 }
 
 table.detail {
-	width: 75%; 
+	width: 73%; 
 	border: 1px solid #d6d4d4;
 	border-collapse: seprate;
 	border-spacing: 1px;
@@ -198,6 +198,7 @@ table.detail {
 }
 table.detail th {
 	height: 20px;
+	width:150px;
 	padding: 10px;
 	text-align: right;
 	vertical-align: top;
@@ -209,6 +210,7 @@ table.detail td {
 	border: 1px solid #ececec;
 	padding: 10px;
 	vertical-align: top;
+	width: 250px;
 }
 
 
@@ -240,28 +242,35 @@ ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
 a:link          { color:#ffffff; text-decoration:none; font-weight:bold; }
+
 a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
 a:active       { color:#696969; text-decoration:none; font-weight:bold; }
 a:hover       { color:#f0f0f0; text-decoration:none; font-weight:bold; } 
 
 div.content{ width: 100%; height: 100%;}
 
-
-div.navi { height:80%; width: 15%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;}
-div.navi li {font: 2em; display: block;}
-div.navi li.comp:not(:first-child) { padding-top: 4px;}
+div.navi { height: 90%; overflow-y:auto;
+		width: 17%; min-height: 500px; min-width: 180px; display: inline-block; padding: 0.5%;
+}
+div.navi li {font: 2em; display: block; height: 20px; position: relative;}
+/* div.navi li.comp:not(:first-child) { padding-top: 4px;} */
+div.navi li.comp{ padding-top: 4px;}
 div.navi li.dept { font: 1.5em; }
 div.navi li.biz { font: 1.5em; }
-div.navi span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;/* padding: 4px 0 4px 5px; */}
-div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left; /* padding: 4px 0; */}
-div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top;}
-div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
-div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -14px; top: -3px; cursor: pointer;}
+div.navi span {cursor: pointer; height: 100%; font-size: 13px; padding-left: 4px;}
+div.navi img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left;}
+div.navi img.tree-icon {height: 20px; width: 20px; vertical-align: top; display: inline-block; float: left;}
+div.navi img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -4px; cursor: pointer;}
+div.navi img.close-btn {height: 6px; width: 6px; position: relative; left: -13px; top: -4px; cursor: pointer;}
 div.navi img.open {display: none;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
-div.navi div.li-div {padding: 2px 0; display: inline-block;}
-
+div.navi div.li-div {padding: 2px 0;  display: inline-block;}
+div.space { width: 20px; height: 20px; display: inline-block; float: left;}
+div.wrap {height: 20px; display: inline-block; float: left}
+.active-span{
+	background-color: #BEEBFF;
+}
 /*  */
 .main-body{
 	height:80%;

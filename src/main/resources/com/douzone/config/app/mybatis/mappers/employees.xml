@@ -101,7 +101,7 @@
 				pmd.dp_name like #{kwd}
 		</when>
 		<when test='selectSearch == "call"'>
-				a.home_tel_num like #{kwd}'
+				a.home_tel_num like #{kwd}
 		</when>
 		<when test='selectSearch == "phone"'>
 				a.mobile_tel_num like #{kwd}
