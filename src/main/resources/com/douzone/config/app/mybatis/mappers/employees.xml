@@ -78,7 +78,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -88,7 +88,7 @@
 					and 
 	  <choose>
 		<when test='selectSearch == "emp"'>			
-	  		 match(a.login_id) against(#{kwd} in boolean mode)
+	  		 a.login_id like #{kwd}
 	  		 union all
 	  		 select 
 			a.emp_seq as empSeq
@@ -109,7 +109,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -119,7 +119,7 @@
 					and e.emp_name like #{kwd}
 		</when>
 		<when test='selectSearch == "dept"'>
-		 		match(d.dept_name) against(#{kwd} in boolean mode)
+		 		d.dept_name like #{kwd}
 		</when>
 		<when test='selectSearch == "position"'>
 				pmp.dp_name like #{kwd}
@@ -128,14 +128,14 @@
 				pmd.dp_name like #{kwd}
 		</when>
 		<when test='selectSearch == "call"'>
-				match(a.home_tel_num) against(#{kwd} in boolean mode)
+				a.home_tel_num like #{kwd}
 		</when>
 		<when test='selectSearch == "phone"'>
-				match(a.mobile_tel_num) against(#{kwd} in boolean mode)
+				a.mobile_tel_num like #{kwd}
 		</when>
 		
 		<when test='selectSearch == "all"'>
-		   		match(a.login_id) against(#{kwd} in boolean mode)
+		   		a.login_id like #{kwd}
 		   		union all
 		   		select 
 			a.emp_seq as empSeq
@@ -156,7 +156,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -184,7 +184,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -212,7 +212,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -240,7 +240,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -268,7 +268,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -276,7 +276,7 @@
 					and e.lang_code =#{langCode}
 					and d.lang_code = #{langCode}
 					and 
-			  		match(a.home_tel_num) against(#{kwd} in boolean mode)
+			  		a.home_tel_num like #{kwd}
 			  		union all
 			  		select 
 			a.emp_seq as empSeq
@@ -297,7 +297,7 @@
 			ON a.duty_code = pmd.dp_seq
 			AND pmd.lang_code = #{langCode}
 			AND pmd.dp_type = 'DUTY',
-			t_co_emp_dept b, t_co_dept c, t_co_dept_multi2 d , t_co_emp_multi e
+			t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
 					where a.emp_seq = b.emp_seq
 					and b.dept_seq = c.dept_seq
 					and c.dept_seq = d.dept_seq
@@ -305,7 +305,7 @@
 					and e.lang_code =#{langCode}
 					and d.lang_code = #{langCode}
 					and 
-			  		match(a.mobile_tel_num) against(#{kwd} in boolean mode)
+			  		a.mobile_tel_num like #{kwd}
 		</when>
 	</choose> 
 		limit #{startboard}, #{manyboard};
