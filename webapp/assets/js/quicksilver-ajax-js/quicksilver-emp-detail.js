@@ -127,14 +127,13 @@ $(function(){
 		    	  
 		    	  let deptSeq = response.data.deptSeq;
 		    	  let compSeq = response.data.compSeq;
-		    	  				
-		    	  
+
 		    	//  console.log(response.data);
 		    	  
 		    	 $("ul[c-no='" + compSeq + "']").empty();
-		    	 $("div[data-no!='"+ compSeq +"']").next("ul").attr('class','dropdown-menu');
-		    	  $("div[data-no='"+ compSeq +"']").next("ul").attr('class','dropdown-menu show');
-		    	  
+//		    	 $("div[data-no!='"+ compSeq +"']").next("ul").attr('class','dropdown-menu');
+//		    	  $("div[data-no='"+ compSeq +"']").next("ul").attr('class','dropdown-menu show');
+//		    	  
 		    	  getBizList(compSeq);
 		    	  getparents(deptSeq);
 		      },

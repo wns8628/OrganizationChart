@@ -132,8 +132,12 @@ var getList = function(seq, last, str){
     		  deptRender(vo, index, response.data.length, last, str);    
          });
     	 
-    	 $("li[data-no!='"+seq+"']").css("color","black");
-    	 $("li[data-no='"+seq+"']").css("color","red"); //고치자
+//    	 $("li[data-no!='"+seq+"']").css("color","black");
+//    	 $("li[data-no='"+seq+"']").css("color","red"); //고치자
+    	 
+    	 $("li[data-no='"+seq+"']").children(".wrap").children(".li-div").css("background-color","#B3E5FC");  //고치자
+    	 $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
+
     },
       error: function(xhr, status, e){
          console.error(status+"::"+e);
@@ -156,8 +160,12 @@ var getListSearch = function(seq, last, str, pseq){
 //            deptRender(vo)
    		  	  deptRender(vo, index, response.data.length, last, str);  
          });
-    	 $("li[data-no!='"+pseq+"']").css("color","black");
-    	 $("li[data-no='"+pseq+"']").css("color","red"); //고치자
+
+//    	 $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
+//    	 $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
+
+    	 $("li[data-no='"+pseq+"']").children(".wrap").children(".li-div").css("background-color","#B3E5FC");  //고치자
+    	 $("li[data-no!='"+pseq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
       },
       error: function(xhr, status, e){
          console.error(status+":"+e);
@@ -338,14 +346,16 @@ $(function(){
 		  		   $(".pageNext").attr("data-seq", seq);
 
 		  
-		  console.log(seq) 
+		  console.log(seq) ;
 //		  getList(seq);
-	
+		  
+    	 $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
+    	 $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
+
 //		  let departmentName = $(this).html();
 		  makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo);
 //		  renderTableDepartmentName(departmentName, seq);
 //		  getLeader("/boot/getDepartmentEmployeeInfo/" + seq);
-	  
    });
    
 

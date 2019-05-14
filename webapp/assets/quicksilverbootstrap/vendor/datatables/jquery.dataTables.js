@@ -5088,7 +5088,7 @@
 			.append(
 				$(_div, { 'class': classes.sScrollHead } )
 					.css( {
-//						overflow: 'hidden',
+						overflow: 'hidden',
 						position: 'relative',
 						border: 0,
 						width: scrollX ? size(scrollX) : '100%'
@@ -5114,7 +5114,7 @@
 				$(_div, { 'class': classes.sScrollBody } )
 					.css( {
 						position: 'relative',
-						overflow: 'auto',
+//						overflow: 'auto',
 						width: size( scrollX )
 					} )
 					.append( table )
@@ -5647,7 +5647,7 @@
 						left: 0,
 						height: 1,
 						right: 0,
-						overflow: 'hidden'
+//						overflow: 'hidden'
 					} :
 					{}
 				)
@@ -10192,7 +10192,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"aLengthMenu": [ 10, 25, 50, 100 ],
+		"aLengthMenu": [ 5, 25, 50, 100 ],
 	
 	
 		/**
