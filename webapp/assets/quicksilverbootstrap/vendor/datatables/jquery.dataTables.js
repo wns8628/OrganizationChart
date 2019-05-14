@@ -5114,7 +5114,7 @@
 				$(_div, { 'class': classes.sScrollBody } )
 					.css( {
 						position: 'relative',
-//						overflow: 'auto',
+						overflow: 'auto',
 						width: size( scrollX )
 					} )
 					.append( table )
