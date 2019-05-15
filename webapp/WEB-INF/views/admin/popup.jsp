@@ -428,7 +428,7 @@ $(function(){
 		 	</select>
 		</div>
 		<div class="container">
-			<div class="tree">
+			<div id="main-tree" class="tree">
 				<ul>
 				<c:forEach items="${companyList }" var="vo">
 				<li class='comp' data-no='${vo.compSeq }'>

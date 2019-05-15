@@ -76,6 +76,12 @@ public class AdminController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/getBizInfo/{bizSeq}")
+	public JSONResult getBizInfo(@PathVariable("bizSeq") String bizSeq) {
+		return JSONResult.success(adminService.getBizInfo(bizSeq));
+	}
+	
+	@ResponseBody
 	@RequestMapping("/addComp")
 	public JSONResult addComp(@ModelAttribute CompanyVo vo) {
 		adminService.addComp(vo);

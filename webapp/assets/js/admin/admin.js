@@ -38,7 +38,7 @@ var deptRender = function(vo, index, length, last, str){
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
 	
-   var htmls = "<li class='dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
+   var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
@@ -68,7 +68,7 @@ var bizRender = function(vo, index, length){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
-	var htmls = "<li class='dept' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
+	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
 				"<img class='navi-icon close' alt='' src='"+contextPath+"/assets/images/close.png'>"+
 				"<span>"+vo.bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
@@ -83,7 +83,7 @@ var tableRender = function(vo){
 
 var getDeptList = function(seq, last, str){
    $.ajax({
-      url: contextPath+"/getDept/"+seq,
+      url: contextPath+"/admin/getDept/"+seq,
       type:"get",
       dataType:"json",
       data:"",
@@ -101,7 +101,7 @@ var getDeptList = function(seq, last, str){
 
 var getBizList = function(seq){
 	$.ajax({
-		url: contextPath+"/getBiz/"+seq,
+		url: contextPath+"/admin/getBiz/"+seq,
 	      type:"get",
 	      dataType:"json",
 	      data:"",
@@ -118,7 +118,7 @@ var getBizList = function(seq){
 
 var getEmpInfo = function(seq){
 	$.ajax({
-		url: contextPath+"/getEmpInfoByDept/"+seq,
+		url: contextPath+"/admin/getEmpInfoByDept/"+seq,
 		type:"get",
 		dataType:"json",
 		data:"",
@@ -159,7 +159,7 @@ $(function() {
 	});
 
 	//부서별 사원 목록 테이블 출력
-	$(document).on("click", "li.dept span", function(event) {
+	$(document).on("click", "#main-tree li.child span", function(event) {
 		$parent = $(this).parent().parent();
 		var seq = $parent.attr("data-no");
 		$("div.li-div").removeClass("active-span");
@@ -169,7 +169,7 @@ $(function() {
 	});
 
 	// 하위 부서 목록 출력
-	$(document).on("click", "li.dept img.open-btn", function(event) {
+	$(document).on("click", "li.child img.open-btn", function(event) {
 		$parent = $(this).parent().parent();
 		var seq = $parent.attr("data-no");
 		if ($parent.children().length >= 2) {
@@ -193,7 +193,7 @@ $(function() {
 	});
 
 	// 하위 부서 목록 제거
-	$(document).on("click", "li.dept img.close-btn", function(event) {
+	$(document).on("click", "li.child img.close-btn", function(event) {
 		$parent = $(this).parent().parent();
 		$parent.next().children().remove();
 		$(this).hide();

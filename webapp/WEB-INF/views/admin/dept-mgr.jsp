@@ -91,10 +91,33 @@ div.tree li>span {float: left;}
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
 
-var compRender = function(compSeq, compName){
+var compRender = function(){
+	var compSeq = $("#compSelect option:selected").val();
+	var compName = $("#compSelect option:selected").text();
 	var htmls = "<li class='comp' data-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"+
 				"<span>"+compName+"</span></li><ul c-no='"+compSeq+"'></ul>";
+	$("div#tree-mini ul").children().remove();			
 	$("div#tree-mini ul").append(htmls);
+}
+
+var getBizInfo = function(seq){
+	$.ajax({
+	      url: contextPath+"/admin/getBizInfo/"+seq,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	    	  $("#parentSeq").text(response.data.compSeq);
+	    	  $("#seq").text(response.data.bizSeq);
+	    	  $("#type").text("사업장");
+	    	  $("#name").text(response.data.bizName);
+	    	  $("#nameEn").text(response.data.bizNameEn);
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	      
+	   });
 }
 
 $(function(){
@@ -106,11 +129,21 @@ $(function(){
 		}
 	}
 	
-	var compSeq = $("#compSelect option:selected").val();
-	var compName = $("#compSelect option:selected").text();
-	compRender(compSeq, compName);
+	compRender();
+	
 	$("#compSelect").change(function(){
-		console.log($(this).val());
+		compRender();
+	});
+	
+	$(document).on("click", "#tree-mini li.biz span", function(event){
+		$parent = $(this).parent().parent();
+		var seq = $parent.attr("data-no");
+		getBizInfo(seq);
+	});
+	$(document).on("click", "#tree-mini li.dept span", function(event){
+		$parent = $(this).parent().parent();
+		var seq = $parent.attr("data-no");
+		getDeptInfo(seq);
 	});
 });
 </script>
@@ -176,35 +209,36 @@ $(function(){
 								<tr>
 									<th class="tg-lqy6">상위부서</th>
 									<th class="tg-0lax" colspan="2">
-										<span id="parentDeptSeq"></span>
+										<span id="parentSeq"></span>
 									</th>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">유형</td>
 									<td class="tg-0lax" colspan="2">
-										<select>
-											<option value="biz">사업장
-											<option value="dept">부서
-										</select>
+										<span id="type"></span>
+<!-- 										<select> -->
+<!-- 											<option value="biz">사업장 -->
+<!-- 											<option value="dept">부서 -->
+<!-- 										</select> -->
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">부서코드</td>
 									<td class="tg-0lax" colspan="2">
-										<span id="deptSeq"></span>
+										<span id="seq"></span>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6" rowspan="4">부서명</td>
 									<td class="tg-lqy6">한국어</td>
 									<td class="tg-0lax">
-										<span id="deptName"></span>
+										<span id="name"></span>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">영어</td>
 									<td class="tg-0lax">
-										<span id="deptNameEn"></span>
+										<span id="nameEn"></span>
 									</td>
 								</tr>
 								<tr>
@@ -218,7 +252,7 @@ $(function(){
 								<tr>
 									<td class="tg-lqy6">부서약칭</td>
 									<td class="tg-0lax" colspan="2">
-										<span id="deptNickname"></span>
+										<span id="nickname"></span>
 									</td>
 								</tr>
 								<tr>
