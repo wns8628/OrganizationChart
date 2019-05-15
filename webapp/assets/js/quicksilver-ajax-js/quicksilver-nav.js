@@ -135,8 +135,6 @@ var getList = function(seq, last, str){
 //    	 $("li[data-no!='"+seq+"']").css("color","black");
 //    	 $("li[data-no='"+seq+"']").css("color","red"); //고치자
     	 
-//    	 $("li[data-no='"+seq+"']").children(".wrap").children(".li-div").css("background-color","#B3E5FC");  //고치자
-//    	 $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
 
     },
       error: function(xhr, status, e){
