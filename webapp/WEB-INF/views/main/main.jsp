@@ -20,6 +20,17 @@ div#admin-btn-wrapper{background-color: #FFFFFF; width: 49.5%; float: right; min
 div#tree-btn { margin: 0 300px; margin-top: 150px;}
 div#tree-btn span {font-size: 30px; display: block; color: #717171; font-weight: bolder; margin-left: 18px;}
 </style>
+<script type="text/javascript">
+function win_pop(){
+	window.open( contextPath+'/boot', '조직도', 'width=1300, height=800');
+}
+
+$(function(){
+	$("#tree-btn").click(function(){
+		win_pop();
+	});
+})
+</script>
 </head>
 <body>
 	<div id="container">
