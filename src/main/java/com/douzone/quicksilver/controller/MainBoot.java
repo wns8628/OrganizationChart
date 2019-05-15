@@ -24,6 +24,17 @@ public class MainBoot {
 	@Autowired
 	NaviService naviService;
 	
+	@RequestMapping("")
+	public String main(HttpSession session) {
+		String langCode = (String) session.getAttribute("langCode");
+		if(langCode == null) {
+			langCode = "kr";
+			session.setAttribute("langCode", langCode);
+		}
+		
+		return "main/main";
+	}
+	
 	@RequestMapping("/boot")
 	public String main(Model model, HttpSession session) {
 		String langCode = (String) session.getAttribute("langCode");
