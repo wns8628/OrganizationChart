@@ -62,7 +62,7 @@ var deptRender = function(vo, index, length, last, str){
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
-   				"<span>"+vo.deptName+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   				"<span>"+vo.deptName+"("+vo.deptEmpCount+")"+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
@@ -427,6 +427,6 @@ $(function(){
 		  	  }else if(kwd){
 		  		makeTable("/boot/search/" + selectSearch + "/" + kwd +"/?pageNo="+pageNo );
 		  	  }
-	   });
+   });
    
 });
