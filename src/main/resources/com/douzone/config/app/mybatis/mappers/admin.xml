@@ -35,7 +35,8 @@
 	</select>
 	
 	<select id="getBizInfo" parameterType="string" resultType="bizvo">
-		select a.biz_seq as bizSeq, a.comp_seq as compSeq, a.order_num as orderNum, a.use_yn, a.zip_code, a.biz_name, a.biz_nickname, a.addr, a.detail_addr, b.biz_name
+		select a.biz_seq as bizSeq, a.comp_seq as compSeq, a.order_num as orderNum, a.use_yn as useYn,
+			 a.zip_code as zipCode, a.biz_name as bizName, a.biz_nickname as bizNickname, a.addr as addr, a.detail_addr as detailAddr, b.biz_name as bizNameEn
 		from
 			(select a.biz_seq, a.comp_seq, a.order_num, a.use_yn, a.zip_code, b.biz_name, b.biz_nickname, b.addr, b.detail_addr
 			from t_co_biz a, t_co_biz_multi b
