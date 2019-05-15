@@ -117,21 +117,27 @@
 					and e.lang_code =#{langCode}
 					and d.lang_code = #{langCode}
 					and e.emp_name like #{kwd}
+					ORDER BY empSeq + 0
 		</when>
 		<when test='selectSearch == "dept"'>
 		 		d.dept_name like #{kwd}
+		 		ORDER BY empSeq + 0
 		</when>
 		<when test='selectSearch == "position"'>
 				pmp.dp_name like #{kwd}
+				ORDER BY empSeq + 0
 		</when>
 		<when test='selectSearch == "duty"'>
 				pmd.dp_name like #{kwd}
+				ORDER BY empSeq + 0
 		</when>
 		<when test='selectSearch == "call"'>
 				a.home_tel_num like #{kwd}
+				ORDER BY empSeq + 0
 		</when>
 		<when test='selectSearch == "phone"'>
 				a.mobile_tel_num like #{kwd}
+				ORDER BY empSeq + 0
 		</when>
 		
 		<when test='selectSearch == "all"'>
@@ -306,6 +312,7 @@
 					and d.lang_code = #{langCode}
 					and 
 			  		a.mobile_tel_num like #{kwd}
+			  		ORDER BY empSeq + 0
 		</when>
 	</choose> 
 		limit #{startboard}, #{manyboard};
