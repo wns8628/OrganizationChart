@@ -82,8 +82,8 @@ public class FileuploadService
 
 		BufferedImage bi = render.getAsBufferedImage();//BufferImage 객체를 얻어옴
 		if(zoom <= 0) zoom = 1;//축소비율이 0이 될수없으므로
-		int width = 30;
-		int height = 30;
+		int width = 120;
+		int height = 120;
 		
 		BufferedImage bufferIm = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D  g2 = bufferIm.createGraphics();//Graphics2D 객체 생성
