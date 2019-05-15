@@ -42,9 +42,23 @@
 			from t_co_biz a, t_co_biz_multi b
 			where a.biz_seq = b.biz_seq
 			and b.lang_code = 'kr'
-			and a.biz_seq = '10000001') a
+			and a.biz_seq = #{bizSeq}) a
 		left outer join t_co_biz_multi b
 		on a.biz_seq = b.biz_seq
+		and b.lang_code = 'en';
+	</select>
+	
+	<select id="getDeptInfo" parameterType="string" resultType="departmentsvo">
+		select a.dept_seq as deptSeq, a.parent_dept_seq as parentDeptSeq, a.order_num as orderNum, a.use_yn as useYn,
+			 a.zip_code as zipCode, a.dept_name as deptName, a.dept_nickname as deptNickname, a.addr as addr, a.detail_addr as detailAddr, b.dept_name as deptNameEn
+		from
+			(select a.dept_seq, a.parent_dept_seq, a.order_num, a.use_yn, a.zip_code, b.dept_name, b.dept_nickname, b.addr, b.detail_addr
+			from t_co_dept a, t_co_dept_multi b
+			where a.dept_seq = b.dept_seq
+			and b.lang_code = 'kr'
+			and a.dept_seq = #{deptSeq}) a
+		left outer join t_co_dept_multi b
+		on a.dept_seq = b.dept_seq
 		and b.lang_code = 'en';
 	</select>
 	

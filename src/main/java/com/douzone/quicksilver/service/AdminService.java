@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.douzone.quicksilver.repository.AdminDao;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
+import com.douzone.quicksilver.vo.DepartmentsVo;
 
 @Service
 public class AdminService {
@@ -24,6 +25,10 @@ public class AdminService {
 	
 	public BizVo getBizInfo(String bizSeq) {
 		return adminDao.getBizInfo(bizSeq);
+	}
+	
+	public DepartmentsVo getDeptInfo(String deptSeq) {
+		return adminDao.getDeptInfo(deptSeq);
 	}
 	
 	public void addComp(CompanyVo vo) {

@@ -51,6 +51,7 @@ public class DepartmentsVo {
 	private int childCount;		// 자식 개수
 	private int deptEmpCount;		// 부서별 사원 수
 	
+	private String deptNameEn;
 	
 	public String getDeptSeq() {
 		return deptSeq;
@@ -275,6 +276,12 @@ public class DepartmentsVo {
 		this.deptEmpCount = deptEmpCount;
 	}
 	
+	public String getDeptNameEn() {
+		return deptNameEn;
+	}
+	public void setDeptNameEn(String deptNameEn) {
+		this.deptNameEn = deptNameEn;
+	}
 	@Override
 	public String toString() {
 		return "DepartmentsVo [deptSeq=" + deptSeq + ", deptCD=" + deptCD + ", groupSeq=" + groupSeq + ", compSeq="

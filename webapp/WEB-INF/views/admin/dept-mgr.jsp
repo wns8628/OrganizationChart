@@ -71,16 +71,18 @@ div#content-wrapper div#tree {  min-height: 350px; }
 div#content-wrapper div#tbl-content { width: 60%; min-height: 420px; float: right; }
 
 div#content-wrapper div#tbl-header {width: 100%; padding-top: 20px; background-color: #F9F9F9; height: 30px; border-top: 1px solid #B2B2B2; border-right: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
-div#content-wrapper div#tbl-header span { width: 80px; border: 1px solid #B2B2B2; font-size: 13px; height: 28px; float: left; display: inline-block; line-height: 30px;}
-div#content-wrapper div#tbl-header span:first-child {margin-left: 20px;}
+div#content-wrapper div#tbl-header span:last-child { width: 80px; font-size: 13px; height: 28px; float: left; display: inline-block; line-height: 30px;
+													border-left: 1px solid #B2B2B2; border-top: 1px solid #B2B2B2; border-right: 1px solid #B2B2B2;}
+div#content-wrapper div#tbl-header span:first-child {width: 80px; font-size: 13px; height: 28px; float: left; display: inline-block; line-height: 30px;
+													margin-left: 20px; background-color: white; border-left: 1px solid #B2B2B2; border-top: 1px solid #B2B2B2;}
 
 div#content-wrapper div#tbl-wrapper {width: 96%; padding: 2%; border: 1px solid #B2B2B2; height: 100%}
 
-div#tbl-wrapper .tg  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 350px;}
-div#tbl-wrapper .tg td{font-size:13px;padding:4px 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal;}
-div#tbl-wrapper .tg th{font-size:13px;font-weight:normal;padding:4px 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal;}
-div#tbl-wrapper .tg .tg-lqy6{text-align:right;vertical-align:top; background-color: #F9F9F9;}
-div#tbl-wrapper .tg .tg-0lax{text-align:left;vertical-align:top}
+div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 350px;}
+div#tbl-wrapper table#tbl-info td{font-size:13px;padding:0 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 30px;}
+div#tbl-wrapper table#tbl-info th{font-size:13px;font-weight:normal;padding:0 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 30px;}
+div#tbl-wrapper table#tbl-info .tg-lqy6{text-align:right;vertical-align:top; background-color: #F9F9F9;}
+div#tbl-wrapper table#tbl-info .tg-0lax{text-align:left;vertical-align:top}
 
 div#tree-mini {width: 37.8%; background-color: white; border: 0px; height: 400%;
 vertical-align: top; float: left; padding: 1%; min-height: 400px; overflow-y:auto;
@@ -107,11 +109,53 @@ var getBizInfo = function(seq){
 	      dataType:"json",
 	      data:"",
 	      success: function(response){
+	    	  for(var key in response.data){
+	    		  if(response.data[key] == null) {
+						response.data[key] = "";
+					}
+	    	  }
 	    	  $("#parentSeq").text(response.data.compSeq);
 	    	  $("#seq").text(response.data.bizSeq);
 	    	  $("#type").text("사업장");
 	    	  $("#name").text(response.data.bizName);
 	    	  $("#nameEn").text(response.data.bizNameEn);
+	    	  $("#nickname").text(response.data.bizNickname);
+	    	  $("#useYn").text(response.data.useYn);
+	    	  $("#orderNum").text(response.data.orderNum);
+	    	  $("#zipCode").text(response.data.zipCode);
+	    	  $("#addr").text(response.data.addr);
+	    	  $("#detailAddr").text(response.data.detailAddr);
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	      
+	   });
+}
+
+var getDeptInfo = function(seq){
+	$.ajax({
+	      url: contextPath+"/admin/getDeptInfo/"+seq,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	    	  for(var key in response.data){
+	    		  if(response.data[key] == null) {
+						response.data[key] = "";
+					}
+	    	  }
+	    	  $("#parentSeq").text(response.data.parentDeptSeq);
+	    	  $("#seq").text(response.data.deptSeq);
+	    	  $("#type").text("부서");
+	    	  $("#name").text(response.data.deptName);
+	    	  $("#nameEn").text(response.data.deptNameEn);
+	    	  $("#nickname").text(response.data.deptNickname);
+	    	  $("#useYn").text(response.data.useYn);
+	    	  $("#orderNum").text(response.data.orderNum);
+	    	  $("#zipCode").text(response.data.zipCode);
+	    	  $("#addr").text(response.data.addr);
+	    	  $("#detailAddr").text(response.data.detailAddr);
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -136,13 +180,15 @@ $(function(){
 	});
 	
 	$(document).on("click", "#tree-mini li.biz span", function(event){
-		$parent = $(this).parent().parent();
+		$parent = $(this).parent().parent().parent();
 		var seq = $parent.attr("data-no");
+		$("#tbl-info span").text("");
 		getBizInfo(seq);
 	});
 	$(document).on("click", "#tree-mini li.dept span", function(event){
-		$parent = $(this).parent().parent();
+		$parent = $(this).parent().parent().parent();
 		var seq = $parent.attr("data-no");
+		$("#tbl-info span").text("");
 		getDeptInfo(seq);
 	});
 });
@@ -200,7 +246,7 @@ $(function(){
 							<span>기본정보</span><span>부서원정보</span>
 						</div>
 						<div id="tbl-wrapper">
-							<table class="tg" style="table-layout: fixed; ">
+							<table id="tbl-info" class="tg" style="table-layout: fixed; ">
 								<colgroup>
 									<col style="width: 90px">
 									<col style="width: 74px">
