@@ -218,7 +218,7 @@ var makeTable = function(url) {
 	$("#dataTable").dataTable().fnDestroy();
 	
 	$('#dataTable').dataTable({
-          pageLength: 6,
+          pageLength: 5,
           bPaginate: true,
           bLengthChange: true,
           lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
