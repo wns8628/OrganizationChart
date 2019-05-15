@@ -17,10 +17,12 @@
 div#tree-btn-wrapper{background-color: #FFFFFF; width: 49.5%; float: left; min-height: 500px; border-right: 3px solid black}
 div#admin-btn-wrapper{background-color: #FFFFFF; width: 49.5%; float: right; min-height: 500px; }
 
-div#tree-btn { margin: 0 300px; margin-top: 150px;}
+div#tree-btn { margin: 0 300px; margin-top: 150px; cursor: pointer;}
 div#tree-btn span {font-size: 30px; display: block; color: #717171; font-weight: bolder; margin-left: 18px;}
 </style>
 <script type="text/javascript">
+var contextPath = "${pageContext.servletContext.contextPath }";
+
 function win_pop(){
 	window.open( contextPath+'/boot', '조직도', 'width=1300, height=800');
 }
@@ -43,10 +45,12 @@ $(function(){
 				</div>
 			</div>
 			<div id="admin-btn-wrapper">
-				<div id="tree-btn">
+				<a href="${pageContext.servletContext.contextPath }/admin/compMgr">
+					<div id="tree-btn">
 					<span>관리자</span>
 					<img src="${pageContext.request.contextPath }/assets/images/setting_btn.png" >
-				</div>
+					</div>
+				</a>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/admin/includes/footer.jsp" />
