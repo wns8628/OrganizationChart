@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.quicksilver.repository.AdminDao;
+import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 
 @Service
@@ -19,6 +20,10 @@ public class AdminService {
 	
 	public CompanyVo getCompInfo(String compSeq) {
 		return adminDao.getCompInfo(compSeq);
+	}
+	
+	public BizVo getBizInfo(String bizSeq) {
+		return adminDao.getBizInfo(bizSeq);
 	}
 	
 	public void addComp(CompanyVo vo) {

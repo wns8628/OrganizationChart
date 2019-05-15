@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
+import com.douzone.quicksilver.vo.DepartmentsVo;
 
 @Repository
 public class AdminDao {
@@ -24,6 +25,10 @@ public class AdminDao {
 	
 	public BizVo getBizInfo(String bizSeq) {
 		return sqlSession.selectOne("admin.getBizInfo", bizSeq);
+	}
+	
+	public DepartmentsVo getDeptInfo(String deptSeq) {
+		return sqlSession.selectOne("admin.getDeptInfo", deptSeq);
 	}
 	
 	public int insertComp(CompanyVo vo) {
