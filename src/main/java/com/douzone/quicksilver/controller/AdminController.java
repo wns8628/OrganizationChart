@@ -1,6 +1,8 @@
 package com.douzone.quicksilver.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -107,6 +109,16 @@ public class AdminController {
 	public JSONResult updateComp(@ModelAttribute CompanyVo vo) {
 		adminService.updateComp(vo);
 		return JSONResult.success("성공");
+	}
+	
+	@ResponseBody
+	@RequestMapping("/map")
+	public JSONResult map() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("department", "부서");
+		map.put("buildings", map2);
+		return JSONResult.success(map);
 	}
 	
 //	@ResponseBody
