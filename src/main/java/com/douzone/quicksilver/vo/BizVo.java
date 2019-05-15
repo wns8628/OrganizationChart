@@ -22,6 +22,7 @@ public class BizVo {
 	private String modifyDate;		//수정일
 	private String langCode;		//언어코드
 	private String bizName;			//사업장명
+	private String bizNameEn;
 	private String ownerName;		//대표자명
 	private String bizCondition;	//업태
 	private String senderName;		//발신인명
@@ -271,6 +272,14 @@ public class BizVo {
 
 	public void setChildCount(int childCount) {
 		this.childCount = childCount;
+	}
+
+	public String getBizNameEn() {
+		return bizNameEn;
+	}
+
+	public void setBizNameEn(String bizNameEn) {
+		this.bizNameEn = bizNameEn;
 	}
 
 	@Override
