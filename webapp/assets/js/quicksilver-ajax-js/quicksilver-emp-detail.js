@@ -1,3 +1,4 @@
+//사원 디테일 렌더링
 var empDetailRender = function(vo, alldept){
    $(".container-detail").children().remove();
    
@@ -62,52 +63,45 @@ var empDetailRender = function(vo, alldept){
    $(".container-detail").append(html2);
 }
 
-let deptInfoList = [];
-
+//부모찾아서 상위부터 펼치기 ajax
+let deptInfoList = []; 																					//전체부서표시용
 var getparents = function(deptSeq){
-   
    $.ajax({
       url: contextPath + "/getdetailNavPointParents/" + deptSeq, 
       type:"get",
       dataType:"json", 
       data:"",
-      async: false, //핵심임 상위가 무조건먼저 렌더되야지 밑에부서가 나오니 무조건 동기로 해야함 
+      async: false, 																					//핵심임 상위가 무조건먼저 렌더되야지 밑에부서가 나오니 무조건 동기로 해야함 
       success: function(response){
       
           let parentDeptSeq = response.data.parentDeptSeq;
-          let deptName = response.data.deptName; //전체부서표시용
-          let bizName = response.data.bizName; //전체부서표시용
-          
-          console.log(parentDeptSeq+": parentDeptSeq")
-         
+          let deptName = response.data.deptName;													    //전체부서표시용
+          let bizName = response.data.bizName; 															//전체부서표시용
           var str;
           
           if(parentDeptSeq < 100000 && parentDeptSeq != null ){
              
-             deptInfoList.push(deptName);
-         
-             getparents(parentDeptSeq); //재귀로 맨위에부터 펼쳐지게함 
+             deptInfoList.push(deptName); 																//전체부서표시용
+             getparents(parentDeptSeq); 																//재귀로 맨위에부터 펼쳐지게함 
              
              str = $("li[data-no='"+parentDeptSeq+"']").children(".prev").html();
              
              if($("li[data-no='"+parentDeptSeq+"'").children(".wrap").children('.last').length == 0){
-                getListSearch(parentDeptSeq, "false", str, deptSeq);
+                getListNavPoint(parentDeptSeq, "false", str, deptSeq); 									//quicksilver-nav에있다 nav탭관련이라.
              }else{
-                getListSearch(parentDeptSeq, "true", str, deptSeq);
+                getListNavPoint(parentDeptSeq, "true", str, deptSeq);
              }
-             
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".close-btn ").show();
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();
           }else{
              deptInfoList.push(bizName);
              if($("li[data-no='"+parentDeptSeq+"'").children(".wrap").children('.last').length == 0){
-                getListSearch(parentDeptSeq, "false", null, deptSeq);
+                getListNavPoint(parentDeptSeq, "false", null, deptSeq);
              }else{
-                getListSearch(parentDeptSeq, "true", null, deptSeq);
+                getListNavPoint(parentDeptSeq, "true", null, deptSeq);
              }
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".close-btn ").show();
-             $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();
-            
+             $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();  
           }
          },
          error: function(xhr, status, e){
@@ -115,14 +109,15 @@ var getparents = function(deptSeq){
          }
    });
 }
+
 $(function(){
-   $(document).on("click", "tbody tr[role='row']", function(event){   
+	//테이블 행 클릭
+	$(document).on("click", "tbody tr.row", function(event){   
       deptInfoList=[];
       let empSeq = this.children[0].innerHTML;
       let deptSeq = this.children[1].innerHTML;
 
-      console.log(deptSeq)
-      
+      //조직도 부서 펼치기
       $.ajax({
            url: contextPath + "/getdetailNavPoint/" + empSeq + "/" + deptSeq,
             type:"get",
@@ -132,41 +127,30 @@ $(function(){
                
                let deptSeq = response.data.deptSeq;
                let compSeq = response.data.compSeq;
-
-             //  console.log(response.data);
-               
+        
               $("ul[c-no='" + compSeq + "']").empty();
-//              $("div[data-no!='"+ compSeq +"']").next("ul").attr('class','dropdown-menu');
-//               $("div[data-no='"+ compSeq +"']").next("ul").attr('class','dropdown-menu show');
-//               
-               getBizList(compSeq);
-               getparents(deptSeq);
+            
+               getBizList(compSeq); 																    //quicksilver-nav에있다 nav탭관련이라.
+               getparents(deptSeq); 
             },
             error: function(xhr, status, e){
                console.error(status+":"+e);
             }
       });
 
+      //사원 디테일표시 시  : "QS전자 -> 사업장1 -> 부서1" 이거 표시용 ajax
       $.ajax({
          url: contextPath + "/getdetailEmployeeInfo/" + empSeq + "/" + deptSeq,
             type:"get",
             dataType:"json",
             data:"",
-            success: function(response){
-               console.log($(response.data)[0]);
-               
-               console.log(deptInfoList);
-               
+            success: function(response){         
                let alldept = "";
-               
                for(let i=0; i<deptInfoList.length; i++){
-                  console.log(deptInfoList[deptInfoList.length-(i+1)]);
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
-               }
-               console.log(alldept);
-               
+               }         
                empDetailRender($(response.data)[0], alldept);
-//               empDetailScroll();
+//             empDetailScroll();
             },
             error: function(xhr, status, e){
                console.error(status+":"+e);

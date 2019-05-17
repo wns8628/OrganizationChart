@@ -12,22 +12,23 @@
 
 	<body id="page-top" class="frame">
 		
-	<div class="header">  
-	  <c:import url="/WEB-INF/views/quicksilverboot/includes/header.jsp"/>
-	</div>
-	
-	<div id="wrapper" class="body-container">
-		<div class="navi">
-		  <c:import url="/WEB-INF/views/quicksilverboot/includes/navigation.jsp"/>
+		<div class="header">  
+		  <c:import url="/WEB-INF/views/quicksilverboot/includes/header.jsp"/>
 		</div>
-		<br>	
+		
+		<div id="wrapper" class="body-container">
+			<div class="navi">
+			  <c:import url="/WEB-INF/views/quicksilverboot/includes/navigation.jsp"/>
+			</div>
+			<br>	
 	
 		<!--  -->
-  			   <!-- chart일단뺌 -->
-				<%--
-				  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
-	 			--%>
-		        
+ 			<!-- chart일단뺌 -->
+			<%--
+			  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
+ 			--%>
+ 			
+		    <!-- 검색창 -->    
 	        <div class="main-body">
 				<!-- Navbar Search -->
 				<span class="search-body">
@@ -71,10 +72,9 @@
 				        </c:if>
 			    </span>
 			    <br>	
-			    <!---->
+			    <!-- -->
 			    
 			    <!--  -->
-			    
 				<div class="header2">
 					<c:if test="${langCode eq 'kr'}">
 					<span class="title">● 사원목록 </span>
@@ -96,9 +96,7 @@
 				</div>
 		    	<!--  -->
 				
-		      <!-- Begin Page Content -->
- 
-		         <!-- DataTales Example -->
+		         <!-- 직원테이블 -->
 		         <div class="table-body">
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
                        <thead>
@@ -109,8 +107,7 @@
 	                      <th>부서</th>
 	                      <th>직급</th>
 	                      <th>직책</th>
-	                      <th>사원명</th>
-	                      <th>ID</th>
+	                      <th>사원명(ID)</th>
 	                      <th>전화번호</th>
 	                      <th>휴대전화</th>
 	                    </tr>
@@ -123,7 +120,6 @@
 	                      <th>Position</th>
 	                      <th>Duty</th>
 	                      <th>Name</th>
-	                      <th>ID</th>
 	                      <th>Call Number</th>
 	                      <th>Phone Number</th>
 	                    </tr>
@@ -135,21 +131,15 @@
 	                </table>
                  </div>
                  
-                <div class="page-ajax"> 
-                	<div class="btn-group">
-		                <button type="button" class="pagePre btn btn-sm btn-outline-secondary" >이전</button >
-		                <button type="button" class="pageNext btn btn-sm btn-outline-secondary" data-no="1" data-seq="1" data-kwd="" data-selectSearch="">다음</button>   
-					</div>
-				</div>
-
-				
-				<!-- 디테일  -->
+                 <!-- 페이지네이션 -->
+                 <div class="pagination">
+                 
+                 </div>
+                 
+				<!-- 디테일 사원표시  -->
 				<div class="container-detail">
-				
-				
+					
 				</div>
-
-			
 		 </div>	
 		 
  		<%-- 	 

@@ -55,7 +55,7 @@
 				emp.dept_seq = #{seq}
 			</when>
 		</choose>
-		 limit #{startboard}, #{manyboard};
+		limit #{startboard}, #{manyboard};
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
@@ -312,11 +312,11 @@
 					and d.lang_code = #{langCode}
 					and 
 			  		a.mobile_tel_num like #{kwd}
-			  		ORDER BY empSeq + 0
+			  		ORDER BY empSeq + 0;
 		</when>
 	</choose> 
-		limit #{startboard}, #{manyboard};
-	</select>
+ 					<!-- limit #{startboard}, #{manyboard}; -->
+</select>
 	
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">

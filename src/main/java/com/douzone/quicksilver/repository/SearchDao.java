@@ -17,7 +17,6 @@ public class SearchDao {
 
 	// 검색해서 직원정보 가져옴
 	public List<EmployeesVo> getList(Map<String, Object> map){
-		
 		return sqlSession.selectList("employees.search", map);
 	}
 	

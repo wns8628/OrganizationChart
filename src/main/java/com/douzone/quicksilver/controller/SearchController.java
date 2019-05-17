@@ -1,5 +1,7 @@
 package com.douzone.quicksilver.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.SearchService;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
 @RequestMapping("boot/search")
@@ -31,7 +34,14 @@ public class SearchController {
 		if(langCode == null) {
 			langCode = "kr";
 		}
-		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
+		
+		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, pageNo);
+		
+		session.setAttribute( "searchCode", searchData); //PageNO불필요하겠지?
+		session.setAttribute( "searchCount", searchData.size()); 		
+		
+//		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
+		return JSONResult.success(null);
 	}
 	
 }

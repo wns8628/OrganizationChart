@@ -34,15 +34,16 @@ public class EmployeeService {
 		return employeeDao.get(departmentsvo);
 	}
 	
-	public List<EmployeesVo> getEmpInfo(String seq, String type,String langCode, Integer pageNo){
+	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("type", type);
 		map.put("langCode", langCode);
 		
 		//페이징 ///////////////////////////////////////////////////////////////////////////
-			int manyboard = 50; //몇개당 한페이지할건지
+			int manyboard = 5; //몇개당 한페이지할건지
 			int limitcount = 5; //게시글이 10000개라도 한페이지당 10개의 페이지네이션이나오게
+			int block = 5; //블록 몇개에 한블록할건지
 			
 	     	Integer totalboardcount = paginationdao.getPageinfomation(map); 	
 			
@@ -67,29 +68,42 @@ public class EmployeeService {
 			
 			int startPage = (( (pageNo-1) / limitcount) * limitcount) + 1;				
 			int endPage = startPage + limitcount - 1;
+			if(endPage > totalpage) {
+				endPage = totalpage;
+			}
+			
+	        int blockNum = 0;
+	        int totalBlock =0;
+	        
+	        blockNum = (int)Math.floor((pageNo-1)/ manyboard);
+			
+	        modVal = (totalpage % block);
+			divVal = (totalpage / block);
+			totalBlock = (modVal > 0) ? divVal + 1 : divVal;
 			
 			PaginationVo vo = new PaginationVo();				
 			vo.setTotalboardcount(totalboardcount);
-			vo.setTotalpage(totalpage);
+			vo.setTotalPage(totalpage);
 			vo.setStartboard(startboard);
 			vo.setManyboard(manyboard);
 			vo.setPageNo(pageNo);
 			vo.setStartPage(startPage);
 			vo.setEndPage(endPage);
 			vo.setType(type);
-			
-			map.put("startboard", vo.getStartboard());
-			map.put("manyboard", vo.getManyboard());
-			
-			System.out.println("vo.getStartboard()"+vo.getStartboard());
-			System.out.println("vo.getManyboard()"+vo.getManyboard());
-			
+		    vo.setBlock(blockNum);
+		    vo.setTotalBlock(totalBlock);
+		    
+		    map.put("startboard", startboard);
+		    map.put("manyboard", manyboard);
 		//페이징 ///////////////////////////////////////////////////////////////////////////
+			
+		    
 			Map<String, Object> tableMap = new HashMap<String, Object>();
+			
 			tableMap.put("list", employeeDao.getEmpInfo(map));
 			tableMap.put("page",vo);
 			
-		return employeeDao.getEmpInfo(map);
+		return tableMap;
 	}
 	
 	public int insertEmployee(EmployeesVo employeesVo) {
