@@ -1,3 +1,121 @@
+$.lang = {
+	kr : {
+		comp:{},
+		biz:{},
+		dept:{},
+		etc:{
+			"title" : "조직도",
+			"kr" : "한국어",
+			"en" : "영어",
+			"total" : "전체",
+			"emp" : "사원",
+			"dept" : "부서",
+			"deptName" : "부서명",
+			"position" : "직급",
+			"duty" : "직책",
+			"call" : "전화번호",
+			"phone" : "휴대전화",
+			"search" : "검색",
+			"empList" : "사원목록",
+			"exel" : "엑셀 저장",
+			"empName" : "사원명",
+			"birth" : "생년월일",
+			"totalDept" : "전체부서",
+			"fax" : "팩스번호",
+			"compMail" : "회사메일",
+			"email" : "개인메일",
+			"work" : "담당업무",
+			"adminLogin" : "관리자 로그인",
+			"admin" : "관리자",
+			"empNo" : "사번",
+			"deptNo" : "부서번호",
+			"compDomain" : "회사 홈페이지"
+		}
+	},
+	en : {
+		comp:{},
+		biz:{},
+		dept:{},
+		etc:{
+			"title" : "Organization Chart",
+			"kr" : "Korean",
+			"en" : "English",
+			"total" : "All",
+			"emp" : "Employee",
+			"dept" : "Department",
+			"deptName" : "Department Name",
+			"position" : "Position",
+			"duty" : "Duty",
+			"call" : "Telephone Number",
+			"phone" : "Mobile",
+			"search" : "Search",
+			"empList" : "Employee List",
+			"exel" : "Save Exel",
+			"empName" : "Name",
+			"birth" : "Dirth Date",
+			"totalDept" : "Total Department",
+			"fax" : "Fax",
+			"compMail" : "compmail",
+			"email" : "Email",
+			"work" : "Work",
+			"adminLogin" : "Admin Login",
+			"admin" : "admin",
+			"empNo" : "Employee No",
+			"deptNo" : "Department No",
+			"compDomain" : "Company Domain"
+		}
+	}
+};
+
+var mainLangCode = 'kr';
+
+var langChange = function(){
+	console.log("dd");
+	var langCode = $("#langcode option:selected").val();
+	$("span.comp").each(function(){
+		var name = $.lang[langCode]["comp"][$(this).data("lang")];
+		if (name == null){
+			name = $.lang['kr']["comp"][$(this).data("lang")];
+		}
+		$(this).text(name);
+	});
+	$("span.biz").each(function(){
+		var name = $.lang[langCode]["biz"][$(this).data("lang")];
+		if (name == null){
+			name = $.lang['kr']["biz"][$(this).data("lang")];
+		}
+		$(this).text(name);
+	});
+	$("span.dept").each(function(){
+		var name = $.lang[langCode]["dept"][$(this).data("lang")];
+		if (name == null){
+			name = $.lang['kr']["dept"][$(this).data("lang")];
+		}
+		$(this).text(name);
+	});
+	
+	$(".lang").each(function(){
+		var text = $.lang[langCode]["etc"][$(this).data('lang')];
+		if (text == null){
+			text = $.lang['kr']["etc"][$(this).data('lang')]
+		}
+		$(this).text(text);
+	})
+	mainLangCode = langCode;
+}
+
+var compRender = function(vo){
+	if(mainLangCode == 'kr'){
+		var compName = vo.compName;
+	}else{
+		var compName = vo.compNameEn;
+	}
+	
+	var htmls = "<li class='comp' data-no='"+vo.compSeq+"'><img class='navi-icon' src='"+contextPath+"/assets/images/comp.png'>"+
+				"<span class='comp' data-lang='"+vo.compSeq+"'>"+vo.compName+"</span></li><ul c-no='"+vo.compSeq+"'></ul>";
+	$("div#main-tree>ul").append(htmls);
+}
+
 //부서렌더링 
 var deptRender = function(vo, index, length, last, str){
 	var btn = "";
@@ -7,6 +125,13 @@ var deptRender = function(vo, index, length, last, str){
 	var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 	var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>"
 	var tree = "";
+	
+	if(mainLangCode == 'kr'){
+		var deptName = vo.deptName;
+	}else{
+		var deptName = vo.deptNameEn;
+	}
+	
 	if(vo.deptLevel > 1){
 		if(last == "true"){
 			console.log("1");
@@ -34,11 +159,11 @@ var deptRender = function(vo, index, length, last, str){
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
 	
-   var htmls = "<li class='dept department' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
+   var htmls = "<li class='child dept department' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
-   				"<span>"+vo.deptName+"("+vo.deptEmpCount+")"+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"("+vo.deptEmpCount+")"+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
@@ -53,6 +178,13 @@ var bizRender = function(vo,index, length){
 	var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 	var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>"
 	var tree = "";
+	
+	if(mainLangCode == 'kr'){
+		var bizName = vo.bizName;
+	}else{
+		var bizName = vo.bizNameEn;
+	}
+	
 	if(index+1 == length){
 		tree = lastChild;
 	}else{
@@ -64,10 +196,10 @@ var bizRender = function(vo,index, length){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
-	var htmls = "<li class='dept biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
+	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
 				"<img class='navi-icon close' alt='' src='"+contextPath+"/assets/images/close.png'>"+
-				"<span>"+vo.bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
+				"<span class='biz' c-no='"+vo.compSeq+"' data-lang='"+vo.bizSeq+"'>"+bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
 
@@ -82,6 +214,8 @@ var getList = function(seq, last, str){
     	  console.log(response.data);
     	 $(response.data).each(function(index, vo){
     		  deptRender(vo, index, response.data.length, last, str);    
+    		  $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+              $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
          });
     },
       error: function(xhr, status, e){
@@ -109,6 +243,27 @@ var getListNavPoint = function(seq, last, str, pointSeq){
       }
    });
 }
+
+var getCompList = function(){
+	 $.ajax({
+	      url: contextPath+"/admin/getComp",
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	         $(response.data).each(function(index, vo){
+	            compRender(vo);
+	            $.lang.kr.comp[vo.compSeq] = vo.compName;
+	            $.lang.en.comp[vo.compSeq] = vo.compNameEn;
+	         });
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	      
+	   });
+}
+
 //사업장렌더 ajax
 var getBizList = function(seq){
 	$.ajax({
@@ -120,6 +275,8 @@ var getBizList = function(seq){
 	      success: function(response){
 	         $(response.data).each(function(index, vo){
 	            bizRender(vo, index, response.data.length);
+	            $.lang.kr.biz[vo.bizSeq] = vo.bizName;
+	            $.lang.en.biz[vo.bizSeq] = vo.bizNameEn;
 	         }); 
 	      },
 	      error: function(xhr, status, e){
@@ -129,11 +286,22 @@ var getBizList = function(seq){
 }
 
 $(function(){
+	getCompList();
+	
+	$("#langcode").change(function(){
+		langChange();
+		console.log($.lang);
+	});
+	
 	//회사클릭
 	$(document).on("click", "li.comp span", function(event){
 	   $parent = $(this).parent();
 	   var seq = $parent.attr("data-no");	  
-	   if($parent.next().children().length > 0){		   
+	   if($parent.next().children().length > 0){	
+		   $("ul[c-no='"+seq+"'] li.biz").each(function(){
+				delete $.lang.kr.biz[$(this).data("no")];
+				delete $.lang.en.biz[$(this).data("no")];
+			});
 		   $parent.next().children().remove();
 	   }else{
 		   getBizList(seq);
@@ -159,14 +327,11 @@ $(function(){
    });
    
    //여닫이
-   $(document).on("click", "li.dept img.open-btn", function(event){		
+   $(document).on("click", "li.child img.open-btn", function(event){		
 	   $parent = $(this).parent().parent();
 	   var seq = $parent.attr("data-no");
-	   console.log(seq);
 	   if($parent.children().length >= 2 ){
 		   var str = $parent.children(".prev").html();
-		   
-		   console.log($parent.children(".prev"));
 		   if($parent.children('.wrap').children('img.last').length > 0){
 			   getList(seq, "true" , str);
 		   }else{
@@ -184,8 +349,22 @@ $(function(){
 	   $(this).next().next().children('.open').show();
 	   $(this).next().next().children('.close').hide();
    });
-   $(document).on("click", "li.dept img.close-btn", function(event){
+   $(document).on("click", "li.child img.close-btn", function(event){
 	   $parent = $(this).parent().parent();
+	   var seq = $parent.attr("data-no");
+	   var str = "";
+		
+		if(seq > 10000000){
+			str = "b-no='"+seq+"'";
+		}else{
+			str = "d-no='"+seq+"'";
+		}
+		
+		$("ul["+str+"]>li.dept").each(function(){
+			delete $.lang.kr.dept[$(this).data("no")];
+			delete $.lang.en.dept[$(this).data("no")];
+		});
+	   
 	   $parent.next().children().remove();
 	   $(this).hide();
 	   $(this).prev().show();

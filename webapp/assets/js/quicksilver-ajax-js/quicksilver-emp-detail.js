@@ -4,41 +4,41 @@ var empDetailRender = function(vo, alldept){
    
    let htmls ="    <table class=\"detail\">\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>사원명(ID)</th>\r\n" + 
+            "                    <th class='lang' data-lang='empName'>사원명(ID)</th>\r\n" + 
             "                    <td>"+ vo.empName + "("+vo.loginId+")</td>\r\n" + 
-            "                    <th>생년월일</th>\r\n" + 
+            "                    <th class='lang' data-lang='birth'>생년월일</th>\r\n" + 
             "                    <td>"+ vo.bDay +"</td>\r\n" + 
             "                <tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>직급</th>\r\n" + 
+            "                    <th class='lang' data-lang='position'>직급</th>\r\n" + 
             "                    <td>"+vo.positionCode+"</td>\r\n" + 
-            "                    <th>직책</th>\r\n" + 
+            "                    <th class='lang' data-lang='duty'>직책</th>\r\n" + 
             "                    <td>"+ vo.dutyCode +"</td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>전체부서</th>\r\n" + 
+            "                    <th class='lang' data-lang='totalDept'>전체부서</th>\r\n" + 
             "                    <td colspan=\"3\">"+ vo.compName +" > "+ alldept + vo.deptName+"</td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>휴대전화</th>\r\n" + 
+            "                    <th class='lang' data-lang='phone'>휴대전화</th>\r\n" + 
             "                    <td colspan=\"3\">"+vo.mobileTelNum+"</td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>전화번호</th>\r\n" + 
+            "                    <th class='lang' data-lang='call'>전화번호</th>\r\n" + 
             "                    <td>"+vo.homeTelNum+"</td>\r\n" + 
-            "                    <th>팩스번호</th>\r\n" + 
+            "                    <th class='lang' data-lang='fax'>팩스번호</th>\r\n" + 
             "                    <td>"+vo.faxNum+"</td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>회사 홈페이지</th>\r\n" + 
+            "                    <th class='lang' data-lang='compDomain'>회사 홈페이지</th>\r\n" + 
             "                    <td colspan=\"3\">"+vo.compDomain+"</td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>개인메일</th>\r\n" + 
+            "                    <th class='lang' data-lang='email'>개인메일</th>\r\n" + 
             "                    <td colspan=\"3\">"+vo.emailAddr+"</td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
-            "                    <th>담당업무</th>\r\n" + 
+            "                    <th class='lang' data-lang='work'>담당업무</th>\r\n" + 
             "                    <td colspan=\"3\">"+vo.mainWork+"</td>\r\n" + 
             "                </tr>\r\n" + 
             "            </table>\r\n" + 

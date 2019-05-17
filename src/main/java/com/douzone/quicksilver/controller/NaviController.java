@@ -30,6 +30,12 @@ public class NaviController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/getComp")
+	public JSONResult getcompList() {
+		return JSONResult.success(naviService.getCompList());
+	}
+	
+	@ResponseBody
 	@RequestMapping("/getBiz/{seq}")
 	public JSONResult getBizList(@PathVariable String seq) {
 		return JSONResult.success(naviService.getBizList(seq));
