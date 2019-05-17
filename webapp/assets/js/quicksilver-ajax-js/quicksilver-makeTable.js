@@ -1,4 +1,3 @@
-//테이블렌더링-------------------------------------------------------------------------------
 //테이블에부서이름뿌리기-적용x
 var renderTableDepartmentName = function(departmentName,departmentNo){
 	   $(".dept").empty();
@@ -16,6 +15,7 @@ var renderLeader = function(leader){
 					"</div>";			
 	   $(".dept").append(htmlLeader);
 }
+//테이블렌더링-------------------------------------------------------------------------------
 let tableRender = function(vo){
 	let htmls = 			"	<tr class=\"row\">\r\n" + 
 	"								<td>"+vo.empSeq+"</td>\r\n"+
@@ -76,8 +76,9 @@ let pageRender = function(paging){
 	console.log(paging);
 	
 	$(".pagination").empty();																				 //페이징에 필요한 객체내부를 비워줌.
+	$(".pagination-info").empty();
      //paging.pageNo != 1 
-	if(paging.block != 0 && paging.totalBlock != 1){   													 //페이지가 1페이지 가아니면
+	if(paging.block != 0 && paging.totalBlock != 1){   													 	 //페이지가 1페이지 가아니면
         	$(".pagination").append("<li class=\"goFirstPage page-view\"><a>처음</a></li>");       			 //첫페이지로가는버튼 활성화
         }else{
         	$(".pagination").append("<li class=\"disabled page-view\"><a>처음</a></li>");       				 //첫페이지로가는버튼 비활성화
@@ -95,8 +96,7 @@ let pageRender = function(paging){
     	}else{
     		$(".pagination").append("<li class=\"goPage page-view\" data-page=\""+i+"\"><a>"+i+"</a></li>"); //버튼 활성화
     	}
-    }
-    
+    }    
     if((paging.block+1) < paging.totalBlock){ 
 		$(".pagination").append("<li class=\"page-view\"><a>...</a></li>"); 
 		$(".pagination").append("<li class=\"goLastPage page-view\"><a>"+paging.totalPage+"</a></li>");
@@ -107,15 +107,39 @@ let pageRender = function(paging){
     }else{
     	$(".pagination").append("<li class=\"disabled page-view\"><a>다음</a></li>");     					 //다음페이지버튼 비활성화
     }
-    //paging.pageNo < paging.totalPage
+
     if((paging.block+1) < paging.totalBlock && paging.totalBlock != 1){             						 //현재페이지가 전체페이지보다 작을때
 		$(".pagination").append("<li class=\"goLastPage page-view\"><a>맨끝</a></li>");    					 //마지막페이지로 가기 버튼 활성화
 	}else{
 		$(".pagination").append("<li class=\"disabled page-view\"><a>맨끝</a></li>");        					 //마지막페이지로 가기 버튼 비활성화
 	}
     
-    
+    $(".pagination-info").append("결과 : 총 " + paging.totalboardcount + "명 ");
+    if(paging.totalBlock != 1){  
+    	$(".page-point").css("display","inline");															 //페이지가많으면 페이지검색가능하게함 
+    }else{
+    	$(".page-point").css("display","none");																 
+    }
 }
+
+//page-point에 오직 숫자값만 입력받을수있도록한다.
+let onlyNumber = function(event){
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		return false;
+}
+let removeChar = function(event){
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+}
+//-----------------------------------
 
 //검색과 부서클릭 구분 Flag
 let pageFlageMakeTable = function(pageNo){
@@ -148,5 +172,28 @@ $(function(){
 	   $(document).on("click", ".goLastPage", function(event){	
 		   	var pageNo = paging.totalPage;
 		   	pageFlageMakeTable(pageNo);
-	   });	   
+	   });
+	   
+	   //페이지검색
+	   $(document).on("focus", ".page-point", function (event) {
+			$('.page-point').keydown( function(event) {			
+				var keyID = (event.which) ? event.which : event.keyCode;
+				 // page-point에서 숫자를 눌렀을때
+				if( ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )){ 
+					
+					var pageNo = $(".page-point").val();
+					console.log($(".page-point").val());
+					pageFlageMakeTable(pageNo);
+				}
+			});
+			$('.page-point').keyup( function(event) {			
+				var keyID = (event.which) ? event.which : event.keyCode;
+				if( ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )){ 
+					// page-point에서 숫자를 눌렀을때
+					var pageNo = $(".page-point").val();
+					console.log($(".page-point").val());
+					pageFlageMakeTable(pageNo);
+				}
+			});
+	   });
 });

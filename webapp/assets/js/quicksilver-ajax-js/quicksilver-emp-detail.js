@@ -110,6 +110,7 @@ var getparents = function(deptSeq){
    });
 }
 
+let fixScroll=0;																					   //스크롤위해
 $(function(){
 	//테이블 행 클릭
 	$(document).on("click", "tbody tr.row", function(event){   
@@ -150,7 +151,12 @@ $(function(){
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
                }         
                empDetailRender($(response.data)[0], alldept);
-//             empDetailScroll();
+               
+               //부서번호다를떄만
+               if(fixScroll != deptSeq){
+            	   fixScroll = deptSeq;
+            	   empDetailScroll(fixScroll);
+               }
             },
             error: function(xhr, status, e){
                console.error(status+":"+e);

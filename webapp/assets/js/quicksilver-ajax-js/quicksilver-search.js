@@ -4,6 +4,7 @@ var pageFlag;
 //검색시 세션에 결과저장 ajax
 var getSearchData = function(url) {	
 	pageFlag = 1;															//pageFlag=1 : 검색을 한것임 
+	$('.page-point').val('');												//검색시 page-point 초기화 
 	$.ajax({
 	url: contextPath + url,
       type:"get",

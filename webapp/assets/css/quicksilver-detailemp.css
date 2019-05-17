@@ -219,12 +219,20 @@ table.detail td {
 .page-position{
 	float:right;
 }
-/* .page-ajax{
-	float:right;
-    width: 77px;
-} */
+.pagination-group{
+    float: right;
+    text-align: right;
+}
 .pagination{
-	float:right;	
+	float:right;
+    margin-bottom: 5px;	
+}
+.pagination-info{
+	clear:both;
+}
+.page-point{
+	display:none;
+    text-align: right;
 }
 .page-view{
     font-size: small;

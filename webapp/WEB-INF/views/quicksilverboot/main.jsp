@@ -85,10 +85,17 @@
                  </div>
                  
                  <!-- 페이지네이션 -->
-                 <div class="pagination">
-                 
+                 <div class="pagination-group">
+	                <div class="pagination">
+	                 	
+	                </div>
+	                <div class="pagination-info">
+	                 	
+	                </div>                 
+                 	<input type='text' name='page-point' onkeydown='return onlyNumber(event)' placeholder='pageNo'class='page-point' size='5' maxlength='5' />
                  </div>
-                 
+                 <!--  -->
+				
 				<!-- 디테일 사원표시  -->
 				<div class="container-detail">
 					
