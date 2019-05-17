@@ -36,8 +36,7 @@ public class MainBoot {
 	}
 	
 	@RequestMapping("/boot")
-	public String main(Model model, HttpSession session) {
-		
+	public String main(Model model) {
 		model.addAttribute("companyList", naviService.getCompList());
 
 		//차트관련 

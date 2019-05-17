@@ -18,7 +18,8 @@ public class NaviController {
 	private NaviService naviService;
 	
 	@RequestMapping("/main3")
-	public String main3(Model model, HttpSession session) {
+	public String main3(Model model) {
+		model.addAttribute("companyList", naviService.getCompList());
 		return "main/index";
 	}
 	
