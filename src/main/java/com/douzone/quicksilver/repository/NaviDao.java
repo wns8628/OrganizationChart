@@ -45,16 +45,16 @@ public class NaviDao {
 		return sqlSession.selectList("navigation.getDeptByPno", parents);
 	}
 
-	public List<CompanyVo> getCompList(String langCode){
-		return sqlSession.selectList("navigation.getCompList", langCode);
+	public List<CompanyVo> getCompList(){
+		return sqlSession.selectList("navigation.getCompList");
 	}
 	
-	public List<BizVo> getBizList(Map<String, Object> map){
-		return sqlSession.selectList("navigation.getBizList", map);
+	public List<BizVo> getBizList(String seq){
+		return sqlSession.selectList("navigation.getBizList", seq);
 	}
 	
-	public List<DepartmentsVo> getDeptList(Map<String, Object> map){
-		return sqlSession.selectList("navigation.getDeptList", map);
+	public List<DepartmentsVo> getDeptList(String seq){
+		return sqlSession.selectList("navigation.getDeptList", seq);
 	}
 	
 	public List<EmployeesVo> getEmpInfo(Map<String, Object> map){

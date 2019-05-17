@@ -421,22 +421,22 @@ $(function(){
 <body>
 	<div class="frame">
 		<div class="header">
-			<span>조직도</span>
+			<span class='lang' data-lang='title'>조직도</span>
 		 	<select id="langcode">
-		 		<option value="kr">한국어
-		 		<option value="en">영어
+		 		<option class='lang' value="kr" data-lang='kr'>한국어
+		 		<option class='lang' value="en" data-lang='en'>영어
 		 	</select>
 		</div>
 		<div class="container">
 			<div id="main-tree" class="tree">
 				<ul>
-				<c:forEach items="${companyList }" var="vo">
-				<li class='comp' data-no='${vo.compSeq }'>
-					<img class="navi-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/comp.png">
-					<span>${vo.compName }</span>
-				</li>
-				<ul c-no='${vo.compSeq }'></ul>
-				</c:forEach>
+<%-- 				<c:forEach items="${companyList }" var="vo"> --%>
+<%-- 				<li class='comp' data-no='${vo.compSeq }'> --%>
+<%-- 					<img class="navi-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/comp.png"> --%>
+<%-- 					<span>${vo.compName }</span> --%>
+<!-- 				</li> -->
+<%-- 				<ul c-no='${vo.compSeq }'></ul> --%>
+<%-- 				</c:forEach> --%>
 				</ul>
 			</div>
 			<br>
@@ -444,34 +444,34 @@ $(function(){
 			<span class="select-box">
 				<label for="select"></label>
 				<select id="select">
-					<option selected>전체</option>
-					<option>사원</option>
-					<option>부서명</option>
-					<option>직급</option>
-					<option>직책</option>
-					<option>전화번호</option>
-					<option>휴대전화</option>
+					<option class='lang' data-lang='total' selected>전체</option>
+					<option class='lang' data-lang='emp'>사원</option>
+					<option class='lang' data-lang='deptName'>부서명</option>
+					<option class='lang' data-lang='position'>직급</option>
+					<option class='lang' data-lang='duty'>직책</option>
+					<option class='lang' data-lang='call'>전화번호</option>
+					<option class='lang' data-lang='phone'>휴대전화</option>
 				</select>
 			</span>
 				<input type="text" class="input-text" placeholder="검색어를 입력하세요"/>
-				<button type="submit" class="sch-submit">검색</button>
+				<button type="submit" class="sch-submit lang" data-lang='search'>검색</button>
 			</span>
 			<br>	
 			<div class="header2">
-				<span class="title"> 사원목록 </span>
+				<span class="title lang" data-lang='empList'> 사원목록 </span>
 				<span class="exelbtn">
-					<button type= "submit" class="exel-submit">엑셀 저장</button>
+					<button type= "submit" class="exel-submit lang" data-lang='exel'>엑셀 저장</button>
 				</span>
 			</div>
 			<table class="member">
 				<thead>
 					<tr>
-						<th>부서</th>
-						<th>직급</th>
-						<th>직책</th>
-						<th>사원명(ID)</th>
-						<th>전화번호</th>
-						<th>휴대전화</th>
+						<th class='lang' data-lang='dept'>부서</th>
+						<th class='lang' data-lang='position'>직급</th>
+						<th class='lang' data-lang='duty'>직책</th>
+						<th class='lang' data-lang='empName'>사원명(ID)</th>
+						<th class='lang' data-lang='call'>전화번호</th>
+						<th class='lang' data-lang='phone'>휴대전화</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -494,41 +494,41 @@ $(function(){
 			<br>
 			<table class="detail">
 				<tr>
-					<th>사원명(ID)</th>
+					<th class='lang' data-lang='empName'>사원명(ID)</th>
 					<td>김 아무개</td>
-					<th>생년월일</th>
+					<th class='lang' data-lang='birth'>생년월일</th>
 					<td>1992-03-02</td>
 				<tr>
 				<tr>
-					<th>직급</th>
+					<th class='lang' data-lang='position'>직급</th>
 					<td>사원</td>
-					<th>직책</th>
+					<th class='lang' data-lang='duty'>직책</th>
 					<td>직책2</td>
 				</tr>
 				<tr>
-					<th>전체부서</th>
+					<th class='lang' data-lang='totalDept'>전체부서</th>
 					<td colspan="3">quicksilver > 인사</td>
 				</tr>
 				<tr>
-					<th>휴대전화</th>
+					<th class='lang' data-lang='phone'>휴대전화</th>
 					<td colspan="3">010-0101-0101</td>
 				</tr>
 				<tr>
-					<th>전화번호</th>
+					<th class='lang' data-lang='call'>전화번호</th>
 					<td>02-123-1234</td>
-					<th>팩스번호</th>
+					<th class='lang' data-lang='fax'>팩스번호</th>
 					<td>1111-1111-111111</td>
 				</tr>
 				<tr>
-					<th>회사메일</th>
+					<th class='lang' data-lang='compMail'>회사메일</th>
 					<td colspan="3">kim@quicksilver.com</td>
 				</tr>
 				<tr>
-					<th>개인메일</th>
+					<th class='lang' data-lang='email'>개인메일</th>
 					<td colspan="3">kim@gmail.com</td>
 				</tr>
 				<tr>
-					<th>담당업</th>
+					<th class='lang' data-lang='work'>담당업</th>
 					<td colspan="3">인적자원관리</td>
 				</tr>
 			</table>

@@ -3,39 +3,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="navigation">
-	<select id="getCompList" resultType="companyvo">
-		select distinct b.comp_seq as compSeq, b.group_seq as groupSeq, b.comp_name as compName, b.lang_code as langCode
-		from t_co_comp a, t_co_comp_multi b
-		where a.group_seq = b.group_seq
-		and b.lang_code = #{langCode}
-		and a.use_yn = 'Y'
-		and b.use_yn = 'Y'
-		and b.group_seq = 'demo'
-		order by b.comp_seq + 0;
+	<select id="getCompList" parameterType="string" resultType="companyvo">
+	select a.comp_seq as compSeq, a.group_seq as groupSeq, a.comp_name as compName, b.comp_name as compNameEn
+	from	(select distinct b.comp_seq, b.group_seq, b.comp_name
+			from t_co_comp a, t_co_comp_multi b
+			where a.group_seq = b.group_seq
+			and b.lang_code = 'kr'
+			and a.use_yn = 'Y'
+			and b.use_yn = 'Y'
+			and b.group_seq = 'demo') a
+	left outer join t_co_comp_multi b
+	on a.comp_seq = b.comp_seq
+	and b.lang_code = 'en'
+	order by a.comp_seq + 0
 	</select>
 	
 	<select id="getBizList" parameterType="string" resultType="bizvo">
-		select biz_seq as bizSeq, lang_code as langCode, group_seq as groupSeq, comp_seq as compSeq,
-			biz_name as bizName, (select count(*) from t_co_dept a where biz_seq = biz_seq) as childCount
-		from t_co_biz_multi
-		where lang_code = #{langCode}
-		and use_yn = 'Y'
-		and group_seq = 'demo'
-		and comp_seq = #{seq}
+		select a.biz_seq as bizSeq, a.group_seq as groupSeq, a.comp_seq as compSeq, a.biz_name as bizName,
+				a.childCount as childCount, b.biz_name as bizNameEn
+		from
+			(select biz_seq, group_seq, comp_seq,
+				biz_name, (select count(*) from t_co_dept a where biz_seq = biz_seq) as childCount
+			from t_co_biz_multi
+			where lang_code = 'kr'
+			and use_yn = 'Y'
+			and group_seq = 'demo'
+			and comp_seq = #{seq})a
+		left outer join t_co_biz_multi b
+		on a.biz_seq = b.biz_seq
+		and b.lang_code = 'en'
 	</select>
 	
-	<select id="getDeptList" resultType="departmentsvo">
-	    select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
-	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, b.dept_name as deptName, a.dept_level as deptLevel, 
-	    	 (select count(*) from t_co_dept c where parent_dept_seq = a.dept_seq) as childCount,
-	    	 (select count(emp_seq) from t_co_emp_dept where dept_seq = a.dept_seq) as deptEmpCount
-		from t_co_dept a, t_co_dept_multi b
-		where a.dept_seq = b.dept_seq
-		and b.lang_code = #{langCode}
-		and a.use_yn = 'Y'
-		and b.use_yn = 'Y'
-		and parent_dept_seq = #{seq}
-		order by a.dept_seq + 0;
+	<select id="getDeptList" parameterType="string" resultType="departmentsvo">
+		select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
+	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, a.dept_name as deptName, a.dept_level as deptLevel, 
+	    	 a.childCount as childCount, a.deptEmpCount as deptEmpCount, c.dept_name as deptNameEn
+		from (select a.dept_seq, a.group_seq, a.comp_seq,
+		    	 a.biz_seq, a.parent_dept_seq, b.dept_name, a.dept_level, 
+		    	 (select count(*) from t_co_dept c where parent_dept_seq = a.dept_seq) as childCount,
+		    	 (select count(emp_seq) from t_co_emp_dept where dept_seq = a.dept_seq) as deptEmpCount
+			from t_co_dept a, t_co_dept_multi b
+			where a.dept_seq = b.dept_seq
+			and b.lang_code = 'kr'
+			and a.use_yn = 'Y'
+			and b.use_yn = 'Y'
+			and parent_dept_seq = #{seq}) a
+		left outer join t_co_dept_multi c
+		on a.dept_seq = c.dept_seq
+		and c.lang_code = 'en'
+		order by a.dept_seq + 0
 	</select>
 
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">

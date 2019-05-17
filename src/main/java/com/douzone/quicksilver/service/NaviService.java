@@ -54,22 +54,16 @@ public class NaviService {
 		return naviDao.getDeptByPno(parents);
 	}
 	
-	public List<CompanyVo> getCompList(String langCode){
-		return naviDao.getCompList(langCode);
+	public List<CompanyVo> getCompList(){
+		return naviDao.getCompList();
 	}
 	
-	public List<BizVo> getBizList(String seq, String langCode){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("seq", seq);
-		map.put("langCode", langCode);
-		return naviDao.getBizList(map);
+	public List<BizVo> getBizList(String seq){
+		return naviDao.getBizList(seq);
 	}
 	
-	public List<DepartmentsVo> getDeptList(String seq, String langCode){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("seq", seq);
-		map.put("langCode", langCode);
-		return naviDao.getDeptList(map);
+	public List<DepartmentsVo> getDeptList(String seq){
+		return naviDao.getDeptList(seq);
 	}
 	
 	public List<EmployeesVo> getEmpInfo(String seq, String langCode){

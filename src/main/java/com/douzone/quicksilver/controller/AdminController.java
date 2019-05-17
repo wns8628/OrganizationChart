@@ -33,12 +33,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/popup")
-	public String popup(Model model, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		model.addAttribute("companyList", naviService.getCompList(langCode));
+	public String popup() {
+//		model.addAttribute("companyList", naviService.getCompList(langCode));
 		return "admin/popup";
 	}
 	
@@ -130,25 +126,22 @@ public class AdminController {
 	
 	
 	//////navi
+	@ResponseBody
+	@RequestMapping("/getComp")
+	public JSONResult getCompList() {
+		return JSONResult.success(naviService.getCompList());
+	}
 	
 	@ResponseBody
 	@RequestMapping("/getBiz/{seq}")
-	public JSONResult getBizList(@PathVariable String seq, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		return JSONResult.success(naviService.getBizList(seq, langCode));
+	public JSONResult getBizList(@PathVariable String seq) {
+		return JSONResult.success(naviService.getBizList(seq));
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getDept/{seq}")
-	public JSONResult getDeptList(@PathVariable String seq, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		return JSONResult.success(naviService.getDeptList(seq, langCode));
+	public JSONResult getDeptList(@PathVariable String seq) {
+		return JSONResult.success(naviService.getDeptList(seq));
 	}
 	
 	@ResponseBody
