@@ -6,11 +6,5 @@
 
 <!-- 조직도 nav -->
 <ul>
-	<c:forEach items="${companyList }" var="vo">
-	<li class='comp' data-no='${vo.compSeq }'>
-		<img class="navi-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/comp.png">
-		<span>${vo.compName }</span>
-	</li>
-	<ul c-no='${vo.compSeq }'></ul>
-	</c:forEach>
+	
 </ul>

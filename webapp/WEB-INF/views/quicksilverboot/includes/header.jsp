@@ -6,61 +6,34 @@
 
 	 <nav class="">
 	 	<!-- 메인로고 -->
- 		<c:if test="${langCode eq 'kr' }">
-	    <a class="main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver (조직도)</a>
-	    </c:if>
- 		<c:if test="${langCode eq 'en' }">
-	    <a class="main-logo" href="${pageContext.request.contextPath }/boot">Quick Silver (Organization Chart)</a>
-	    </c:if>
+	    <a class="main-logo lang" data-lang='title' href="${pageContext.request.contextPath }/boot">Quick Silver (조직도)</a>
 	    
 		<!-- 다국어 -->
-		 <c:choose>
-			<c:when test="${ langCode eq 'kr' or empty langCode }" >
 				<div class="btn-group btn-group-toggle multi" data-toggle="">
-				  <a href="${pageContext.servletContext.contextPath }/boot/kr"
+				  <%-- <a href="${pageContext.servletContext.contextPath }/boot/kr"
 				     class="btn btn-secondary btn-sm active">
 				    <input type="radio" name="options" id="option1" autocomplete="off" checked>한국어
 				  </a>
 				  <a href="${pageContext.servletContext.contextPath }/boot/en"
 				     class="btn btn-secondary btn-sm">
 				    <input type="radio" name="options" id="option2" autocomplete="off">영어 
-				  </a>
+				  </a> --%>
+				  <select id="langcode">
+		 			<option class='lang' value="kr" data-lang='kr'>한국어
+		 			<option class='lang' value="en" data-lang='en'>영어
+		 		  </select>
 				</div>			
-			</c:when>		
-			<c:when test="${ langCode eq 'en' }" >
-				<div class="btn-group btn-group-toggle multi" data-toggle="">
-				  <a href="${pageContext.servletContext.contextPath }/boot/kr"
-				     class="btn btn-secondary btn-sm">
-				    <input type="radio" name="options" id="option1" autocomplete="off">Korean
-				  </a>
-				  <a href="${pageContext.servletContext.contextPath }/boot/en"
-				     class="btn btn-secondary btn-sm active">
-				    <input type="radio" name="options" id="option2" autocomplete="off" checked>English 
-				  </a>
-				</div>			
-			</c:when>	
-		</c:choose>
 		<!--  -->
 
 	    <!-- 관리자로그인 -->
 	    <ul class="navbar-nav ml-auto ml-md-0">
 	      <li class="nav-item">   
-	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm">
-		        <c:if test="${langCode eq 'kr' }">
+	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm lang" data-lang='adminLogin'>
 		       		 관리자 로그인
-		       	</c:if>
-		        <c:if test="${langCode eq 'en' }">
-		       		 Admin Login
-		       	</c:if>
 		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
 					  <div id="formContent" >
 						    <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
-							<c:if test="${langCode eq 'kr' }">
-					       	 	 <h2>관리자</h2>
-					        </c:if>
-							<c:if test="${langCode eq 'en' }">
-					       		 <h2>Admin</h2>
-					        </c:if>
+					       	 	 <h2 class='lang' data-lang='admin'>관리자</h2>
 						    <div class="fadeIn first">
 						    </div>		
 						    <!-- Login Form -->

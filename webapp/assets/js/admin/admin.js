@@ -26,7 +26,8 @@ $.lang = {
 			"fax" : "팩스번호",
 			"compMail" : "회사메일",
 			"email" : "개인메일",
-			"work" : "담당업무"
+			"work" : "담당업무",
+			"compDomain" : "회사 홈페이지"
 		}
 	},
 	en : {
@@ -276,9 +277,7 @@ var getEmpInfo = function(seq){
 
 $(function() {
 	getCompList();
-	console.log($.a);
 	$("#langcode").change(function(){
-		console.log("dd");
 		langChange();
 	});
 	
