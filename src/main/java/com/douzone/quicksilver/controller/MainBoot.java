@@ -36,14 +36,8 @@ public class MainBoot {
 	}
 	
 	@RequestMapping("/boot")
-	public String main(Model model, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-			session.setAttribute("langCode", langCode);
-		}
-		
-		model.addAttribute("companyList", naviService.getCompList(langCode));
+	public String main(Model model) {
+		model.addAttribute("companyList", naviService.getCompList());
 
 		//차트관련 
 //		model.addAttribute("mainInfo", mainService.getMainInfo());

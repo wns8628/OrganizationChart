@@ -76,8 +76,8 @@ let pageRender = function(paging){
 	console.log(paging);
 	
 	$(".pagination").empty();																				 //페이징에 필요한 객체내부를 비워줌.
-
-	if(paging.pageNo != 1){   																				 // 페이지가 1페이지 가아니면
+     //paging.pageNo != 1 
+	if(paging.block != 0 && paging.totalBlock != 1){   													 //페이지가 1페이지 가아니면
         	$(".pagination").append("<li class=\"goFirstPage page-view\"><a>처음</a></li>");       			 //첫페이지로가는버튼 활성화
         }else{
         	$(".pagination").append("<li class=\"disabled page-view\"><a>처음</a></li>");       				 //첫페이지로가는버튼 비활성화
@@ -107,7 +107,8 @@ let pageRender = function(paging){
     }else{
     	$(".pagination").append("<li class=\"disabled page-view\"><a>다음</a></li>");     					 //다음페이지버튼 비활성화
     }
-    if(paging.pageNo < paging.totalPage){                													 //현재페이지가 전체페이지보다 작을때
+    //paging.pageNo < paging.totalPage
+    if((paging.block+1) < paging.totalBlock && paging.totalBlock != 1){             						 //현재페이지가 전체페이지보다 작을때
 		$(".pagination").append("<li class=\"goLastPage page-view\"><a>맨끝</a></li>");    					 //마지막페이지로 가기 버튼 활성화
 	}else{
 		$(".pagination").append("<li class=\"disabled page-view\"><a>맨끝</a></li>");        					 //마지막페이지로 가기 버튼 비활성화

@@ -363,7 +363,7 @@
                    and b.comp_seq = f.comp_seq
                    and a.emp_seq = g.emp_seq
                    and b.comp_seq = h.comp_seq
-                   and h.lang_code = 'kr'
+                   and h.lang_code = #{langCode}
 				   and e.lang_code = #{langCode}
 				   and d.lang_code = #{langCode}
 				   and g.lang_code = #{langCode})emp    

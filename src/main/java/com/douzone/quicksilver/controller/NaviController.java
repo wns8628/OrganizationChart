@@ -18,12 +18,8 @@ public class NaviController {
 	private NaviService naviService;
 	
 	@RequestMapping("/main3")
-	public String main3(Model model, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		model.addAttribute("companyList", naviService.getCompList(langCode));
+	public String main3(Model model) {
+		model.addAttribute("companyList", naviService.getCompList());
 		return "main/index";
 	}
 	
@@ -35,22 +31,14 @@ public class NaviController {
 	
 	@ResponseBody
 	@RequestMapping("/getBiz/{seq}")
-	public JSONResult getBizList(@PathVariable String seq, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		return JSONResult.success(naviService.getBizList(seq, langCode));
+	public JSONResult getBizList(@PathVariable String seq) {
+		return JSONResult.success(naviService.getBizList(seq));
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getDept/{seq}")
-	public JSONResult getDeptList(@PathVariable String seq, HttpSession session) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		return JSONResult.success(naviService.getDeptList(seq, langCode));
+	public JSONResult getDeptList(@PathVariable String seq) {
+		return JSONResult.success(naviService.getDeptList(seq));
 	}
 	
 	@ResponseBody
