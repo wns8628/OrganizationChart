@@ -43,6 +43,11 @@ var makeTable = function(url) {
 	      success: function(response){
 	         $(response.data.list).each(function(index, vo){
 	        	 tableRender(vo);
+//	        	 $.lang.kr.dept[vo.empSeq] = {
+//	        			 "deptName":vo.deptName,
+//	        			 "position"
+//	        			 }
+//	             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
 	         });
 	         paging = response.data.page; 
 	         pageRender(paging);
