@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.douzone.quicksilver.repository.EmployeeDao;
 import com.douzone.quicksilver.repository.PaginationDao;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DutyPositionVo;
 import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 import com.douzone.quicksilver.vo.PaginationVo;
@@ -121,6 +122,8 @@ public class EmployeeService {
 		return employeeDao.insert(employeesVo);
 	}
 	
-	
+	public List<DutyPositionVo> getDpAll(){
+		return employeeDao.getDpAll();
+	}
 
 }
