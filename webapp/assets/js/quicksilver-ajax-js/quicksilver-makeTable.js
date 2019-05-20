@@ -90,6 +90,11 @@ let pageRender = function(paging){
         	$(".pagination").append("<li class=\"disabled page-view\"><a>이전</a></li>");       				 //뒤로가기버튼 비활성화
     }
 	 
+//    if((paging.block+1) >= paging.totalBlock){															 //맨끝페이지에서 1페이지...보이게 근데없는게더나은듯..
+//		$(".pagination").append("<li class=\"goLastPage page-view\"><a>1</a></li>");
+//		$(".pagination").append("<li class=\"page-view\"><a>...</a></li>"); 
+//    }
+    
     for(var i = paging.startPage ; i <= paging.endPage ; i++){        										 //시작페이지부터 종료페이지까지 반복문
     	if(paging.pageNo == i){                            													 //현재페이지가 반복중인 페이지와 같다면
             $(".pagination").append("<li class=\"active page-view\"><a>"+i+"</a></li>");    				 //버튼 비활성화
@@ -119,6 +124,11 @@ let pageRender = function(paging){
     	$(".page-point").css("display","inline");															 //페이지가많으면 페이지검색가능하게함 
     }else{
     	$(".page-point").css("display","none");																 
+    }
+    if(paging.totalboardcount < 5){
+    	$(".table-body").css("min-height", "0");															 //검색결과가 5개미만이면 결과와 페이지네이션이 테이블 바로밑에 붙어있도록한다.
+    }else{
+    	$(".table-body").css("min-height", "240px");														 //아니면테이블이동시 그 자리고정(UX개선)
     }
 }
 

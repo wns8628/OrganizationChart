@@ -57,6 +57,14 @@
 			    <!--  -->
 				<div class="header2">
 					<span class="title lang" data-lang='empList'>● 사원목록 </span>
+ 					
+ 					<!--
+ 					 <ul class="sort_list">
+						<li>사번순</li>
+						<li>사원명순</li>
+					</ul>
+					 -->
+ 					
  					<span class="exelbtn">
 						<button type= "submit" class="exel-submit lang" data-lang='exel'>엑셀 저장</button>
 					</span>

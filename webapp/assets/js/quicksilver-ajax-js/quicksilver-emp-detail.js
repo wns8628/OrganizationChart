@@ -124,8 +124,8 @@ $(function(){
             type:"get",
             dataType:"json",
             data:"",
+            async: false,
             success: function(response){
-               
                let deptSeq = response.data.deptSeq;
                let compSeq = response.data.compSeq;
         
@@ -145,6 +145,7 @@ $(function(){
             type:"get",
             dataType:"json",
             data:"",
+            async: false,
             success: function(response){         
                let alldept = "";
                for(let i=0; i<deptInfoList.length; i++){
