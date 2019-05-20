@@ -1,15 +1,21 @@
 package com.douzone.quicksilver.aspect;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
+import com.douzone.exception.GlobalExceptionHandler;
+
 @Aspect
 @Component
 public class MeasureExecutionTimeAspect {
 	
+	private static final Log LOG = LogFactory.getLog(MeasureExecutionTimeAspect.class);
+
 	@Around("execution(* *..repository.*.*(..)) || execution(* *..service.*.*(..)) || execution(* *..controller.*.*(..))")
 	public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable{
 		
@@ -30,7 +36,7 @@ public class MeasureExecutionTimeAspect {
 		String taskName = className + "." + methodName;
 		
 		System.out.println("[ExecutionTime][" + taskName + "]" + totalTime + "초");
-		
+		LOG.info("[ExecutionTime][" + taskName + "]" + totalTime + "초");
 		return result;
 	}
 }

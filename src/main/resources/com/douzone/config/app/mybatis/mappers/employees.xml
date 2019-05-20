@@ -3,19 +3,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="employees">
+
+	<select id="getDpAll" resultType="dutypositionvo">
+		select a.dp_seq as dpSeq, a.dp_name as dpName, c.dp_name as dpNameEn
+		from (select a.dp_seq, b.dp_name 
+				from t_co_comp_duty_position a, t_co_comp_duty_position_multi b
+				where a.dp_seq = b.dp_seq
+				and b.lang_code = 'kr')a
+		left outer join t_co_comp_duty_position_multi c
+		on a.dp_seq = c.dp_seq
+		and c.lang_code = 'en';
+	</select>
 	
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
 		select 
 			  emp.emp_seq as empSeq,
 			  emp.dept_seq as deptSeq,
-			  emp.dept_name as deptName,
-			  pmp.dp_name as positionCode,
-			  pmd.dp_name as dutyCode,
+			  pmp.dp_seq as positionCode,
+			  pmd.dp_seq as dutyCode,
 			  emp.emp_name as empName,
 			  emp.login_id as loginId,
 			  emp.home_tel_num as homeTelNum,
 			  emp.mobile_tel_num as mobileTelNum,
-			  emp.emp_seq
+			  emp.emp_seq, d.emp_name as empNameEn, emp.comp_seq as compSeq
 		from (select
 					d.dept_name,
 					b.position_code as positionDuty,
@@ -43,6 +53,9 @@
 				ON emp.deptDuty = pmd.dp_seq
 				AND pmd.lang_code = #{langCode}
 				AND pmd.dp_type = 'DUTY'
+			LEFT OUTER JOIN t_co_emp_multi d
+				on emp.emp_seq = d.emp_seq
+				and d.lang_code = 'en'
 			where	
 		<choose>
 			<when test='type == "a"'>
@@ -66,261 +79,44 @@
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-		select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and 
-	  <choose>
-		<when test='selectSearch == "emp"'>			
-	  		 a.login_id like #{kwd}
-	  		 union all
-	  		 select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and e.emp_name like #{kwd}
-					ORDER BY empSeq + 0
-		</when>
-		<when test='selectSearch == "dept"'>
-		 		d.dept_name like #{kwd}
-		 		ORDER BY empSeq + 0
-		</when>
-		<when test='selectSearch == "position"'>
-				pmp.dp_name like #{kwd}
-				ORDER BY empSeq + 0
-		</when>
-		<when test='selectSearch == "duty"'>
-				pmd.dp_name like #{kwd}
-				ORDER BY empSeq + 0
-		</when>
-		<when test='selectSearch == "call"'>
-				a.home_tel_num like #{kwd}
-				ORDER BY empSeq + 0
-		</when>
-		<when test='selectSearch == "phone"'>
-				a.mobile_tel_num like #{kwd}
-				ORDER BY empSeq + 0
+	SELECT 
+		/*+ RULE */ 
+	    empSeq,
+	    positionCode,
+	    dutyCode,
+	    deptName,
+	    empName,
+	    loginId,
+	    homeTelNum,
+	    mobileTelNum,
+	    deptSeq
+	FROM
+	    quicksilver_douzone
+	WHERE		
+	 <choose>
+	  <when test='selectSearch == "all"'>
+		 	`query` = '"*${kwd}*";limit=100050;mode=boolean;maxmatches=100050;'
 		</when>
 		
-		<when test='selectSearch == "all"'>
-		   		a.login_id like #{kwd}
-		   		union all
-		   		select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and  e.emp_name like #{kwd}
-					union all
-					select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and d.dept_name like #{kwd}
-					union all
-					select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and pmp.dp_name like #{kwd}
-					union all
-					select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and pmd.dp_name like #{kwd}
-					union all
-					select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and 
-			  		a.home_tel_num like #{kwd}
-			  		union all
-			  		select 
-			a.emp_seq as empSeq
-			, pmp.dp_name as positionCode
-			, pmd.dp_name as dutyCode
-			, d.dept_name as deptName
-			, e.emp_name as empName
-			, a.login_id as loginId
-			, a.home_tel_num as homeTelNum
-			, a.mobile_tel_num as mobileTelNum
-			, b.dept_seq as deptSeq
-		from t_co_emp_dept b
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-			ON b.position_code = pmp.dp_seq
-			AND pmp.lang_code = #{langCode}
-			AND pmp.dp_type = 'POSITION'
-		LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-			ON b.duty_code = pmd.dp_seq
-			AND pmd.lang_code = #{langCode}
-			AND pmd.dp_type = 'DUTY',
-			t_co_emp2 a, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e
-					where a.emp_seq = b.emp_seq
-					and b.dept_seq = c.dept_seq
-					and c.dept_seq = d.dept_seq
-					and a.emp_seq = e.emp_seq
-					and e.lang_code =#{langCode}
-					and d.lang_code = #{langCode}
-					and 
-			  		a.mobile_tel_num like #{kwd}
-			  		ORDER BY empSeq + 0;
+		<when test='selectSearch == "emp"'>			
+   			 `query` = '@(empName, loginId) "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
+		<when test='selectSearch == "dept"'>
+		 		 `query` = '@deptName "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+		</when>
+		<when test='selectSearch == "position"'>
+ 				`query` = '@positionCode "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'		
+ 		</when>
+		<when test='selectSearch == "duty"'>
+ 				`query` = '@dutyCode "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'		
+		</when>
+		<when test='selectSearch == "call"'>
+				`query` = '@homeTelNum "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+		</when>
+		<when test='selectSearch == "phone"'>
+				`query` = '@mobileTelNum "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+		</when>
+		
 	</choose> 
  					<!-- limit #{startboard}, #{manyboard}; -->
 </select>
@@ -333,8 +129,8 @@
 			  emp.emp_name as empName,
 			  emp.login_id as loginId, 
 			  emp.bday,
-              pmp.dp_name as positionCode,
-			  pmd.dp_name as dutyCode,
+              pmp.dp_seq as positionCode,
+			  pmd.dp_seq as dutyCode,
 			  emp.dept_name as deptName,
               emp.mobile_tel_num as mobileTelNum,
 			  emp.home_tel_num as homeTelNum,
@@ -342,7 +138,8 @@
 			  emp.comp_domain as compDomain,
               emp.email_addr as emailAddr,
               emp.main_work as mainWork,
-              emp.emp_seq as empSeq
+              emp.emp_seq as empSeq,
+              emp.comp_seq as compSeq
 		from (select
 					a.pic_file_id,
 					h.comp_name,
@@ -428,5 +225,5 @@
 		<![CDATA[
 			
 		]]>
-	</insert>
+	</insert>	
 </mapper>

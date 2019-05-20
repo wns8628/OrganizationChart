@@ -30,5 +30,5 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/pagination.xml" />
       
    </mappers> 
-</configuration>
+</configuration> 
 
