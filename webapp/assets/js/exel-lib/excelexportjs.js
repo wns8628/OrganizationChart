@@ -183,17 +183,46 @@
                 excelFile += "</body>";
                 excelFile += "</html>";
 
-                //커스텀----------------------- 
                 var uri = "data:application/vnd.ms-excel;base64,";
                 var ctx = { worksheet: $settings.worksheetName, table: htmltable };
+                
+                
+//                var d = new Date();
+//                var currentDate = d.getFullYear() + "-" + ( d.getMonth() + 1 ) + "-" + d.getDate() +"_";
+//                var currentTime = d.getHours() + ":" + d.getMinutes() + ":";
+                
+                function getTimeStamp() {
+                	  var d = new Date();
+                	  var s =
+                	    leadingZeros(d.getFullYear(), 4) +
+                	    leadingZeros(d.getMonth() + 1, 2) +
+                	    leadingZeros(d.getDate(), 2) +
+
+                	    leadingZeros(d.getHours(), 2)+
+                	    leadingZeros(d.getMinutes(), 2)+
+                	    leadingZeros(d.getSeconds(), 2);
+                	  return s;
+                	}
+
+                	function leadingZeros(n, digits) {
+                	  var zero = '';
+                	  n = n.toString();
+
+                	  if (n.length < digits) {
+                	    for (i = 0; i < digits - n.length; i++)
+                	      zero += '0';
+                	  }
+                	  return zero + n;
+                	}
+                	
+                var currentDate	= getTimeStamp();
+                
                 var link = document.createElement("a");
-                link.download = "QuickSilver-ExelSave";   // title_현재날짜.xls 로 만들어 준것 기존에는 다운로드.xls 로만 다운로드 됐기에 ...
+                link.download = currentDate + "_QS_emp_table";   // title_현재날짜.xls 로 만들어 준것 기존에는 다운로드.xls 로만 다운로드 됐기에 ...
                 link.href = uri + base64(format(excelFile, ctx));
                 link.focus();
                 link.click();
-
-                //--------------------------
-
+                
 //                return (uri + base64(format(excelFile, ctx)));
             }
         }
