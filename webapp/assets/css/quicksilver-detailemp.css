@@ -146,9 +146,10 @@ body {
 }
 
 .table-body{
-	 width:100%;
+	 width:100%; 
 	 float:left;
 	 padding-left:35px;
+	 min-height:240px;
 }
 .table-boot{
 	padding:0px;
@@ -219,12 +220,20 @@ table.detail td {
 .page-position{
 	float:right;
 }
-/* .page-ajax{
-	float:right;
-    width: 77px;
-} */
+.pagination-group{
+    float: right;
+    text-align: right;
+}
 .pagination{
-	float:right;	
+	float:right;
+    margin-bottom: 5px;	
+}
+.pagination-info{
+	clear:both;
+}
+.page-point{
+	display:none;
+    text-align: right;
 }
 .page-view{
     font-size: small;

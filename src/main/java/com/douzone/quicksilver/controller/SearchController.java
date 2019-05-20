@@ -22,7 +22,7 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 		
-	// 검색하여 직원정보를 테이블에 출력 
+	// 검색하여 직원정보를 세션에저장
 	@ResponseBody
 	@RequestMapping("/{selectSearch}/{kwd}")
 	public JSONResult search( @PathVariable String selectSearch,
@@ -42,6 +42,7 @@ public class SearchController {
 		
 //		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
 		return JSONResult.success(null);
+		
 	}
 	
 }
