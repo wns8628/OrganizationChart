@@ -98,6 +98,7 @@ let pageRender = function(paging){
 	console.log(paging);
 	
 	$(".pagination").empty();																				 //페이징에 필요한 객체내부를 비워줌.
+	$(".pagination-info").empty();
      //paging.pageNo != 1 
 	if(paging.block != 0 && paging.totalBlock != 1){   													 	 //페이지가 1페이지 가아니면
         	$(".pagination").append("<li class=\"goFirstPage page-view\"><a>처음</a></li>");       			 //첫페이지로가는버튼 활성화
@@ -110,7 +111,12 @@ let pageRender = function(paging){
     }else{
         	$(".pagination").append("<li class=\"disabled page-view\"><a>이전</a></li>");       				 //뒤로가기버튼 비활성화
     }
-	 
+
+    //  if((paging.block+1) >= paging.totalBlock){															 //맨끝페이지에서 1페이지...보이게 근데없는게더나은듯..
+    //	$(".pagination").append("<li class=\"goLastPage page-view\"><a>1</a></li>");
+    //	$(".pagination").append("<li class=\"page-view\"><a>...</a></li>"); 
+    //}
+    
     for(var i = paging.startPage ; i <= paging.endPage ; i++){        										 //시작페이지부터 종료페이지까지 반복문
     	if(paging.pageNo == i){                            													 //현재페이지가 반복중인 페이지와 같다면
             $(".pagination").append("<li class=\"active page-view\"><a>"+i+"</a></li>");    				 //버튼 비활성화
