@@ -1,6 +1,6 @@
 package com.douzone.quicksilver.controller;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,7 @@ import com.douzone.quicksilver.service.MainService;
 import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Controller
 public class MainBoot {
@@ -95,5 +96,45 @@ public class MainBoot {
 //------------------------------------------------------------------------------------    
     
     
+    @RequestMapping("/update")
+    public void updates() {
+    	
+    	for(int i = 1; i <= 99999; i++) {
+    		EmployeesVo vo = mainService.get1(i); // 나이, 회사번호를 받아옴
+    		
+    		System.out.println(vo);
+    		
+    		String[] arr = calc(vo.getAge()); // 나이를 이용하여 직급, 직책 계산
+    		
+    		System.out.println("arr[0] : " + arr[0]);
+    		System.out.println("arr[1] : " + arr[1]);
+    		
+    		String dpSeqPosition = mainService.get2(vo.getMainCompSeq(), arr[0]); // 회사번호, 직급을 이용하여 dp_seq을 가져옴
+    		String dpSeqDuty = mainService.get2(vo.getMainCompSeq(), arr[1]); // 회사번호, 직책을 이용하여 dp_seq을 가져옴
+    		
+    		System.out.println("dpSeqPosition : " + dpSeqPosition);
+    		System.out.println("dpSeqDuty : " + dpSeqDuty);
+    		
+    		mainService.update1(i, dpSeqPosition); // update 직급
+    		mainService.update2(i, dpSeqDuty); // update 직책
+    	}
+    }
+    
+    public String[] calc(Long long1) {
+    	
+    	if( long1 <= 30) {	// 사원
+    		return new String[] {"사원", "파트장"};
+    	} else if( long1 <= 35) {		// 주임
+    		return new String[] {"주임", "팀장"};
+    	} else if( long1 <= 40) {		// 대리
+    		return new String[] {"대리", "실장"};
+    	} else if( long1 <= 50) {		// 과장
+    		return new String[] {"과장", "본부장"};
+    	} else if( long1 <= 60) {		// 부장
+    		return new String[] {"부장", "사업부장"};
+    	}
+    	
+    	return new String[] {"0"};
+    }
     
 }
