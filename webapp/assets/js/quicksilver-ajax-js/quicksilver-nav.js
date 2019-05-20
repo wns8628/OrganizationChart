@@ -207,7 +207,6 @@ var bizRender = function(vo,index, length){
 	}else{
 		var bizName = vo.bizNameEn;
 	}
-	
 	if(index+1 == length){
 		tree = lastChild;
 	}else{
@@ -301,13 +300,13 @@ var getBizList = function(seq){
 	      async: false,
 	      success: function(response){
 	         $(response.data.bizList).each(function(index, vo){
-	            bizRender(vo, index, response.data.length);
+	            bizRender(vo, index, response.data.bizList.length);
 	            $.lang.kr.biz[vo.bizSeq] = vo.bizName;
 	            $.lang.en.biz[vo.bizSeq] = vo.bizNameEn;
 	         });
 	         $(response.data.dpList).each(function(index, vo){
-	        	$.lang.kr.dp[vo.compSeq][vo.dpSeq] = vo.dpName;
-	        	$.lang.en.dp[vo.compSeq][vo.dpSeq] = vo.dpNameEn;
+//	        	$.lang.kr.dp[vo.compSeq][vo.dpSeq] = vo.dpName;
+//	        	$.lang.en.dp[vo.compSeq][vo.dpSeq] = vo.dpNameEn;
 	         });
 	      },
 	      error: function(xhr, status, e){
