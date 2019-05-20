@@ -42,6 +42,8 @@ var makeTable = function(url) {
 	      data:"",
 	      async: false,
 	      success: function(response){
+	    	 $.lang.kr.emp = {};
+	    	 $.lang.en.emp = {};
 	         $(response.data.list).each(function(index, vo){
 	        	 tableRender(vo);
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
@@ -73,6 +75,7 @@ var makeTable = function(url) {
 	         console.error(status+":"+e);
 	      }
 	});
+	console.log($.lang);
 	//데이터테이블 버림
 };
 //팀장가져오기  - 적용x
