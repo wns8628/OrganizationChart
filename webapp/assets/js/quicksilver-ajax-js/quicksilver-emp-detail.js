@@ -117,7 +117,7 @@ $(function(){
       deptInfoList=[];
       let empSeq = this.children[0].innerHTML;
       let deptSeq = this.children[1].innerHTML;
-
+      console.log(deptSeq);
       //조직도 부서 펼치기
       $.ajax({
            url: contextPath + "/getdetailNavPoint/" + empSeq + "/" + deptSeq,
@@ -130,7 +130,7 @@ $(function(){
                let compSeq = response.data.compSeq;
         
               $("ul[c-no='" + compSeq + "']").empty();
-            
+              	console.log("Dd");
                getBizList(compSeq); 																    //quicksilver-nav에있다 nav탭관련이라.
                getparents(deptSeq); 
             },
@@ -147,6 +147,7 @@ $(function(){
             data:"",
             async: false,
             success: function(response){         
+            	console.log(empSeq+":"+deptSeq);
                let alldept = "";
                for(let i=0; i<deptInfoList.length; i++){
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
@@ -156,7 +157,7 @@ $(function(){
                //부서번호다를떄만
                if(fixScroll != deptSeq){
             	   fixScroll = deptSeq;
-            	   empDetailScroll(fixScroll);
+//            	   empDetailScroll(fixScroll);
                }
                
                $(".detail .lang").each(function(){
