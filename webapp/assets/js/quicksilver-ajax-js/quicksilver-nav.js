@@ -304,10 +304,10 @@ var getBizList = function(seq){
 	            $.lang.kr.biz[vo.bizSeq] = vo.bizName;
 	            $.lang.en.biz[vo.bizSeq] = vo.bizNameEn;
 	         });
-	         $(response.data.dpList).each(function(index, vo){
+//	         $(response.data.dpList).each(function(index, vo){
 //	        	$.lang.kr.dp[vo.compSeq][vo.dpSeq] = vo.dpName;
 //	        	$.lang.en.dp[vo.compSeq][vo.dpSeq] = vo.dpNameEn;
-	         });
+//	         });
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
