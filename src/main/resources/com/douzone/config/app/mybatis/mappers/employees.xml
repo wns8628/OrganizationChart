@@ -14,7 +14,6 @@
 			  emp.login_id as loginId,
 			  emp.home_tel_num as homeTelNum,
 			  emp.mobile_tel_num as mobileTelNum,
-			  emp.emp_seq
 		from (select
 					d.dept_name,
 					b.position_code as positionDuty,
@@ -74,26 +73,54 @@
 	WHERE		
 	 <choose>
 	  <when test='selectSearch == "all"'>
-		 	`query` = '"*${kwd}*";limit=100050;mode=boolean;maxmatches=100050;'
+		 	`query` = '"*${kwd}*";
+		 	<if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+		 	limit=100050;mode=boolean;maxmatches=100050;'
 		</when>
 		
 		<when test='selectSearch == "emp"'>			
-   			 `query` = '@(empName, loginId) "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+   			 `query` = '@(empName, loginId) "*${kwd}*";
+   			 <if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+   			 limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
 		<when test='selectSearch == "dept"'>
-		 		 `query` = '@deptName "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+		 	`query` = '@deptName "*${kwd}*";
+		 	<if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+		 	limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
 		<when test='selectSearch == "position"'>
- 				`query` = '@positionCode "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'		
+ 			`query` = '@positionCode "*${kwd}*";
+ 			<if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+ 			limit=110000;mode=boolean;maxmatches=110000;'		
  		</when>
 		<when test='selectSearch == "duty"'>
- 				`query` = '@dutyCode "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'		
+ 			`query` = '@dutyCode "*${kwd}*";
+ 			<if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+ 			limit=110000;mode=boolean;maxmatches=110000;'		
 		</when>
 		<when test='selectSearch == "call"'>
-				`query` = '@homeTelNum "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+			`query` = '@homeTelNum "*${kwd}*";
+			<if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+			limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
 		<when test='selectSearch == "phone"'>
-				`query` = '@mobileTelNum "*${kwd}*";limit=110000;mode=boolean;maxmatches=110000;'
+			`query` = '@mobileTelNum "*${kwd}*";
+			<if test="sorting != null and column != null">
+		 		sort=attr_${sorting}:${column};
+		 	</if>
+			limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
 		
 	</choose> 
