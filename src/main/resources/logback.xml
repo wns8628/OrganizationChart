@@ -10,7 +10,7 @@
       </encoder>
    </appender>
 
-   <appender name="fileAppender2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+   <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/xorwnTest/quicksilver-exception.log</file>
       <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
          <Pattern>
@@ -18,7 +18,25 @@
          </Pattern>
       </encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-         <FileNamePattern>/test/mysite-exception.%i.log.zip</FileNamePattern>
+         <FileNamePattern>/xorwnTest/quicksilver-exception.%i.log.zip</FileNamePattern>
+         <MinIndex>1</MinIndex>
+         <MaxIndex>10</MaxIndex>
+      </rollingPolicy>
+      <triggeringPolicy
+         class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+         <MaxFileSize>100MB</MaxFileSize>
+      </triggeringPolicy>
+   </appender>
+   
+    <appender name="fileAppender2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/xorwnTest/quicksilver.log</file>
+      <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+         <Pattern>
+            %d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+         </Pattern>
+      </encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+         <FileNamePattern>/xorwnTest/quicksilver.%i.log.zip</FileNamePattern>
          <MinIndex>1</MinIndex>
          <MaxIndex>10</MaxIndex>
       </rollingPolicy>
@@ -33,17 +51,19 @@
     </logger>
     
      <logger name="com.douzone.quicksilver.aspect"  level="debug" additivity="false">
-            <appender-ref ref="fileAppender" />
+            <appender-ref ref="fileAppender2" />
     </logger>
     
      <logger name="com.douzone.exception"  level="debug" additivity="false">
-            <appender-ref ref="fileAppender2" />
+            <appender-ref ref="fileAppender" />
             <appender-ref ref="consoleAppender" />
             
     </logger>
 
    <root level="info"> <!-- 레벨단계떄문에 로그안뜰수도있으니 debug로 -->
       <appender-ref ref="consoleAppender" />
+      <appender-ref ref="fileAppender2" />
+      
    </root>
 
 </configuration>
