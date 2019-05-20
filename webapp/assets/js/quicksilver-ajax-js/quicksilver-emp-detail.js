@@ -152,16 +152,12 @@ $(function(){
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
                }         
                empDetailRender($(response.data)[0], alldept);
-<<<<<<< HEAD
                
                //부서번호다를떄만
                if(fixScroll != deptSeq){
             	   fixScroll = deptSeq;
             	   empDetailScroll(fixScroll);
                }
-=======
-//             empDetailScroll();
->>>>>>> refs/heads/jy
                
                $(".detail .lang").each(function(){
   	        	 if($(this).attr("class") == "lang dept"){
