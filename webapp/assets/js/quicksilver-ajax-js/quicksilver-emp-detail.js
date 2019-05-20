@@ -160,24 +160,28 @@ $(function(){
             	   empDetailScroll(fixScroll);
                }
                
-               $(".detail .lang").each(function(){
+               $("table.detail .lang").each(function(){
   	        	 if($(this).attr("class") == "lang dept"){
-  	        		 var name = $.lang[mainLangCode]["dept"][$(this).data("lang")];
-  	        	 }
-  	        		 
-  	        	 if($(this).attr("class") == "lang dp"){
+  	        		 var text = $.lang[mainLangCode]["dept"][$(this).data("lang")];
+  	        	 }else if($(this).attr("class") == "lang dp"){
   	        		 var seq = $(this).data("lang");
-  	        		 var name = $.lang[mainLangCode]["dp"][seq];
-  	        	 }
-  	        	 
-  	        	 if($(this).attr("class") == "lang emp"){
+  	        		 var text = $.lang[mainLangCode]["dp"][seq];
+  	        	 }else if($(this).attr("class") == "lang emp"){
   	        		 var seq = $(this).data("lang");
-  	        		 var name = $.lang[mainLangCode]["emp"][seq];
+  	        		 var text = $.lang[mainLangCode]["emp"][seq];
+  	        	 }else{
+  	        		var text = $.lang[mainLangCode]["etc"][$(this).data('lang')];
+	  	      		if (text == null){
+	  	      			text = $.lang['kr']["etc"][$(this).data('lang')]
+	  	      		}
+	  	      		$(this).text(text);
   	        	 }
   	        	 
   	        	 
-  	        	 $(this).text(name);
+  	        	 $(this).text(text);
   	         });
+              
+               
             },
             error: function(xhr, status, e){
                console.error(status+":"+e);

@@ -124,6 +124,25 @@ var langChange = function(){
 		 $(this).text(name);
 	 });
 	
+	$("table.detail .lang").each(function(){
+     	 if($(this).attr("class") == "lang dept"){
+     		 var name = $.lang[langCode]["dept"][$(this).data("lang")];
+     	 }
+     		 
+     	 if($(this).attr("class") == "lang dp"){
+     		 var seq = $(this).data("lang");
+     		 var name = $.lang[langCode]["dp"][seq];
+     	 }
+     	 
+     	 if($(this).attr("class") == "lang emp"){
+     		 var seq = $(this).data("lang");
+     		 var name = $.lang[langCode]["emp"][seq];
+     	 }
+     	 
+     	 
+     	 $(this).text(name);
+    });
+	
 	mainLangCode = langCode;
 }
 
@@ -186,7 +205,7 @@ var deptRender = function(vo, index, length, last, str){
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
-   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"("+vo.deptEmpCount+")"+"<span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span><span>("+vo.deptEmpCount+")</span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
