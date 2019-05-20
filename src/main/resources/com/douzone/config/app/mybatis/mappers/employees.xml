@@ -79,75 +79,77 @@
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
-	SELECT 
-		/*+ RULE */ 
-	    empSeq,
-	    positionCode,
-	    dutyCode,
-	    deptName,
-	    empName,
-	    loginId,
-	    homeTelNum,
-	    mobileTelNum,
-	    deptSeq
-	FROM
-	    quicksilver_douzone
-	WHERE		
-	 <choose>
-	  <when test='selectSearch == "all"'>
-		 	`query` = '"*${kwd}*";
-		 	<if test="sorting != null and column != null">
-		 		sort=attr_${sorting}:${column};
-		 	</if>
-		 	limit=100050;mode=boolean;maxmatches=100050;'
-		</when>
-		
-		<when test='selectSearch == "emp"'>			
-   			 `query` = '@(empName, loginId) "*${kwd}*";
-   			 <if test="sorting != null and column != null">
-		 		sort=attr_${sorting}:${column};
-		 	</if>
-   			 limit=110000;mode=boolean;maxmatches=110000;'
-		</when>
-		<when test='selectSearch == "dept"'>
-		 		 `query` = '@deptName "*${kwd}*";
-		 		 <if test="sorting != null and column != null">
-		 			sort=attr_${sorting}:${column};
-		 		 </if>
-		 		 limit=110000;mode=boolean;maxmatches=110000;'
-		</when>
-		<when test='selectSearch == "position"'>
- 				`query` = '@positionCode "*${kwd}*";
- 				<if test="sorting != null and column != null">
-		 			sort=attr_${sorting}:${column};
-		 		</if>
- 				limit=110000;mode=boolean;maxmatches=110000;'		
- 		</when>
-		<when test='selectSearch == "duty"'>
- 				`query` = '@dutyCode "*${kwd}*";
- 				<if test="sorting != null and column != null">
-		 			sort=attr_${sorting}:${column};
-		 		</if>
- 				limit=110000;mode=boolean;maxmatches=110000;'		
-		</when>
-		<when test='selectSearch == "call"'>
-				`query` = '@homeTelNum "*${kwd}*";
-				<if test="sorting != null and column != null">
-		 			sort=attr_${sorting}:${column};
-		 		</if>
-				limit=110000;mode=boolean;maxmatches=110000;'
-		</when>
-		<when test='selectSearch == "phone"'>
-				`query` = '@mobileTelNum "*${kwd}*";
-				<if test="sorting != null and column != null">
-		 			sort=attr_${sorting}:${column};
-		 		</if>
-				limit=110000;mode=boolean;maxmatches=110000;'
-		</when>
-		
-	</choose> 
- 					<!-- limit #{startboard}, #{manyboard}; -->
-</select>
+	   SELECT 
+	      /*+ RULE */ 
+	       empSeq,
+	       positionCode,
+	       dutyCode,
+	       deptName,
+	       empName,
+	       loginId,
+	       homeTelNum,
+	       mobileTelNum,
+	       deptSeq,
+	       empNameEn,
+	       deptNameEn
+	   FROM
+	       quicksilver_douzone
+	   WHERE      
+    <choose>
+     <when test='selectSearch == "all"'>
+          `query` = '"*${kwd}*";
+          <if test="sorting != null and column != null">
+             sort=attr_${sorting}:${column};
+          </if>
+          limit=100050;mode=boolean;maxmatches=100050;'
+      </when>
+      
+      <when test='selectSearch == "emp"'>         
+             `query` = '@(empName, loginId) "*${kwd}*";
+             <if test="sorting != null and column != null">
+             sort=attr_${sorting}:${column};
+          </if>
+             limit=110000;mode=boolean;maxmatches=110000;'
+      </when>
+      <when test='selectSearch == "dept"'>
+              `query` = '@deptName "*${kwd}*";
+              <if test="sorting != null and column != null">
+                sort=attr_${sorting}:${column};
+              </if>
+              limit=110000;mode=boolean;maxmatches=110000;'
+      </when>
+      <when test='selectSearch == "position"'>
+             `query` = '@positionCode "*${kwd}*";
+             <if test="sorting != null and column != null">
+                sort=attr_${sorting}:${column};
+             </if>
+             limit=110000;mode=boolean;maxmatches=110000;'      
+       </when>
+      <when test='selectSearch == "duty"'>
+             `query` = '@dutyCode "*${kwd}*";
+             <if test="sorting != null and column != null">
+                sort=attr_${sorting}:${column};
+             </if>
+             limit=110000;mode=boolean;maxmatches=110000;'      
+      </when>
+      <when test='selectSearch == "call"'>
+            `query` = '@homeTelNum "*${kwd}*";
+            <if test="sorting != null and column != null">
+                sort=attr_${sorting}:${column};
+             </if>
+            limit=110000;mode=boolean;maxmatches=110000;'
+      </when>
+      <when test='selectSearch == "phone"'>
+            `query` = '@mobileTelNum "*${kwd}*";
+            <if test="sorting != null and column != null">
+                sort=attr_${sorting}:${column};
+             </if>
+            limit=110000;mode=boolean;maxmatches=110000;'
+      </when>
+      
+   </choose> 
+                <!-- limit #{startboard}, #{manyboard}; -->
+	</select>
 	
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">

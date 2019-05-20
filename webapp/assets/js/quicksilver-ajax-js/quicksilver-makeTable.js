@@ -48,7 +48,8 @@ var makeTable = function(url) {
 	        	 tableRender(vo);
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
-	        	 
+	        	 $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+	        	 $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
 	         });
 	         $("#dataTable .lang").each(function(){
 	        	 if($(this).attr("class") == "lang dept"){
