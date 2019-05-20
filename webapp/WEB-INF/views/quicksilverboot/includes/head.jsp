@@ -31,6 +31,12 @@
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-nav.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-login.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-search.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-exel-submit.js"></script>
+  
+  <!-- 엑셀저장 lib  -->
+  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/exel-lib/excelexportjs.js"></script>
+  
+  
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
   </script>

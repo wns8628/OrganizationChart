@@ -57,6 +57,15 @@
 			    <!--  -->
 				<div class="header2">
 					<span class="title lang" data-lang='empList'>● 사원목록 </span>
+ 					
+ 					<!--
+ 					 <ul class="sort_list">
+						<li>사번순</li>
+						<li>사원명순</li>
+					</ul>
+					 -->
+ 					
+					<div id="dvjson"></div>
  					<span class="exelbtn">
 						<button type= "submit" class="exel-submit lang" data-lang='exel'>엑셀 저장</button>
 					</span>
@@ -85,10 +94,17 @@
                  </div>
                  
                  <!-- 페이지네이션 -->
-                 <div class="pagination">
-                 
+                 <div class="pagination-group">
+	                <div class="pagination">
+	                 	
+	                </div>
+	                <div class="pagination-info">
+	                 	
+	                </div>                 
+                 	<input type='text' name='page-point' onkeydown='return onlyNumber(event)' placeholder='pageNo'class='page-point' size='5' maxlength='5' />
                  </div>
-                 
+                 <!--  -->
+				
 				<!-- 디테일 사원표시  -->
 				<div class="container-detail">
 					

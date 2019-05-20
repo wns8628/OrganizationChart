@@ -319,6 +319,7 @@ $(function(){
    //부서 클릭
    $(document).on("click", "li.department span", function(event){
       pageFlag = 0; 															//pageFlag=0 : 부서를 클릭
+      $('.page-point').val('');													//검색시 page-point 초기화 
    	  $parent = $(this).parent().parent().parent();
       var seq = $parent.attr("data-no");
 	  $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
