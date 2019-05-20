@@ -110,4 +110,10 @@ public class EmployeeController {
 		
 		return "redirect:/boot";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getDpAll")
+	public JSONResult getDpAll() {
+		return JSONResult.success(employeeService.getDpAll());
+	}
 }
