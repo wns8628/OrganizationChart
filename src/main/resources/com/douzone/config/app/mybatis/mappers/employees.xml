@@ -89,7 +89,8 @@
 	    loginId,
 	    homeTelNum,
 	    mobileTelNum,
-	    deptSeq
+	    deptSeq,
+	    empNameEn
 	FROM
 	    quicksilver_douzone
 	WHERE		
