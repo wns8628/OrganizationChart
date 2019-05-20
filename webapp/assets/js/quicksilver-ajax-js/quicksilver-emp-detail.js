@@ -157,7 +157,7 @@ $(function(){
                //부서번호다를떄만
                if(fixScroll != deptSeq){
             	   fixScroll = deptSeq;
-//            	   empDetailScroll(fixScroll);
+            	   empDetailScroll(fixScroll);
                }
                
                $(".detail .lang").each(function(){
