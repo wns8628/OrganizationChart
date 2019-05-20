@@ -68,7 +68,14 @@
 				emp.dept_seq = #{seq}
 			</when>
 		</choose>
-		limit #{startboard}, #{manyboard};
+		<choose>
+			<when test='exelClick == "yes"'>
+				;
+			</when>
+			<when test='exelClick == "no"'>
+				limit #{startboard}, #{manyboard};
+			</when>			
+		</choose>
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
