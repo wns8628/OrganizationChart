@@ -64,7 +64,8 @@
 						<li>사원명순</li>
 					</ul>
 					 -->
- 					
+					 
+ 					<iframe id="iframe" name="iframe" style="display:none;"></iframe><!--익스플로러 엑셀저장위해  -->
 					<div id="dvjson"></div>
  					<span class="exelbtn">
 						<button type= "submit" class="exel-submit lang" data-lang='exel'>엑셀 저장</button>
