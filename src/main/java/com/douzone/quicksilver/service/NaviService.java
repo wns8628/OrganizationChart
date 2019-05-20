@@ -58,8 +58,11 @@ public class NaviService {
 		return naviDao.getCompList();
 	}
 	
-	public List<BizVo> getBizList(String seq){
-		return naviDao.getBizList(seq);
+	public Map<String, Object> getBizList(String seq){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bizList", naviDao.getBizList(seq));
+		map.put("dpList", naviDao.getDpList(seq));
+		return map;
 	}
 	
 	public List<DepartmentsVo> getDeptList(String seq){

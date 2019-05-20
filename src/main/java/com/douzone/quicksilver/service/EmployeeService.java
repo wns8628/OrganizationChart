@@ -35,6 +35,7 @@ public class EmployeeService {
 		return employeeDao.get(departmentsvo);
 	}
 	//조직도부서클릭 엑셀저장 위해 
+<<<<<<< HEAD
 	public List<EmployeesVo> getEmpInfo(String seq, String type,String langCode){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
@@ -44,6 +45,17 @@ public class EmployeeService {
 		
 		return employeeDao.getEmpInfo(map);
 	}
+=======
+		public List<EmployeesVo> getEmpInfo(String seq, String type,String langCode){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("seq", seq);
+			map.put("type", type);
+			map.put("langCode", langCode);
+			map.put("exelClick", "yes");
+			
+			return employeeDao.getEmpInfo(map);
+		}
+>>>>>>> refs/heads/jy
 	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
