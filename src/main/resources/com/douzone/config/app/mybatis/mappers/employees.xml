@@ -15,17 +15,6 @@
 		and c.lang_code = 'en';
 	</select>
 	
-	<select id="getDpAll" resultType="dutypositionvo">
-		select a.dp_seq as dpSeq, a.dp_name as dpName, c.dp_name as dpNameEn
-		from (select a.dp_seq, b.dp_name 
-				from t_co_comp_duty_position a, t_co_comp_duty_position_multi b
-				where a.dp_seq = b.dp_seq
-				and b.lang_code = 'kr')a
-		left outer join t_co_comp_duty_position_multi c
-		on a.dp_seq = c.dp_seq
-		and c.lang_code = 'en';
-	</select>
-	
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
 		select 
 			  emp.emp_seq as empSeq,
