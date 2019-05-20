@@ -68,6 +68,7 @@ public class EmployeesVo {
 	private String deptName;				// 부서명
 	private String deptSeq;				// 부서번호
 	
+	private String empNameEn;
 	/*
 	 * 상세한 직원정보를 위한 필드
 	 */
@@ -79,6 +80,14 @@ public class EmployeesVo {
 	private String compName;				// 회사명
 	private String compDomain;				// 홈피주소 
 	private String compEmail;				// 회사메일
+	private String compSeq;
+	
+	public String getCompSeq() {
+		return compSeq;
+	}
+	public void setCompSeq(String compSeq) {
+		this.compSeq = compSeq;
+	}
 	public String getEmpSeq() {
 		return empSeq;
 	}
@@ -452,6 +461,12 @@ public class EmployeesVo {
 		this.compEmail = compEmail;
 	}
 	
+	public String getEmpNameEn() {
+		return empNameEn;
+	}
+	public void setEmpNameEn(String empNameEn) {
+		this.empNameEn = empNameEn;
+	}
 	@Override
 	public String toString() {
 		return "EmployeesVo [empSeq=" + empSeq + ", groupSeq=" + groupSeq + ", loginId=" + loginId + ", empNum="

@@ -74,7 +74,6 @@ $.lang = {
 var mainLangCode = 'kr';
 
 var langChange = function(){
-	console.log("dd");
 	var langCode = $("#langcode option:selected").val();
 	$("span.comp").each(function(){
 		var name = $.lang[langCode]["comp"][$(this).data("lang")];
@@ -105,6 +104,26 @@ var langChange = function(){
 		}
 		$(this).text(text);
 	})
+	
+	$("#dataTable .lang").each(function(){
+		 if($(this).attr("class") == "lang dept"){
+			 var name = $.lang[langCode]["dept"][$(this).data("lang")];
+		 }
+			 
+		 if($(this).attr("class") == "lang dp"){
+			 var seq = $(this).data("lang");
+			 var name = $.lang[langCode]["dp"][seq];
+		 }
+		 
+		 if($(this).attr("class") == "lang emp"){
+			 var seq = $(this).data("lang");
+			 var name = $.lang[langCode]["emp"][seq];
+		 }
+		 
+		 
+		 $(this).text(name);
+	 });
+	
 	mainLangCode = langCode;
 }
 
@@ -259,7 +278,10 @@ var getCompList = function(){
 	            compRender(vo);
 	            $.lang.kr.comp[vo.compSeq] = vo.compName;
 	            $.lang.en.comp[vo.compSeq] = vo.compNameEn;
-	            $.lang.kr.dp[index] = {};
+	            
+	            // 직책 직급 디비 바뀌면 적용해야함
+//	            $.lang.kr.dp[vo.compSeq] = {};
+//	            $.lang.en.dp[vo.compSeq] = {};
 	         });
 	      },
 	      error: function(xhr, status, e){
@@ -285,8 +307,27 @@ var getBizList = function(seq){
 	         });
 	         $(response.data.dpList).each(function(index, vo){
 	        	$.lang.kr.dp[vo.compSeq][vo.dpSeq] = vo.dpName;
-//		        $.lang.en.dp[vo.compSeq] += { [vo.dpSeq] : [vo.dpNameEn] };
+	        	$.lang.en.dp[vo.compSeq][vo.dpSeq] = vo.dpNameEn;
 	         });
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	});
+	console.log($.lang);
+}
+
+var getDpAll = function(){
+	$.ajax({
+		url: contextPath + "/getDpAll",
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	    	  $(response.data).each(function(index, vo){
+	    		  $.lang.kr.dp[vo.dpSeq] = vo.dpName;
+		          $.lang.en.dp[vo.dpSeq] = vo.dpNameEn;
+	    	  });
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -297,7 +338,7 @@ var getBizList = function(seq){
 
 $(function(){
 	getCompList();
-	
+	getDpAll();
 	$("#langcode").change(function(){
 		langChange();
 		console.log($.lang);

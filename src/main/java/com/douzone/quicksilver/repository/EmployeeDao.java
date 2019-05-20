@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DutyPositionVo;
 import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
@@ -45,5 +46,9 @@ public class EmployeeDao {
 	
 	public int update(EmployeesVo employeesVo) {
 		return sqlSession.update("employees.profilePictureUpdate", employeesVo);
+	}
+	
+	public List<DutyPositionVo> getDpAll(){
+		return sqlSession.selectList("employees.getDpAll");
 	}
 }

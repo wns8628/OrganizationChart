@@ -20,10 +20,11 @@ let tableRender = function(vo){
 	let htmls = 			"	<tr class=\"row\">\r\n" + 
 	"								<td>"+vo.empSeq+"</td>\r\n"+
 	"								<td>"+vo.deptSeq+"</td>\r\n"+
-	"								<td>"+vo.deptName+"</td>\r\n" + 
-	"								<td>"+vo.positionCode+"</td>\r\n" + 
-	"								<td>"+vo.dutyCode+"</td>\r\n" + 
-	"								<td>"+vo.empName+"("+ vo.loginId+")</td>\r\n" + 
+	"								<td class='lang dept' data-lang='"+vo.deptSeq+"'></td>\r\n" + 
+	"								<td class='lang dp' data-val='"+vo.compSeq+"' data-lang='"+vo.positionCode+"'></td>\r\n" + 
+	"								<td class='lang dp' data-val='"+vo.compSeq+"' data-lang='"+vo.dutyCode+"'></td>\r\n" + 
+//	"								<td>"+vo.empName+"("+ vo.loginId+")</td>\r\n" + 
+	"								<td><span class='lang emp' data-lang='"+vo.empSeq+"'>"+vo.empName+"</span><span>("+ vo.loginId+")</span></td>\r\n" + 
 	"								<td>"+vo.homeTelNum+"</td>\r\n" + 
 	"								<td>"+vo.mobileTelNum+"</td>\r\n" + 
 	"							</tr>"
@@ -43,11 +44,27 @@ var makeTable = function(url) {
 	      success: function(response){
 	         $(response.data.list).each(function(index, vo){
 	        	 tableRender(vo);
-//	        	 $.lang.kr.dept[vo.empSeq] = {
-//	        			 "deptName":vo.deptName,
-//	        			 "position"
-//	        			 }
-//	             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
+	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
+	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
+	        	 
+	         });
+	         $("#dataTable .lang").each(function(){
+	        	 if($(this).attr("class") == "lang dept"){
+	        		 var name = $.lang[mainLangCode]["dept"][$(this).data("lang")];
+	        	 }
+	        		 
+	        	 if($(this).attr("class") == "lang dp"){
+	        		 var seq = $(this).data("lang");
+	        		 var name = $.lang[mainLangCode]["dp"][seq];
+	        	 }
+	        	 
+	        	 if($(this).attr("class") == "lang emp"){
+	        		 var seq = $(this).data("lang");
+	        		 var name = $.lang[mainLangCode]["emp"][seq];
+	        	 }
+	        	 
+	        	 
+	        	 $(this).text(name);
 	         });
 	         paging = response.data.page; 
 	         pageRender(paging);
