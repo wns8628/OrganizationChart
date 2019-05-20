@@ -25,6 +25,14 @@ public class DutyPositionVo {
 	private String dpName;			// 직급명, 직책명
 	private String descText;		// 설명
 	private String commentText;		// 비고
+	private String dpNameEn;
+	
+	public String getDpNameEn() {
+		return dpNameEn;
+	}
+	public void setDpNameEn(String dpNameEn) {
+		this.dpNameEn = dpNameEn;
+	}
 	public String getDpSeq() {
 		return dpSeq;
 	}

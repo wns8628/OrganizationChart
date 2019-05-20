@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DutyPositionVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Repository
@@ -59,6 +60,10 @@ public class NaviDao {
 	
 	public List<EmployeesVo> getEmpInfo(Map<String, Object> map){
 		return sqlSession.selectList("navigation.getEmpInfo", map);
+	}
+	
+	public List<DutyPositionVo> getDpList(String compSeq){
+		return sqlSession.selectList("navigation.getDpList", compSeq);
 	}
 	
 }

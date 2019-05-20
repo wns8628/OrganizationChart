@@ -5,15 +5,15 @@ var empDetailRender = function(vo, alldept){
    let htmls ="    <table class=\"detail\">\r\n" + 
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='empName'>사원명(ID)</th>\r\n" + 
-            "                    <td>"+ vo.empName + "("+vo.loginId+")</td>\r\n" + 
+            "                    <td><span class='lang emp' data-lang='"+vo.empSeq+"'>"+vo.empName+"</span><span>("+ vo.loginId+")</span></td>\r\n" + 
             "                    <th class='lang' data-lang='birth'>생년월일</th>\r\n" + 
             "                    <td>"+ vo.bDay +"</td>\r\n" + 
             "                <tr>\r\n" + 
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='position'>직급</th>\r\n" + 
-            "                    <td>"+vo.positionCode+"</td>\r\n" + 
+            "                    <td class='lang dp' data-val='"+vo.compSeq+"' data-lang='"+vo.positionCode+"'></td>\r\n" + 
             "                    <th class='lang' data-lang='duty'>직책</th>\r\n" + 
-            "                    <td>"+ vo.dutyCode +"</td>\r\n" + 
+            "                    <td class='lang dp' data-val='"+vo.compSeq+"' data-lang='"+vo.dutyCode+"'></td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='totalDept'>전체부서</th>\r\n" + 
@@ -158,6 +158,25 @@ $(function(){
             	   fixScroll = deptSeq;
             	   empDetailScroll(fixScroll);
                }
+               
+               $(".detail .lang").each(function(){
+  	        	 if($(this).attr("class") == "lang dept"){
+  	        		 var name = $.lang[mainLangCode]["dept"][$(this).data("lang")];
+  	        	 }
+  	        		 
+  	        	 if($(this).attr("class") == "lang dp"){
+  	        		 var seq = $(this).data("lang");
+  	        		 var name = $.lang[mainLangCode]["dp"][seq];
+  	        	 }
+  	        	 
+  	        	 if($(this).attr("class") == "lang emp"){
+  	        		 var seq = $(this).data("lang");
+  	        		 var name = $.lang[mainLangCode]["emp"][seq];
+  	        	 }
+  	        	 
+  	        	 
+  	        	 $(this).text(name);
+  	         });
             },
             error: function(xhr, status, e){
                console.error(status+":"+e);

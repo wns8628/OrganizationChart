@@ -75,4 +75,19 @@
 		order by bDay desc;
 	</select>
 	
+	<select id="getDpList" parameterType="string" resultType="dutypositionvo">
+		select a.dp_seq as dpSeq, a.dp_type as dpType, a.comp_seq as compSeq, 
+				a.dp_name as dpName, b.dp_name as dpNameEn
+		from (select a.dp_seq, a.dp_type, a.comp_seq, b.dp_name
+				from t_co_comp_duty_position a, t_co_comp_duty_position_multi b
+				where a.dp_seq = b.dp_seq
+				and a.use_yn = 'Y'
+				and b.use_yn = 'Y'
+		        and b.lang_code = 'kr'
+				and a.comp_seq = #{compSeq}) a
+		left outer join t_co_comp_duty_position_multi b
+		on a.dp_seq = b.dp_seq
+		and b.lang_code = 'en'
+	</select>
+	
 </mapper>
