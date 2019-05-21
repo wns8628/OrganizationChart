@@ -35,6 +35,7 @@ public class MainDao {
 	}
 	
 	public EmployeesVo get1(int empSeq) {
+		System.out.println(empSeq);
 		return sqlSession.selectOne("biz.get1", empSeq);
 	}
 	

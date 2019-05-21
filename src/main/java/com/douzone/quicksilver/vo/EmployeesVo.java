@@ -67,7 +67,7 @@ public class EmployeesVo {
 	
 	private String deptName;				// 부서명
 	private String deptSeq;				// 부서번호
-	
+	private String deptNameEn;
 	private String empNameEn;
 	/*
 	 * 상세한 직원정보를 위한 필드
@@ -82,6 +82,12 @@ public class EmployeesVo {
 	private String compEmail;				// 회사메일
 	private String compSeq;
 	
+	public String getDeptNameEn() {
+		return deptNameEn;
+	}
+	public void setDeptNameEn(String deptNameEn) {
+		this.deptNameEn = deptNameEn;
+	}
 	public String getCompSeq() {
 		return compSeq;
 	}

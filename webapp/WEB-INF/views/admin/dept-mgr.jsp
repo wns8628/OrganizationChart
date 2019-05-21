@@ -13,6 +13,7 @@
 	rel="stylesheet" type="text/css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
 <style type="text/css">
@@ -84,7 +85,7 @@ div#tbl-wrapper table#tbl-info th{font-size:13px;font-weight:normal;padding:0 20
 div#tbl-wrapper table#tbl-info .tg-lqy6{text-align:right;vertical-align:top; background-color: #F9F9F9;}
 div#tbl-wrapper table#tbl-info .tg-0lax{text-align:left;vertical-align:top}
 
-div#tree-mini {width: 37.8%; background-color: white; border: 0px; height: 400%;
+div#tree-mini {width: 37.8%; background-color: white; border: 0px; height: 400px;
 vertical-align: top; float: left; padding: 1%; min-height: 400px; overflow-y:auto;
 border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
 div.tree li>span {float: left;}
@@ -174,6 +175,10 @@ $(function(){
 	}
 	
 	compRender();
+	
+	$("div.li-div").draggable();
+	
+	$("div.li-div").sortable();
 	
 	$("#compSelect").change(function(){
 		compRender();

@@ -45,12 +45,14 @@ public class EmployeeService {
 		return employeeDao.getEmpInfo(map);
 	}
 
-	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo){
+	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo, String sorting, String column){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("type", type);
 		map.put("langCode", langCode);
 		map.put("exelClick", "no");
+		map.put("sorting", sorting);
+		map.put("column", column);
 		
 		
 		//페이징 ///////////////////////////////////////////////////////////////////////////

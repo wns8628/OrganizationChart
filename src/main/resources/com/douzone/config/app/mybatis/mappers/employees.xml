@@ -25,7 +25,9 @@
 			  emp.login_id as loginId,
 			  emp.home_tel_num as homeTelNum,
 			  emp.mobile_tel_num as mobileTelNum,
-			  emp.emp_seq, d.emp_name as empNameEn, emp.comp_seq as compSeq
+			  d.emp_name as empNameEn, 
+			  emp.comp_seq as compSeq,
+			  emp.dept_name as deptName
 		from (select
 					d.dept_name,
 					b.position_code as positionDuty,
@@ -70,10 +72,10 @@
 		</choose>
 		<choose>
 			<when test='exelClick == "yes"'>
-				;
+				order by ${column} ${sorting};
 			</when>
 			<when test='exelClick == "no"'>
-				limit #{startboard}, #{manyboard};
+				order by ${column} ${sorting} limit #{startboard}, #{manyboard};
 			</when>			
 		</choose>
 	</select>
@@ -89,7 +91,9 @@
 	    loginId,
 	    homeTelNum,
 	    mobileTelNum,
-	    deptSeq
+	    deptSeq,
+	    empNameEn,
+	    deptNameEn
 	FROM
 	    quicksilver_douzone
 	WHERE		
@@ -147,7 +151,7 @@
 		
 	</choose> 
  					<!-- limit #{startboard}, #{manyboard}; -->
-</select>
+	</select>
 	
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
