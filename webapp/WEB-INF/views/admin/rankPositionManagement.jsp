@@ -323,6 +323,33 @@ $(function(){
 </head>
 
 <body>
+<!--헤더시작-->
+        <header>
+            <p>header</p>
+        </header>
+        <!--네비게이션-->
+        <nav>
+            <p>nav</p>
+            <ul>
+                <li><a href="">link</a></li>
+                <li><a href="">link</a></li>
+                <li><a href="">link</a></li>
+            </ul>
+        </nav>
+        <!--콘텐츠부분-->
+        <section>
+            <p>section</p>
+            <article>
+                <p>article</p>
+            </article>
+        </section>
+        <!--사이드바-->
+        <aside>
+            <p>aside</p>
+        </aside>
+        <!--풋터-->
+        <footer>footer</footer>
+
 		<header>
 			<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
 		</header>
