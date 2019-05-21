@@ -395,7 +395,7 @@ $(function(){
    });
    //사업장 클릭 
    $(document).on("click", "li.biz span", function(event){		
-	   //makeTable("/getEmpInfo/" + seq + "/b?pageNo="+pageNo); 
+	   //
    });
    //부서 클릭
    $(document).on("click", "li.department span", function(event){
@@ -408,7 +408,7 @@ $(function(){
       var seq = $parent.attr("data-no");
 	  $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
 	  $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
-	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1");
+	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode);
    });
    
    //여닫이

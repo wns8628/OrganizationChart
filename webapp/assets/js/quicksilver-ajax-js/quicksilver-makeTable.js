@@ -131,11 +131,11 @@ var tableColumnSort = () => {
 						
 						if( tagParent.classList.contains('sort')){ // 정렬 asc
 							console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
-							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column'));
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);
 							
 						} else { // 정렬 desc
 							console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column'));					   }
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);					   }
 					}
 				});
 			}
@@ -235,7 +235,7 @@ let pageFlageMakeTable = function(pageNo){
     	makeTable("/boot/pagination?pageNo="+pageNo);		    	
     }else{
     	var seq = $("tbody > tr.row > td").get(1).innerHTML;		    	
-    	makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo);	
+    	makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&langCode="+mainLangCode);	
     }
 }
 
