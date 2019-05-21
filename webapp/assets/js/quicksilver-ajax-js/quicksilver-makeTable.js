@@ -108,7 +108,6 @@ var tableColumnSort = () => {
 			let option = $("#search-opt option:selected").val();
 			let searchInput = document.getElementsByClassName('input-text')[0];
 			
-			console.log("dsadsad@#$#");
 			// 검색으로 테이블이 그려질때
 			if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
 				
