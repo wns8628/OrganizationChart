@@ -76,13 +76,13 @@ var getparents = function(deptSeq){
       success: function(response){
       
           let parentDeptSeq = response.data.parentDeptSeq;
-          let deptSeq = response.data.deptSeq;													    //전체부서표시용
-          let bizSeq = response.data.bizSeq; 															//전체부서표시용
+          let deptSeq2 = response.data.deptSeq;													    //전체부서표시용
+          let bizSeq2 = response.data.bizSeq; 															//전체부서표시용
           var str;
           
           if(parentDeptSeq < 100000 && parentDeptSeq != null ){
              
-             deptInfoList.push(deptSeq); 																//전체부서표시용
+             deptInfoList.push(deptSeq2); 																//전체부서표시용
              getparents(parentDeptSeq); 																//재귀로 맨위에부터 펼쳐지게함 
              
              str = $("li[data-no='"+parentDeptSeq+"']").children(".prev").html();
@@ -95,7 +95,7 @@ var getparents = function(deptSeq){
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".close-btn ").show();
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();
           }else{
-             deptInfoList.push(bizSeq);
+             deptInfoList.push(bizSeq2);
              if($("li[data-no='"+parentDeptSeq+"'").children(".wrap").children('.last').length == 0){
                 getListNavPoint(parentDeptSeq, "false", null, deptSeq);
              }else{
@@ -123,7 +123,6 @@ $(function(){
       deptInfoList=[];
       let empSeq = this.children[0].innerHTML;
       let deptSeq = this.children[1].innerHTML;
-      console.log(deptSeq);
       //조직도 부서 펼치기
       $.ajax({
            url: contextPath + "/getdetailNavPoint/" + empSeq + "/" + deptSeq,
