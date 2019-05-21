@@ -40,7 +40,9 @@ public class ExcelServicelmpl implements ExcelService {
 		
 		//세션의 엑셀로출력할 type : 검색인가 부서클릭인가를 구분할 세션 과 정보들
 		Map<String, Object> excelInfoMap = (Map<String, Object>) session.getAttribute("excelInfo"); 
-		
+		//영어버전인지 아닌지 구분
+		String langCode = (String) excelInfoMap.get("langCode");
+		System.out.println("langCode >>" + langCode);
 		try {
 		    sqlSession.select("selectExcelList", excelInfoMap, new ResultHandler(){
 				@Override
@@ -49,19 +51,27 @@ public class ExcelServicelmpl implements ExcelService {
 				    Row row = sheet.createRow(context.getResultCount() - 1);
 			    	Cell cell = null;
 			    	cell = row.createCell(0);
-			    	cell.setCellValue(vo.getDeptName());			//부서명
+			    	if(langCode.equals("kr")) {
+			    		cell.setCellValue(vo.getDeptName());			//부서명			    		
+			    	}else {
+			    		cell.setCellValue(vo.getDeptNameEn());			//부서명 En	    		
+			    	}
 			        cell = row.createCell(1);
-			        cell.setCellValue(vo.getPositionCode());		//직급
-			        cell = row.createCell(2);
-			        cell.setCellValue(vo.getDutyCode());			//직책
+			        cell.setCellValue(vo.getPositionCode());			//직급
+			        cell = row.createCell(2);	
+			        cell.setCellValue(vo.getDutyCode());				//직책
 			        cell = row.createCell(3);
-			        cell.setCellValue(vo.getEmpName());				//이름
+			    	if(langCode.equals("kr")) {
+			    		cell.setCellValue(vo.getEmpName());				//이름
+			    	}else {
+			    		cell.setCellValue(vo.getEmpNameEn());			//이름 En	
+			    	}
 			        cell = row.createCell(4);
-			        cell.setCellValue(vo.getLoginId());				//아디
+			        cell.setCellValue(vo.getLoginId());					//아디
 			        cell = row.createCell(5);
-			        cell.setCellValue(vo.getHomeTelNum());			//전번
+			        cell.setCellValue(vo.getHomeTelNum());				//전번
 			        cell = row.createCell(6);
-			        cell.setCellValue(vo.getMobileTelNum());		//폰번
+			        cell.setCellValue(vo.getMobileTelNum());			//폰번
 				}
             }); 
 		
@@ -69,7 +79,6 @@ public class ExcelServicelmpl implements ExcelService {
 			SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddHHmmss");
 			Date time = new Date();
 			String str = dayTime.format(time);
-		    System.out.println(str);
 			
 			response.setHeader("Set-Cookie", "fileDownload=true; path=/");
 			response.setHeader("Content-Disposition", String.format("attachment; filename=\""+ str +"_QS_emp_table.xlsx\""));
