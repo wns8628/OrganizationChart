@@ -76,6 +76,7 @@ $.lang = {
 var mainLangCode = 'kr';
 
 var langChange = function(){
+		
 	var langCode = $("#langcode option:selected").val();
 	let sortSpecialCharacter = "<a href='#'>↕</a>";
 	
@@ -154,6 +155,20 @@ var langChange = function(){
 	
 	mainLangCode = langCode;
 	tableColumnSort();
+	
+	//엑셀실시간다국어변경저장위해필요함
+	$.ajax({
+	      url: contextPath + "/langCodeToggle/"+mainLangCode,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){   	    	  
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+"::"+e);
+	      }      
+	 });
+	//--
 }
 
 var compRender = function(vo){
