@@ -225,15 +225,15 @@
 	
 	<select id="getdetailNavPointParents" parameterType="departmentsvo" resultType="departmentsvo">
 		<![CDATA[			
-			 select a.parent_dept_seq as parentDeptSeq, (select dept_name
+			 select a.parent_dept_seq as parentDeptSeq, (select dept_seq
 											  from t_co_dept_multi
 											 where dept_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})
-											   and lang_code = #{langCode}) as deptName,
-														( select biz_name 
+											   and lang_code = #{langCode}) as deptSeq,
+														( select biz_seq 
 														    from t_co_biz_multi 
 														   where biz_seq 
 														     and lang_code = #{langCode}
-														     and biz_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})) as bizName																				 
+														     and biz_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})) as bizSeq																				 
 			  from t_co_dept a, t_co_dept_multi b
 			 where a.dept_seq = b.dept_seq 
 			   and a.dept_seq = #{deptSeq}

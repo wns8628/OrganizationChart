@@ -74,6 +74,7 @@ var makeTable = function(url, check) {
 	         });
 	         paging = response.data.page; 
 	         pageRender(paging);
+	         $("div.pagination-info>span.lang").text($.lang[mainLangCode]["etc"]["result"]);
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -149,7 +150,8 @@ let pageRender = function(paging){
 		$(".pagination").append("<li class=\"disabled page-view\"><a>맨끝</a></li>");        					 //마지막페이지로 가기 버튼 비활성화
 	}
     
-    $(".pagination-info").append("결과 : 총 " + paging.totalboardcount + "명 ");
+//    $(".pagination-info").append("결과 : 총 " + paging.totalboardcount + "명 ");
+    $(".pagination-info").append("<span class='lang etc' lang-data='result'></span><span> "+paging.totalboardcount+"</span>");
     if(paging.totalBlock != 1){  
     	$(".page-point").css("display","inline");															 //페이지가많으면 페이지검색가능하게함 
     }else{

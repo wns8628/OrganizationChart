@@ -18,7 +18,7 @@ var empDetailRender = function(vo, alldept){
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='totalDept'>전체부서</th>\r\n" + 
 //            "                    <td colspan=\"3\">"+ vo.compName +" > "+ alldept + vo.deptName+"</td>\r\n" + 
-            "                    <td colspan=\"3\"><span class='lang comp' data-lang='"+vo.compSeq+"'></span><span class='lang dept' data-lang='"+vo.deptSeq+"'></span></td>\r\n" + 
+            "                    <td colspan=\"3\"><span id='total' class='lang comp' data-lang='"+vo.compSeq+"'></span><span> > </span><span class='lang dept' data-lang='"+vo.deptSeq+"'></span></td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='phone'>휴대전화</th>\r\n" + 
@@ -76,13 +76,13 @@ var getparents = function(deptSeq){
       success: function(response){
       
           let parentDeptSeq = response.data.parentDeptSeq;
-          let deptName = response.data.deptName;													    //전체부서표시용
-          let bizName = response.data.bizName; 															//전체부서표시용
+          let deptSeq = response.data.deptSeq;													    //전체부서표시용
+          let bizSeq = response.data.bizSeq; 															//전체부서표시용
           var str;
           
           if(parentDeptSeq < 100000 && parentDeptSeq != null ){
              
-             deptInfoList.push(deptName); 																//전체부서표시용
+             deptInfoList.push(deptSeq); 																//전체부서표시용
              getparents(parentDeptSeq); 																//재귀로 맨위에부터 펼쳐지게함 
              
              str = $("li[data-no='"+parentDeptSeq+"']").children(".prev").html();
@@ -95,7 +95,7 @@ var getparents = function(deptSeq){
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".close-btn ").show();
              $("li[data-no='"+parentDeptSeq+"']").children(".wrap").children(".open-btn ").hide();
           }else{
-             deptInfoList.push(bizName);
+             deptInfoList.push(bizSeq);
              if($("li[data-no='"+parentDeptSeq+"'").children(".wrap").children('.last').length == 0){
                 getListNavPoint(parentDeptSeq, "false", null, deptSeq);
              }else{
@@ -120,7 +120,6 @@ $(function(){
 		$.lang.en.biz = {};
 //		$.lang.kr.dept = {};
 //		$.lang.en.dept = {};
-		console.log($.lang)
       deptInfoList=[];
       let empSeq = this.children[0].innerHTML;
       let deptSeq = this.children[1].innerHTML;
@@ -161,6 +160,21 @@ $(function(){
                }         
                empDetailRender($(response.data)[0], alldept);
                
+               if(deptInfoList.length > 1){
+            	   var htmls = "";
+            	   for(var i=deptInfoList.length-1; i>=0; i--){
+            		   if(i==1){
+            			   htmls += "<span> > </span><span class='lang biz' data-lang='"+deptInfoList[i]+"'></span>";
+            		   }else{
+            			   htmls += "<span> > </span><span class='lang dept' data-lang='"+deptInfoList[i]+"'></span>";
+            		   }
+            	   }
+            	   $("#total").after(htmls);
+               }else{
+            	  var htmls = "<span> > </span><span class='lang biz' data-lang='"+deptInfoList[0]+"'></span>";
+               	  $("#total").after(htmls);
+               }
+            	   
                //부서번호다를떄만
                if(fixScroll != deptSeq){
             	   fixScroll = deptSeq;
@@ -194,6 +208,6 @@ $(function(){
                console.error(status+":"+e);
             }
       });
-
+      langChange(mainLangCode);
    });
 });
