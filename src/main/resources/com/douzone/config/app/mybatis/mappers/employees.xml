@@ -164,6 +164,7 @@
               pmp.dp_seq as positionCode,
 			  pmd.dp_seq as dutyCode,
 			  emp.dept_name as deptName,
+			  emp.dept_seq as deptSeq,
               emp.mobile_tel_num as mobileTelNum,
 			  emp.home_tel_num as homeTelNum,
               emp.fax_num as faxNum,

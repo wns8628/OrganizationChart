@@ -17,7 +17,8 @@ var empDetailRender = function(vo, alldept){
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='totalDept'>전체부서</th>\r\n" + 
-            "                    <td colspan=\"3\">"+ vo.compName +" > "+ alldept + vo.deptName+"</td>\r\n" + 
+//            "                    <td colspan=\"3\">"+ vo.compName +" > "+ alldept + vo.deptName+"</td>\r\n" + 
+            "                    <td colspan=\"3\"><span class='lang comp' data-lang='"+vo.compSeq+"'></span><span class='lang dept' data-lang='"+vo.deptSeq+"'></span></td>\r\n" + 
             "                </tr>\r\n" + 
             "                <tr>\r\n" + 
             "                    <th class='lang' data-lang='phone'>휴대전화</th>\r\n" + 
@@ -117,8 +118,8 @@ $(function(){
 		$("li.comp").next().children().remove();
 		$.lang.kr.biz = {};
 		$.lang.en.biz = {};
-		$.lang.kr.dept = {};
-		$.lang.en.dept = {};
+//		$.lang.kr.dept = {};
+//		$.lang.en.dept = {};
 		console.log($.lang)
       deptInfoList=[];
       let empSeq = this.children[0].innerHTML;
@@ -153,8 +154,8 @@ $(function(){
             data:"",
             async: false,
             success: function(response){         
-            	console.log(empSeq+":"+deptSeq);
                let alldept = "";
+               console.log($(response.data)[0]);
                for(let i=0; i<deptInfoList.length; i++){
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
                }         
