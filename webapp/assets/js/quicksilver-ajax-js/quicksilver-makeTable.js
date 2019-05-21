@@ -33,7 +33,7 @@ let tableRender = function(vo){
 
 //테이블그리기
 var paging; 
-var makeTable = function(url) {
+var makeTable = function(url, check) {
 	$(".member > tbody").empty();
 	$.ajax({
 		url: contextPath + url,
@@ -48,6 +48,11 @@ var makeTable = function(url) {
 	        	 tableRender(vo);
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
+	        	 
+	        	 if(check == null){
+	        		 $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+		             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
+	        	 }
 	         });
 	         $("#dataTable .lang").each(function(){
 	        	 if($(this).attr("class") == "lang dept"){
@@ -69,6 +74,7 @@ var makeTable = function(url) {
 	         });
 	         paging = response.data.page; 
 	         pageRender(paging);
+	         $("div.pagination-info>span.lang").text($.lang[mainLangCode]["etc"]["result"]);
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -193,7 +199,7 @@ let pageRender = function(paging){
 		$(".pagination").append("<li class=\"disabled page-view\"><a>맨끝</a></li>");        					 //마지막페이지로 가기 버튼 비활성화
 	}
     
-    $(".pagination-info").append("결과 : 총 " + paging.totalboardcount + "명 ");
+    $(".pagination-info").append("<span class='lang etc' lang-data='result'></span><span> "+paging.totalboardcount+"</span>");
     if(paging.totalBlock != 1){  
     	$(".page-point").css("display","inline");															 //페이지가많으면 페이지검색가능하게함 
     }else{
