@@ -32,7 +32,9 @@ $.lang = {
 			"empNo" : "사번",
 			"deptNo" : "부서번호",
 			"compDomain" : "회사 홈페이지",
-			"result" : "결과 : 총"
+			"result" : "결과 : 총",
+			"next" : "다음",
+			"tail" : "맨끝"
 		}
 	},
 	en : {
@@ -68,7 +70,9 @@ $.lang = {
 			"empNo" : "Employee No",
 			"deptNo" : "Department No",
 			"compDomain" : "Company Domain",
-			"result" : "Result : Total"
+			"result" : "Result : Total",
+			"next" : "next",
+			"tail" : "tail"
 		}
 	}
 };
@@ -151,6 +155,8 @@ var langChange = function(){
      	 $(this).text(name);
     });
 	$("div.pagination-info>span.lang").text($.lang[langCode]["etc"]["result"]);
+	$("div.pagination span.lang").text($.lang[mainLangCode]["etc"]["next"]);
+    $("div.pagination span.lang").text($.lang[mainLangCode]["etc"]["tail"]);
 	
 	mainLangCode = langCode;
 	tableColumnSort();
