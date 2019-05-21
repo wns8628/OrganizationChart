@@ -38,6 +38,12 @@ public class AdminController {
 		return "admin/popup";
 	}
 	
+	@RequestMapping("/rankPositionManagement")
+	public String rankPositionManagement() {
+		return "admin/rankPositionManagement";
+	}
+	
+	
 	@RequestMapping("/popup/{langCode}")
 	public String lang(@PathVariable String langCode, HttpSession session) {
 		session.setAttribute("langCode", langCode);
