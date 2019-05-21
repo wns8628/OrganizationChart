@@ -85,16 +85,9 @@ public class EmployeeController {
 								 @RequestParam (value="pageNo",required=false, defaultValue="1") Integer pageNo,
 								 @RequestParam (value = "sorting", required = false, defaultValue = "asc") String sorting,
 								 @RequestParam (value = "column", required = false, defaultValue = "empSeq + 0") String column,
+								 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode,
 								 HttpSession session) {
-		
-		System.out.println("sorting : " + sorting);
-		System.out.println("column : " + column);
-		
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		
+				
 		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode, pageNo, sorting, column , session));
 	}
 	

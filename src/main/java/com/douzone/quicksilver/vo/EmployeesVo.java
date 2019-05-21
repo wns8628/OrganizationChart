@@ -82,6 +82,21 @@ public class EmployeesVo {
 	private String compEmail;				// 회사메일
 	private String compSeq;
 	
+	private String dutyCodeName;
+	private String positionCodeName;
+	
+	public String getDutyCodeName() {
+		return dutyCodeName;
+	}
+	public void setDutyCodeName(String dutyCodeName) {
+		this.dutyCodeName = dutyCodeName;
+	}
+	public String getPositionCodeName() {
+		return positionCodeName;
+	}
+	public void setPositionCodeName(String positionCodeName) {
+		this.positionCodeName = positionCodeName;
+	}
 	public String getDeptNameEn() {
 		return deptNameEn;
 	}
@@ -491,9 +506,11 @@ public class EmployeesVo {
 				+ ", lsRoleID=" + lsRoleID + ", createSeq=" + createSeq + ", createDate=" + createDate + ", modifySeq="
 				+ modifySeq + ", modifyDate=" + modifyDate + ", springSecu=" + springSecu + ", springDate=" + springDate
 				+ ", signType=" + signType + ", empName=" + empName + ", addr=" + addr + ", detailAddr=" + detailAddr
-				+ ", mainWork=" + mainWork + ", deptName=" + deptName + ", deptSeq=" + deptSeq + ", age=" + age
-				+ ", bizName=" + bizName + ", langCode=" + langCode + ", faxNum=" + faxNum + ", compName=" + compName
-				+ ", compDomain=" + compDomain + ", compEmail=" + compEmail + "]";
+				+ ", mainWork=" + mainWork + ", deptName=" + deptName + ", deptSeq=" + deptSeq + ", deptNameEn="
+				+ deptNameEn + ", empNameEn=" + empNameEn + ", age=" + age + ", bizName=" + bizName + ", langCode="
+				+ langCode + ", faxNum=" + faxNum + ", compName=" + compName + ", compDomain=" + compDomain
+				+ ", compEmail=" + compEmail + ", compSeq=" + compSeq + ", dutyCodeName=" + dutyCodeName
+				+ ", positionCodeName=" + positionCodeName + "]";
 	}
 	
 	
