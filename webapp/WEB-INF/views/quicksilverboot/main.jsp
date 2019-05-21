@@ -47,7 +47,7 @@
 					    <!-- </div> -->
 				        <input type="text" class="input-text" placeholder="" aria-label="kwd" aria-describedby="basic-addon2">
 				        <!-- <div class="input-group-append"> -->
-				          <button class="search sch-submit lang" data-lang='search' id="search-button" type="button">
+				          <button class="search sch-submit lang" data-lang='search' data-check='true' id="search-button" type="button">
 				            	검색
 				          </button>
 			    </span>
@@ -77,14 +77,14 @@
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
                        <thead>
 	                    <tr>
-	                  	  <th class='lang' data-lang='empNo'>사번</th>
-	                  	  <th class='lang' data-lang='deptNo'>부서번호 </th>
-	                      <th class='lang' data-lang='dept'>부서</th>
-	                      <th class='lang' data-lang='position'>직급</th>
-	                      <th class='lang' data-lang='duty'>직책</th>
-	                      <th class='lang' data-lang='empName'>사원명(ID)</th>
-	                      <th class='lang' data-lang='call'>전화번호</th>
-	                      <th class='lang' data-lang='phone'>휴대전화</th>
+	                  	  <th class='lang' data-lang='empNo' data-column='empSeq'>사번</th>
+	                  	  <th class='lang' data-lang='deptNo' data-column='deptSeq'>부서번호 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='dept' data-column='deptName'>부서 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='position' data-column='positionCode'>직급 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='duty' data-column='dutyCode'>직책 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='empName' data-column='empName'>사원명(ID) <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='call' data-column='homeTelNum'>전화번호 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='phone' data-column='mobileTelNum'>휴대전화 <a href="#">↕</a></th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>

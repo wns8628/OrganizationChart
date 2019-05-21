@@ -28,19 +28,27 @@ public class SearchController {
 	public JSONResult search( @PathVariable String selectSearch,
 							  @PathVariable String kwd,
 							  HttpSession session,
-							  @RequestParam (value="pageNo",required=false, defaultValue="1") Integer pageNo) {
+							  @RequestParam (value="pageNo",required=false, defaultValue="1") Integer pageNo,
+							  @RequestParam (value = "sorting", required = false, defaultValue = "") String sorting,
+							  @RequestParam (value = "column", required = false, defaultValue = "") String column) {
 		
 		String langCode = (String) session.getAttribute("langCode");
 		if(langCode == null) {
 			langCode = "kr";
 		}
 		
-		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, pageNo);
+		System.out.println("sorting : " + sorting);
+		System.out.println("column : " + column);
+		if( sorting.equals("") || sorting.equals("undefined")) {
+			sorting = null;
+		}
 		
+		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, pageNo, sorting, column);
 		session.setAttribute( "searchCode", searchData); //PageNO불필요하겠지?
 		session.setAttribute( "searchCount", searchData.size()); 		
 		
 //		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
+	
 		return JSONResult.success(null);
 		
 	}

@@ -22,12 +22,14 @@ public class SearchService {
 //	@Autowired
 //	private PaginationDao paginationdao;
 
-	public List<EmployeesVo> Employeelist(String kwd, String selectSearch, String langCode, Integer pageNo) {
+	public List<EmployeesVo> Employeelist(String kwd, String selectSearch, String langCode, Integer pageNo, String sorting, String column) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("kwd", kwd);
 		map.put("selectSearch", selectSearch);
 		map.put("langCode", langCode);
+		map.put("sorting", sorting);
+		map.put("column", column);
 
 		return searchDao.getList(map);
 	}
