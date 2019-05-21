@@ -155,8 +155,9 @@ var langChange = function(){
      	 $(this).text(name);
     });
 	$("div.pagination-info>span.lang").text($.lang[langCode]["etc"]["result"]);
-	$("div.pagination span.lang").text($.lang[mainLangCode]["etc"]["next"]);
-    $("div.pagination span.lang").text($.lang[mainLangCode]["etc"]["tail"]);
+	$("div.pagination span.lang").each(function(){
+		$(this).text($.lang[langCode]["etc"][$(this).data("lang")]);
+	});
 	
 	mainLangCode = langCode;
 	tableColumnSort();
