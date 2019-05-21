@@ -151,7 +151,7 @@
 		
 	</choose> 
  					<!-- limit #{startboard}, #{manyboard}; -->
-</select>
+	</select>
 	
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
