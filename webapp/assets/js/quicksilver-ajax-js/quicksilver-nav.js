@@ -286,7 +286,7 @@ var getListNavPoint = function(seq, last, str, pointSeq){
     	 $(response.data).each(function(index, vo){
    		  	  deptRender(vo, index, response.data.length, last, str);
    		  	  $.lang.kr.dept[vo.deptSeq] = vo.deptName;
-   		  	  $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;  
+   		  	  $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
          });
     	 $("li[data-no='"+pointSeq+"']").children(".wrap").children(".li-div").css("background-color","#B3E5FC");  
     	 $("li[data-no!='"+pointSeq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
