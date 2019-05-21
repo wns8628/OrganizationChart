@@ -79,11 +79,11 @@
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
                        <thead>
 	                    <tr>
-	                  	  <th class='lang' data-lang='empNo' data-column='empSeq'>사번</th>
+	                  	  <th class='lang' data-lang='empNo'>사번</th>
 	                  	  <th class='lang' data-lang='deptNo' data-column='deptSeq'>부서번호 <a href="#">↕</a></th>
 	                      <th class='lang' data-lang='dept' data-column='deptName'>부서 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='position' data-column='positionCode'>직급 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='duty' data-column='dutyCode'>직책 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='position' data-column='positionCodeName'>직급 <a href="#">↕</a></th>
+	                      <th class='lang' data-lang='duty' data-column='dutyCodeName'>직책 <a href="#">↕</a></th>
 	                      <th class='lang' data-lang='empName' data-column='empName'>사원명(ID) <a href="#">↕</a></th>
 	                      <th class='lang' data-lang='call' data-column='homeTelNum'>전화번호 <a href="#">↕</a></th>
 	                      <th class='lang' data-lang='phone' data-column='mobileTelNum'>휴대전화 <a href="#">↕</a></th>
