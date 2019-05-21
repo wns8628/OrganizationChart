@@ -54,24 +54,25 @@
 			    <br>	
 			    <!-- -->
 			    
-			    <!--  -->
 				<div class="header2">
 					<span class="title lang" data-lang='empList'>● 사원목록 </span>
- 					
- 					<!--
- 					 <ul class="sort_list">
-						<li>사번순</li>
-						<li>사원명순</li>
-					</ul>
-					 -->
-					 
- 					<iframe id="iframe" name="iframe" style="display:none;"></iframe><!--익스플로러 엑셀저장위해  -->
-					<div id="dvjson"></div>
- 					<span class="exelbtn">
-						<button type= "submit" class="exel-submit lang" data-lang='exel'>엑셀 저장</button>
+ 		
+					<!-- 엑셀다운로드  -->
+				    <span class="exelbtn">
+						<button id="btn-excel" class="exel-submit">엑셀 다운로드</button>
 					</span>
+					<!-- 파일 생성중 진행막대 -->
+					<div title="Data Download" id="preparing-file-modal"
+						style="display: none;">
+						<div id="progressbar"
+							style="width: 100%; height: 22px; margin-top: 20px;"></div>
+					</div>
+					<!-- 에러발생시  다이얼로그 -->
+					<div title="Error" id="error-modal" style="display: none;">
+						<p>생성실패.</p>
+					</div>
+					<!-- 엑셀다운로드  -->
 				</div>
-		    	<!--  -->
 				
 		         <!-- 직원테이블 -->
 		         <div class="table-body">

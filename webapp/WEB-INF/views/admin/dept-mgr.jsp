@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/admin.css?ver=1"
+	href="${pageContext.servletContext.contextPath }/assets/css/admin.css"
 	rel="stylesheet" type="text/css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>

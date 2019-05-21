@@ -24,19 +24,12 @@ public class PaginationController {
 	@ResponseBody
 	@RequestMapping("")
 	public JSONResult search(@RequestParam (value="pageNo",required=false, defaultValue="1") Integer pageNo,
-																						//정렬카운트받고 처음은 디폴트떄리고
 																						HttpSession session
 																						) {
 
 		List<EmployeesVo> searchCode = (List<EmployeesVo>) session.getAttribute("searchCode");
 		Integer searchCount = (Integer)session.getAttribute("searchCount");
-		
-		//여기서 정렬떄리면 될듯?
-		//
-		//검색아닌거 정렬은 pageFlag이용하면될듯 낼하자
-		//
-
-		
+	
 		return JSONResult.success(PaginationService.Employeelist(searchCode, searchCount, pageNo));
 	}
 	

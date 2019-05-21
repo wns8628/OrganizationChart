@@ -28,7 +28,6 @@ public class SearchController {
 	public JSONResult search( @PathVariable String selectSearch,
 							  @PathVariable String kwd,
 							  HttpSession session,
-							  @RequestParam (value="pageNo",required=false, defaultValue="1") Integer pageNo,
 							  @RequestParam (value = "sorting", required = false, defaultValue = "") String sorting,
 							  @RequestParam (value = "column", required = false, defaultValue = "") String column,
 							  @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
@@ -43,9 +42,9 @@ public class SearchController {
 		}
 
 		
-		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, pageNo, sorting, column);
-		session.setAttribute( "searchCode", searchData); //PageNO불필요하겠지?
-		session.setAttribute( "searchCount", searchData.size()); 		
+		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, sorting, column, session);
+		session.setAttribute( "searchCode", searchData);
+		session.setAttribute( "searchCount", searchData.size()); 
 		
 //		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
 	
