@@ -84,11 +84,19 @@
 	    loginId,
 	    homeTelNum,
 	    mobileTelNum,
-	    deptSeq,
-	    empNameEn,
-	    deptNameEn
-	FROM
-	    quicksilver_douzone
+	    deptSeq, 
+		empNameEn,
+		deptNameEn
+		from
+		<choose>
+			<when test='langCode == "kr"'>
+					 quicksilver_douzone
+			</when>
+			
+			<otherwise>
+					quicksilver_douzone_en
+			</otherwise>
+		</choose>
 	WHERE		
 	 <choose>
 	  <when test='selectSearch == "all"'>

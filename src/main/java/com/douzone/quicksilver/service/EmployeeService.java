@@ -36,7 +36,7 @@ public class EmployeeService {
 	public DepartmentsVo getdetailNavPointParents(DepartmentsVo departmentsvo) {
 		return employeeDao.get(departmentsvo);
 	}
-	
+
 	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo, String sorting, String column, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
@@ -44,7 +44,7 @@ public class EmployeeService {
 		map.put("langCode", langCode);
 		map.put("sorting", sorting);
 		map.put("column", column);
-		
+
 		session.setAttribute("excelInfo", map); //엑셀저장용 세션 
 		
 		//페이징 ///////////////////////////////////////////////////////////////////////////

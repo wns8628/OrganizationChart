@@ -29,18 +29,18 @@ public class SearchController {
 							  @PathVariable String kwd,
 							  HttpSession session,
 							  @RequestParam (value = "sorting", required = false, defaultValue = "") String sorting,
-							  @RequestParam (value = "column", required = false, defaultValue = "") String column) {
+							  @RequestParam (value = "column", required = false, defaultValue = "") String column,
+							  @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
 		
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
+		//String langCode = (String) session.getAttribute("langCode");
+		/*
+		 * if(langCode == null) { langCode = "kr"; }
+		 */
 		
-		System.out.println("sorting : " + sorting);
-		System.out.println("column : " + column);
 		if( sorting.equals("") || sorting.equals("undefined")) {
 			sorting = null;
 		}
+
 		
 		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, sorting, column, session);
 		session.setAttribute( "searchCode", searchData);
