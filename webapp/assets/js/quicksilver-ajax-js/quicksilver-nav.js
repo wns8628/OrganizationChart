@@ -205,9 +205,9 @@ var deptRender = function(vo, index, length, last, str){
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
-   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span><span>("+vo.deptEmpCount+")</span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span><span>("+vo.deptEmpCount+")</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
-	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
+	   $("ul[d-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
 	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
@@ -274,7 +274,9 @@ var getListNavPoint = function(seq, last, str, pointSeq){
       async: false,
       success: function(response){   	
     	 $(response.data).each(function(index, vo){
-   		  	  deptRender(vo, index, response.data.length, last, str);  
+   		  	  deptRender(vo, index, response.data.length, last, str);
+   		  	  $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+   		  	  $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
          });
     	 $("li[data-no='"+pointSeq+"']").children(".wrap").children(".li-div").css("background-color","#B3E5FC");  
     	 $("li[data-no!='"+pointSeq+"']").children(".wrap").children(".li-div").css("background-color","transparent");

@@ -114,6 +114,12 @@ let fixScroll=0;																					   //스크롤위해
 $(function(){
 	//테이블 행 클릭
 	$(document).on("click", "tbody tr.row", function(event){   
+		$("li.comp").next().children().remove();
+		$.lang.kr.biz = {};
+		$.lang.en.biz = {};
+		$.lang.kr.dept = {};
+		$.lang.en.dept = {};
+		console.log($.lang)
       deptInfoList=[];
       let empSeq = this.children[0].innerHTML;
       let deptSeq = this.children[1].innerHTML;
