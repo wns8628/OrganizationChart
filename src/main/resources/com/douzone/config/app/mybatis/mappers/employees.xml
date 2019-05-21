@@ -28,7 +28,9 @@
 			  d.emp_name as empNameEn, 
 			  emp.comp_seq as compSeq,
 			  emp.dept_name as deptName,
-			  f.dept_name as deptNameEn
+			  f.dept_name as deptNameEn,
+			  pmp.dp_name as positionCodeName,
+			  pmd.dp_name as dutyCodeName
 		from (select
 					d.dept_name,
 					b.position_code as positionDuty,
