@@ -42,15 +42,12 @@ var makeTable = function(url) {
 	      data:"",
 	      async: false,
 	      success: function(response){
-	    	  
 	    	 $.lang.kr.emp = {};
 	    	 $.lang.en.emp = {};
 	         $(response.data.list).each(function(index, vo){
-	        	 console.log(vo);
 	        	 tableRender(vo);
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
-	        	 
 	         });
 	         $("#dataTable .lang").each(function(){
 	        	 if($(this).attr("class") == "lang dept"){
