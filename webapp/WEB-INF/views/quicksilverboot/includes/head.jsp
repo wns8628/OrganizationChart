@@ -41,7 +41,7 @@
   </script>
  
   <!-- css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/quicksilver-detailemp.css?ver=1">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/quicksilver-detailemp.css">
 
   <!-- Page level plugin JavaScript-->
   <%-- <script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/chart.js/Chart.min.js"></script> --%>
