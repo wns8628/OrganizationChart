@@ -5,7 +5,8 @@ html, body {
 	height: 100%;
 }
 
-nav {
-	float: left;
-	width: 80px;
+.section {
+	display: flex;
+	flex-direction: row;
 }
+

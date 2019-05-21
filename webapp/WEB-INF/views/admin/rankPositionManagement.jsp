@@ -327,14 +327,14 @@ $(function(){
 			<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
 		</header>
 		
-		<div class="search">
-			<nav>
+		<div class="section">
+			<div>
 				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
-			</nav>	
+			</div>	
 			
-			<section style="background-color:red;">
+			<div style="background-color:red;">
 				<p>asdsad</p>
-			</section>
+			</div>
 		</div>
 			
 			
