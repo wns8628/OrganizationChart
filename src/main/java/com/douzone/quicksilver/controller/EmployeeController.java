@@ -95,7 +95,7 @@ public class EmployeeController {
 			langCode = "kr";
 		}
 		
-		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode, pageNo, sorting, column));
+		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode, pageNo, sorting, column , session));
 	}
 	
 	

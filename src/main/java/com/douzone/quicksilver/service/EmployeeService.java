@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,26 +36,16 @@ public class EmployeeService {
 	public DepartmentsVo getdetailNavPointParents(DepartmentsVo departmentsvo) {
 		return employeeDao.get(departmentsvo);
 	}
-	//조직도부서클릭 엑셀저장 위해 
-	public List<EmployeesVo> getEmpInfo(String seq, String type,String langCode){
+	
+	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo, String sorting, String column, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("type", type);
 		map.put("langCode", langCode);
-		map.put("exelClick", "yes");
-		
-		return employeeDao.getEmpInfo(map);
-	}
-
-	public Map<String, Object> getEmpInfo(String seq, String type,String langCode, Integer pageNo, String sorting, String column){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("seq", seq);
-		map.put("type", type);
-		map.put("langCode", langCode);
-		map.put("exelClick", "no");
 		map.put("sorting", sorting);
 		map.put("column", column);
 		
+		session.setAttribute("excelInfo", map); //엑셀저장용 세션 
 		
 		//페이징 ///////////////////////////////////////////////////////////////////////////
 			int manyboard = 5; //몇개당 한페이지할건지

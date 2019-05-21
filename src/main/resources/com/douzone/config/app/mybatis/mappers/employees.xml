@@ -70,14 +70,7 @@
 				emp.dept_seq = #{seq}
 			</when>
 		</choose>
-		<choose>
-			<when test='exelClick == "yes"'>
-				order by ${column} ${sorting};
-			</when>
-			<when test='exelClick == "no"'>
 				order by ${column} ${sorting} limit #{startboard}, #{manyboard};
-			</when>			
-		</choose>
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
