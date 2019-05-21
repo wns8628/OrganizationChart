@@ -323,25 +323,24 @@ $(function(){
 </head>
 
 <body>
-	<div id="container">
 		<header>
 			<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
 		</header>
-		<nav>
-			<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
-		</nav>
 		
-		<section>
-			<div class="search" style="background-color:red;">
+		<div class="section">
+			<div>
+				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
+			</div>	
+			
+			<div style="background-color:red;">
 				<p>asdsad</p>
 			</div>
-		</section>
+		</div>
 			
 			
 		<footer>
 			<c:import url="/WEB-INF/views/admin/includes/footer.jsp" />
 		
 		</footer>
-	</div>
 </body>
 </html>
