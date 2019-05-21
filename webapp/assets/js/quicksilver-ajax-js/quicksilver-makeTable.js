@@ -92,6 +92,56 @@ var getLeader = function(url){
 		}
 	});
 }
+/*
+ * 테이블 컬럼 정렬
+ */
+var tableColumnSort = () => {
+	
+	Array.from(document.getElementsByTagName("a")).forEach( tag => {
+		tag.addEventListener("click", () => {
+			
+			let tagParent = tag.parentNode;
+			
+			tagParent.classList.toggle("sort");
+			
+			let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
+			let option = $("#search-opt option:selected").val();
+			let searchInput = document.getElementsByClassName('input-text')[0];
+			
+			console.log("dsadsad@#$#");
+			// 검색으로 테이블이 그려질때
+			if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
+				
+				if( tagParent.classList.contains('sort')){
+					console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+					search(option, searchInput.value, "asc", tagParent.getAttribute('data-column'));
+				} else {
+					console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+					search(option, searchInput.value, "desc", tagParent.getAttribute('data-column'));
+				}
+			} else {
+				
+				// 부서를 클릭해서 테이블이 그려질때
+				Array.from(document.getElementsByClassName('li-div')).forEach( li => {
+					
+					if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림		   
+						
+						if( tagParent.classList.contains('sort')){ // 정렬 asc
+							console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column'));
+							
+						} else { // 정렬 desc
+							console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column'));					   }
+					}
+				});
+			}
+			
+		})
+	});
+	
+}
+
 //--------------------------------------------------------------------------
 
 //페이징관련-------------------------------------------------------------------------
@@ -235,47 +285,5 @@ $(function(){
 	   /*
 	    * 테이블 컬럼 정렬
 	    */
-	   Array.from(document.getElementsByTagName("a")).forEach( tag => {
-		   
-		   tag.addEventListener("click", () => {
-			   
-			   let tagParent = tag.parentNode;
-			   
-			   tagParent.classList.toggle("sort");
-			   
-			   let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
-			   let option = $("#search-opt option:selected").val();
-			   let searchInput = document.getElementsByClassName('input-text')[0];
-			   
-			   // 검색으로 테이블이 그려질때
-			   if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
-				   
-				   if( tagParent.classList.contains('sort')){
-					   console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
-					   search(option, searchInput.value, "asc", tagParent.getAttribute('data-column'));
-				   } else {
-					   console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-					   search(option, searchInput.value, "desc", tagParent.getAttribute('data-column'));
-				   }
-			   } else {
-				   
-				   // 부서를 클릭해서 테이블이 그려질때
-				   Array.from(document.getElementsByClassName('li-div')).forEach( li => {
-					   
-					   if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림		   
-				
-						   if( tagParent.classList.contains('sort')){ // 정렬 asc
-							   console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
-							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column'));
-							   
-						   } else { // 정렬 desc
-							   console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column'));					   }
-					   }
-				   });
-			   }
-			   
-		   })
-	   });
-	   
+	   tableColumnSort();
 });

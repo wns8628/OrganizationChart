@@ -91,11 +91,19 @@
 	    loginId,
 	    homeTelNum,
 	    mobileTelNum,
-	    deptSeq,
-	    empNameEn,
-	    deptNameEn
-	FROM
-	    quicksilver_douzone
+	    deptSeq, 
+		empNameEn,
+		deptNameEn
+		from
+		<choose>
+			<when test='langCode == "kr"'>
+					 quicksilver_douzone
+			</when>
+			
+			<otherwise>
+					quicksilver_douzone_en
+			</otherwise>
+		</choose>
 	WHERE		
 	 <choose>
 	  <when test='selectSearch == "all"'>
@@ -121,14 +129,14 @@
 		 		 limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
 		<when test='selectSearch == "position"'>
- 				`query` = '@positionCode "*${kwd}*";
+ 				`query` = '@positionCodeName "*${kwd}*";
  				<if test="sorting != null and column != null">
 		 			sort=attr_${sorting}:${column};
 		 		</if>
  				limit=110000;mode=boolean;maxmatches=110000;'		
  		</when>
 		<when test='selectSearch == "duty"'>
- 				`query` = '@dutyCode "*${kwd}*";
+ 				`query` = '@dutyCodeName "*${kwd}*";
  				<if test="sorting != null and column != null">
 		 			sort=attr_${sorting}:${column};
 		 		</if>

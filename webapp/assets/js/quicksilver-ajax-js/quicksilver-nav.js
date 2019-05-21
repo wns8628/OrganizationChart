@@ -75,6 +75,8 @@ var mainLangCode = 'kr';
 
 var langChange = function(){
 	var langCode = $("#langcode option:selected").val();
+	let sortSpecialCharacter = "<a href='#'>↕</a>";
+	
 	$("span.comp").each(function(){
 		var name = $.lang[langCode]["comp"][$(this).data("lang")];
 		if (name == null){
@@ -98,11 +100,16 @@ var langChange = function(){
 	});
 	
 	$(".lang").each(function(){
+		
 		var text = $.lang[langCode]["etc"][$(this).data('lang')];
 		if (text == null){
 			text = $.lang['kr']["etc"][$(this).data('lang')]
 		}
 		$(this).text(text);
+		
+		if( $(this).attr('data-column')){
+			$(this).text(text).append(sortSpecialCharacter);
+		}
 	})
 	
 	$("#dataTable .lang").each(function(){
@@ -144,6 +151,7 @@ var langChange = function(){
     });
 	
 	mainLangCode = langCode;
+	tableColumnSort();
 }
 
 var compRender = function(vo){

@@ -78,7 +78,7 @@
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
                        <thead>
 	                    <tr>
-	                  	  <th class='lang' data-lang='empNo' data-column='empSeq'>사번</th>
+	                  	  <th class='lang' data-lang='empNo'>사번</th>
 	                  	  <th class='lang' data-lang='deptNo' data-column='deptSeq'>부서번호 <a href="#">↕</a></th>
 	                      <th class='lang' data-lang='dept' data-column='deptName'>부서 <a href="#">↕</a></th>
 	                      <th class='lang' data-lang='position' data-column='positionCode'>직급 <a href="#">↕</a></th>
