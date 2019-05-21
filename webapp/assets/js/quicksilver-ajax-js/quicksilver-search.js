@@ -24,7 +24,7 @@ let search = function(selectSearch, kwd, sorting, column){
 	console.log(selectSearch);
 	console.log("sorting!! : " + sorting);
 	$(".card-header").empty();
-	getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?pageNo=1&sorting=" + sorting + "&column=" + column);
+	getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column);
 	makeTable("/boot/pagination?pageNo=1" );								 //quicksilver-makeTable.js에있다 테이블관련이라.
 }
 

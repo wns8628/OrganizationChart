@@ -22,7 +22,7 @@ public class SearchService {
 //	@Autowired
 //	private PaginationDao paginationdao;
 
-	public List<EmployeesVo> Employeelist(String kwd, String selectSearch, String langCode, Integer pageNo, String sorting, String column) {
+	public List<EmployeesVo> Employeelist(String kwd, String selectSearch, String langCode, String sorting, String column, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("kwd", kwd);
@@ -31,6 +31,8 @@ public class SearchService {
 		map.put("sorting", sorting);
 		map.put("column", column);
 
+		session.setAttribute( "excelInfo", map); //엑셀저장용 세션 
+		
 		return searchDao.getList(map);
 	}
 

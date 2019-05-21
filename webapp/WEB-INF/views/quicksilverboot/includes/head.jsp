@@ -19,9 +19,9 @@
   -->
    
   <!-- 제이쿼리 -->
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.1.0.min.js"></script> 
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/js/jquery/jquery-ui.min.css"/>
+  <script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-ui.min.js"></script>
 
   <!-- 조직도 페이지 js파일  -->
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-emp-detail.js"></script>
@@ -33,9 +33,9 @@
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-search.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/quicksilver-ajax-js/quicksilver-exel-submit.js"></script>
   
-  <!-- 엑셀저장 lib  -->
-  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/exel-lib/excelexportjs.js"></script>
-  
+  <!-- 엑셀저장 lib  -->  
+  <script src="${pageContext.request.contextPath }/assets/js/exel-lib/jquery.fileDownload.js"></script>
+
   <script>
 	var contextPath = "${pageContext.servletContext.contextPath }";
   </script>
