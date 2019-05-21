@@ -251,35 +251,29 @@ $(function(){
 			   if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
 				   
 				   if( tagParent.classList.contains('sort')){
-					   console.log( tag.parentNode.getAttribute('data-column') + ' asc 정렬');
-					   search(option, searchInput.value, "asc", tag.parentNode.getAttribute('data-column'));
+					   console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+					   search(option, searchInput.value, "asc", tagParent.getAttribute('data-column'));
 				   } else {
-					   console.log( tag.parentNode.getAttribute('data-column') + ' desc 정렬');
-					   search(option, searchInput.value, "desc", tag.parentNode.getAttribute('data-column'));
+					   console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+					   search(option, searchInput.value, "desc", tagParent.getAttribute('data-column'));
 				   }
-			   } 
+			   } else {
 				   
-	
 				   // 부서를 클릭해서 테이블이 그려질때
 				   Array.from(document.getElementsByClassName('li-div')).forEach( li => {
 					   
-					   
-					   if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림
-						   						   
-						   searchButton.setAttribute( // 테이블이 부서클릭으로 나왔으므로 검색 check 변환
-								   'data-check', false
-						   );
-						   						   
+					   if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림		   
+				
 						   if( tagParent.classList.contains('sort')){ // 정렬 asc
-							   console.log( tag.parentNode.getAttribute('data-column') + ' asc 정렬');
-							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tag.parentNode.getAttribute('data-column'));
+							   console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column'));
 							   
 						   } else { // 정렬 desc
-							   console.log( tag.parentNode.getAttribute('data-column') + ' desc 정렬');
-							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tag.parentNode.getAttribute('data-column'));					   }
+							   console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column'));					   }
 					   }
 				   });
-			   
+			   }
 			   
 		   })
 	   });

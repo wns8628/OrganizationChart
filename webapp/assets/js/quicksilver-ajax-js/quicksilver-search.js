@@ -22,7 +22,6 @@ var getSearchData = function(url) {
 //매핑된 url을 전달
 let search = function(selectSearch, kwd, sorting, column){
 	console.log(selectSearch);
-	console.log("sorting!! : " + sorting);
 	$(".card-header").empty();
 	getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?pageNo=1&sorting=" + sorting + "&column=" + column);
 	makeTable("/boot/pagination?pageNo=1" );								 //quicksilver-makeTable.js에있다 테이블관련이라.
