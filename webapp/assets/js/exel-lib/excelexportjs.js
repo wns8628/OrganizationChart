@@ -150,7 +150,31 @@
 
             return result;
         }
-
+        //커스텀 -현재시간
+	        function getTimeStamp() {
+	      	  var d = new Date();
+	      	  var s =
+	      	    leadingZeros(d.getFullYear(), 4) +
+	      	    leadingZeros(d.getMonth() + 1, 2) +
+	      	    leadingZeros(d.getDate(), 2) +
+	
+	      	    leadingZeros(d.getHours(), 2)+
+	      	    leadingZeros(d.getMinutes(), 2)+
+	      	    leadingZeros(d.getSeconds(), 2);
+	      	  return s;
+	      	}
+	
+	      	function leadingZeros(n, digits) {
+	      	  var zero = '';
+	      	  n = n.toString();
+	
+	      	  if (n.length < digits) {
+	      	    for (i = 0; i < digits - n.length; i++)
+	      	      zero += '0';
+	      	  }
+	      	  return zero + n;
+	      	}
+        //--------------------------------------
         function Export(htmltable) {
 
             if (isBrowserIE()) {
@@ -185,36 +209,8 @@
 
                 var uri = "data:application/vnd.ms-excel;base64,";
                 var ctx = { worksheet: $settings.worksheetName, table: htmltable };
-                
-                
-//                var d = new Date();
-//                var currentDate = d.getFullYear() + "-" + ( d.getMonth() + 1 ) + "-" + d.getDate() +"_";
-//                var currentTime = d.getHours() + ":" + d.getMinutes() + ":";
-                
-                function getTimeStamp() {
-                	  var d = new Date();
-                	  var s =
-                	    leadingZeros(d.getFullYear(), 4) +
-                	    leadingZeros(d.getMonth() + 1, 2) +
-                	    leadingZeros(d.getDate(), 2) +
 
-                	    leadingZeros(d.getHours(), 2)+
-                	    leadingZeros(d.getMinutes(), 2)+
-                	    leadingZeros(d.getSeconds(), 2);
-                	  return s;
-                	}
-
-                	function leadingZeros(n, digits) {
-                	  var zero = '';
-                	  n = n.toString();
-
-                	  if (n.length < digits) {
-                	    for (i = 0; i < digits - n.length; i++)
-                	      zero += '0';
-                	  }
-                	  return zero + n;
-                	}
-                	
+                //커스텀 --
                 var currentDate	= getTimeStamp();
                 
                 var link = document.createElement("a");
@@ -222,6 +218,7 @@
                 link.href = uri + base64(format(excelFile, ctx));
                 link.focus();
                 link.click();
+                //커스텀 --
                 
 //                return (uri + base64(format(excelFile, ctx)));
             }
@@ -280,11 +277,14 @@
 
             if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
             {
-                txtArea1.document.open("txt/html", "replace");
-                txtArea1.document.write(tab_text);
-                txtArea1.document.close();
-                txtArea1.focus();
-                sa = txtArea1.document.execCommand("SaveAs", true, "download");
+            	iframe.document.open("txt/html", "replace");
+            	iframe.document.write(tab_text);
+            	iframe.document.close();
+                iframe.focus();
+                
+                var currentDate	= getTimeStamp();
+
+                sa = iframe.document.execCommand("SaveAs", true, currentDate + "_QS_emp_table");
             }
             else                
                 sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
