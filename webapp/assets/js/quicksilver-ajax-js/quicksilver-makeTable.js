@@ -235,34 +235,30 @@ $(function(){
 			});
 	   });
 	   
+	   /*
+	    * 테이블 컬럼 정렬
+	    */
 	   Array.from(document.getElementsByTagName("a")).forEach( tag => {
 		   
 		   tag.addEventListener("click", () => {
 			   
-			   tag.classList.toggle("sort");
+			   let tagParent = tag.parentNode;
+			   
+			   tagParent.classList.toggle("sort");
 			   
 			   let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
 			   let option = $("#search-opt option:selected").val();
 			   let searchInput = document.getElementsByClassName('input-text')[0];
 			   
-			   console.log(searchButton.getAttribute('data-check'));
-			   console.log(document.getElementsByClassName('input-text')[0].value);
-			   
 			   // 검색으로 테이블이 그려질때
 			   if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
-				   console.log("검색으로 그려짐")
 				   
-				   if( tag.classList.contains('sort')){
+				   if( tagParent.classList.contains('sort')){
+					   console.log( tag.parentNode.getAttribute('data-column') + ' asc 정렬');
 					   search(option, searchInput.value, "asc", tag.parentNode.getAttribute('data-column'));
-					   /*$(".card-header").empty();
-					   getSearchData("/boot/search?pageNo=1&sorting=asc&column=" + tag.parentNode.getAttribute('data-column'));
-					   console.log("첵");
-					   makeTable("/boot/pagination?pageNo=1" );*/
 				   } else {
+					   console.log( tag.parentNode.getAttribute('data-column') + ' desc 정렬');
 					   search(option, searchInput.value, "desc", tag.parentNode.getAttribute('data-column'));
-					   /*$(".card-header").empty();
-					   getSearchData("/boot/search?pageNo=1&sorting=desc&column=" + tag.parentNode.getAttribute('data-column'));
-					   makeTable("/boot/pagination?pageNo=1" );*/
 				   }
 			   } 
 				   
@@ -272,16 +268,12 @@ $(function(){
 					   
 					   
 					   if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림
-						   
-						   console.log("부서 클릭으로 그려짐");
-						   
+						   						   
 						   searchButton.setAttribute( // 테이블이 부서클릭으로 나왔으므로 검색 check 변환
 								   'data-check', false
 						   );
-						   
-						   //console.log( document.getElementsByClassName('search sch-submit lang'));
-						   
-						   if( tag.classList.contains('sort')){ // 정렬 asc
+						   						   
+						   if( tagParent.classList.contains('sort')){ // 정렬 asc
 							   console.log( tag.parentNode.getAttribute('data-column') + ' asc 정렬');
 							   makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tag.parentNode.getAttribute('data-column'));
 							   
