@@ -20,16 +20,19 @@ var getSearchData = function(url) {
 	});
 }
 //매핑된 url을 전달
-let search = function(selectSearch, kwd){
-	console.log(selectSearch)
+let search = function(selectSearch, kwd, sorting, column){
+	console.log(selectSearch);
 	$(".card-header").empty();
-	getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?pageNo=1");
+	getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode);
 	makeTable("/boot/pagination?pageNo=1" );								 //quicksilver-makeTable.js에있다 테이블관련이라.
 }
 
 let searchClick = function() {												 // 검색창에서 어떤키를 눌렀을때
-	if( check == true){ 													 // keydown시 꾹 누르면 이벤트가 계속발생하는걸 방지하기위해 제약
-		check = false;
+														 // keydown시 꾹 누르면 이벤트가 계속발생하는걸 방지하기위해 제약
+		
+	document.getElementsByClassName('search sch-submit lang')[0].setAttribute( // 테이블이 검색으로 나왔으므로 검색 check 변환
+			   'data-check', true
+	   );
 		let kwd = $("input[aria-label='kwd']").val();
 		if( kwd == ""){
 			alert("검색어를 입력하세요");
@@ -38,7 +41,7 @@ let searchClick = function() {												 // 검색창에서 어떤키를 눌�
 		let option = $("#search-opt option:selected").val();
 		search(option, kwd);
 		//searchScroll();
-	}
+	
 };
 
 

@@ -13,5 +13,22 @@
 		and group_seq = 'demo'
 		and comp_seq = #{compSeq}
 	</select>
+	
+	
+	<select id="get1" parameterType="long" resultType="employeesvo">
+		select emp_seq as empSeq, min(date_format(now(), '%Y') - date_format(bday, '%Y')) as age, main_comp_seq as mainCompSeq from t_co_emp2 where emp_seq = #{value}
+	</select>
+	
+	<select id="get2" parameterType="map" resultType="string">
+select a.dp_seq from t_co_comp_duty_position a, t_co_comp_duty_position_multi b where a.dp_seq = b.dp_seq and a.comp_seq = #{compSeq} and dp_name = #{positionCode}
+	</select>
+	
+	<update id="update1" parameterType="map">
+		update t_co_emp2 set position_code = #{positionCode} where emp_seq = #{empSeq}
+	</update>
+	
+	<update id="update2" parameterType="map">
+		update t_co_emp2 set duty_code = #{dutyCode} where emp_seq = #{empSeq}
+	</update>
 
 </mapper>

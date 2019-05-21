@@ -25,7 +25,10 @@
 			  emp.login_id as loginId,
 			  emp.home_tel_num as homeTelNum,
 			  emp.mobile_tel_num as mobileTelNum,
-			  emp.emp_seq, d.emp_name as empNameEn, emp.comp_seq as compSeq
+			  d.emp_name as empNameEn, 
+			  emp.comp_seq as compSeq,
+			  emp.dept_name as deptName,
+			  f.dept_name as deptNameEn
 		from (select
 					d.dept_name,
 					b.position_code as positionDuty,
@@ -56,6 +59,9 @@
 			LEFT OUTER JOIN t_co_emp_multi d
 				on emp.emp_seq = d.emp_seq
 				and d.lang_code = 'en'
+			LEFT OUTER JOIN t_co_dept_multi f
+				on emp.dept_seq = f.dept_seq
+				and f.lang_code = 'en'
 			where	
 		<choose>
 			<when test='type == "a"'>
@@ -68,14 +74,7 @@
 				emp.dept_seq = #{seq}
 			</when>
 		</choose>
-		<choose>
-			<when test='exelClick == "yes"'>
-				;
-			</when>
-			<when test='exelClick == "no"'>
-				limit #{startboard}, #{manyboard};
-			</when>			
-		</choose>
+				order by ${column} ${sorting} limit #{startboard}, #{manyboard};
 	</select>
 	
 	<select id="search" parameterType="map" resultType="employeesvo">
@@ -89,9 +88,19 @@
 	    loginId,
 	    homeTelNum,
 	    mobileTelNum,
-	    deptSeq
-	FROM
-	    quicksilver_douzone
+	    deptSeq, 
+		empNameEn,
+		deptNameEn
+		from
+		<choose>
+			<when test='langCode == "kr"'>
+					 quicksilver_douzone
+			</when>
+			
+			<otherwise>
+					quicksilver_douzone_en
+			</otherwise>
+		</choose>
 	WHERE		
 	 <choose>
 	  <when test='selectSearch == "all"'>
@@ -117,14 +126,14 @@
 		 		 limit=110000;mode=boolean;maxmatches=110000;'
 		</when>
 		<when test='selectSearch == "position"'>
- 				`query` = '@positionCode "*${kwd}*";
+ 				`query` = '@positionCodeName "*${kwd}*";
  				<if test="sorting != null and column != null">
 		 			sort=attr_${sorting}:${column};
 		 		</if>
  				limit=110000;mode=boolean;maxmatches=110000;'		
  		</when>
 		<when test='selectSearch == "duty"'>
- 				`query` = '@dutyCode "*${kwd}*";
+ 				`query` = '@dutyCodeName "*${kwd}*";
  				<if test="sorting != null and column != null">
 		 			sort=attr_${sorting}:${column};
 		 		</if>
@@ -147,7 +156,7 @@
 		
 	</choose> 
  					<!-- limit #{startboard}, #{manyboard}; -->
-</select>
+	</select>
 	
 	
 	<select id="getdetailEmployeeInfo" parameterType="employeesvo" resultType="employeesvo">
@@ -160,6 +169,7 @@
               pmp.dp_seq as positionCode,
 			  pmd.dp_seq as dutyCode,
 			  emp.dept_name as deptName,
+			  emp.dept_seq as deptSeq,
               emp.mobile_tel_num as mobileTelNum,
 			  emp.home_tel_num as homeTelNum,
               emp.fax_num as faxNum,
@@ -220,15 +230,15 @@
 	
 	<select id="getdetailNavPointParents" parameterType="departmentsvo" resultType="departmentsvo">
 		<![CDATA[			
-			 select a.parent_dept_seq as parentDeptSeq, (select dept_name
+			 select a.parent_dept_seq as parentDeptSeq, (select dept_seq
 											  from t_co_dept_multi
 											 where dept_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})
-											   and lang_code = #{langCode}) as deptName,
-														( select biz_name 
+											   and lang_code = #{langCode}) as deptSeq,
+														( select biz_seq 
 														    from t_co_biz_multi 
 														   where biz_seq 
 														     and lang_code = #{langCode}
-														     and biz_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})) as bizName																				 
+														     and biz_seq = (select parent_dept_seq from t_co_dept where dept_seq = #{deptSeq})) as bizSeq																				 
 			  from t_co_dept a, t_co_dept_multi b
 			 where a.dept_seq = b.dept_seq 
 			   and a.dept_seq = #{deptSeq}

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tistory.pentode.service.dao.ExcelDAO">
+	
+<select id="selectExcelList" fetchSize="100" parameterType="map" resultType="employeesvo">
+	<choose>
+		<when test='seq == null'>
+						SELECT 
+							/*+ RULE */ 
+						    empSeq,
+						    positionCode,
+						    dutyCode,
+						    deptName,
+						    empName,
+						    loginId,
+						    homeTelNum,
+						    mobileTelNum,
+						    deptSeq, 
+							empNameEn,
+							deptNameEn
+							from
+							<choose>
+								<when test='langCode == "kr"'>
+										 quicksilver_douzone
+								</when>
+								
+								<otherwise>
+										quicksilver_douzone_en
+								</otherwise>
+							</choose>
+						WHERE		
+						 <choose>
+						  <when test='selectSearch == "all"'>
+							 	`query` = '"*${kwd}*";
+							 	<if test="sorting != null and column != null">
+							 		sort=attr_${sorting}:${column};
+							 	</if>
+							 	limit=100050;mode=boolean;maxmatches=100050;'
+							</when>
+							
+							<when test='selectSearch == "emp"'>			
+					   			 `query` = '@(empName, loginId) "*${kwd}*";
+					   			 <if test="sorting != null and column != null">
+							 		sort=attr_${sorting}:${column};
+							 	</if>
+					   			 limit=110000;mode=boolean;maxmatches=110000;'
+							</when>
+							<when test='selectSearch == "dept"'>
+							 		 `query` = '@deptName "*${kwd}*";
+							 		 <if test="sorting != null and column != null">
+							 			sort=attr_${sorting}:${column};
+							 		 </if>
+							 		 limit=110000;mode=boolean;maxmatches=110000;'
+							</when>
+							<when test='selectSearch == "position"'>
+					 				`query` = '@positionCodeName "*${kwd}*";
+					 				<if test="sorting != null and column != null">
+							 			sort=attr_${sorting}:${column};
+							 		</if>
+					 				limit=110000;mode=boolean;maxmatches=110000;'		
+					 		</when>
+							<when test='selectSearch == "duty"'>
+					 				`query` = '@dutyCodeName "*${kwd}*";
+					 				<if test="sorting != null and column != null">
+							 			sort=attr_${sorting}:${column};
+							 		</if>
+					 				limit=110000;mode=boolean;maxmatches=110000;'		
+							</when>
+							<when test='selectSearch == "call"'>
+									`query` = '@homeTelNum "*${kwd}*";
+									<if test="sorting != null and column != null">
+							 			sort=attr_${sorting}:${column};
+							 		</if>
+									limit=110000;mode=boolean;maxmatches=110000;'
+							</when>
+							<when test='selectSearch == "phone"'>
+									`query` = '@mobileTelNum "*${kwd}*";
+									<if test="sorting != null and column != null">
+							 			sort=attr_${sorting}:${column};
+							 		</if>
+									limit=110000;mode=boolean;maxmatches=110000;'
+							</when>
+							
+						</choose> 
+		</when>	
+		<otherwise>
+			select 
+			  emp.emp_seq as empSeq,
+			  emp.dept_seq as deptSeq,
+			  pmp.dp_seq as positionCode,
+			  pmd.dp_seq as dutyCode,
+			  emp.emp_name as empName,
+			  emp.login_id as loginId,
+			  emp.home_tel_num as homeTelNum,
+			  emp.mobile_tel_num as mobileTelNum,
+			  d.emp_name as empNameEn, 
+			  emp.comp_seq as compSeq,
+			  emp.dept_name as deptName
+		from (select
+					d.dept_name,
+					b.position_code as positionDuty,
+					b.duty_code as deptDuty,
+					e.emp_name,
+					a.login_id,
+					a.home_tel_num,
+					a.mobile_tel_num,
+					a.emp_seq,
+					b.comp_seq,
+                    b.biz_seq,
+                    b.dept_seq
+				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+				 where a.emp_seq = b.emp_seq
+				   and b.dept_seq = c.dept_seq
+				   and c.dept_seq = d.dept_seq 
+				   and a.emp_seq = e.emp_seq
+				   and e.lang_code = #{langCode}
+				   and d.lang_code = #{langCode}) emp    
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+				ON emp.positionDuty = pmp.dp_seq
+				AND pmp.lang_code = #{langCode}
+				AND pmp.dp_type = 'POSITION'
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+				ON emp.deptDuty = pmd.dp_seq
+				AND pmd.lang_code = #{langCode}
+				AND pmd.dp_type = 'DUTY'
+			LEFT OUTER JOIN t_co_emp_multi d
+				on emp.emp_seq = d.emp_seq
+				and d.lang_code = 'en'
+			where	
+		<choose>
+			<when test='type == "a"'>
+				emp.comp_seq = #{seq}
+			</when>
+			<when test='type == "b"'>
+				emp.biz_seq = #{seq}
+			</when>
+			<when test='type == "d"'>
+				emp.dept_seq = #{seq}
+			</when>
+		</choose>
+				order by ${column} ${sorting};
+		</otherwise>
+	</choose>	
+</select>
+
+	
+</mapper>

@@ -28,7 +28,7 @@ let tableRender = function(vo){
 	"								<td>"+vo.homeTelNum+"</td>\r\n" + 
 	"								<td>"+vo.mobileTelNum+"</td>\r\n" + 
 	"							</tr>"
-	$(".member > tbody").append(htmls);	
+	$(".member > tbody").append(htmls);
 }
 
 //테이블그리기
@@ -49,6 +49,8 @@ var makeTable = function(url) {
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
 	        	 
+        		 $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+	             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
 	         });
 	         $("#dataTable .lang").each(function(){
 	        	 if($(this).attr("class") == "lang dept"){
@@ -70,6 +72,7 @@ var makeTable = function(url) {
 	         });
 	         paging = response.data.page; 
 	         pageRender(paging);
+	         $("div.pagination-info>span.lang").text($.lang[mainLangCode]["etc"]["result"]);
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -93,6 +96,55 @@ var getLeader = function(url){
 		}
 	});
 }
+/*
+ * 테이블 컬럼 정렬
+ */
+var tableColumnSort = () => {
+	
+	Array.from(document.getElementsByTagName("a")).forEach( tag => {
+		tag.addEventListener("click", () => {
+			
+			let tagParent = tag.parentNode;
+			
+			tagParent.classList.toggle("sort");
+			
+			let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
+			let option = $("#search-opt option:selected").val();
+			let searchInput = document.getElementsByClassName('input-text')[0];
+			
+			// 검색으로 테이블이 그려질때
+			if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
+				
+				if( tagParent.classList.contains('sort')){
+					console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+					search(option, searchInput.value, "asc", tagParent.getAttribute('data-column'));
+				} else {
+					console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+					search(option, searchInput.value, "desc", tagParent.getAttribute('data-column'));
+				}
+			} else {
+				
+				// 부서를 클릭해서 테이블이 그려질때
+				Array.from(document.getElementsByClassName('li-div')).forEach( li => {
+					
+					if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림		   
+						
+						if( tagParent.classList.contains('sort')){ // 정렬 asc
+							console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column'));
+							
+						} else { // 정렬 desc
+							console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column'));					   }
+					}
+				});
+			}
+			
+		})
+	});
+	
+}
+
 //--------------------------------------------------------------------------
 
 //페이징관련-------------------------------------------------------------------------
@@ -145,7 +197,7 @@ let pageRender = function(paging){
 		$(".pagination").append("<li class=\"disabled page-view\"><a>맨끝</a></li>");        					 //마지막페이지로 가기 버튼 비활성화
 	}
     
-    $(".pagination-info").append("결과 : 총 " + paging.totalboardcount + "명 ");
+    $(".pagination-info").append("<span class='lang etc' lang-data='result'></span><span> "+paging.totalboardcount+"</span>");
     if(paging.totalBlock != 1){  
     	$(".page-point").css("display","inline");															 //페이지가많으면 페이지검색가능하게함 
     }else{
@@ -232,4 +284,9 @@ $(function(){
 				}
 			});
 	   });
+	   
+	   /*
+	    * 테이블 컬럼 정렬
+	    */
+	   tableColumnSort();
 });

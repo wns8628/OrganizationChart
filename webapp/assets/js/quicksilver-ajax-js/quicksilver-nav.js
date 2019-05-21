@@ -31,7 +31,8 @@ $.lang = {
 			"admin" : "관리자",
 			"empNo" : "사번",
 			"deptNo" : "부서번호",
-			"compDomain" : "회사 홈페이지"
+			"compDomain" : "회사 홈페이지",
+			"result" : "결과 : 총"
 		}
 	},
 	en : {
@@ -66,7 +67,8 @@ $.lang = {
 			"admin" : "admin",
 			"empNo" : "Employee No",
 			"deptNo" : "Department No",
-			"compDomain" : "Company Domain"
+			"compDomain" : "Company Domain",
+			"result" : "Result : Total"
 		}
 	}
 };
@@ -75,6 +77,8 @@ var mainLangCode = 'kr';
 
 var langChange = function(){
 	var langCode = $("#langcode option:selected").val();
+	let sortSpecialCharacter = "<a href='#'>↕</a>";
+	
 	$("span.comp").each(function(){
 		var name = $.lang[langCode]["comp"][$(this).data("lang")];
 		if (name == null){
@@ -103,6 +107,10 @@ var langChange = function(){
 			text = $.lang['kr']["etc"][$(this).data('lang')]
 		}
 		$(this).text(text);
+		
+		if( $(this).attr('data-column')){
+			$(this).text(text).append(sortSpecialCharacter);
+		}
 	})
 	
 	$("#dataTable .lang").each(function(){
@@ -142,8 +150,10 @@ var langChange = function(){
      	 
      	 $(this).text(name);
     });
+	$("div.pagination-info>span.lang").text($.lang[langCode]["etc"]["result"]);
 	
 	mainLangCode = langCode;
+	tableColumnSort();
 }
 
 var compRender = function(vo){
@@ -205,9 +215,9 @@ var deptRender = function(vo, index, length, last, str){
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
-   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span><span>("+vo.deptEmpCount+")</span></div></div></li><ul data-no='"+vo.deptSeq+"'></ul>";
+   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span><span>("+vo.deptEmpCount+")</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
-	   $("ul[data-no='"+vo.parentDeptSeq+"']").append(htmls);
+	   $("ul[d-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
 	   $("ul[b-no='"+vo.parentDeptSeq+"']").append(htmls);
    }
@@ -274,7 +284,9 @@ var getListNavPoint = function(seq, last, str, pointSeq){
       async: false,
       success: function(response){   	
     	 $(response.data).each(function(index, vo){
-   		  	  deptRender(vo, index, response.data.length, last, str);  
+   		  	  deptRender(vo, index, response.data.length, last, str);
+   		  	  $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+   		  	  $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
          });
     	 $("li[data-no='"+pointSeq+"']").children(".wrap").children(".li-div").css("background-color","#B3E5FC");  
     	 $("li[data-no!='"+pointSeq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
@@ -387,13 +399,16 @@ $(function(){
    });
    //부서 클릭
    $(document).on("click", "li.department span", function(event){
+	   document.getElementsByClassName('search sch-submit lang')[0].setAttribute( // 테이블이 검색으로 나왔으므로 검색 check 변환
+			   'data-check', false
+	   );
       pageFlag = 0; 															//pageFlag=0 : 부서를 클릭
       $('.page-point').val('');													//검색시 page-point 초기화 
    	  $parent = $(this).parent().parent().parent();
       var seq = $parent.attr("data-no");
 	  $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
 	  $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
-	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1");		  
+	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1");
    });
    
    //여닫이

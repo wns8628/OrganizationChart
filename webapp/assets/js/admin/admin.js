@@ -1,5 +1,4 @@
 //var contextPath = "${pageContext.servletContext.contextPath }";
-
 $.lang = {
 	kr : {
 		comp:{},
@@ -125,7 +124,6 @@ var deptRender = function(vo, index, length, last, str){
 	
 	if(vo.deptLevel > 1){
 		if(last == "true"){
-			console.log("1");
 			depth="";
 			space="<div class='space'></div>";
 		}else{
@@ -229,8 +227,8 @@ var getBizList = function(seq){
 	      dataType:"json",
 	      data:"",
 	      success: function(response){
-	         $(response.data).each(function(index, vo){
-	            bizRender(vo, index, response.data.length)
+	         $(response.data.bizList).each(function(index, vo){
+	            bizRender(vo, index, response.data.bizList.length)
 	            $.lang.kr.biz[vo.bizSeq] = vo.bizName;
 	            $.lang.en.biz[vo.bizSeq] = vo.bizNameEn;
 	         });
@@ -249,7 +247,6 @@ var getDeptList = function(seq, last, str){
       data:"",
       success: function(response){
          $(response.data).each(function(index, vo){
-        	 console.log(vo.deptName);
             deptRender(vo, index, response.data.length, last, str);
             $.lang.kr.dept[vo.deptSeq] = vo.deptName;
             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;

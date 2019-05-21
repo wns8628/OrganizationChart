@@ -99,7 +99,7 @@ public class MainBoot {
     @RequestMapping("/update")
     public void updates() {
     	
-    	for(int i = 1; i <= 99999; i++) {
+    	for(int i = 76510; i <= 99999; i++) {
     		EmployeesVo vo = mainService.get1(i); // 나이, 회사번호를 받아옴
     		
     		System.out.println(vo);
