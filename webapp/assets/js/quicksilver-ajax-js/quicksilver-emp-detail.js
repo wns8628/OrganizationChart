@@ -156,7 +156,14 @@ $(function(){
                console.log($(response.data)[0]);
                for(let i=0; i<deptInfoList.length; i++){
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
-               }         
+               }
+               
+               for(var key in $(response.data)[0]){ 
+	    		 if($(response.data)[0][key] == null) {
+	    			 $(response.data)[0][key] = "";
+				 }
+               }
+               
                empDetailRender($(response.data)[0], alldept);
                
                if(deptInfoList.length > 1){
