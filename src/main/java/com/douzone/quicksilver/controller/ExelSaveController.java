@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.ExcelService;
 
 
@@ -25,16 +27,20 @@ public class ExelSaveController {
 		excelService.selectExcelList(response, session);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/langCodeToggle/{langCode}")
-	public void langCodeToggle(HttpSession session,
+	public JSONResult langCodeToggle(HttpSession session,
 							   @PathVariable String langCode){
 		
 		System.out.println(langCode);
-	
-		Map<String, Object> map = (Map<String, Object>) session.getAttribute("excelInfo");
-		map.put("langCode", langCode);
 		
-		session.setAttribute("excelInfo", map); //엑셀저장용 세션 
+		if(session.getAttribute("excelInfo") != null) {			
+			Map<String, Object> map = (Map<String, Object>) session.getAttribute("excelInfo");
+			map.put("langCode", langCode);
+			session.setAttribute("excelInfo", map); //엑셀저장용 세션 
+		}
+		
+		return JSONResult.success(null);
 	}
 	
 }
