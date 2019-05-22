@@ -222,101 +222,6 @@ var removeForm = function(){
 }
 
 $(function(){
-	$("#company-table tbody tr:first").addClass("company-table-active");
-	
-	// live event (미래에 동적으로 생성될 엘리먼트의 이벤트)
-	$(document).on("click", "#company-table tbody tr", function(event){
-		event.preventDefault();
-		if($("#company-table tbody tr.company-table-active").length == 0){
-			$("#update-cancel-btn").hide();
-			$("#update-save-btn").hide();
-			$("#company-update-btn").show();
-			var compSeq = $(this).children(":first").text();
-			console.log(compSeq);
-			$("#company-content-table input[type='text']").val("").hide();
-			$("#company-content-table span").show();
-			getCompInfo(compSeq);
-			$(this).addClass("company-table-active");
-		}else{
-			$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
-			var compSeq = $(this).children(":first").text();
-			$(this).addClass("company-table-active");
-			getCompInfo(compSeq);
-		}
-	});
-	
-	$(".update-toggle").click(function(){
-		if($("#company-update-btn").css("display") != "none"){
-			updateForm();
-		} else if($("#company-table tbody tr.company-table-active").length === 0){
-			$("#company-table tbody tr:first").addClass("company-table-active");
-			removeForm();
-			getCompInfo($("#company-table tbody tr:first td:first").text());
-		} else{
-			removeForm();
-			
-		}
-	});
-	
-	//회사추가폼생성
-	$("#comp-add-btn").click(function(){
-		$("#company-table tbody tr.company-table-active").removeClass("company-table-active");
-		updateForm();
-		$("#company-content-table span").text("");
-		$("#company-content-table input[type='text']").val("");
-		$("input[type='radio']:first").prop("checked", true);
-		$("option:first").prop("checked",true);
-	});
-	
-	//회사추가
-	$("#update-save-btn").click(function(){
-		if($("#company-table tbody tr.company-table-active").length === 0){
-			addComp();
-		}
-	});
-	
-	//회사삭제
-	$("#comp-delete-btn").click(function(){
-		var activeComp = $("#company-table tbody tr.company-table-active");
-		if($(activeComp).length != 0){
-			$("#company-content-table span").each(function(index, item){
-				if($(this).attr("id") == "useYn"){
-					$("input[data-id='"+$(this).text()+"']").prop("checked",true);
-				}
-				if($(this).attr("id") == "nativeLangCode"){
-					$("option[data-id='"+$(this).text()+"']").prop("checked",true);
-				}
-				$(item).next().val($(item).text());
-			});
-			
-			deleteComp();
-			$(activeComp).remove();
-			$("#company-table tbody tr:first").addClass("company-table-active");
-			getCompInfo($("#company-table tbody tr:first td:first").text());
-			
-			console.log("3");
-		}
-	})
-	
-	//회사수정
-	$("#update-save-btn").click(function(){
-		if($("#company-table tbody tr.company-table-active").length != 0){
-			updateComp();
-			removeForm();
-		}
-	});
-	
-	var menuList = $("div.menu li");
-	for(var i=0; i<menuList.length; i++){
-		if($(menuList[i]).text() === $("#contents-header span:last").text()){
-			$(menuList[i]).parent().parent().show().prev().addClass("active");
-			$(menuList[i]).children().css("color","#328CF5").css("font-weight","bold");
-		}
-	}
-	
-	$("#zip-btn").click(function(){
-		sample6_execDaumPostcode();
-	});
 	
 });
 </script>
@@ -336,25 +241,23 @@ $(function(){
 				
 				<div class="topSearchDiv" style="background-color:lightGray;">
 				
-					<form action="">
+					<form>
 					
 						<span>회사선택</span>
 						<select class="selectBoxStyle">
-						  <option value="volvo">Volvo</option>
-						  <option value="saab">Saab</option>
-						  <option value="mercedes">Mercedes</option>
-						  <option value="audi">Audi</option>
+							<c:forEach items="${compList}" var="vo">
+								<option value="${vo.compName }" data-compSeq="${vo.compSeq }">${vo.compName }</option>
+							</c:forEach>
 						</select>
 						
 						<span>직급/직책</span>
-						<input class="inputText" type="text">
+						<input class="inputText" name="position" type="text">
 						
 						<span>사용여부</span>
 						<select>
-						  <option value="volvo">Volvo</option>
-						  <option value="saab">Saab</option>
-						  <option value="mercedes">Mercedes</option>
-						  <option value="audi">Audi</option>
+						  <option value="사용">사용</option>
+						  <option value="사용안함">사용안함</option>
+						 
 						</select>
 						
 						<input type="submit" value="검색">
@@ -365,13 +268,13 @@ $(function(){
 				<div class="mainDiv" style="background-color:lightBlue;">
 				
 					<div class="listDiv" style="background-color: pink;">
-						<table border="1px">
+						<table border="1px;">
 							<thead>
 								<tr>
 									<th>코드</th>
-									<th>명칭</th>
+									<th id="nickName">명칭</th>
 									<th>사용회사</th>
-									<th>사용여부</th>
+									<th id="useCheck">사용여부</th>
 								</tr>
 							</thead>
 						</table>
@@ -383,7 +286,7 @@ $(function(){
 						<div class="positionInfoForm">
 								<table class="tg" style="undefined;table-layout: fixed;">
 								<colgroup>
-									<col style="width: 50px">
+									<col style="width: 35px">
 									<col style="width: 50px">
 									<col style="width: 148px">
 								</colgroup>
@@ -437,14 +340,14 @@ $(function(){
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6" colspan="2">정렬순서</td>
-								    <td class="tg-0lax">
-								    	<input class="inputText" type="text">
+								    <td class="tg-0lax2">
+								    	<input type="text">
 								    </td>
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6" colspan="2">비고</td>
-								    <td class="tg-0lax">
-								    	<input class="inputText" type="text">
+								    <td class="tg-0lax2">
+								    	<input type="text">
 								    </td>
 								  </tr>
 								</table>

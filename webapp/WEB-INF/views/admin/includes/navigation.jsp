@@ -12,7 +12,7 @@
 			<li>그룹정보관리</li>
 			<li><a href="${pageContext.servletContext.contextPath }/admin/compMgr">회사정보관리</a></li>
 			<li><a href="${pageContext.servletContext.contextPath }/admin/deptMgr">조직도정보관리</a></li>
-			<li>직급직책관리</li>
+			<li><a href="${pageContext.servletContext.contextPath }/admin/rankPositionManagement">직급직책관리</a></li>
 			<li>회사그룹핑관리</li>
 		</ul>
 	</div>

@@ -63,11 +63,20 @@ div.navi {
 }
 
 .listDiv > table {
-	margin: 60px;
+	margin: 35px 55px 0px 68px;
+	border-collapse: collapse;
 }
 
 .listDiv table tr th {
-	padding:1px 2px 3px 4px;
+	padding: 8px 55px 8px 55px;
+}
+
+#useCheck {
+	padding: 8px 40px 8px 40px;
+}
+
+#nickName {
+	padding: 8px 65px 8px 65px;
 }
 
 .listDiv {
@@ -125,22 +134,28 @@ table.tg {
 
 .tg .tg-baqh{
 	text-align:center;
-	vertical-align:top
+	vertical-align:center;
 }
 
 .tg .tg-lqy6{
 	text-align:right;
-	vertical-align:top
+	vertical-align:center;
 }
 
 .tg .tg-dvpl{
 	border-color:inherit;
 	text-align:right;
-	vertical-align:top
+	vertical-align:center;
 }
 
 .tg .tg-0lax{
 	text-align:left;
-	vertical-align:top
+	vertical-align:center
+}
+
+.tg .tg-0lax2 > input{
+	text-align:left;
+	vertical-align:center;
+	width: 250px;
 }
 
