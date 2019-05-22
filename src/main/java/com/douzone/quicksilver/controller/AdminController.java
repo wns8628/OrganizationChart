@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
@@ -32,15 +33,19 @@ public class AdminController {
 		return "main/admin";
 	}
 	
+	@RequestMapping("/rankPositionManagement")
+	public String rankPositionManagement(Model model,
+										 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
+		
+		List<CompanyVo> compList = adminService.getCompList(langCode);
+		model.addAttribute("compList", compList);
+		return "admin/rankPositionManagement";
+	}
+	
 	@RequestMapping("/popup")
 	public String popup() {
 //		model.addAttribute("companyList", naviService.getCompList(langCode));
 		return "admin/popup";
-	}
-	
-	@RequestMapping("/rankPositionManagement")
-	public String rankPositionManagement() {
-		return "admin/rankPositionManagement";
 	}
 	
 	
