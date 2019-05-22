@@ -32,7 +32,9 @@ $.lang = {
 			"empNo" : "사번",
 			"deptNo" : "부서번호",
 			"compDomain" : "회사 홈페이지",
-			"result" : "결과 : 총"
+			"result" : "결과 : 총",
+			"next" : "다음",
+			"tail" : "맨끝"
 		}
 	},
 	en : {
@@ -68,7 +70,9 @@ $.lang = {
 			"empNo" : "Employee No",
 			"deptNo" : "Department No",
 			"compDomain" : "Company Domain",
-			"result" : "Result : Total"
+			"result" : "Result : Total",
+			"next" : "next",
+			"tail" : "tail"
 		}
 	}
 };
@@ -151,9 +155,26 @@ var langChange = function(){
      	 $(this).text(name);
     });
 	$("div.pagination-info>span.lang").text($.lang[langCode]["etc"]["result"]);
+	$("div.pagination span.lang").each(function(){
+		$(this).text($.lang[langCode]["etc"][$(this).data("lang")]);
+	});
 	
 	mainLangCode = langCode;
 	tableColumnSort();
+	
+	//엑셀실시간다국어변경저장위해필요함
+	$.ajax({
+	      url: contextPath + "/langCodeToggle/"+mainLangCode,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){   	    	  
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+"::"+e);
+	      }      
+	 });
+	//--
 }
 
 var compRender = function(vo){

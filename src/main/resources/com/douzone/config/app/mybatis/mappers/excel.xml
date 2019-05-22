@@ -17,7 +17,9 @@
 						    mobileTelNum,
 						    deptSeq, 
 							empNameEn,
-							deptNameEn
+							deptNameEn,
+							positionCodeName,
+							dutyCodeName
 							from
 							<choose>
 								<when test='langCode == "kr"'>
@@ -85,48 +87,54 @@
 		</when>	
 		<otherwise>
 			select 
-			  emp.emp_seq as empSeq,
-			  emp.dept_seq as deptSeq,
-			  pmp.dp_seq as positionCode,
-			  pmd.dp_seq as dutyCode,
-			  emp.emp_name as empName,
-			  emp.login_id as loginId,
-			  emp.home_tel_num as homeTelNum,
-			  emp.mobile_tel_num as mobileTelNum,
-			  d.emp_name as empNameEn, 
-			  emp.comp_seq as compSeq,
-			  emp.dept_name as deptName
-		from (select
-					d.dept_name,
-					b.position_code as positionDuty,
-					b.duty_code as deptDuty,
-					e.emp_name,
-					a.login_id,
-					a.home_tel_num,
-					a.mobile_tel_num,
-					a.emp_seq,
-					b.comp_seq,
-                    b.biz_seq,
-                    b.dept_seq
-				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
-				 where a.emp_seq = b.emp_seq
-				   and b.dept_seq = c.dept_seq
-				   and c.dept_seq = d.dept_seq 
-				   and a.emp_seq = e.emp_seq
-				   and e.lang_code = #{langCode}
-				   and d.lang_code = #{langCode}) emp    
-			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-				ON emp.positionDuty = pmp.dp_seq
-				AND pmp.lang_code = #{langCode}
-				AND pmp.dp_type = 'POSITION'
-			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-				ON emp.deptDuty = pmd.dp_seq
-				AND pmd.lang_code = #{langCode}
-				AND pmd.dp_type = 'DUTY'
-			LEFT OUTER JOIN t_co_emp_multi d
-				on emp.emp_seq = d.emp_seq
-				and d.lang_code = 'en'
-			where	
+				  emp.emp_seq as empSeq,
+				  emp.dept_seq as deptSeq,
+				  pmp.dp_seq as positionCode,
+				  pmd.dp_seq as dutyCode,
+				  emp.emp_name as empName,
+				  emp.login_id as loginId,
+				  emp.home_tel_num as homeTelNum,
+				  emp.mobile_tel_num as mobileTelNum,
+				  d.emp_name as empNameEn, 
+				  emp.comp_seq as compSeq,
+				  emp.dept_name as deptName,
+				  f.dept_name as deptNameEn,
+				  pmp.dp_name as positionCodeName,
+				  pmd.dp_name as dutyCodeName
+			from (select
+						d.dept_name,
+						b.position_code as positionDuty,
+						b.duty_code as deptDuty,
+						e.emp_name,
+						a.login_id,
+						a.home_tel_num,
+						a.mobile_tel_num,
+						a.emp_seq,
+						b.comp_seq,
+	                    b.biz_seq,
+	                    b.dept_seq
+					  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+					 where a.emp_seq = b.emp_seq
+					   and b.dept_seq = c.dept_seq
+					   and c.dept_seq = d.dept_seq 
+					   and a.emp_seq = e.emp_seq
+					   and e.lang_code = #{langCode}
+					   and d.lang_code = #{langCode}) emp    
+				LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+					ON emp.positionDuty = pmp.dp_seq
+					AND pmp.lang_code = #{langCode}
+					AND pmp.dp_type = 'POSITION'
+				LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+					ON emp.deptDuty = pmd.dp_seq
+					AND pmd.lang_code = #{langCode}
+					AND pmd.dp_type = 'DUTY'
+				LEFT OUTER JOIN t_co_emp_multi d
+					on emp.emp_seq = d.emp_seq
+					and d.lang_code = 'en'
+				LEFT OUTER JOIN t_co_dept_multi f
+					on emp.dept_seq = f.dept_seq
+					and f.lang_code = 'en'
+				where	
 		<choose>
 			<when test='type == "a"'>
 				emp.comp_seq = #{seq}
