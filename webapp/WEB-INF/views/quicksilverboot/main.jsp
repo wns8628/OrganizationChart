@@ -55,11 +55,11 @@
 			    <!-- -->
 			    
 				<div class="header2">
-					<span class="title lang" data-lang='empList'>● 사원목록 </span>
+					<span class="title lang" data-lang='empList'>사원목록 </span>
  		
 					<!-- 엑셀다운로드  -->
 				    <span class="exelbtn">
-						<button id="btn-excel" class="exel-submit">엑셀 다운로드</button>
+						<button id="btn-excel" class="exel-submit">엑셀저장</button>
 					</span>
 					<!-- 파일 생성중 진행막대 -->
 					<div title="Data Download" id="preparing-file-modal"
