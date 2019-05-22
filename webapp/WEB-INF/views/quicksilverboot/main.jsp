@@ -37,7 +37,7 @@
 								<select id="search-opt" class=""><!-- custom-select custom-select-sm -->
 										<option class='lang' data-lang='total' value="all" >전체</option>			
 										<option class='lang' data-lang='emp' value="emp" >사원명(ID)</option> <!--  -->
-										<option class='lang' data-lang='deptName' value="dept">부서명</option>	<!--  -->	
+										<option class='lang' data-lang='dept' value="dept">부서명</option>	<!--  -->	
 										<option class='lang' data-lang='position' value="position">직급</option>	
 										<option class='lang' data-lang='duty' value="duty">직책</option>	
 										<option class='lang' data-lang='call' value="call">전화번호</option>
@@ -59,7 +59,7 @@
  		
 					<!-- 엑셀다운로드  -->
 				    <span class="exelbtn">
-						<button id="btn-excel" class="exel-submit">엑셀저장</button>
+						<button id="btn-excel" class="exel-submit lang" data-lang='exel'>엑셀저장</button>
 					</span>
 					<!-- 파일 생성중 진행막대 -->
 					<div title="Data Download" id="preparing-file-modal"
