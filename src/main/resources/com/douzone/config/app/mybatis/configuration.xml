@@ -28,7 +28,7 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/info.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/pagination.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/excel.xml" />
-      
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/rankPositionManagement.xml" />
    </mappers> 
 </configuration> 
 
