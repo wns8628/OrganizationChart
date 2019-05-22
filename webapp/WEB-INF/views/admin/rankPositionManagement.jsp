@@ -332,8 +332,126 @@ $(function(){
 				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
 			</div>	
 			
-			<div style="background-color:red;">
-				<p>asdsad</p>
+			<div class="mainSection" style="background-color:green;">
+				
+				<div class="topSearchDiv" style="background-color:lightGray;">
+				
+					<form action="">
+					
+						<span>회사선택</span>
+						<select class="selectBoxStyle">
+						  <option value="volvo">Volvo</option>
+						  <option value="saab">Saab</option>
+						  <option value="mercedes">Mercedes</option>
+						  <option value="audi">Audi</option>
+						</select>
+						
+						<span>직급/직책</span>
+						<input class="inputText" type="text">
+						
+						<span>사용여부</span>
+						<select>
+						  <option value="volvo">Volvo</option>
+						  <option value="saab">Saab</option>
+						  <option value="mercedes">Mercedes</option>
+						  <option value="audi">Audi</option>
+						</select>
+						
+						<input type="submit" value="검색">
+						
+					</form>
+				</div>
+				
+				<div class="mainDiv" style="background-color:lightBlue;">
+				
+					<div class="listDiv" style="background-color: pink;">
+						<table border="1px">
+							<thead>
+								<tr>
+									<th>코드</th>
+									<th>명칭</th>
+									<th>사용회사</th>
+									<th>사용여부</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					
+					<div class="positionInfoDiv" style="background-color: lightYellow;">
+						<p class="positionInfoLabel">●직급정보</p>
+						
+						<div class="positionInfoForm">
+								<table class="tg" style="undefined;table-layout: fixed;">
+								<colgroup>
+									<col style="width: 50px">
+									<col style="width: 50px">
+									<col style="width: 148px">
+								</colgroup>
+								  <tr>
+								    <th class="tg-dvpl" colspan="2">회사선택</th>
+								    <th class="tg-0lax">
+								    	<select>
+										  <option value="volvo">Volvo</option>
+										  <option value="saab">Saab</option>
+										  <option value="mercedes">Mercedes</option>
+										  <option value="audi">Audi</option>
+										</select>
+								    </th>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6" colspan="2">코드</td>
+								    <td class="tg-0lax">
+								    	<input class="inputText" type="text">
+								   
+								    </td>
+								  </tr>
+								  <tr>
+								    <td class="tg-baqh" rowspan="4">명칭</td>
+								    
+								    <td class="tg-lqy6">한국어</td>
+								    <td class="tg-0lax">
+								   		 <input class="inputText" type="text">
+								    </td>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6">영어</td>
+								    <td class="tg-0lax">
+								    	<input class="inputText" type="text">
+								    </td>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6">일본어</td>
+								    <td class="tg-0lax">
+								    	<input class="inputText" type="text">
+								    </td>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6">중국어</td>
+								    <td class="tg-0lax">
+								    	<input class="inputText" type="text">
+								    </td>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6" colspan="2">사용여부</td>
+								    <td class="tg-0lax"></td>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6" colspan="2">정렬순서</td>
+								    <td class="tg-0lax">
+								    	<input class="inputText" type="text">
+								    </td>
+								  </tr>
+								  <tr>
+								    <td class="tg-lqy6" colspan="2">비고</td>
+								    <td class="tg-0lax">
+								    	<input class="inputText" type="text">
+								    </td>
+								  </tr>
+								</table>
+						</div>
+					</div>
+					
+				</div>
 			</div>
 		</div>
 			

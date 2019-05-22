@@ -6,7 +6,7 @@
 
 	 <nav class="">
 	 	<!-- 메인로고 -->
-	    <a class="main-logo lang" data-lang='title' href="${pageContext.request.contextPath }/boot">Quick Silver (조직도)</a>
+	    <a class='main-logo' href="${pageContext.request.contextPath }/boot">Quick Silver ( <span class="lang" data-lang='title'>조직도</span> )</a>
 	    
 		<!-- 다국어 -->
 				<div class="btn-group btn-group-toggle multi" data-toggle="">
