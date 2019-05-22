@@ -245,6 +245,7 @@ $(function(){
 					
 						<span>회사선택</span>
 						<select class="selectBoxStyle">
+							<option value="all" data-compSeq="all">전체</option>
 							<c:forEach items="${compList}" var="vo">
 								<option value="${vo.compName }" data-compSeq="${vo.compSeq }">${vo.compName }</option>
 							</c:forEach>
