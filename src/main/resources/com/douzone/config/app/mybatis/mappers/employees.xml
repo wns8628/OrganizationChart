@@ -48,8 +48,8 @@
 				   and b.dept_seq = c.dept_seq
 				   and c.dept_seq = d.dept_seq 
 				   and a.emp_seq = e.emp_seq
-				   and e.lang_code = #{langCode}
-				   and d.lang_code = #{langCode}) emp    
+				   and e.lang_code = 'kr'
+				   and d.lang_code = 'kr') emp    
 			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
 				ON emp.positionDuty = pmp.dp_seq
 				AND pmp.lang_code = #{langCode}

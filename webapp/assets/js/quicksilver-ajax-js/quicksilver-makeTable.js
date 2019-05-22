@@ -48,31 +48,14 @@ var makeTable = function(url) {
 	        	 tableRender(vo);
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
-	        	 
+	        	 console.log(vo.deptName+":"+vo.deptNameEn);
         		 $.lang.kr.dept[vo.deptSeq] = vo.deptName;
 	             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
 	         });
-	         $("#dataTable .lang").each(function(){
-	        	 if($(this).attr("class") == "lang dept"){
-	        		 var name = $.lang[mainLangCode]["dept"][$(this).data("lang")];
-	        	 }
-	        		 
-	        	 if($(this).attr("class") == "lang dp"){
-	        		 var seq = $(this).data("lang");
-	        		 var name = $.lang[mainLangCode]["dp"][seq];
-	        	 }
-	        	 
-	        	 if($(this).attr("class") == "lang emp"){
-	        		 var seq = $(this).data("lang");
-	        		 var name = $.lang[mainLangCode]["emp"][seq];
-	        	 }
-	        	 
-	        	 
-	        	 $(this).text(name);
-	         });
+	         
 	         paging = response.data.page; 
 	         pageRender(paging);
-	         $("div.pagination-info>span.lang").text($.lang[mainLangCode]["etc"]["result"]);
+	         langChange(mainLangCode);
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -186,15 +169,15 @@ let pageRender = function(paging){
     }
     
     if(paging.block+1 < paging.totalBlock){           														 //전체페이지블럭수가 현재블럭수보다 작을때
-    	$(".pagination").append("<li class=\"goNextPage page-view\"><a>다음</a></li>");        				 //다음페이지버튼 활성화
+    	$(".pagination").append("<li class=\"goNextPage page-view\"><a><span class='lang etc' data-lang='next'></span></a></li>");        				 //다음페이지버튼 활성화
     }else{
-    	$(".pagination").append("<li class=\"disabled page-view\"><a>다음</a></li>");     					 //다음페이지버튼 비활성화
+    	$(".pagination").append("<li class=\"disabled page-view\"><a><span class='lang etc' data-lang='next'></span></a></li>");     					 //다음페이지버튼 비활성화
     }
 
     if((paging.block+1) < paging.totalBlock && paging.totalBlock != 1){             						 //현재페이지가 전체페이지보다 작을때
-		$(".pagination").append("<li class=\"goLastPage page-view\"><a>맨끝</a></li>");    					 //마지막페이지로 가기 버튼 활성화
+		$(".pagination").append("<li class=\"goLastPage page-view\"><a><span class='lang etc' data-lang='tail'></span></a></li>");    					 //마지막페이지로 가기 버튼 활성화
 	}else{
-		$(".pagination").append("<li class=\"disabled page-view\"><a>맨끝</a></li>");        					 //마지막페이지로 가기 버튼 비활성화
+		$(".pagination").append("<li class=\"disabled page-view\"><a><span class='lang etc' data-lang='tail'></span></a></li>");        					 //마지막페이지로 가기 버튼 비활성화
 	}
     
     $(".pagination-info").append("<span class='lang etc' lang-data='result'></span><span> "+paging.totalboardcount+"</span>");
