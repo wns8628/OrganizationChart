@@ -45,11 +45,17 @@ var makeTable = function(url) {
 	    	 $.lang.kr.emp = {};
 	    	 $.lang.en.emp = {};
 	         $(response.data.list).each(function(index, vo){
+	        	 for(var key in vo){ 
+		    		 if(vo[key] == null) {
+						vo[key] = "";
+					}
+		    	 }
+	        	 
 	        	 tableRender(vo);
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
-	        	 console.log(vo.deptName+":"+vo.deptNameEn);
-        		 $.lang.kr.dept[vo.deptSeq] = vo.deptName;
+
+	        	 $.lang.kr.dept[vo.deptSeq] = vo.deptName;
 	             $.lang.en.dept[vo.deptSeq] = vo.deptNameEn;
 	         });
 	         
