@@ -16,8 +16,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
-<style type="text/css">
 
+<style type="text/css">
 /* div.content-wrapper div#tree { width: 39.8%; border: 1px solid #B2B2B2; min-height: 350px; float: left;} */
 /* div.content-wrapper div#tbl-content { width: 59.8%; border: 1px solid #B2B2B2; min-height: 350px; float: right;} */
 
@@ -165,7 +165,35 @@ var getDeptInfo = function(seq){
 	   });
 }
 
+///////////////////////////////////////
+function treeDropDown(){
+	$(document).on("dragenter", "div#tree-mini div.wrap", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		
+		$(this).css('background-color', '#92B5DF');
+	});
+	
+	$(document).on("dragleave", "div#tree-mini div.wrap", function(e) {
+		console.log("dd");
+		e.stopPropagation();
+		e.preventDefault();
+		
+		$(this).css('background-color', 'white');
+	});
+	
+// 	dropZone.on('dragenter',function(e){
+// 		e.stopPropagation();
+// 		e.preventDefault();
+		
+// 		dropZone.css('background-color', '#E3F3FC');
+// 	});
+}
+
 $(function(){
+	
+	treeDropDown();
+	
 	var menuList = $("div.menu li");
 	for(var i=0; i<menuList.length; i++){
 		if($(menuList[i]).text() === $("#contents-header span:last").text()){
@@ -175,10 +203,6 @@ $(function(){
 	}
 	
 	compRender();
-	
-	$("div.li-div").draggable();
-	
-	$("div.li-div").sortable();
 	
 	$("#compSelect").change(function(){
 		compRender();
@@ -204,7 +228,7 @@ $(function(){
 		<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
 		<div id="wrapper">
 			<div id="contents">
-				<div id="contents-header">
+				<div id="contents-header" draggable='true'>
 					<img class="home" alt=""
 						src="${pageContext.servletContext.contextPath }/assets/images/home.png">
 					<img class="next" alt=""

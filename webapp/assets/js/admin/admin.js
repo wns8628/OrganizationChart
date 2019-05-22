@@ -188,7 +188,7 @@ var bizRender = function(vo, index, length){
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}
 	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"'>"+"<div class='wrap'>"+tree+btn+
-				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+				"<div class='li-div' draggable='true'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
 				"<img class='navi-icon close' alt='' src='"+contextPath+"/assets/images/close.png'>"+
 				"<span class='biz' c-no='"+vo.compSeq+"' data-lang='"+vo.bizSeq+"'>"+bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
