@@ -114,7 +114,7 @@
 		</when>
 		
 		<when test='selectSearch == "emp"'>			
-   			 `query` = '@empName, @loginId "*${kwd}*";
+   			 `query` = '@loginId ("*${kwd}*") | @empName ("*${kwd}*");
    			 <if test="sorting != null and column != null">
 		 		sort=attr_${sorting}:${column};
 		 	</if>
