@@ -88,7 +88,7 @@ function postcode() {
     }).open();
 }
 
-var compRender = function(vo){
+var activeCompRender = function(vo){
 	var htmls = "<tr><td>"+vo.compSeq+"</td><td>"+vo.compName+"</td></tr>";
 	$("#company-table tbody").append(htmls);
 	$("#company-table tbody tr:last").addClass("company-table-active");
@@ -159,7 +159,7 @@ var addComp = function(){
 		dataType : "json",
 		data : formData,
 		success : function(response) {
-			compRender(response.data);
+			activeCompRender(response.data);
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
