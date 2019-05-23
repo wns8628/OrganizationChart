@@ -5,13 +5,27 @@
 <mapper namespace="rankPositionManagement">
 	
 	<select id="search" parameterType="map" resultType="companyvo">
-		select biz_seq as bizSeq, lang_code as langCode, group_seq as groupSeq, comp_seq as compSeq,
-			biz_name as bizName
-		from t_co_biz_multi
-		where lang_code = 'kr'
-		and use_yn = 'Y'
-		and group_seq = 'demo'
-		and comp_seq = #{compSeq}
+		SELECT 
+		    a.dp_seq AS positionCode,
+		    a.dp_name AS positionCodeName,
+		    b.comp_name AS compName,
+		    if( b.use_yn = 'Y', '사용', '사용안함') as useYn
+		FROM
+		    t_co_comp_duty_position_multi a,
+		    t_co_comp_multi b
+		WHERE
+		    b.comp_seq = a.comp_seq
+		        AND b.lang_code = #{langCode}
+		        AND a.lang_code = #{langCode}
+		        AND a.dp_type = #{position}
+		        and b.use_yn = #{useCheck}
+		        <if test='kwd != ""'>
+			        and a.dp_name = #{kwd}      
+		        </if>
+		        <if test='compSeq != "all"'>
+		        	and b.comp_seq = #{compSeq}
+		        </if>
+        order by compName + 0, compName asc;
 	</select>
 
 </mapper>

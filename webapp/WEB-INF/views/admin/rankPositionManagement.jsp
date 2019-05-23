@@ -13,216 +13,130 @@
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/rankPositionManagement.css" />
 
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> --%>
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<style type="text/css">
-td, th{ padding: 0;}
-textarea{resize: none;}
-div#contents div#content-table-wrapper {float: right; width:80%;}
 
-div.content-head-wrapper {margin: 5px 5px; width: 100%; height: 20px;}
-div.content-head-wrapper span {font-weight: bold;}
-div.content-head-wrapper div.head-btn{ float: right; display: inline; border: 1px black solid; margin: 0 5px; padding: 0 10px;}
-div.content-head-wrapper div.head-btn:hover{ cursor: pointer;}
-
-div#contents table#company-content-table  {border-collapse:collapse; border-spacing:0;   background-color: white; width: 100%;}
-div#contents table#company-content-table td{font-family:Arial, sans-serif;font-size:12px;border-style:solid;border-width:1px;overflow:hidden; word-break:normal;border-color:black; height: 24px;}
-div#contents table#company-content-table th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;border-style:solid;border-width:1px; overflow:hidden; border-color:black; }
-div#contents table#company-content-table .tg-9anz{border-color:#333333;text-align:right;}
-div#contents table#company-content-table .tg-dvpl{border-color:inherit;text-align:right; background-color: #f9f9f9; padding-right: 10px;}
-div#contents table#company-content-table .tg-de2y{border-color:inherit;text-align:left; padding: 5px 5px; background-color: white;}
-div#contents table#company-content-table .tg-0pky{border-color:inherit;text-align:left;}
-div#contents table#company-content-table .tg-cont{border-color:inherit;text-align:center; padding: 5px 5px; background-color: white;}
-div#contents table#company-content-table input[type='text']{height: 18px; width: 99%; display: none;}
-div#contents table#company-content-table th div{float: right;}
-div#contents table#company-content-table input[name='zipCode'] { width: 100px; float: left;}
-div#contents table#company-content-table div#zip-btn {float:left; width: 50px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer;}
-div#contents table#company-content-table .update-unit {display: none;}
-div#contents table#company-content-table select {width: 80%;}
-
-</style>
-<script type="text/javascript">
-var contextPath = "${pageContext.servletContext.contextPath }";
-
-function postcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                addr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-            if(data.userSelectedType === 'R'){
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
-                }
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            $("input[name='zipCode']").val(data.zonecode);
-            $("input[name='addr']").val(addr + extraAddr);
-            // 커서를 상세주소 필드로 이동한다.
-            $("input[name='detailAddr']").focus();
-        }
-    }).open();
-}
-
-var compRender = function(vo){
-	var htmls = "<tr><td>"+vo.compSeq+"</td><td>"+vo.compName+"</td></tr>";
-	$("#company-table tbody").append(htmls);
-	$("#company-table tbody tr:last").addClass("company-table-active");
+<%--  <script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script> --%>
+<%-- <script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	
-	removeForm();
-}
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-var getCompInfo = function(compSeq){
-	$.ajax({
-		url : contextPath + "/admin/getCompInfo/" + compSeq,
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
+	
+<script type="text/javascript">
+let contextPath = "${pageContext.servletContext.contextPath }";
+
+let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode, position) => {
+	
+	$('.fixed_header tbody').remove();
+	
+	 $.ajax({
+		url : contextPath + "/rPMSearch/" + compSeq + "/" + useYn + "?kwd=" + kwd + "&langCode=" + mainLangCode + "&position=" + position,
 		type : "get",
 		dataType : "json",
 		data : "",
 		success : function(response) {
-			$("input,option").prop("checked",false);
-			$("#company-content-table td span").each(function(index, item){
-				for(var key in response.data){
-					if($(item).attr('id') == key){
-						if(response.data[key] == null) {
-							response.data[key] = "";
-						}
-						if(($("#company-update-btn").css("display") == "none") &&
-								($("#company-table tbody tr.company-table-active").length != 0)){
-							$(item).next().val(response.data[key]);
-							if(key == 'useYn'){
-								$("input[data-id='"+response.data[key]+"']").prop("checked",true);
-							}
-							if(key == 'nativeLangCode'){
-								$("option[data-id='"+response.data[key]+"']").prop("selected",true);
-							}
-						}else{
-							$(item).text(response.data[key]);
-							$(".update-unit").hide();
-						}
-					}
-				}
-			});
-		},
-		error : function(xhr, status, e) {
-			console.error(status + ":" + e);
-		}
-
-	});
-}
-
-var deleteComp = function(){
-	var formData = $("#company-form").serialize();
-	$.ajax({
-		url : contextPath + "/admin/deleteComp",
-		type : "post",
-		dataType : "json",
-		data : formData,
-		success : function(response) {
-			console.log("삭제성공");
-		},
-		error : function(xhr, status, e) {
-			console.error(status + ":" + e);
-		}
-
-	});
-}
-
-var addComp = function(){
-	var formData = $("#company-form").serialize();
-	$.ajax({
-		url : contextPath + "/admin/addComp",
-		type : "post",
-		dataType : "json",
-		data : formData,
-		success : function(response) {
-			compRender(response.data);
-		},
-		error : function(xhr, status, e) {
-			console.error(status + ":" + e);
-		}
-
-	});
-}
-
-var updateComp = function(){
-	var formData = $("#company-form").serialize();
-	$.ajax({
-		url : contextPath + "/admin/updateComp",
-		type : "post",
-		dataType : "json",
-		data : formData,
-		success : function(response) {
-			console.log(response.data);
-		},
-		error : function(xhr, status, e) {
-			console.error(status + ":" + e);
-		}
-	});
-}
-
-var updateForm = function(){
-	$("#update-cancel-btn").show();
-	$("#update-save-btn").show();
-	$("#company-update-btn").hide();
-	$(".update-unit").show();
-	$("#company-content-table span").each(function(index, item){
-		$(item).next().val($(item).text());
-		if($(this).attr("id") == "useYn"){
-			$("input[data-id='"+$(this).text()+"']").prop("checked",true);
-		}
-		if($(this).attr("id") == "nativeLangCode"){
-			console.log($(this).text());
-			$("option[data-id='"+$(this).text()+"']").prop("selected",true);
-		}
-		$(item).hide();
-	});
-	$("#company-content-table input[type='text']").show();
-}
-
-var removeForm = function(){
-	$("#update-cancel-btn").hide();
-	$("#update-save-btn").hide();
-	$("#company-update-btn").show();
-	$(".update-unit").hide();
+			
+			let tbody = document.createElement("tbody"); // tbody Element 생성
 	
-	$("#company-content-table input[type='text']").each(function(index, item){
-		$(item).prev().text($(item).val());
-	});
-	$("input:checked").parent().prev().text($("input:checked").attr("data-id"));
-	$("option:checked").parent().prev().text($("option:checked").attr("data-id"));
+			response.data.forEach( vo => {
+				listRender(vo, tbody);
+			})
+			
+			console.log(tbody);
+			$(".listDiv table").append(tbody);
+			
+			$(".listDiv table tbody").click( () => {
+				console.log("클릭");
+			})
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
 
-	$("#company-content-table span").show();
-	$("#company-content-table input[type='text']").hide();
-}
+	}); 
+};
+
+let listRender = function(vo, tbody) {
+	
+	/* let htmls = "<tr>" +
+					"<td>" + vo.positionCode + "</td>" +
+					"<td>" + vo.positionCodeName + "</td>" +
+					"<td>" + vo.compName + "</td>" + 
+					"<td>" + vo.useYn + "</td>" +
+				"</tr>"; */
+		
+	
+		/* tr에 td을 붙여서 tbody에 tr을 붙임 */
+		let tr = document.createElement("tr");
+		
+		for(let i = 0; i < 4; i++){
+			
+			let td = document.createElement("td");
+			
+			switch (i) {
+				case 0:
+					td.innerHTML = vo.positionCode;
+					td.classList.add('positionCode');
+					break;
+				case 1:
+					td.innerHTML = vo.positionCodeName;
+					td.classList.add('positionCodeName');
+					break;
+				case 2:
+					td.innerHTML = vo.compName;
+					td.classList.add('compName');
+					break;
+				case 3:
+					td.innerHTML = vo.useYn;
+					td.classList.add('useYn');
+					break;
+			}
+			tr.appendChild(td);
+		}
+		
+		tbody.appendChild(tr);
+};
+	
+let search = () => { // 검색 클릭
+	console.log("검색");
+	
+	let compSeq = document.getElementsByClassName('selectBoxStyle')[0].value;
+	let kwd = document.getElementsByClassName('inputText')[0].value;
+	let useYn = document.getElementsByClassName('useYN')[0].value;
+	
+	rankPositionSearch(compSeq, kwd, useYn, mainLangCode);
+};
 
 $(function(){
 	
+	document.getElementsByTagName('body')[0].addEventListener("keydown", event => { // 엔터 클릭 인식
+		console.log(event.keyCode);
+		
+		if( event.keyCode == 13){ // 엔터를 눌렀을때 검색
+			search();
+		}
+	})
+	
+	document.getElementsByClassName('submit')[0].addEventListener("click", search);
 });
 </script>
 </head>
@@ -241,13 +155,13 @@ $(function(){
 				
 				<div class="topSearchDiv" style="background-color:lightGray;">
 				
-					<form>
+					
 					
 						<span>회사선택</span>
 						<select class="selectBoxStyle">
 							<option value="all" data-compSeq="all">전체</option>
 							<c:forEach items="${compList}" var="vo">
-								<option value="${vo.compName }" data-compSeq="${vo.compSeq }">${vo.compName }</option>
+								<option value="${vo.compSeq }">${vo.compName }</option>
 							</c:forEach>
 						</select>
 						
@@ -255,30 +169,64 @@ $(function(){
 						<input class="inputText" name="position" type="text">
 						
 						<span>사용여부</span>
-						<select>
-						  <option value="사용">사용</option>
-						  <option value="사용안함">사용안함</option>
+						<select class='useYN'>
+						  <option value="Y">사용</option>
+						  <option value="N">사용안함</option>
 						 
 						</select>
 						
-						<input type="submit" value="검색">
+						<input class="submit" type="button" value="검색">
 						
-					</form>
+					
 				</div>
 				
 				<div class="mainDiv" style="background-color:lightBlue;">
 				
-					<div class="listDiv" style="background-color: pink;">
-						<table border="1px;">
-							<thead>
-								<tr>
-									<th>코드</th>
-									<th id="nickName">명칭</th>
-									<th>사용회사</th>
-									<th id="useCheck">사용여부</th>
-								</tr>
-							</thead>
-						</table>
+					<div class="listDiv">
+						 
+							 <table class="fixed_header" border="1px;">
+								<thead>
+									<tr>
+										<th class="th-text positionCode">코드</th>
+										<th class="th-text positionCodeName">명칭</th>
+										<th class="th-text compName">사용회사</th>
+										<th class="th-text useYn" >사용여부</th>
+									</tr>
+								</thead>
+								
+							</table>
+				 	<!-- <div class="container-fluid">
+
+			          <div class="card shadow mb-4">
+			      
+				            <div class="card-body">
+				              <div class="table-responsive">
+				                <table class="table table-striped table-bordered table-hover" id="dataTable" width="400px" cellspacing="0">
+				                  <thead>
+				                    <tr>
+				                      <th>코드</th>
+				                      <th>명칭</th>
+				                      <th>사용회사</th>
+				                      <th>사용여부</th>
+				                    </tr>
+				                  </thead>
+				                  <tfoot>
+				                    <tr>
+				                      <th>코드</th>
+				                      <th>명칭</th>
+				                      <th>사용회사</th>
+				                      <th>사용여부</th>
+				                    </tr>
+				                  </tfoot>
+				                  
+				                </table>
+				              </div>
+				            </div>
+				          </div>
+				
+				        </div> -->
+						
+						
 					</div>
 					
 					<div class="positionInfoDiv" style="background-color: lightYellow;">
@@ -294,7 +242,7 @@ $(function(){
 								  <tr>
 								    <th class="tg-dvpl" colspan="2">회사선택</th>
 								    <th class="tg-0lax">
-								    	<select>
+								    	<select disabled="disabled">
 										  <option value="volvo">Volvo</option>
 										  <option value="saab">Saab</option>
 										  <option value="mercedes">Mercedes</option>
