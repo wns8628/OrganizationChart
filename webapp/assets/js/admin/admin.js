@@ -152,7 +152,7 @@ var deptRender = function(vo, index, length, last, str){
 	
    var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
-				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+				"<div class='li-div' draggable='true'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
    				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"<span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){

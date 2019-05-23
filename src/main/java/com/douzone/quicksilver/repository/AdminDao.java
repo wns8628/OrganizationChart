@@ -1,6 +1,7 @@
 package com.douzone.quicksilver.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +71,7 @@ public class AdminDao {
 		return sqlSession.selectOne("admin.getCompMultiAll", vo);
 	}
 	
-	
+	public int updateDeptSeq(Map<String, Object> map) {
+		return sqlSession.update("admin.updateParentDept", map);
+	}
 }
