@@ -53,6 +53,7 @@ div.wrap {height: 20px; display: inline-block; float: left}
 	background-color: #BEEBFF;
 }
 
+
 /*  */
 
 *            { margin:0; padding:0 }
@@ -89,6 +90,10 @@ div#tree-mini {width: 37.8%; background-color: white; border: 0px; height: 400px
 vertical-align: top; float: left; padding: 1%; min-height: 400px; overflow-y:auto;
 border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
 div.tree li>span {float: left;}
+
+.over-span{
+	background-color: #92B5DF;
+}
 
 </style>
 <script type="text/javascript">
@@ -167,19 +172,44 @@ var getDeptInfo = function(seq){
 
 ///////////////////////////////////////
 function treeDropDown(){
-	$(document).on("dragenter", "div#tree-mini div.wrap", function(e) {
+	var dept = "";
+	var parent = "";
+	
+	$(document).on("dragstart", "div#tree-mini div.li-div", function(e) {
+		dept = "";
+		dept = $(this).parent().parent().data("no");
+		console.log("dept : "+dept);
+	});
+	
+	$(document).on("dragover", "div#tree-mini div.wrap", function(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		
-		$(this).css('background-color', '#92B5DF');
+		$(this).addClass("over-span");
 	});
 	
 	$(document).on("dragleave", "div#tree-mini div.wrap", function(e) {
-		console.log("dd");
 		e.stopPropagation();
 		e.preventDefault();
 		
-		$(this).css('background-color', 'white');
+		$(this).removeClass("over-span");
+	});
+	
+	$(document).on("drop", "div#tree-mini div.li-div", function(e) {
+		parent = "";
+		parent = $(this).parent().parent().data("no");
+		
+		e.stopPropagation();
+		e.preventDefault();
+		
+		console.log("parent : "+parent);
+	});
+	
+	$(document).on("dragend", "div#tree-mini div.li-div", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		
+		$("div#tree-mini div.wrap").removeClass("over-span");;
 	});
 	
 // 	dropZone.on('dragenter',function(e){
@@ -208,18 +238,19 @@ $(function(){
 		compRender();
 	});
 	
-	$(document).on("click", "#tree-mini li.biz span", function(event){
+	$(document).on("click", "#tree-mini li.child span", function(event){
+		$("#tree-mini div.wrap").removeClass("active-span");
+		$(this).parent().parent().addClass("active-span");
 		$parent = $(this).parent().parent().parent();
 		var seq = $parent.attr("data-no");
 		$("#tbl-info span").text("");
-		getBizInfo(seq);
+		if(seq > 10000000){
+			getBizInfo(seq);
+		}else{
+			getDeptInfo(seq);
+		}
 	});
-	$(document).on("click", "#tree-mini li.dept span", function(event){
-		$parent = $(this).parent().parent().parent();
-		var seq = $parent.attr("data-no");
-		$("#tbl-info span").text("");
-		getDeptInfo(seq);
-	});
+	
 });
 </script>
 </head>
