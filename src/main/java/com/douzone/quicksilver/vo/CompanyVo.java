@@ -61,6 +61,24 @@ public class CompanyVo {
 	private int age50;
 	private int age60;
 	//
+	
+	//
+	private String positionCode;
+	private String positionCodeName;
+	
+	
+	public String getPositionCode() {
+		return positionCode;
+	}
+	public void setPositionCode(String positionCode) {
+		this.positionCode = positionCode;
+	}
+	public String getPositionCodeName() {
+		return positionCodeName;
+	}
+	public void setPositionCodeName(String positionCodeName) {
+		this.positionCodeName = positionCodeName;
+	}
 	public String getCompSeq() {
 		return compSeq;
 	}
@@ -384,13 +402,15 @@ public class CompanyVo {
 				+ ", emailAddr=" + emailAddr + ", emailDomain=" + emailDomain + ", zipCode=" + zipCode + ", smsUse="
 				+ smsUse + ", smsId=" + smsId + ", smsPasswd=" + smsPasswd + ", nativeLangCode=" + nativeLangCode
 				+ ", orderNum=" + orderNum + ", useYn=" + useYn + ", eaType=" + eaType + ", createSeq=" + createSeq
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", compEmailYn=" + compEmailYn
-				+ ", erpUseYn=" + erpUseYn + ", smsUseYn=" + smsUseYn + ", langCode=" + langCode + ", compName="
-				+ compName + ", ownerName=" + ownerName + ", senderName=" + senderName + ", bizCondition="
-				+ bizCondition + ", item=" + item + ", addr=" + addr + ", detailAddr=" + detailAddr + ", compNameEn="
-				+ compNameEn + ", compEmpCount=" + compEmpCount + ", totalEmp=" + totalEmp + ", totalBiz=" + totalBiz
+				+ ", createDate=" + createDate + ", modifySeq=" + modifySeq + ", modifyDate=" + modifyDate
+				+ ", compEmailYn=" + compEmailYn + ", erpUseYn=" + erpUseYn + ", smsUseYn=" + smsUseYn + ", langCode="
+				+ langCode + ", compName=" + compName + ", ownerName=" + ownerName + ", senderName=" + senderName
+				+ ", bizCondition=" + bizCondition + ", item=" + item + ", addr=" + addr + ", detailAddr=" + detailAddr
+				+ ", compNameEn=" + compNameEn + ", compNickname=" + compNickname + ", opCode=" + opCode
+				+ ", compEmpCount=" + compEmpCount + ", totalEmp=" + totalEmp + ", totalBiz=" + totalBiz
 				+ ", totalDept=" + totalDept + ", age10=" + age10 + ", age20=" + age20 + ", age30=" + age30 + ", age40="
-				+ age40 + ", age50=" + age50 + ", age60=" + age60 + "]";
+				+ age40 + ", age50=" + age50 + ", age60=" + age60 + ", positionCode=" + positionCode
+				+ ", positionCodeName=" + positionCodeName + "]";
 	}
 
 	
