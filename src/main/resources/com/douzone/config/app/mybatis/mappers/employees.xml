@@ -157,7 +157,7 @@
 		</when>
 		
 	</choose> 
- 					<!-- limit #{startboard}, #{manyboard}; -->
+ 				limit #{startboard}, #{manyboard};
 	</select>
 	
 	

@@ -51,7 +51,7 @@ var makeTable = function(url) {
 					}
 		    	 }
 	        	 
-	        	 tableRender(vo);
+	        	 tableRender(vo);																						//테이블렌더
 	        	 $.lang.kr.emp[vo.empSeq] = vo.empName;
 	        	 $.lang.en.emp[vo.empSeq] = vo.empNameEn;
 
@@ -68,7 +68,6 @@ var makeTable = function(url) {
 	      }
 	});
 	console.log($.lang);
-	//데이터테이블 버림
 };
 //팀장가져오기  - 적용x
 var getLeader = function(url){
@@ -94,37 +93,33 @@ var tableColumnSort = () => {
 		tag.addEventListener("click", () => {
 			
 			let tagParent = tag.parentNode;
-			
-			tagParent.classList.toggle("sort");
-			
+			tagParent.classList.toggle("sort");	
 			let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
-			let option = $("#search-opt option:selected").val();
-			let searchInput = document.getElementsByClassName('input-text')[0];
-			
+	
 			// 검색으로 테이블이 그려질때
-			if( searchInput.value != '' && searchButton.getAttribute('data-check') == 'true'){ // 검색으로 테이블이 그려짐
-				
+			if( kwd != '' && searchButton.getAttribute('data-check') == 'true'){				 	// 검색으로 테이블이 그려짐
 				if( tagParent.classList.contains('sort')){
 					console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
-					search(option, searchInput.value, "asc", tagParent.getAttribute('data-column'));
+					search(selectSearch, kwd, "asc", tagParent.getAttribute('data-column'));
 				} else {
 					console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-					search(option, searchInput.value, "desc", tagParent.getAttribute('data-column'));
+					search(selectSearch, kwd, "desc", tagParent.getAttribute('data-column'));
 				}
 			} else {
-				
 				// 부서를 클릭해서 테이블이 그려질때
-				Array.from(document.getElementsByClassName('li-div')).forEach( li => {
-					
-					if( li.getAttribute('style') != 'background-color: transparent;'){ // 부서 클릭하여 테이블 그림		   
-						
+				Array.from(document.getElementsByClassName('li-div')).forEach( li => {				
+					if( li.getAttribute('style') != 'background-color: transparent;'){ 				// 부서 클릭하여 테이블 그림		   
 						if( tagParent.classList.contains('sort')){ // 정렬 asc
 							console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
 							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);
-							
+							sorting = "asc";
+							column	= tagParent.getAttribute('data-column');
 						} else { // 정렬 desc
 							console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);					   }
+							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);
+							sorting = "desc";
+							column	= tagParent.getAttribute('data-column');
+						}
 					}
 				});
 			}
@@ -145,15 +140,15 @@ let pageRender = function(paging){
 	$(".pagination-info").empty();
      //paging.pageNo != 1 
 	if(paging.block != 0 && paging.totalBlock != 1){   													 	 //페이지가 1페이지 가아니면
-        	$(".pagination").append("<li class=\"goFirstPage page-view\"><a>처음</a></li>");       			 //첫페이지로가는버튼 활성화
+        	$(".pagination").append("<li class=\"goFirstPage page-view\"><span class='lang etc' data-lang='first'></li>");       			 //첫페이지로가는버튼 활성화
         }else{
-        	$(".pagination").append("<li class=\"disabled page-view\"><a>처음</a></li>");       				 //첫페이지로가는버튼 비활성화
+        	$(".pagination").append("<li class=\"disabled page-view\"><span class='lang etc' data-lang='first'></li>");       				 //첫페이지로가는버튼 비활성화
         }
 	
     if(paging.block != 0){          																		 //첫번째 블럭이 아니면
-        	$(".pagination").append("<li class=\"goBackPage page-view\"><a>이전</a></li>");      				 //뒤로가기버튼 활성화
+        	$(".pagination").append("<li class=\"goBackPage page-view\"><span class='lang etc' data-lang='prev'></li>");      				 //뒤로가기버튼 활성화
     }else{
-        	$(".pagination").append("<li class=\"disabled page-view\"><a>이전</a></li>");       				 //뒤로가기버튼 비활성화
+        	$(".pagination").append("<li class=\"disabled page-view\"><span class='lang etc' data-lang='prev'></li>");       				 //뒤로가기버튼 비활성화
     }
 
     //  if((paging.block+1) >= paging.totalBlock){															 //맨끝페이지에서 1페이지...보이게 근데없는게더나은듯..
@@ -163,27 +158,27 @@ let pageRender = function(paging){
     
     for(var i = paging.startPage ; i <= paging.endPage ; i++){        										 //시작페이지부터 종료페이지까지 반복문
     	if(paging.pageNo == i){                            													 //현재페이지가 반복중인 페이지와 같다면
-            $(".pagination").append("<li class=\"active page-view\"><a>"+i+"</a></li>");    				 //버튼 비활성화
+            $(".pagination").append("<li class=\"active page-view\">"+i+"</li>");    				 		 //버튼 비활성화
     	}else{
-    		$(".pagination").append("<li class=\"goPage page-view\" data-page=\""+i+"\"><a>"+i+"</a></li>"); //버튼 활성화
+    		$(".pagination").append("<li class=\"goPage page-view\" data-page=\""+i+"\">"+i+"</li>"); //버튼 활성화
     	}
     }
     
     if((paging.block+1) < paging.totalBlock){ 
-		$(".pagination").append("<li class=\"page-view\"><a>...</a></li>"); 
-		$(".pagination").append("<li class=\"goLastPage page-view\"><a>"+paging.totalPage+"</a></li>");
+		$(".pagination").append("<li class=\"page-view\">...</li>"); 
+		$(".pagination").append("<li class=\"goLastPage page-view\">"+paging.totalPage+"</li>");
     }
     
     if(paging.block+1 < paging.totalBlock){           														 //전체페이지블럭수가 현재블럭수보다 작을때
-    	$(".pagination").append("<li class=\"goNextPage page-view\"><a><span class='lang etc' data-lang='next'></span></a></li>");        				 //다음페이지버튼 활성화
+    	$(".pagination").append("<li class=\"goNextPage page-view\"><span class='lang etc' data-lang='next'></span></li>");        				 //다음페이지버튼 활성화
     }else{
-    	$(".pagination").append("<li class=\"disabled page-view\"><a><span class='lang etc' data-lang='next'></span></a></li>");     					 //다음페이지버튼 비활성화
+    	$(".pagination").append("<li class=\"disabled page-view\"><span class='lang etc' data-lang='next'></span></li>");     					 //다음페이지버튼 비활성화
     }
 
     if((paging.block+1) < paging.totalBlock && paging.totalBlock != 1){             						 //현재페이지가 전체페이지보다 작을때
-		$(".pagination").append("<li class=\"goLastPage page-view\"><a><span class='lang etc' data-lang='tail'></span></a></li>");    					 //마지막페이지로 가기 버튼 활성화
+		$(".pagination").append("<li class=\"goLastPage page-view\"><span class='lang etc' data-lang='last'></span></li>");    					 //마지막페이지로 가기 버튼 활성화
 	}else{
-		$(".pagination").append("<li class=\"disabled page-view\"><a><span class='lang etc' data-lang='tail'></span></a></li>");        					 //마지막페이지로 가기 버튼 비활성화
+		$(".pagination").append("<li class=\"disabled page-view\"><span class='lang etc' data-lang='last'></span></li>");        					 //마지막페이지로 가기 버튼 비활성화
 	}
     
     $(".pagination-info").append("<span class='lang etc' lang-data='result'></span><span> "+paging.totalboardcount+"</span>");
@@ -221,10 +216,10 @@ let removeChar = function(event){
 //검색과 부서클릭 구분 Flag
 let pageFlageMakeTable = function(pageNo){
     if(pageFlag == 1){
-    	makeTable("/boot/pagination?pageNo="+pageNo);		    	
+    	makeTable("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode + "&pageNo=" + pageNo);	
     }else{
-    	var seq = $("tbody > tr.row > td").get(1).innerHTML;		    	
-    	makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&langCode="+mainLangCode);	
+    	var seq = $("tbody > tr.row > td").get(1).innerHTML;	    	
+		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&sorting="+sorting+"&column=" + column + "&langCode="+mainLangCode);
     }
 }
 
@@ -236,6 +231,8 @@ $(function(){
 	   });
 	   $(document).on("click", ".goBackPage", function(event){
 		    var pageNo = Number(paging.startPage) - 1;
+		    console.log(paging.startPage);
+		    console.log(paging);
 		    pageFlageMakeTable(pageNo);
 	   });
 	   $(document).on("click", ".goPage", function(event){
@@ -256,22 +253,24 @@ $(function(){
 			$('.page-point').keydown( function(event) {			
 				var keyID = (event.which) ? event.which : event.keyCode;
 				 // page-point에서 숫자를 눌렀을때
-				if( ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )){ 
-					
+				//세션에서 캐시해서 가져오기 -> 디비에서 다이렉트로 바껴서 너무느려져서 엔터칠떄로만 바꼇음
+//				if( ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )){ 
+				if(  keyID == 13 ){ 
+							
 					var pageNo = $(".page-point").val();
 					console.log($(".page-point").val());
 					pageFlageMakeTable(pageNo);
 				}
 			});
-			$('.page-point').keyup( function(event) {			
-				var keyID = (event.which) ? event.which : event.keyCode;
-				if( ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )){ 
-					// page-point에서 숫자를 눌렀을때
-					var pageNo = $(".page-point").val();
-					console.log($(".page-point").val());
-					pageFlageMakeTable(pageNo);
-				}
-			});
+//			$('.page-point').keyup( function(event) {			
+//				var keyID = (event.which) ? event.which : event.keyCode;
+//				if( ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )){ 
+//					// page-point에서 숫자를 눌렀을때
+//					var pageNo = $(".page-point").val();
+//					console.log($(".page-point").val());
+//					pageFlageMakeTable(pageNo);
+//				}
+//			});
 	   });
 	   
 	   /*
