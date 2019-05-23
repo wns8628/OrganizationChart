@@ -165,4 +165,12 @@ public class AdminController {
 		return JSONResult.success(naviService.getEmpInfo(seq, langCode));
 	}
 	
+	@ResponseBody
+	@RequestMapping("/updateParentDept")
+	public JSONResult updateParentDept(@RequestParam("deptSeq") String deptSeq, 
+										@RequestParam("parentDeptSeq") String parentDeptSeq) {
+		adminService.updateParentDept(deptSeq, parentDeptSeq);
+		return JSONResult.success("success");
+	}
+	
 }

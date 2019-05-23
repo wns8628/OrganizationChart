@@ -171,6 +171,27 @@ var getDeptInfo = function(seq){
 }
 
 ///////////////////////////////////////
+var updateParentDept = function(deptSeq, parentDeptSeq){
+	$.ajax({
+	      url: contextPath+"/admin/updateParentDept?deptSeq="+deptSeq+"&parentDeptSeq="+parentDeptSeq,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	    	  console.log(response.data);
+	    	  if(response.data == "success"){
+	    		  var dept = $("#tree-mini li.child[data-no='"+deptSeq+"']");
+	    		  $("#tree-mini li.child[data-no='"+parentDeptSeq+"']").next().append($(dept).clone().wrapAll("<div/>").parent().html());
+	    		  $(dept).remove();
+	    	  }
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	      
+	});
+}
+
 function treeDropDown(){
 	var dept = "";
 	var parent = "";
@@ -178,7 +199,6 @@ function treeDropDown(){
 	$(document).on("dragstart", "div#tree-mini div.li-div", function(e) {
 		dept = "";
 		dept = $(this).parent().parent().data("no");
-		console.log("dept : "+dept);
 	});
 	
 	$(document).on("dragover", "div#tree-mini div.wrap", function(e) {
@@ -202,7 +222,7 @@ function treeDropDown(){
 		e.stopPropagation();
 		e.preventDefault();
 		
-		console.log("parent : "+parent);
+		updateParentDept(dept, parent);
 	});
 	
 	$(document).on("dragend", "div#tree-mini div.li-div", function(e) {
