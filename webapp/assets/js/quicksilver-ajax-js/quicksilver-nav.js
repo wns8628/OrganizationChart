@@ -34,7 +34,9 @@ $.lang = {
 			"compDomain" : "회사 홈페이지",
 			"result" : "결과 : 총",
 			"next" : "다음",
-			"tail" : "맨끝"
+			"last" : "맨끝",
+			"first": "처음",
+			"prev": "이전"				
 		}
 	},
 	en : {
@@ -72,7 +74,9 @@ $.lang = {
 			"compDomain" : "Company Domain",
 			"result" : "Result : Total",
 			"next" : "next",
-			"tail" : "tail"
+			"last" : "last",
+			"first": "first",
+			"prev": "prev"
 		}
 	}
 };

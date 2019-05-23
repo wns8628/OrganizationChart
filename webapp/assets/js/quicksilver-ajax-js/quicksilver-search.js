@@ -1,7 +1,12 @@
+//전역 사용변수들 검색관련 필요 
 let check = true;	
-var pageFlag; 
+let pageFlag; 
+let selectSearch;
+let kwd;
+let sorting;
+let column;
 
-//검색시 세션에 결과저장 ajax
+//검색시 세션에 결과저장 ajax - 2019-05-23 부로 안쓰는중 X
 var getSearchData = function(url) {	
 	pageFlag = 1;															//pageFlag=1 : 검색을 한것임 
 	$('.page-point').val('');												//검색시 page-point 초기화 
@@ -12,7 +17,6 @@ var getSearchData = function(url) {
       data:"",
       async: false,
       success: function(response){
-    	  
       },
       error: function(xhr, status, e){
          console.error(status+":"+e);
@@ -20,17 +24,27 @@ var getSearchData = function(url) {
 	});
 }
 //매핑된 url을 전달
-let search = function(selectSearch, kwd, sorting, column){
-	console.log(selectSearch);
+let search = function(selectSearch_p, kwd_p, sorting_p, column_p){	
+
+	pageFlag = 1;															//pageFlag=1 : 검색을 한것임 
+	$('.page-point').val('');
 	$(".card-header").empty();
-	getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode);
-	makeTable("/boot/pagination?pageNo=1" );								 //quicksilver-makeTable.js에있다 테이블관련이라.
+	
+	//검색시 변수세팅	
+	selectSearch = selectSearch_p;
+	kwd 	     = kwd_p;
+	sorting		 = sorting_p;
+	column		 = column_p;
+
+	//세션X
+    //getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode + "&pageNo=1");
+    //makeTable("/boot/pagination?pageNo=1" );								 
+	makeTable("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode + "&pageNo=1");	
 }
 
-let searchClick = function() {												 // 검색창에서 어떤키를 눌렀을때
-														 // keydown시 꾹 누르면 이벤트가 계속발생하는걸 방지하기위해 제약
-		
-	document.getElementsByClassName('search sch-submit lang')[0].setAttribute( // 테이블이 검색으로 나왔으므로 검색 check 변환
+let searchClick = function() {													// 검색창에서 어떤키를 눌렀을때
+														 						// keydown시 꾹 누르면 이벤트가 계속발생하는걸 방지하기위해 제약
+	document.getElementsByClassName('search sch-submit lang')[0].setAttribute(  // 테이블이 검색으로 나왔으므로 검색 check 변환
 			   'data-check', true
 	   );
 		let kwd = $("input[aria-label='kwd']").val();
@@ -40,8 +54,6 @@ let searchClick = function() {												 // 검색창에서 어떤키를 눌�
 		}
 		let option = $("#search-opt option:selected").val();
 		search(option, kwd);
-		//searchScroll();
-	
 };
 
 

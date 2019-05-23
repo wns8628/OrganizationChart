@@ -1,7 +1,10 @@
 package com.douzone.quicksilver.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,30 +28,27 @@ public class SearchController {
 	// 검색하여 직원정보를 세션에저장
 	@ResponseBody
 	@RequestMapping("/{selectSearch}/{kwd}")
-	public JSONResult search( @PathVariable String selectSearch,
-							  @PathVariable String kwd,
+	public JSONResult search(
 							  HttpSession session,
+							  @PathVariable String selectSearch,
+							  @PathVariable String kwd,
 							  @RequestParam (value = "sorting", required = false, defaultValue = "") String sorting,
 							  @RequestParam (value = "column", required = false, defaultValue = "") String column,
+							  @RequestParam (value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 							  @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
-		
-		//String langCode = (String) session.getAttribute("langCode");
-		/*
-		 * if(langCode == null) { langCode = "kr"; }
-		 */
-		
+
 		if( sorting.equals("") || sorting.equals("undefined")) {
 			sorting = null;
 		}
+		
+		Map<String, Object> searchData = searchService.Employeelist(kwd, selectSearch, langCode, sorting, column, session, pageNo);
+		
+		//세션저장X 날렸음 
+		//session.setAttribute( "searchCode", searchData);
+		//session.setAttribute( "searchCount", searchData.size()); 
+		//return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
 
-		
-		List<EmployeesVo> searchData = searchService.Employeelist(kwd, selectSearch, langCode, sorting, column, session);
-		session.setAttribute( "searchCode", searchData);
-		session.setAttribute( "searchCount", searchData.size()); 
-		
-//		return JSONResult.success(searchService.Employeelist(kwd, selectSearch, langCode, pageNo));
-	
-		return JSONResult.success(null);
+		return JSONResult.success(searchData);
 		
 	}
 	
