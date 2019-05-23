@@ -14,6 +14,7 @@ import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.PaginationService;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
+//세션저장날리고 안씀 XXXXXXXXXX
 @Controller
 @RequestMapping("boot/pagination")
 public class PaginationController {
