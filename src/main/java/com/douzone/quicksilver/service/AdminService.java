@@ -132,10 +132,12 @@ public class AdminService {
 		}
 	}
 	
-	public void updateParentDept(String deptSeq, String parentDeptSeq) {
+	public DepartmentsVo updateParentDept(String deptSeq, String parentDeptSeq) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("deptSeq", deptSeq);
 		map.put("parentDeptSeq", parentDeptSeq);
 		adminDao.updateDeptSeq(map);
+		return adminDao.getDeptForTree(deptSeq);
 	}
+	
 }

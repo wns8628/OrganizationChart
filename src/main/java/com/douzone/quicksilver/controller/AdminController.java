@@ -169,8 +169,7 @@ public class AdminController {
 	@RequestMapping("/updateParentDept")
 	public JSONResult updateParentDept(@RequestParam("deptSeq") String deptSeq, 
 										@RequestParam("parentDeptSeq") String parentDeptSeq) {
-		adminService.updateParentDept(deptSeq, parentDeptSeq);
-		return JSONResult.success("success");
+		return JSONResult.success(adminService.updateParentDept(deptSeq, parentDeptSeq));
 	}
 	
 }

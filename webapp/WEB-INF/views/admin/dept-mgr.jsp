@@ -99,178 +99,315 @@ div.tree li>span {float: left;}
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
 
-var compRender = function(){
+var compRender = function() {
 	var compSeq = $("#compSelect option:selected").val();
 	var compName = $("#compSelect option:selected").text();
-	var htmls = "<li class='comp' data-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"+
-				"<span>"+compName+"</span></li><ul c-no='"+compSeq+"'></ul>";
-	$("div#tree-mini ul").children().remove();			
+	var htmls = "<li class='comp' data-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"
+			+ "<span>"
+			+ compName
+			+ "</span></li><ul c-no='"+compSeq+"'></ul>";
+	$("div#tree-mini ul").children().remove();
 	$("div#tree-mini ul").append(htmls);
 }
 
-var getBizInfo = function(seq){
+var getBizInfo = function(seq) {
 	$.ajax({
-	      url: contextPath+"/admin/getBizInfo/"+seq,
-	      type:"get",
-	      dataType:"json",
-	      data:"",
-	      success: function(response){
-	    	  for(var key in response.data){
-	    		  if(response.data[key] == null) {
-						response.data[key] = "";
-					}
-	    	  }
-	    	  $("#parentSeq").text(response.data.compSeq);
-	    	  $("#seq").text(response.data.bizSeq);
-	    	  $("#type").text("사업장");
-	    	  $("#name").text(response.data.bizName);
-	    	  $("#nameEn").text(response.data.bizNameEn);
-	    	  $("#nickname").text(response.data.bizNickname);
-	    	  $("#useYn").text(response.data.useYn);
-	    	  $("#orderNum").text(response.data.orderNum);
-	    	  $("#zipCode").text(response.data.zipCode);
-	    	  $("#addr").text(response.data.addr);
-	    	  $("#detailAddr").text(response.data.detailAddr);
-	      },
-	      error: function(xhr, status, e){
-	         console.error(status+":"+e);
-	      }
-	      
-	   });
+		url : contextPath + "/admin/getBizInfo/" + seq,
+		type : "get",
+		dataType : "json",
+		data : "",
+		success : function(response) {
+			for ( var key in response.data) {
+				if (response.data[key] == null) {
+					response.data[key] = "";
+				}
+			}
+			$("#parentSeq").text(response.data.compSeq);
+			$("#seq").text(response.data.bizSeq);
+			$("#type").text("사업장");
+			$("#name").text(response.data.bizName);
+			$("#nameEn").text(response.data.bizNameEn);
+			$("#nickname").text(response.data.bizNickname);
+			$("#useYn").text(response.data.useYn);
+			$("#orderNum").text(response.data.orderNum);
+			$("#zipCode").text(response.data.zipCode);
+			$("#addr").text(response.data.addr);
+			$("#detailAddr").text(response.data.detailAddr);
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
 }
 
-var getDeptInfo = function(seq){
+var getDeptInfo = function(seq) {
 	$.ajax({
-	      url: contextPath+"/admin/getDeptInfo/"+seq,
-	      type:"get",
-	      dataType:"json",
-	      data:"",
-	      success: function(response){
-	    	  for(var key in response.data){
-	    		  if(response.data[key] == null) {
-						response.data[key] = "";
-					}
-	    	  }
-	    	  $("#parentSeq").text(response.data.parentDeptSeq);
-	    	  $("#seq").text(response.data.deptSeq);
-	    	  $("#type").text("부서");
-	    	  $("#name").text(response.data.deptName);
-	    	  $("#nameEn").text(response.data.deptNameEn);
-	    	  $("#nickname").text(response.data.deptNickname);
-	    	  $("#useYn").text(response.data.useYn);
-	    	  $("#orderNum").text(response.data.orderNum);
-	    	  $("#zipCode").text(response.data.zipCode);
-	    	  $("#addr").text(response.data.addr);
-	    	  $("#detailAddr").text(response.data.detailAddr);
-	      },
-	      error: function(xhr, status, e){
-	         console.error(status+":"+e);
-	      }
-	      
-	   });
+		url : contextPath + "/admin/getDeptInfo/" + seq,
+		type : "get",
+		dataType : "json",
+		data : "",
+		success : function(response) {
+			for ( var key in response.data) {
+				if (response.data[key] == null) {
+					response.data[key] = "";
+				}
+			}
+			$("#parentSeq").text(response.data.parentDeptSeq);
+			$("#seq").text(response.data.deptSeq);
+			$("#type").text("부서");
+			$("#name").text(response.data.deptName);
+			$("#nameEn").text(response.data.deptNameEn);
+			$("#nickname").text(response.data.deptNickname);
+			$("#useYn").text(response.data.useYn);
+			$("#orderNum").text(response.data.orderNum);
+			$("#zipCode").text(response.data.zipCode);
+			$("#addr").text(response.data.addr);
+			$("#detailAddr").text(response.data.detailAddr);
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
 }
 
 ///////////////////////////////////////
-var updateParentDept = function(deptSeq, parentDeptSeq){
+var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
+var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>";
+
+var deptAddRender = function(vo, index, last, str) {
+	var btn = "";
+	var space = "";
+
+	var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
+	var tree = "";
+
+	if (mainLangCode == 'kr') {
+		var deptName = vo.deptName;
+	} else {
+		var deptName = vo.deptNameEn;
+	}
+
+	if (last) {
+		depth = "";
+		space = "<div class='space'></div>";
+	}
+
+	if (index == "last") {
+		tree += lastChild;
+	} else {
+		tree = child;
+	}
+
+	if (vo.childCount > 0) {
+		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
+				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
+	}
+
+	var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"
+			+ "<div class='prev'>"
+			+ depth
+			+ space
+			+ "</div><div class='wrap'>"
+			+ tree
+			+ btn
+			+ "<div class='li-div' draggable='true'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"
+			+ "<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"
+			+ "<span class='dept' data-lang='"+vo.deptSeq+"'>"
+			+ deptName
+			+ "</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
+
+	if (index == "last") {
+		if (parseInt(vo.parentDeptSeq) < 10000000) {
+			$("#tree-mini ul[d-no='" + vo.parentDeptSeq + "']").append(htmls);
+			$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
+		} else {
+			$("#tree-mini ul[b-no='" + vo.parentDeptSeq + "']").append(htmls);
+		}
+	} else {
+		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
+		$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
+	}
+
+	if ($("#tree-mini li[data-no='" + vo.deptSeq + "'] img.last").length != 0) {
+		$("#tree-mini li[data-no='" + vo.deptSeq + "']").prev().prev().
+		children('.wrap').prepend(child).children('img.last').remove();
+	}
+}
+
+var updateParentDept = function(deptSeq, parentDeptSeq) {
 	$.ajax({
-	      url: contextPath+"/admin/updateParentDept?deptSeq="+deptSeq+"&parentDeptSeq="+parentDeptSeq,
-	      type:"get",
-	      dataType:"json",
-	      data:"",
-	      success: function(response){
-	    	  console.log(response.data);
-	    	  if(response.data == "success"){
-	    		  var dept = $("#tree-mini li.child[data-no='"+deptSeq+"']");
-	    		  $("#tree-mini li.child[data-no='"+parentDeptSeq+"']").next().append($(dept).clone().wrapAll("<div/>").parent().html());
-	    		  $(dept).remove();
-	    	  }
-	      },
-	      error: function(xhr, status, e){
-	         console.error(status+":"+e);
-	      }
-	      
+		url : contextPath + "/admin/updateParentDept?deptSeq=" + deptSeq
+				+ "&parentDeptSeq=" + parentDeptSeq,
+		type : "get",
+		dataType : "json",
+		data : "",
+		success : function(response) {
+			var parent = $("#tree-mini li.child[data-no='" + parentDeptSeq
+					+ "']");
+			var index = sortChild(deptSeq, parentDeptSeq);
+			var str = $(parent).children(".prev").html();
+
+			if ($("#tree-mini li[data-no='" + deptSeq + "'] img.last").length != 0) {
+				$("#tree-mini li[data-no='" + deptSeq + "']").prev().prev()
+				.children('.wrap').prepend(lastChild).children('img').not('img.last').remove();
+			}
+
+			$("#tree-mini li[data-no='" + deptSeq + "']").remove();
+			$("#tree-mini ul[d-no='" + deptSeq + "']").remove();
+			
+			if($(parent).find('.close-btn').attr('display')=="none"){
+				console.log("ddd");
+			}
+			
+			if ($(parent).next().next().length > 0) {
+				deptAddRender(response.data, index, false, str);
+			} else {
+				deptAddRender(response.data, index, true, str);
+			}
+
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
 	});
 }
 
-function treeDropDown(){
+function sortChild(dept, parent) {
+	var nextSeq = "last";
+	if (parent > 10000000) {
+		var attr = "b-no"
+	} else {
+		var attr = "d-no"
+	}
+	var childs = $("#tree-mini ul[" + attr + "='" + parent + "']")
+			.children('li.child').children("div.wrap").children(
+					"div.li-div").children("span");
+	$(childs)
+			.each(
+					function(index) {
+						// 		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
+						// 		}
+						//부서명이 테스트이기때문에 부서뒤 숫자만 잘라서 비교
+						var deptNum = $(
+								"#tree-mini span[data-lang='" + dept + "']")
+								.text();
+						var indexNum = $(this).text();
+						if ((deptNum.substring(2, 3) * 1) < (indexNum
+								.substring(2, 3) * 1)) {
+							nextSeq = $(this).data('lang');
+							return false;
+						} else if (deptNum.substring(2, 3) == indexNum
+								.substring(2, 3)) {
+							if ((deptNum.substring(4) * 1) < (indexNum
+									.substring(4) * 1)) {
+								nextSeq = $(this).data('lang');
+								return false;
+							}
+						}
+					});
+
+	return nextSeq;
+}
+
+function treeDropDown() {
 	var dept = "";
 	var parent = "";
-	
+
 	$(document).on("dragstart", "div#tree-mini div.li-div", function(e) {
+// 		e.stopPropagation();
+// 		e.preventDefault();
 		dept = "";
 		dept = $(this).parent().parent().data("no");
 	});
-	
-	$(document).on("dragover", "div#tree-mini div.wrap", function(e) {
+
+	$(document).on("dragover", "div#tree-mini li[data-no!='"+dept+"'] div.wrap", function(e) {
+		if($(this).parent().data("no")==dept){
+			return false;
+		}
 		e.stopPropagation();
 		e.preventDefault();
-		
+		console.log(dept);
 		$(this).addClass("over-span");
 	});
-	
-	$(document).on("dragleave", "div#tree-mini div.wrap", function(e) {
+
+	$(document).on("dragleave", "div#tree-mini li[data-no!='"+dept+"'] div.wrap", function(e) {
+		if($(this).parent().data("no")==dept){
+			return false;
+		}
 		e.stopPropagation();
 		e.preventDefault();
-		
+
 		$(this).removeClass("over-span");
 	});
-	
-	$(document).on("drop", "div#tree-mini div.li-div", function(e) {
+
+	$(document).on("drop", "div#tree-mini li[data-no!='"+dept+"'] div.li-div", function(e) {
 		parent = "";
 		parent = $(this).parent().parent().data("no");
-		
+
 		e.stopPropagation();
 		e.preventDefault();
 		
-		updateParentDept(dept, parent);
+		if(parent!=dept){
+			updateParentDept(dept, parent);
+		}
 	});
-	
+
 	$(document).on("dragend", "div#tree-mini div.li-div", function(e) {
+		if($(this).parent().data("no")==dept){
+			return false;
+		}
 		e.stopPropagation();
 		e.preventDefault();
-		
-		$("div#tree-mini div.wrap").removeClass("over-span");;
+
+		$("div#tree-mini div.wrap").removeClass("over-span");
+		;
 	});
-	
-// 	dropZone.on('dragenter',function(e){
-// 		e.stopPropagation();
-// 		e.preventDefault();
-		
-// 		dropZone.css('background-color', '#E3F3FC');
-// 	});
+
+	// 	dropZone.on('dragenter',function(e){
+	// 		e.stopPropagation();
+	// 		e.preventDefault();
+
+	// 		dropZone.css('background-color', '#E3F3FC');
+	// 	});
 }
 
-$(function(){
-	
+$(function() {
+
 	treeDropDown();
-	
+
 	var menuList = $("div.menu li");
-	for(var i=0; i<menuList.length; i++){
-		if($(menuList[i]).text() === $("#contents-header span:last").text()){
-			$(menuList[i]).parent().parent().show().prev().addClass("active");
-			$(menuList[i]).children().css("color","#328CF5").css("font-weight","bold");
+	for (var i = 0; i < menuList.length; i++) {
+		if ($(menuList[i]).text() === $("#contents-header span:last")
+				.text()) {
+			$(menuList[i]).parent().parent().show().prev().addClass(
+					"active");
+			$(menuList[i]).children().css("color", "#328CF5").css(
+					"font-weight", "bold");
 		}
 	}
-	
+
 	compRender();
-	
-	$("#compSelect").change(function(){
+
+	$("#compSelect").change(function() {
 		compRender();
 	});
-	
-	$(document).on("click", "#tree-mini li.child span", function(event){
+
+	$(document).on("click", "#tree-mini li.child span", function(event) {
 		$("#tree-mini div.wrap").removeClass("active-span");
 		$(this).parent().parent().addClass("active-span");
 		$parent = $(this).parent().parent().parent();
 		var seq = $parent.attr("data-no");
 		$("#tbl-info span").text("");
-		if(seq > 10000000){
+		if (seq > 10000000) {
 			getBizInfo(seq);
-		}else{
+		} else {
 			getDeptInfo(seq);
 		}
 	});
-	
+
 });
 </script>
 </head>

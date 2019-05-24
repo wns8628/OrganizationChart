@@ -165,4 +165,24 @@
 				 biz_seq = (select * from(select a.biz_seq from t_co_dept a where a.dept_seq = #{parentDeptSeq}) a)
 		where dept_seq = #{deptSeq}
 	</update>
+	
+	<select id="getDeptForTree" parameterType="string" resultType="departmentsvo">
+		select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
+	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, a.dept_name as deptName, a.dept_level as deptLevel, 
+	    	 a.childCount as childCount, a.deptEmpCount as deptEmpCount, c.dept_name as deptNameEn
+		from (select a.dept_seq, a.group_seq, a.comp_seq,
+		    	 a.biz_seq, a.parent_dept_seq, b.dept_name, a.dept_level, 
+		    	 (select count(*) from t_co_dept c where parent_dept_seq = a.dept_seq) as childCount,
+		    	 (select count(emp_seq) from t_co_emp_dept where dept_seq = a.dept_seq) as deptEmpCount
+			from t_co_dept a, t_co_dept_multi b
+			where a.dept_seq = b.dept_seq
+			and b.lang_code = 'kr'
+			and a.use_yn = 'Y'
+			and b.use_yn = 'Y'
+			and a.dept_seq = #{seq}) a
+		left outer join t_co_dept_multi c
+		on a.dept_seq = c.dept_seq
+		and c.lang_code = 'en'
+		order by substring(a.dept_name, 3) + 0
+	</select>
 </mapper> 

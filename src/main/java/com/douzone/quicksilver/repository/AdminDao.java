@@ -74,4 +74,8 @@ public class AdminDao {
 	public int updateDeptSeq(Map<String, Object> map) {
 		return sqlSession.update("admin.updateParentDept", map);
 	}
+	
+	public DepartmentsVo getDeptForTree(String seq) {
+		return sqlSession.selectOne("admin.getDeptForTree", seq);
+	}
 }

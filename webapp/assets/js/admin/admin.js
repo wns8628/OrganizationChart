@@ -122,21 +122,9 @@ var deptRender = function(vo, index, length, last, str){
 		var deptName = vo.deptNameEn;
 	}
 	
-	if(vo.deptLevel > 1){
-		if(last == "true"){
-			depth="";
-			space="<div class='space'></div>";
-		}else{
-			
-		}
-	}else{
-		if(last == "true"){
-			console.log("3");
-			depth="";
-			space="<div class='space'></div>";
-		}else{
-			
-		}
+	if(last == "true"){
+		depth="";
+		space="<div class='space'></div>";
 	}
 	
 	if(index+1 == length){
@@ -154,7 +142,7 @@ var deptRender = function(vo, index, length, last, str){
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div' draggable='true'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
    				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
-   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"<span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
+   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[d-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{

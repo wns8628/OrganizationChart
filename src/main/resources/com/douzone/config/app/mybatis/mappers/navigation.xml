@@ -51,7 +51,7 @@
 		left outer join t_co_dept_multi c
 		on a.dept_seq = c.dept_seq
 		and c.lang_code = 'en'
-		order by a.dept_seq + 0
+		order by substring(a.dept_name, 3) + 0
 	</select>
 
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
