@@ -6,8 +6,7 @@
 
 html, body {
     margin: 0;
-    width: 100%;
-    height: 100%;
+
     display: flex;
     flex-direction: column;
     /* display: flex; */
@@ -35,16 +34,19 @@ div.navi {
 
 .topSearchDiv {
     padding: 20px;
-    margin: 20px;
-    margin-top: 50px;
+    margin: 50px 20px 10px 20px;
+    width: 1274px;
+    background-color: #eff6fe;
 }
 
 .mainDiv {
-    padding: 20px;
-    margin: 20px;
-    margin-top: 60px;
+    margin: 0px 20px 20px 20px;
     height: 600px;
     display: flex;
+    background-color: white;
+    border-top: solid 1px black;
+    z-index: -1;
+    position: absolute;
 }
 
 .selectBoxStyle {
@@ -60,13 +62,15 @@ div.navi {
 
 .positionInfoDiv {
     flex: 1.2;
+    border-right: 0px;
+    width: 682px;
 }
 
 .listDiv > table {
-	margin: 35px 55px 0px 74px;
-	border-collapse: collapse;
-	height:200px;
-  	border: 0px;
+	margin: 8px 19px 8px 0px;
+    border-collapse: collapse;
+    height: 200px;
+    border: 0px;
 }
 
  .listDiv table tr > th, td {
@@ -83,13 +87,21 @@ div.navi {
 	padding: 8px 65px 8px 65px;
 }
 
-.listDiv {
-    flex: 1.5;
+.listDiv, .positionInfoDiv {
+	margin: 8px 0px 8px 0px;
     background-color: #ffffff;
+    border: solid 1px black;
+    /* padding: 0px 18px 0px 18px; */
+    /* margin-right: -20px; */
+    padding-left: 18px;
+}
+
+.listDiv {
+    flex: 0.5;
 }
 
 p.positionInfoLabel {
-    padding: 20px;
+    padding: 20px 20px 20px 2px;
 }
 
 
@@ -106,12 +118,12 @@ table.tg {
 	border-collapse:collapse;
 	border-spacing:0;
 	height: 300px;
-	width: 535px;
+	width: 659px;
 }
 
 .positionInfoForm {
 	width: 300px;
-    padding-left: 3%;
+    padding-left: 3px;
 }
 
 .tg td{
@@ -234,10 +246,10 @@ table.tg {
 }
 
 .fixed_header tbody{
-  display:block;
-  width: 100%;
-  overflow: auto;
-  height: 486px;
+    display: block;
+    width: 573px;
+    overflow: auto;
+    height: 536px;
 
 }
 
@@ -283,3 +295,61 @@ table.tg {
 	width: 91px;
 	border-right-color: #f9f9f9;
 }
+
+<!--  -->
+
+.positionButton, .dutyButton {
+
+    text-align: center;
+    padding-top: 10px;
+    display: inline-flex;
+    border: 1px solid pink;
+}
+
+.positionButton {
+	z-index: 0;
+    border-bottom: solid 1px pink;
+    position: absolute;
+    padding: 7px 35px 7px 35px;
+	
+}
+
+.dutyButton {
+	position: absolute;
+    z-index: -1;
+    margin-left: 95px;
+    padding: 7px 35px 7px 35px;
+}
+
+.buttonText{
+	background-color: white;
+}
+
+.buttonCover {
+	 display: inline-flex;
+    margin-left: 20px;
+    position:static;
+    z-index: 4;
+    margin-bottom: 15px;
+
+}
+
+.tg tr > td:first-child, .tg tr > th:first-child, .tg-lqy6{
+	background-color: #f9f9f9;
+}
+
+.dutyButtons {
+	display: inline;
+    position: absolute;
+    width: 94px;
+    height: 30px;
+    margin-left: 96px;
+}
+
+.positionButtons {
+	display: inline;
+    position: absolute;
+    width: 94px;
+    height: 30px;
+}
+

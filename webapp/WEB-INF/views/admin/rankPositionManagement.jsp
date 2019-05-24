@@ -46,7 +46,7 @@ let contextPath = "${pageContext.servletContext.contextPath }";
 
 let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode, position) => {
 	
-	$('.fixed_header tbody').remove();
+	$('.fixed_header tbody').empty();
 	
 	 $.ajax({
 		url : contextPath + "/rPMSearch/" + compSeq + "/" + useYn + "?kwd=" + kwd + "&langCode=" + mainLangCode + "&position=" + position,
@@ -55,17 +55,20 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode, position) => {
 		data : "",
 		success : function(response) {
 			
-			let tbody = document.createElement("tbody"); // tbody Element 생성
+			let $tbody = $('.fixed_header tbody'); // tbody Element 가져옴
 	
 			response.data.forEach( vo => {
-				listRender(vo, tbody);
+				listRender(vo, $tbody);
 			})
 			
-			console.log(tbody);
-			$(".listDiv table").append(tbody);
+			console.log($tbody);
+			//$(".listDiv table").append(tbody);
 			
-			$(".listDiv table tbody").click( () => {
-				console.log("클릭");
+			$(".listDiv table tbody tr").click( event => {
+				console.log("tbody tr 클릭");
+				console.log(event.currentTarget.children[0].innerHTML); // 직급 직책 코드
+				
+				
 			})
 		},
 		error : function(xhr, status, e) {
@@ -75,7 +78,7 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode, position) => {
 	}); 
 };
 
-let listRender = function(vo, tbody) {
+let listRender = function(vo, $tbody) {
 	
 	/* let htmls = "<tr>" +
 					"<td>" + vo.positionCode + "</td>" +
@@ -113,7 +116,7 @@ let listRender = function(vo, tbody) {
 			tr.appendChild(td);
 		}
 		
-		tbody.appendChild(tr);
+		$tbody.append(tr);
 };
 	
 let search = () => { // 검색 클릭
@@ -128,7 +131,8 @@ let search = () => { // 검색 클릭
 
 $(function(){
 	
-	document.getElementsByTagName('body')[0].addEventListener("keydown", event => { // 엔터 클릭 인식
+	// 엔터 클릭 인식
+	document.getElementsByTagName('body')[0].addEventListener("keydown", event => {
 		console.log(event.keyCode);
 		
 		if( event.keyCode == 13){ // 엔터를 눌렀을때 검색
@@ -136,7 +140,19 @@ $(function(){
 		}
 	})
 	
+	// 검색 버튼 클릭 인식
 	document.getElementsByClassName('submit')[0].addEventListener("click", search);
+	
+	
+	$(".positionButtons").click( () => {
+		console.log("position 버튼 클릭");
+	});
+	
+	$(".dutyButtons").click( () => {
+		console.log("duty 버튼 클릭");
+		console.log($(".dutyButton").style);
+	});
+	
 });
 </script>
 </head>
@@ -151,9 +167,9 @@ $(function(){
 				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
 			</div>	
 			
-			<div class="mainSection" style="background-color:green;">
+			<div class="mainSection" >
 				
-				<div class="topSearchDiv" style="background-color:lightGray;">
+				<div class="topSearchDiv">
 				
 					
 					
@@ -180,10 +196,31 @@ $(function(){
 					
 				</div>
 				
-				<div class="mainDiv" style="background-color:lightBlue;">
+			
+				 <div class="buttonCover" style="background-color: blue;"> -->
+				 
+				 	<div class="positionButtons">
+				 	</div>
+				 	
+					<div class="positionButton" style="background-color: red;">
+						<span class="buttonText">직급</span>
+					</div>
+					
 				
+					<div class="dutyButtons">
+					</div>
+					
+					<div class="dutyButton" style="background-color: yellow;">
+							<span>직책</span>
+					</div>
+					
+				</div> 
+				
+					
+				<div class="mainDiv">
+			
 					<div class="listDiv">
-						 
+			
 							 <table class="fixed_header" border="1px;">
 								<thead>
 									<tr>
@@ -193,6 +230,8 @@ $(function(){
 										<th class="th-text useYn" >사용여부</th>
 									</tr>
 								</thead>
+								<tbody>
+								</tbody>
 								
 							</table>
 				 	<!-- <div class="container-fluid">
@@ -229,7 +268,7 @@ $(function(){
 						
 					</div>
 					
-					<div class="positionInfoDiv" style="background-color: lightYellow;">
+					<div class="positionInfoDiv">
 						<p class="positionInfoLabel">●직급정보</p>
 						
 						<div class="positionInfoForm">
@@ -251,7 +290,7 @@ $(function(){
 								    </th>
 								  </tr>
 								  <tr>
-								    <td class="tg-lqy6" colspan="2">코드</td>
+								    <td class="tg-lqy6 positionField" colspan="2">코드</td>
 								    <td class="tg-0lax">
 								    	<input class="inputText" type="text">
 								   
