@@ -37,11 +37,10 @@
 	<select id="getDeptList" parameterType="string" resultType="departmentsvo">
 		select a.dept_seq as deptSeq, a.group_seq as groupSeq, a.comp_seq as compSeq,
 	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, a.dept_name as deptName, a.dept_level as deptLevel, 
-	    	 a.childCount as childCount, a.deptEmpCount as deptEmpCount, c.dept_name as deptNameEn
+	    	 a.childCount as childCount, c.dept_name as deptNameEn
 		from (select a.dept_seq, a.group_seq, a.comp_seq,
 		    	 a.biz_seq, a.parent_dept_seq, b.dept_name, a.dept_level, 
-		    	 (select count(*) from t_co_dept c where parent_dept_seq = a.dept_seq) as childCount,
-		    	 (select count(emp_seq) from t_co_emp_dept where dept_seq = a.dept_seq) as deptEmpCount
+		    	 (select count(*) from t_co_dept c where parent_dept_seq = a.dept_seq) as childCount
 			from t_co_dept a, t_co_dept_multi b
 			where a.dept_seq = b.dept_seq
 			and b.lang_code = 'kr'
@@ -51,8 +50,12 @@
 		left outer join t_co_dept_multi c
 		on a.dept_seq = c.dept_seq
 		and c.lang_code = 'en'
-		order by substring(a.dept_name, 3) + 0
+		order by a.dept_seq + 0
 	</select>
+	<select id="getDeptListEmpCount" parameterType="Integer" resultType="Integer">
+		Call dept_emp_count_sum(#{value});		
+	</select>
+
 
 	<select id="getEmpInfo" parameterType="map" resultType="employeesvo">
 		select a.emp_seq as empNum, a.emp_name as empName, a.dept_name as deptName, a.main_dept_yn as mainDeptYn,

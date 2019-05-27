@@ -218,11 +218,18 @@ let pageFlageMakeTable = function(pageNo){
     if(pageFlag == 1){
     	makeTable("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode + "&pageNo=" + pageNo);	
     }else{
-    	var seq = $("tbody > tr.row > td").get(1).innerHTML;	    	
-		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&sorting="+sorting+"&column=" + column + "&langCode="+mainLangCode);
+    	var seq = $("tbody > tr.row > td").get(1).innerHTML;	 
+    	console.log(sorting == null);
+    	console.log(column == null);
+    	
+    	if(sorting == null && column == null){
+    		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&langCode="+mainLangCode);	  
+    	}else{    		
+    		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&sorting="+sorting+"&column=" + column + "&langCode="+mainLangCode);
+    	}
     }
 }
-
+  
 $(function(){
 	  //페이지클릭 분기	
 	  $(document).on("click", ".goFirstPage", function(event){
