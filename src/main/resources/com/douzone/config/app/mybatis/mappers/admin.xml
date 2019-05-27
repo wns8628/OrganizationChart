@@ -162,7 +162,12 @@
 	
 	<update id="updateParentDept" parameterType="map">
 		update t_co_dept set parent_dept_seq = #{parentDeptSeq},
-				 biz_seq = (select * from(select a.biz_seq from t_co_dept a where a.dept_seq = #{parentDeptSeq}) a)
+		<if test="parentDeptSeq gte 1000000">
+			biz_seq = #{parentDeptSeq}
+		</if>
+		<if test="parentDeptSeq lt 1000000">
+			biz_seq = (select * from(select a.biz_seq from t_co_dept a where a.dept_seq = #{parentDeptSeq}) a)
+		</if>
 		where dept_seq = #{deptSeq}
 	</update>
 	

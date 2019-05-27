@@ -102,7 +102,7 @@ var compRender = function(vo){
 		var compName = vo.compNameEn;
 	}
 	
-	var htmls = "<li class='comp' data-no='"+vo.compSeq+"'><img class='navi-icon' src='"+contextPath+"/assets/images/comp.png'>"+
+	var htmls = "<li class='comp' c-no='"+vo.compSeq+"'><img class='navi-icon' src='"+contextPath+"/assets/images/comp.png'>"+
 				"<span class='comp' data-lang='"+vo.compSeq+"'>"+vo.compName+"</span></li><ul c-no='"+vo.compSeq+"'></ul>";
 	$("div#main-tree>ul").append(htmls);
 }
@@ -285,7 +285,7 @@ $(function() {
 
 	$(document).on("click", "li.comp span", function(event) {
 		$parent = $(this).parent();
-		var seq = $parent.attr("data-no");
+		var seq = $parent.attr("c-no");
 		if ($parent.next().children().length > 0) {
 			$("ul[c-no='"+seq+"'] li.biz").each(function(){
 				delete $.lang.kr.biz[$(this).data("no")];

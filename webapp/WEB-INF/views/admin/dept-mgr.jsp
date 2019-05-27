@@ -102,7 +102,7 @@ var contextPath = "${pageContext.servletContext.contextPath }";
 var compRender = function() {
 	var compSeq = $("#compSelect option:selected").val();
 	var compName = $("#compSelect option:selected").text();
-	var htmls = "<li class='comp' data-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"
+	var htmls = "<li class='comp' c-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"
 			+ "<span>"
 			+ compName
 			+ "</span></li><ul c-no='"+compSeq+"'></ul>";
@@ -261,6 +261,11 @@ var updateParentDept = function(deptSeq, parentDeptSeq) {
 				console.log("ddd");
 			}
 			
+			if($(parent).children('.wrap').children('.close-btn').css("display") == "none"){
+				$("li[data-no='"+parentDeptSeq+"'] img.open-btn").trigger("click");
+				return;
+			}
+			
 			if ($(parent).next().next().length > 0) {
 				deptAddRender(response.data, index, false, str);
 			} else {
@@ -285,29 +290,27 @@ function sortChild(dept, parent) {
 	var childs = $("#tree-mini ul[" + attr + "='" + parent + "']")
 			.children('li.child').children("div.wrap").children(
 					"div.li-div").children("span");
-	$(childs)
-			.each(
-					function(index) {
-						// 		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
-						// 		}
-						//부서명이 테스트이기때문에 부서뒤 숫자만 잘라서 비교
-						var deptNum = $(
-								"#tree-mini span[data-lang='" + dept + "']")
-								.text();
-						var indexNum = $(this).text();
-						if ((deptNum.substring(2, 3) * 1) < (indexNum
-								.substring(2, 3) * 1)) {
-							nextSeq = $(this).data('lang');
-							return false;
-						} else if (deptNum.substring(2, 3) == indexNum
-								.substring(2, 3)) {
-							if ((deptNum.substring(4) * 1) < (indexNum
-									.substring(4) * 1)) {
-								nextSeq = $(this).data('lang');
-								return false;
-							}
-						}
-					});
+	$(childs).each(function(index) {
+		// 		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
+		// 		}
+		//부서명이 테스트이기때문에 부서뒤 숫자만 잘라서 비교
+		var deptNum = $(
+				"#tree-mini span[data-lang='" + dept + "']")
+				.text();
+		var indexNum = $(this).text();
+		if ((deptNum.substring(2, 3) * 1) < (indexNum
+				.substring(2, 3) * 1)) {
+			nextSeq = $(this).data('lang');
+			return false;
+		} else if (deptNum.substring(2, 3) == indexNum
+				.substring(2, 3)) {
+			if ((deptNum.substring(4) * 1) < (indexNum
+					.substring(4) * 1)) {
+				nextSeq = $(this).data('lang');
+				return false;
+			}
+		}
+	});
 
 	return nextSeq;
 }
