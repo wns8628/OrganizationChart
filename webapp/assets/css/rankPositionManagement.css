@@ -45,8 +45,8 @@ div.navi {
     display: flex;
     background-color: white;
     border-top: solid 1px black;
-    z-index: -1;
-    position: absolute;
+   /*  z-index: -1;
+    position: absolute; */
 }
 
 .selectBoxStyle {
@@ -353,3 +353,12 @@ table.tg {
     height: 30px;
 }
 
+.tg-0lax select option {
+	width: 300px;
+}
+
+.updateButtons {
+	display: inline-block;
+    margin-left: 1129px;
+    margin-top: 2px;
+}

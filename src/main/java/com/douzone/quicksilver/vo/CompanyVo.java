@@ -65,8 +65,23 @@ public class CompanyVo {
 	//
 	private String positionCode;
 	private String positionCodeName;
+	private String commentText;
+	private String dpNameEn;
 	
 	
+	
+	public String getDpNameEn() {
+		return dpNameEn;
+	}
+	public void setDpNameEn(String dpNameEn) {
+		this.dpNameEn = dpNameEn;
+	}
+	public String getCommentText() {
+		return commentText;
+	}
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
+	}
 	public String getPositionCode() {
 		return positionCode;
 	}
@@ -410,7 +425,8 @@ public class CompanyVo {
 				+ ", compEmpCount=" + compEmpCount + ", totalEmp=" + totalEmp + ", totalBiz=" + totalBiz
 				+ ", totalDept=" + totalDept + ", age10=" + age10 + ", age20=" + age20 + ", age30=" + age30 + ", age40="
 				+ age40 + ", age50=" + age50 + ", age60=" + age60 + ", positionCode=" + positionCode
-				+ ", positionCodeName=" + positionCodeName + "]";
+				+ ", positionCodeName=" + positionCodeName + ", commentText=" + commentText + ", dpNameEn=" + dpNameEn
+				+ "]";
 	}
 
 	

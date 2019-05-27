@@ -9,18 +9,23 @@
 		    a.dp_seq AS positionCode,
 		    a.dp_name AS positionCodeName,
 		    b.comp_name AS compName,
-		    if( b.use_yn = 'Y', '사용', '사용안함') as useYn
+		    if( b.use_yn = 'Y', '사용', '사용안함') as useYn,
+		    c.order_num as orderNum,
+		    a.comment_text as commentText,
+		    (select dp_name from t_co_comp_duty_position_multi a where a.dp_seq = positionCode and a.lang_code='en') as dpNameEn
 		FROM
 		    t_co_comp_duty_position_multi a,
-		    t_co_comp_multi b
+		    t_co_comp_multi b,
+		     t_co_comp_duty_position c
 		WHERE
 		    b.comp_seq = a.comp_seq
-		        AND b.lang_code = #{langCode}
-		        AND a.lang_code = #{langCode}
+		        and a.dp_seq = c.dp_seq
 		        AND a.dp_type = #{position}
-		        and b.use_yn = #{useCheck}
+		        and a.use_yn = #{useCheck}
+		        and a.lang_code = 'kr'
+		        and b.lang_code = 'kr'
 		        <if test='kwd != ""'>
-			        and a.dp_name = #{kwd}      
+			        and a.dp_name like '%${kwd}%'      
 		        </if>
 		        <if test='compSeq != "all"'>
 		        	and b.comp_seq = #{compSeq}
