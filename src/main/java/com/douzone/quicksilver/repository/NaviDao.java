@@ -55,7 +55,11 @@ public class NaviDao {
 	}
 	
 	public List<DepartmentsVo> getDeptList(String seq){
-		return sqlSession.selectList("navigation.getDeptList", seq);
+		List<DepartmentsVo> vo = sqlSession.selectList("navigation.getDeptList", seq);
+		for(int i=0; i < vo.size(); i++) {	
+			vo.get(i).setDeptEmpCount(sqlSession.selectOne("navigation.getDeptListEmpCount", vo.get(i).getDeptSeq()));
+		}
+		return vo;
 	}
 	
 	public List<EmployeesVo> getEmpInfo(Map<String, Object> map){

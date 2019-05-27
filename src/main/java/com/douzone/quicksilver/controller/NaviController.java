@@ -44,6 +44,9 @@ public class NaviController {
 	@ResponseBody
 	@RequestMapping("/getDept/{seq}")
 	public JSONResult getDeptList(@PathVariable String seq) {
+		
+		
+		
 		return JSONResult.success(naviService.getDeptList(seq));
 	}
 	
