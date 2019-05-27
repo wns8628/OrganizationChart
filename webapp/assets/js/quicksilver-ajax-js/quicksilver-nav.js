@@ -433,6 +433,10 @@ $(function(){
       var seq = $parent.attr("data-no");
 	  $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
 	  $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
+
+	  //널처리안해주면 다른부서클릭->페이지이동시 의도치않은 정렬발생
+	  sorting = null;
+	  column =null;
 	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode);
    });
    
