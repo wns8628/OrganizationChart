@@ -42,9 +42,11 @@
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
 	
 <script type="text/javascript">
-let contextPath = "${pageContext.servletContext.contextPath }";
 
-let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode, position) => {
+let contextPath = "${pageContext.servletContext.contextPath }";
+let position = "position";
+
+let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 	
 	$('.fixed_header tbody').empty();
 	
@@ -55,19 +57,56 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode, position) => {
 		data : "",
 		success : function(response) {
 			
+			console.log(response.data);
 			let $tbody = $('.fixed_header tbody'); // tbody Element 가져옴
 	
 			response.data.forEach( vo => {
 				listRender(vo, $tbody);
 			})
 			
-			console.log($tbody);
 			//$(".listDiv table").append(tbody);
 			
 			$(".listDiv table tbody tr").click( event => {
 				console.log("tbody tr 클릭");
-				console.log(event.currentTarget.children[0].innerHTML); // 직급 직책 코드
 				
+				console.log( $(".tg-0lax select") );
+				
+				// tr 클릭시 positionInfoForm의 회사선택 select을 disabled 시킴 
+				$(".tg-0lax select option")[0].parentNode.setAttribute('disabled', 'disabled');
+				
+				// positionInfoForm의 각 필드에 값 삽입
+				$(".positionField")[0].value = event.currentTarget.children[0].innerHTML;
+				$(".tg-0lax select option")[0].value = event.currentTarget.children[2].innerHTML;
+				$(".tg-0lax select option")[0].innerHTML = event.currentTarget.children[2].innerHTML;
+				
+				$(".koreaField")[0].value = '';
+				$(".englishField")[0].value = '';
+				$(".order")[0].value = '';
+				$(".comment")[0].value = '';
+				
+				// 한국어
+				$(".koreaField")[0].value = event.currentTarget.children[1].innerHTML;
+				
+				// 영어
+				$(".englishField")[0].value = event.currentTarget.children[0].getAttribute('data-dpNameEn');
+				
+			/* 	if( event.currentTarget.children[1].innerHTML[0].charCodeAt(0) > 1000 ){
+					$(".koreaField")[0].value = event.currentTarget.children[1].innerHTML;
+				} else {	// 영어
+					$(".englishField")[0].value = event.currentTarget.children[1].innerHTML;
+				} */
+				
+				if( event.currentTarget.children[3].innerHTML == $("input[name=useY]")[0].value ){ // 사용여부 값에따라 체크표시
+					$("input[name=useY]")[0].checked = true;
+				} else {
+					$("input[name=useN]")[0].checked = true;
+				}
+				
+				// 정렬순서
+				$(".order")[0].value = event.currentTarget.children[0].getAttribute('data-order');
+				
+				// 비고
+				$(".comment")[0].value = event.currentTarget.children[0].getAttribute('data-comment');
 				
 			})
 		},
@@ -98,6 +137,9 @@ let listRender = function(vo, $tbody) {
 			switch (i) {
 				case 0:
 					td.innerHTML = vo.positionCode;
+					td.setAttribute("data-order", vo.orderNum);
+					td.setAttribute("data-comment", vo.commentText);
+					td.setAttribute('data-dpNameEn', vo.dpNameEn);
 					td.classList.add('positionCode');
 					break;
 				case 1:
@@ -144,15 +186,40 @@ $(function(){
 	document.getElementsByClassName('submit')[0].addEventListener("click", search);
 	
 	
+	// 직급버튼
 	$(".positionButtons").click( () => {
 		console.log("position 버튼 클릭");
+		$(".dutyButton").css("z-index", -1);    // 직책버튼을 클릭 못하게하고
+		$(".positionButton").css("z-index", 0); // 직급 버튼을 클릭할수있도록한다
+		
+		position = "position";  // 직급 버튼을 눌렀으므로 position 세팅
+		
+		search(position);
 	});
 	
+	// 직책버튼
 	$(".dutyButtons").click( () => {
 		console.log("duty 버튼 클릭");
-		console.log($(".dutyButton").style);
+		$(".dutyButton").css("z-index", 0);
+		$(".positionButton").css("z-index", -1);
+		
+		position = "duty";	// 직책 버튼을 눌렀으므로 duty 세팅
+		search(position);
 	});
 	
+	// 신규버튼
+	$(".new").click( () => {
+		console.log("신규버튼 클릭");
+		
+		$(".tg-0lax select option")[0].parentNode.removeAttribute('disabled');
+		
+		$(".tg-0lax select option")[0].value = '';
+		$(".positionField")[0].value = '';
+		$(".koreaField")[0].value = '';
+		$(".englishField")[0].value = '';
+		$(".order")[0].value = '';
+		$(".comment")[0].value = '';
+	});
 });
 </script>
 </head>
@@ -215,6 +282,16 @@ $(function(){
 					</div>
 					
 				</div> 
+				
+				<div class="updateButtons">
+					<input type="button" value="일괄등록">
+					<input class="new" type="button" value="신규">
+					<input type="button" value="저장">
+					<input type="button" value="삭제">
+				</div>
+				
+				<div class="line">
+				</div>
 				
 					
 				<div class="mainDiv">
@@ -281,18 +358,19 @@ $(function(){
 								  <tr>
 								    <th class="tg-dvpl" colspan="2">회사선택</th>
 								    <th class="tg-0lax">
-								    	<select disabled="disabled">
-										  <option value="volvo">Volvo</option>
-										  <option value="saab">Saab</option>
-										  <option value="mercedes">Mercedes</option>
-										  <option value="audi">Audi</option>
-										</select>
+								    	<select>
+								    	
+											<c:forEach items="${compList}" var="vo">
+												<option value="${vo.compSeq }">${vo.compName }</option>
+											</c:forEach>
+											
+								    	</select>
 								    </th>
 								  </tr>
 								  <tr>
-								    <td class="tg-lqy6 positionField" colspan="2">코드</td>
+								    <td class="tg-lqy6" colspan="2">코드</td>
 								    <td class="tg-0lax">
-								    	<input class="inputText" type="text">
+								    	<input class="inputText positionField" type="text">
 								   
 								    </td>
 								  </tr>
@@ -301,13 +379,13 @@ $(function(){
 								    
 								    <td class="tg-lqy6">한국어</td>
 								    <td class="tg-0lax">
-								   		 <input class="inputText" type="text">
+								   		 <input class="inputText koreaField" type="text">
 								    </td>
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6">영어</td>
 								    <td class="tg-0lax">
-								    	<input class="inputText" type="text">
+								    	<input class="inputText englishField" type="text">
 								    </td>
 								  </tr>
 								  <tr>
@@ -324,18 +402,26 @@ $(function(){
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6" colspan="2">사용여부</td>
-								    <td class="tg-0lax"></td>
+								    <td class="tg-0lax">
+								    	<label>
+								    		<input type="radio" name="useY" value="사용"/>사용
+								    	</label>
+								    	
+								   		<label>
+								   			<input type="radio" name="useN" value="사용안함"/>사용안함
+								   		</label>
+								    </td>
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6" colspan="2">정렬순서</td>
 								    <td class="tg-0lax2">
-								    	<input type="text">
+								    	<input type="text" class="order" >
 								    </td>
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6" colspan="2">비고</td>
 								    <td class="tg-0lax2">
-								    	<input type="text">
+								    	<input type="text" class="comment">
 								    </td>
 								  </tr>
 								</table>
