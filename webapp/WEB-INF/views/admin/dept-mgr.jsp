@@ -175,11 +175,15 @@ var getDeptInfo = function(seq) {
 ///////////////////////////////////////
 var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>";
-
+var noChildIcon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
+var toggleBtn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
+				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>";
+var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+			"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
 var deptAddRender = function(vo, index, last, str) {
 	var btn = "";
 	var space = "";
-
+	var imgIcon = "";
 	var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
 	var tree = "";
 
@@ -202,21 +206,16 @@ var deptAddRender = function(vo, index, last, str) {
 
 	if (vo.childCount > 0) {
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
-				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
+				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>";
+		imgIcon = icon;
+	}else{
+		imgIcon = noChildIcon;
 	}
 
 	var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"
-			+ "<div class='prev'>"
-			+ depth
-			+ space
-			+ "</div><div class='wrap'>"
-			+ tree
-			+ btn
-			+ "<div class='li-div' draggable='true'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"
-			+ "<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"
-			+ "<span class='dept' data-lang='"+vo.deptSeq+"'>"
-			+ deptName
-			+ "</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
+			+ "<div class='prev'>"+ depth + space + "</div><div class='wrap'>"+tree+btn
+			+ "<div class='li-div' draggable='true'>" + imgIcon + "<span class='dept' data-lang='"+vo.deptSeq+"'>"
+			+ deptName + "</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
 
 	if (index == "last") {
 		if (parseInt(vo.parentDeptSeq) < 10000000) {
@@ -236,7 +235,7 @@ var deptAddRender = function(vo, index, last, str) {
 	}
 }
 
-var updateParentDept = function(deptSeq, parentDeptSeq) {
+var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 	$.ajax({
 		url : contextPath + "/admin/updateParentDept?deptSeq=" + deptSeq
 				+ "&parentDeptSeq=" + parentDeptSeq,
@@ -248,30 +247,43 @@ var updateParentDept = function(deptSeq, parentDeptSeq) {
 					+ "']");
 			var index = sortChild(deptSeq, parentDeptSeq);
 			var str = $(parent).children(".prev").html();
-
+			
+			if($("#tree-mini li[data-no='" + parentDeptSeq + "']").next().children().length == 0 && 
+					$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close-btn").css("display") != "none"){
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.wrap div.li-div img.navi-icon").remove();
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.li-div").prepend(icon);
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.wrap").prepend(toggleBtn);
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.open-btn").css("display","none");
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close-btn").css("display","inline");
+			}
+			
 			if ($("#tree-mini li[data-no='" + deptSeq + "'] img.last").length != 0) {
 				$("#tree-mini li[data-no='" + deptSeq + "']").prev().prev()
-				.children('.wrap').prepend(lastChild).children('img').not('img.last').remove();
+				.children('.wrap').prepend(lastChild).children('img.tree-icon').not('img.last').remove();
 			}
 
 			$("#tree-mini li[data-no='" + deptSeq + "']").remove();
 			$("#tree-mini ul[d-no='" + deptSeq + "']").remove();
 			
-			if($(parent).find('.close-btn').attr('display')=="none"){
-				console.log("ddd");
-			}
-			
+			console.log($(parent).children('.wrap').children('.close-btn').css("display"));
 			if($(parent).children('.wrap').children('.close-btn').css("display") == "none"){
 				$("li[data-no='"+parentDeptSeq+"'] img.open-btn").trigger("click");
-				return;
+			}else{
+				if ($(parent).next().next().length > 0) {
+					deptAddRender(response.data, index, false, str);
+				} else {
+					deptAddRender(response.data, index, true, str);
+				}
 			}
 			
-			if ($(parent).next().next().length > 0) {
-				deptAddRender(response.data, index, false, str);
-			} else {
-				deptAddRender(response.data, index, true, str);
+			
+			console.log("2이전"+prevParent);
+			// 부서 이동 후 이동 전 부모의 자식이 없으면 오픈 버튼 없애고 폴더 색상 변경
+			if($("#tree-mini li[data-no='" + prevParent + "']").next().children().length == 0){
+				$("#tree-mini li[data-no='" + prevParent + "'] img.open").remove();
+				$("#tree-mini li[data-no='" + prevParent + "'] img.close").remove();
+				$("#tree-mini li[data-no='" + prevParent + "'] div.li-div").prepend(noChildIcon);
 			}
-
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -294,18 +306,13 @@ function sortChild(dept, parent) {
 		// 		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
 		// 		}
 		//부서명이 테스트이기때문에 부서뒤 숫자만 잘라서 비교
-		var deptNum = $(
-				"#tree-mini span[data-lang='" + dept + "']")
-				.text();
+		var deptNum = $("#tree-mini span[data-lang='" + dept + "']").text();
 		var indexNum = $(this).text();
-		if ((deptNum.substring(2, 3) * 1) < (indexNum
-				.substring(2, 3) * 1)) {
+		if ((deptNum.substring(2, 4) * 1) < (indexNum.substring(2, 4) * 1)) {
 			nextSeq = $(this).data('lang');
 			return false;
-		} else if (deptNum.substring(2, 3) == indexNum
-				.substring(2, 3)) {
-			if ((deptNum.substring(4) * 1) < (indexNum
-					.substring(4) * 1)) {
+		} else if (deptNum.substring(2, 4) == indexNum.substring(2, 4)) {
+			if ((deptNum.substring(5,7) * 1) < (indexNum.substring(5,7) * 1)) {
 				nextSeq = $(this).data('lang');
 				return false;
 			}
@@ -318,8 +325,8 @@ function sortChild(dept, parent) {
 function treeDropDown() {
 	var dept = "";
 	var parent = "";
-
-	$(document).on("dragstart", "div#tree-mini div.li-div", function(e) {
+	
+	$(document).on("dragstart", "div#tree-mini li.dept div.li-div", function(e) {
 // 		e.stopPropagation();
 // 		e.preventDefault();
 		dept = "";
@@ -332,7 +339,6 @@ function treeDropDown() {
 		}
 		e.stopPropagation();
 		e.preventDefault();
-		console.log(dept);
 		$(this).addClass("over-span");
 	});
 
@@ -352,9 +358,9 @@ function treeDropDown() {
 
 		e.stopPropagation();
 		e.preventDefault();
-		
+		console.log($("li[data-no='"+dept+"']").parent().prev().data("no"));
 		if(parent!=dept){
-			updateParentDept(dept, parent);
+			updateParentDept(dept, parent, $("li[data-no='"+dept+"']").parent().prev().data("no"));
 		}
 	});
 
@@ -410,7 +416,20 @@ $(function() {
 			getDeptInfo(seq);
 		}
 	});
-
+	
+	var names = new Array(
+		'부서01',
+		'부서02',
+		'부서03',
+		'부서04',
+		'부서05',
+		'부서06',
+		'부서07',
+		'부서08',
+		'부서09',
+		'부서10'
+	);
+	console.log(names.sort());
 });
 </script>
 </head>
@@ -449,7 +468,7 @@ $(function() {
 				</div>
 				<div class="content-head-wrapper">
 					<span>* 부서정보</span>
-					<input type="checkbox">사업장 숨김
+<!-- 					<input type="checkbox">사업장 숨김 -->
 					<div class="head-btn">일괄등록</div>
 					<div class="head-btn">신규</div>
 					<div class="head-btn">저장</div>
