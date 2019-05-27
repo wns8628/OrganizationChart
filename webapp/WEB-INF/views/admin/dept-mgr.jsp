@@ -265,7 +265,6 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 			$("#tree-mini li[data-no='" + deptSeq + "']").remove();
 			$("#tree-mini ul[d-no='" + deptSeq + "']").remove();
 			
-			console.log($(parent).children('.wrap').children('.close-btn').css("display"));
 			if($(parent).children('.wrap').children('.close-btn').css("display") == "none"){
 				$("li[data-no='"+parentDeptSeq+"'] img.open-btn").trigger("click");
 			}else{
@@ -276,8 +275,6 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 				}
 			}
 			
-			
-			console.log("2이전"+prevParent);
 			// 부서 이동 후 이동 전 부모의 자식이 없으면 오픈 버튼 없애고 폴더 색상 변경
 			if($("#tree-mini li[data-no='" + prevParent + "']").next().children().length == 0){
 				$("#tree-mini li[data-no='" + prevParent + "'] img.open").remove();
