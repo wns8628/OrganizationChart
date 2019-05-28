@@ -36,7 +36,7 @@ public class AutocompleteServiceImpl implements AutocompleteRepository {
 	 
 
 	@Override
-	public List<AutocompleteData> complete(@RequestParam String word) {
+	public List<AutocompleteData> complete(String word) {
 		return complete(word, min, max, offset);
 	}
 
@@ -73,6 +73,8 @@ public class AutocompleteServiceImpl implements AutocompleteRepository {
 			}
 		}
 		Collections.sort(autocompletes);
+		for(int i = 0; i < autocompletes.size(); i++)
+			System.out.println(autocompletes.get(i).getValue());
 		return autocompletes;
 	}
 

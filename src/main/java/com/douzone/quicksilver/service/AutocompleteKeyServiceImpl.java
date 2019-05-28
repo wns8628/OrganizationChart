@@ -34,7 +34,7 @@ public class AutocompleteKeyServiceImpl implements AutocompleteKeyRepository {
 			stringRedisTemplate.opsForZSet().add(generatedKey, trimedWord + identifier, 1);
 			stringRedisTemplate.opsForZSet().add(generatedKey, firstLetter, 0);
 			
-			for (int index = 1; index < trimedWord.length(); index++) {
+			for (int index = 1; index < trimedWord.length() + 1; index++) {
 				stringRedisTemplate.opsForZSet().add(generatedKey, trimedWord.substring(0, index), 0);
 			}
 		} 
