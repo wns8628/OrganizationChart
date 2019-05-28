@@ -44,7 +44,6 @@ public class ExcelServicelmpl implements ExcelService {
 		
 		//세션의 엑셀로출력할 type : 검색인가 부서클릭인가를 구분할 세션 과 정보들
 		Map<String, Object> excelInfoMap = (Map<String, Object>) session.getAttribute("excelInfo"); 
-		System.out.println(excelInfoMap);
 		//영어버전인지 아닌지 구분
 		String langCode = (String) excelInfoMap.get("langCode");
 
@@ -81,7 +80,6 @@ public class ExcelServicelmpl implements ExcelService {
 			cell.setCellStyle(HeadStyle);
 		}
 		//-----------------------------------------------------------------------------------------------------
-		
 		try {
 		    sqlSession.select("selectExcelList", excelInfoMap, new ResultHandler(){
 				@Override

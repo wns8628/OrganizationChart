@@ -86,9 +86,11 @@ public class EmployeeController {
 								 @RequestParam (value = "sorting", required = false, defaultValue = "asc") String sorting,
 								 @RequestParam (value = "column", required = false, defaultValue = "empSeq + 0") String column,
 								 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode,
+								 @RequestParam (value = "checkHierarchy") boolean checkHierarchy,				 
 								 HttpSession session) {
 				
-		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode, pageNo, sorting, column , session));
+		System.out.println("오나?" + checkHierarchy);
+		return JSONResult.success(employeeService.getEmpInfo(seq, type,langCode, pageNo, sorting, column , session, checkHierarchy));
 	}
 	
 	

@@ -5,7 +5,10 @@ let selectSearch;
 let kwd;
 let sorting;
 let column;
-
+//하위부서 체크여부에따라 결과분기
+let checkHierarchy;
+//부서구분
+let seq;
 //검색시 세션에 결과저장 ajax - 2019-05-23 부로 안쓰는중 X
 var getSearchData = function(url) {	
 	pageFlag = 1;															//pageFlag=1 : 검색을 한것임 
@@ -23,10 +26,43 @@ var getSearchData = function(url) {
       }
 	});
 }
+
+//자동완성 프론트
+let searchAutocomplete = function(){
+	$( "input[aria-label='kwd']" ).autocomplete({
+        source : function( request, response ) {
+        	let part = $("input[aria-label='kwd']").val();
+             $.ajax({
+                    type: 'post',
+                    url: contextPath +"/redis/read?kwd="+part+"&count=10",
+                    dataType: "json",
+                    success: function(res) {
+                    	console.log(res.data)
+                        //서버에서 json 데이터 response 후 목록에 뿌려주기 위함
+                        response(
+                            $.map(res.data, function(item) {
+                                return {
+                                    value: item.value,
+                                    score: item.score
+                                }
+                            })
+                        );
+                    }
+               });
+            },
+        //조회를 위한 최소글자수
+        minLength: 1,
+        select: function( event, ui ) {
+            // 만약 검색리스트에서 선택하였을때 선택한 데이터에 의한 이벤트발생
+        }
+    });
+}
+
 //매핑된 url을 전달
 let search = function(selectSearch_p, kwd_p, sorting_p, column_p){	
-
+	
 	pageFlag = 1;															//pageFlag=1 : 검색을 한것임 
+	$(".checks").css("visibility","hidden");								//검색시는 하위부서표시 필요없음
 	$('.page-point').val('');
 	$(".card-header").empty();
 	
@@ -76,4 +112,6 @@ $(function(){
 			check = true;
 		}
 	});  
+	
+	searchAutocomplete();													 // 자동완성 
 });

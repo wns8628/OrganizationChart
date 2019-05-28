@@ -89,44 +89,44 @@ var getLeader = function(url){
  */
 var tableColumnSort = () => {
 	
-	Array.from(document.getElementsByTagName("a")).forEach( tag => {
-		tag.addEventListener("click", () => {
-			
-			let tagParent = tag.parentNode;
-			tagParent.classList.toggle("sort");	
-			let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
-	
-			// 검색으로 테이블이 그려질때
-			if( kwd != '' && searchButton.getAttribute('data-check') == 'true'){				 	// 검색으로 테이블이 그려짐
-				if( tagParent.classList.contains('sort')){
-					console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
-					search(selectSearch, kwd, "asc", tagParent.getAttribute('data-column'));
-				} else {
-					console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-					search(selectSearch, kwd, "desc", tagParent.getAttribute('data-column'));
+		Array.from(document.getElementsByTagName("a")).forEach( tag => {
+			tag.addEventListener("click", () => {
+				
+				if($("tbody")[0].innerText == ""){
+					 alert("정렬할 데이터가 없습니다.");
+					 return false;
+					 
 				}
-			} else {
-				// 부서를 클릭해서 테이블이 그려질때
-				Array.from(document.getElementsByClassName('li-div')).forEach( li => {				
-					if( li.getAttribute('style') != 'background-color: transparent;'){ 				// 부서 클릭하여 테이블 그림		   
-						if( tagParent.classList.contains('sort')){ // 정렬 asc
-							console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
-							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);
-							sorting = "asc";
-							column	= tagParent.getAttribute('data-column');
-						} else { // 정렬 desc
-							console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
-							makeTable("/getEmpInfo/" + li.parentElement.parentElement.getAttribute('data-no') + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode);
-							sorting = "desc";
-							column	= tagParent.getAttribute('data-column');
-						}
+				
+				let tagParent = tag.parentNode;
+				tagParent.classList.toggle("sort");	
+				let searchButton = document.getElementsByClassName('search sch-submit lang')[0];
+		
+				// 검색으로 테이블이 그려질때
+				if( kwd != '' && searchButton.getAttribute('data-check') == 'true'){				 	// 검색으로 테이블이 그려짐
+					if( tagParent.classList.contains('sort')){
+						console.log( tagParent.getAttribute('data-column') + ' asc 정렬');
+						search(selectSearch, kwd, "asc", tagParent.getAttribute('data-column'));
+					} else {
+						console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+						search(selectSearch, kwd, "desc", tagParent.getAttribute('data-column'));
 					}
-				});
-			}
-			
-		})
-	});
-	
+				} else {
+					// 부서를 클릭해서 테이블이 그려질때
+					if( tagParent.classList.contains('sort')){ // 정렬 asc
+						makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&sorting=asc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode  + "&checkHierarchy=" + checkHierarchy);
+						sorting = "asc";
+						column	= tagParent.getAttribute('data-column');
+					} else { // 정렬 desc
+						console.log( tagParent.getAttribute('data-column') + ' desc 정렬');
+						makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&sorting=desc&column=" + tagParent.getAttribute('data-column') + "&langCode="+mainLangCode  + "&checkHierarchy=" + checkHierarchy);
+						sorting = "desc";
+						column	= tagParent.getAttribute('data-column');
+					}		
+				}
+			})
+		});
+		
 }
 
 //--------------------------------------------------------------------------
@@ -218,14 +218,10 @@ let pageFlageMakeTable = function(pageNo){
     if(pageFlag == 1){
     	makeTable("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode + "&pageNo=" + pageNo);	
     }else{
-    	var seq = $("tbody > tr.row > td").get(1).innerHTML;	 
-    	console.log(sorting == null);
-    	console.log(column == null);
-    	
     	if(sorting == null && column == null){
-    		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&langCode="+mainLangCode);	  
+    		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);	  
     	}else{    		
-    		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&sorting="+sorting+"&column=" + column + "&langCode="+mainLangCode);
+    		makeTable("/getEmpInfo/" + seq + "/d?pageNo="+pageNo+"&sorting="+sorting+"&column=" + column + "&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);
     	}
     }
 }
@@ -238,8 +234,6 @@ $(function(){
 	   });
 	   $(document).on("click", ".goBackPage", function(event){
 		    var pageNo = Number(paging.startPage) - 1;
-		    console.log(paging.startPage);
-		    console.log(paging);
 		    pageFlageMakeTable(pageNo);
 	   });
 	   $(document).on("click", ".goPage", function(event){
@@ -251,8 +245,18 @@ $(function(){
 			pageFlageMakeTable(pageNo);
 	   });
 	   $(document).on("click", ".goLastPage", function(event){	
+		    console.log("dhkt..")
 		   	var pageNo = paging.totalPage;
 		   	pageFlageMakeTable(pageNo);
+	   });
+	   //하위부서표시 체크박스 토글
+	   $(document).on("change", "#dept-hierarchy", function(event){	   
+		   checkHierarchy = $('input:checkbox[id="dept-hierarchy"]').is(":checked");
+	       if(sorting == null && column == null){
+	           makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);	  
+	       }else{    		
+	    	   makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&sorting="+sorting+"&column=" + column + "&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);
+	       }
 	   });
 	   
 	   //페이지검색

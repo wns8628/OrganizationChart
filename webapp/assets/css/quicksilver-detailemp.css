@@ -51,6 +51,14 @@ body {
 	/* 	float: right; */
 	text-align: left;
 }
+.empListLabel{	
+    float: left;
+}
+.checks{
+    float: left;
+    margin-left: 10px;
+    visibility:hidden; 
+}
 .body-container {
 /* 	background-color: green;
  */	height: 875px;
@@ -183,6 +191,10 @@ table.member td {
 tr.row:hover {
 	background-color: #e6f4fe;
 } 
+
+.container-detail{
+	clear:both;
+}
 table.detail {
 	width: 79%; 
 	border: 1px solid #d6d4d4;

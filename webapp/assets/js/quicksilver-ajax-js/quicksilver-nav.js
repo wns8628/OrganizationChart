@@ -427,17 +427,21 @@ $(function(){
 	   document.getElementsByClassName('search sch-submit lang')[0].setAttribute( // 테이블이 검색으로 나왔으므로 검색 check 변환
 			   'data-check', false
 	   );
-      pageFlag = 0; 															//pageFlag=0 : 부서를 클릭
+ 
+	   $(".checks").css("visibility","visible");
+	  //부서클릭시 초기화해야할것듯----------------------------------------------------------------------------------
+	  $parent = $(this).parent().parent().parent();
+	  pageFlag = 0; 															//pageFlag=0 : 부서를 클릭
+      seq = $parent.attr("data-no");											//부서번호체크
+      sorting = null;															//널처리안해주면 다른부서클릭->페이지이동시 의도치않은 정렬발생
+      column =null;      														//널처리안해주면 다른부서클릭->페이지이동시 의도치않은 정렬발생
+      checkHierarchy = $('input:checkbox[id="dept-hierarchy"]').is(":checked"); //하위부서 체크여부
       $('.page-point').val('');													//검색시 page-point 초기화 
-   	  $parent = $(this).parent().parent().parent();
-      var seq = $parent.attr("data-no");
+      
 	  $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
 	  $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
 
-	  //널처리안해주면 다른부서클릭->페이지이동시 의도치않은 정렬발생
-	  sorting = null;
-	  column =null;
-	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode);
+	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);		  
    });
    
    //여닫이

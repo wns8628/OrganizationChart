@@ -46,6 +46,8 @@
 							</span>   
 					    <!-- </div> -->
 				        <input type="text" class="input-text" placeholder="" aria-label="kwd" aria-describedby="basic-addon2">
+				        
+
 				        <!-- <div class="input-group-append"> -->
 				          <button class="search sch-submit lang" data-lang='search' data-check='true' id="search-button" type="button">
 				            	검색
@@ -55,8 +57,12 @@
 			    <!-- -->
 			    
 				<div class="header2">
-					<span class="title lang" data-lang='empList'>사원목록 </span>
- 		
+					<span class="title lang empListLabel" data-lang='empList'>사원목록 </span>
+			 		<div class="checks">
+			 		  <input type="checkbox" id="dept-hierarchy">
+			 		  <label class="lang" for="dept-hierarchy">하위부서표시</label>
+		 		    </div>
+
 					<!-- 엑셀다운로드  -->
 				    <span class="exelbtn">
 						<button id="btn-excel" class="exel-submit lang" data-lang='exel'>엑셀저장</button>

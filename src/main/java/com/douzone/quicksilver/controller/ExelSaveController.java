@@ -38,6 +38,8 @@ public class ExelSaveController {
 			Map<String, Object> map = (Map<String, Object>) session.getAttribute("excelInfo");
 			map.put("langCode", langCode);
 			session.setAttribute("excelInfo", map); //엑셀저장용 세션 
+			
+			System.out.println(map);
 		}
 		
 		return JSONResult.success(null);
