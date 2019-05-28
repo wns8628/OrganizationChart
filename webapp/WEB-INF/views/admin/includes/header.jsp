@@ -4,8 +4,6 @@
 	<div class="header-wrapper">
 		<span>quicksilver</span>
 		<div class="header-menubar">
-			<a href="${pageContext.servletContext.contextPath }/main3/kr"><span>kr</span></a>
-			<a href="${pageContext.servletContext.contextPath }/main3/en"><span>en</span></a>
 			<button>login</button>
 		</div>
 	</div>
