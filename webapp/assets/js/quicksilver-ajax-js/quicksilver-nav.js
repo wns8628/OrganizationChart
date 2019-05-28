@@ -202,6 +202,8 @@ var deptRender = function(vo, index, length, last, str){
 	var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 	var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>"
 	var tree = "";
+	var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
 	
 	if(mainLangCode == 'kr'){
 		var deptName = vo.deptName;
@@ -234,12 +236,13 @@ var deptRender = function(vo, index, length, last, str){
 	if(vo.childCount > 0){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
+	}else{
+		icon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
 	}
 	
    var htmls = "<li class='child dept department' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
-				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
-   				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>"+
+				"<div class='li-div'>"+icon+
    				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span><span>("+vo.deptEmpCount+")</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[d-no='"+vo.parentDeptSeq+"']").append(htmls);
@@ -255,6 +258,8 @@ var bizRender = function(vo,index, length){
 	var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 	var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>"
 	var tree = "";
+	var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+				"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
 	
 	if(mainLangCode == 'kr'){
 		var bizName = vo.bizName;
@@ -271,13 +276,16 @@ var bizRender = function(vo,index, length){
 	if(vo.childCount > 0){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
+	}else{
+		icon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
 	}
+	
 	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+
-				"<div class='li-div'><img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
-				"<img class='navi-icon close' alt='' src='"+contextPath+"/assets/images/close.png'>"+
+				"<div class='li-div'>"+icon+
 				"<span class='biz' c-no='"+vo.compSeq+"' data-lang='"+vo.bizSeq+"'>"+bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
+
 
 //부서클릭or사업장 클릭 렌더ajax 
 var getList = function(seq, last, str){
