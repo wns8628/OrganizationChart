@@ -80,16 +80,21 @@ div#content-wrapper div#tbl-header span:first-child {width: 80px; font-size: 13p
 
 div#content-wrapper div#tbl-wrapper {width: 96%; padding: 2%; border: 1px solid #B2B2B2; height: 100%}
 
-div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 350px;}
-div#tbl-wrapper table#tbl-info td{font-size:13px;padding:0 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 30px;}
+div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 300px;}
+div#tbl-wrapper table#tbl-info td{font-size:13px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 22px; padding: 4px;}
 div#tbl-wrapper table#tbl-info th{font-size:13px;font-weight:normal;padding:0 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 30px;}
-div#tbl-wrapper table#tbl-info .tg-lqy6{text-align:right;vertical-align:top; background-color: #F9F9F9;}
-div#tbl-wrapper table#tbl-info .tg-0lax{text-align:left;vertical-align:top}
+div#tbl-wrapper table#tbl-info .tg-lqy6{text-align:right;vertical-align:middle; background-color: #F9F9F9;}
+div#tbl-wrapper table#tbl-info .tg-0lax{text-align:left;vertical-align:middle;}
+div#tbl-wrapper table#tbl-info input[type='text']{display: none; width: 99%;  height: 16px}
+div#tbl-wrapper table#tbl-info input[name='zipCode']{display: none; width: 20%;  height: 16px; float: left;}
+div#tbl-wrapper table#tbl-info div#zip-btn {width: 53px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer; float: left;}
 
 div#tree-mini {width: 37.8%; background-color: white; border: 0px; height: 400px;
 vertical-align: top; float: left; padding: 1%; min-height: 400px; overflow-y:auto;
 border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
 div.tree li>span {float: left;}
+
+.update-unit{ display: none;}
 
 .over-span{
 	background-color: #92B5DF;
@@ -300,20 +305,23 @@ function sortChild(dept, parent) {
 			.children('li.child').children("div.wrap").children(
 					"div.li-div").children("span");
 	$(childs).each(function(index) {
-		// 		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
-		// 		}
-		//부서명이 테스트이기때문에 부서뒤 숫자만 잘라서 비교
-		var deptNum = $("#tree-mini span[data-lang='" + dept + "']").text();
-		var indexNum = $(this).text();
-		if ((deptNum.substring(2, 4) * 1) < (indexNum.substring(2, 4) * 1)) {
+		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
 			nextSeq = $(this).data('lang');
 			return false;
-		} else if (deptNum.substring(2, 4) == indexNum.substring(2, 4)) {
-			if ((deptNum.substring(5,7) * 1) < (indexNum.substring(5,7) * 1)) {
-				nextSeq = $(this).data('lang');
-				return false;
-			}
 		}
+		
+		//부서명이 테스트이기때문에 부서뒤 숫자만 잘라서 비교
+// 		var deptNum = $("#tree-mini span[data-lang='" + dept + "']").text();
+// 		var indexNum = $(this).text();
+// 		if ((deptNum.substring(2, 4) * 1) < (indexNum.substring(2, 4) * 1)) {
+// 			nextSeq = $(this).data('lang');
+// 			return false;
+// 		} else if (deptNum.substring(2, 4) == indexNum.substring(2, 4)) {
+// 			if ((deptNum.substring(5,7) * 1) < (indexNum.substring(5,7) * 1)) {
+// 				nextSeq = $(this).data('lang');
+// 				return false;
+// 			}
+// 		}
 	});
 
 	return nextSeq;
@@ -384,17 +392,6 @@ $(function() {
 
 	treeDropDown();
 
-	var menuList = $("div.menu li");
-	for (var i = 0; i < menuList.length; i++) {
-		if ($(menuList[i]).text() === $("#contents-header span:last")
-				.text()) {
-			$(menuList[i]).parent().parent().show().prev().addClass(
-					"active");
-			$(menuList[i]).children().css("color", "#328CF5").css(
-					"font-weight", "bold");
-		}
-	}
-
 	compRender();
 
 	$("#compSelect").change(function() {
@@ -414,19 +411,33 @@ $(function() {
 		}
 	});
 	
-	var names = new Array(
-		'부서01',
-		'부서02',
-		'부서03',
-		'부서04',
-		'부서05',
-		'부서06',
-		'부서07',
-		'부서08',
-		'부서09',
-		'부서10'
-	);
-	console.log(names.sort());
+	$("div.update").click(function(){
+		if($("#tree-mini li div.active-span").length == 0){
+			alert("부서를 선택해주세요.");
+			return;
+		}
+		$("#tbl-info span").each(function(){
+			if($(this).attr("id") == "useYn"){
+				console.log("d1");
+				$("input[data-id='"+$(this).text()+"']").prop("checked",true);
+			}
+			if($(this).attr("id") == "type"){
+				console.log("d2");
+				$("option[data-id='"+$(this).text()+"']").prop("checked",true);
+			}
+			$("#tbl-info input[name='"+$(this).attr('id')+"']").val($(this).text()).show();
+			$(this).hide();
+		});
+		$(".head-btn").hide();
+		$(".update-unit").show();
+	});
+	
+	$("div.cancel").click(function(){
+		$("#tbl-info input").hide();
+		$("#tbl-info span").show();
+		$(".update-unit").hide();
+		$(".default-unit").show();
+	});
 });
 </script>
 </head>
@@ -466,10 +477,11 @@ $(function() {
 				<div class="content-head-wrapper">
 					<span>* 부서정보</span>
 <!-- 					<input type="checkbox">사업장 숨김 -->
-					<div class="head-btn">일괄등록</div>
-					<div class="head-btn">신규</div>
-					<div class="head-btn">저장</div>
-					<div class="head-btn">삭제</div>
+					<div class="head-btn cancel update-unit">취소</div>
+					<div class="head-btn save update-unit">저장</div>
+					<div class="head-btn delete default-unit">삭제</div>
+					<div class="head-btn update default-unit">수정</div>
+					<div class="head-btn create default-unit">신규</div>
 				</div>
 				<div id="content-wrapper">
 					<div id="tree-mini" class="tree">
@@ -489,80 +501,112 @@ $(function() {
 									<col style="width: 195px">
 								</colgroup>
 								<tr>
-									<th class="tg-lqy6">상위부서</th>
-									<th class="tg-0lax" colspan="2">
+									<td class="tg-lqy6">
+										<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
+										상위부서
+									</td>
+									<td class="tg-0lax" colspan="2">
 										<span id="parentSeq"></span>
-									</th>
+										<input type="text" name='parentSeq'>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">유형</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="type"></span>
-<!-- 										<select> -->
-<!-- 											<option value="biz">사업장 -->
-<!-- 											<option value="dept">부서 -->
-<!-- 										</select> -->
+										<select class='update-unit'>
+											<option value="biz" data-id='사업장'>사업장
+											<option value="dept" data-id='부서'>부서
+										</select>
 									</td>
 								</tr>
 								<tr>
-									<td class="tg-lqy6">부서코드</td>
+									<td class="tg-lqy6">
+										<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
+										부서코드
+									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="seq"></span>
+										<input type="text" name='seq'>
 									</td>
 								</tr>
 								<tr>
-									<td class="tg-lqy6" rowspan="4">부서명</td>
-									<td class="tg-lqy6">한국어</td>
+									<td class="tg-lqy6" rowspan="4">
+										<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
+										부서명
+									</td>
+									<td class="tg-lqy6">
+										<img class="mini-icon" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check2.png">
+										한국어
+									</td>
 									<td class="tg-0lax">
 										<span id="name"></span>
+										<input type="text" name='name'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">영어</td>
 									<td class="tg-0lax">
 										<span id="nameEn"></span>
+										<input type="text" name='nameEn'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">일본어</td>
-									<td class="tg-0lax"></td>
+									<td class="tg-0lax">
+										<span id="nameJp"></span>
+										<input type="text" name='nameJp'>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">중국어</td>
-									<td class="tg-0lax"></td>
+									<td class="tg-0lax">
+										<span id="nameCn"></span>
+										<input type="text" name='nameCn'>
+									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">부서약칭</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="nickname"></span>
+										<input type="text" name='nickname'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">사용여부</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="useYn"></span>
+										<div class="update-unit">
+											<input type="radio" data-id="사용" name="useYn" value="Y">사용
+											<input type="radio" data-id="미사용" name="useYn" value="N">미사용
+										</div>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">정렬</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="orderNum"></span>
+										<input type="text" name='orderNum'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6" rowspan="3">주소</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="zipCode"></span>
+										<input type="text" name='zipCode'>
+										<div id="zip-btn" onclick="postcode()" class="head-btn update-unit">우편번호</div>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-0lax" colspan="2">
 										<span id="addr"></span>
+										<input type="text" name='addr'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-0lax" colspan="2">
 										<span id="detailAddr"></span>
+										<input type="text" name='detailAddr' placeholder="상세주소입력">
 									</td>
 								</tr>
 							</table>

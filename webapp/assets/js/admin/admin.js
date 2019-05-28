@@ -267,7 +267,21 @@ var getEmpInfo = function(seq){
 	});
 }
 
+function menuActive(){
+	var menuList = $("div.menu li");
+	for (var i = 0; i < menuList.length; i++) {
+		if ($(menuList[i]).text() === $("#contents-header span:last")
+				.text()) {
+			$(menuList[i]).parent().parent().show().prev().addClass(
+					"active");
+			$(menuList[i]).children().css("color", "#328CF5").css(
+					"font-weight", "bold");
+		}
+	}
+}
+
 $(function() {
+	menuActive();
 	getCompList();
 	$("#langcode").change(function(){
 		langChange();
