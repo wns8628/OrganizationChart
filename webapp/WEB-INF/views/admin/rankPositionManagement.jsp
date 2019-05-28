@@ -13,21 +13,11 @@
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/rankPositionManagement.css" />
 
-<%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/fontawesome-free/css/all.min.css" />
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> --%>
-
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
-<%--  <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script> --%>
-<%-- <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -45,6 +35,7 @@
 
 let contextPath = "${pageContext.servletContext.contextPath }";
 let position = "position";
+let kwd = '';
 
 let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 	
@@ -96,10 +87,10 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 					$(".englishField")[0].value = event.currentTarget.children[1].innerHTML;
 				} */
 				
-				if( event.currentTarget.children[3].innerHTML == $("input[name=useY]")[0].value ){ // 사용여부 값에따라 체크표시
-					$("input[name=useY]")[0].checked = true;
+				if( event.currentTarget.children[3].innerHTML == $(".useY")[0].value ){ // 사용여부 값에따라 체크표시
+					$(".useY")[0].checked = true;
 				} else {
-					$("input[name=useN]")[0].checked = true;
+					$(".useN")[0].checked = true;
 				}
 				
 				// 정렬순서
@@ -164,11 +155,23 @@ let listRender = function(vo, $tbody) {
 let search = () => { // 검색 클릭
 	console.log("검색");
 	
+	
 	let compSeq = document.getElementsByClassName('selectBoxStyle')[0].value;
-	let kwd = document.getElementsByClassName('inputText')[0].value;
+	let inputKwd =  document.getElementsByClassName('inputText')[0].value;
 	let useYn = document.getElementsByClassName('useYN')[0].value;
 	
-	rankPositionSearch(compSeq, kwd, useYn, mainLangCode);
+	if( inputKwd != ''){
+		kwd = inputKwd;
+	}
+	
+	$("input[data-check='false']").attr("data-check", "true");
+	
+	if( kwd != '' && $("input[data-check='true']").attr("data-check") == "true"){
+		rankPositionSearch(compSeq, kwd, useYn, mainLangCode);
+	} else {
+		console.log("여기");
+		$("input[data-check='true']").attr("data-check", "false");
+	}
 };
 
 $(function(){
@@ -211,14 +214,46 @@ $(function(){
 	$(".new").click( () => {
 		console.log("신규버튼 클릭");
 		
-		$(".tg-0lax select option")[0].parentNode.removeAttribute('disabled');
+		let $select = $(".tg-0lax select");
+		let option;
 		
-		$(".tg-0lax select option")[0].value = '';
+		$select.removeAttr('disabled');
+		$select.empty();
+		
+		 <c:forEach items="${compList}" var="vo">
+		 	option = document.createElement('option');
+		 	option.setAttribute('value', '${vo.compSeq }');
+		 	option.innerHTML = '${vo.compName }';
+		 	
+		 	$select.append(option);
+		</c:forEach> 
+		
+		//$(".tg-0lax select option")[0].value = '';
 		$(".positionField")[0].value = '';
 		$(".koreaField")[0].value = '';
 		$(".englishField")[0].value = '';
 		$(".order")[0].value = '';
 		$(".comment")[0].value = '';
+	});
+	
+	// 저장버튼
+	$('.save').click( () => {
+		console.log("저장");
+		let compSeq;
+		
+		// select된 회사 시퀀스 가져옴 
+		$(".tg-0lax select option").each( (index, item) => {
+			if( item.selected) {
+				compSeq = item.value;
+			}
+		});
+		
+		// 입력한 직책 코드
+		console.log($(".positionField").val() );
+		console.log($(".koreaField").val() );
+		console.log($(".englishField").val() );
+		console.log($("input[name='group']:checked").val());
+		
 	});
 });
 </script>
@@ -258,7 +293,7 @@ $(function(){
 						 
 						</select>
 						
-						<input class="submit" type="button" value="검색">
+						<input class="submit" data-check="false" type="button" value="검색">
 						
 					
 				</div>
@@ -286,7 +321,7 @@ $(function(){
 				<div class="updateButtons">
 					<input type="button" value="일괄등록">
 					<input class="new" type="button" value="신규">
-					<input type="button" value="저장">
+					<input type="button" class="save" value="저장">
 					<input type="button" value="삭제">
 				</div>
 				
@@ -404,11 +439,11 @@ $(function(){
 								    <td class="tg-lqy6" colspan="2">사용여부</td>
 								    <td class="tg-0lax">
 								    	<label>
-								    		<input type="radio" name="useY" value="사용"/>사용
+								    		<input type="radio" class="useY" name="group" value="사용"/>사용
 								    	</label>
 								    	
 								   		<label>
-								   			<input type="radio" name="useN" value="사용안함"/>사용안함
+								   			<input type="radio" class="useN" name="group" value="사용안함"/>사용안함
 								   		</label>
 								    </td>
 								  </tr>
