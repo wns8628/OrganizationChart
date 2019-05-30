@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,8 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -34,7 +38,7 @@
 <script type="text/javascript">
 
 let contextPath = "${pageContext.servletContext.contextPath }";
-let position = "position";
+let position = "POSITION";
 let kwd = '';
 
 let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
@@ -67,9 +71,13 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 				
 				// positionInfoForm의 각 필드에 값 삽입
 				$(".positionField")[0].value = event.currentTarget.children[0].innerHTML;
+				// 코드는 수정x
+				$(".positionField")[0].setAttribute('disabled', 'disabled');
+				
 				$(".tg-0lax select option")[0].value = event.currentTarget.children[2].innerHTML;
 				$(".tg-0lax select option")[0].innerHTML = event.currentTarget.children[2].innerHTML;
 				
+				// 각 필드 초기화
 				$(".koreaField")[0].value = '';
 				$(".englishField")[0].value = '';
 				$(".order")[0].value = '';
@@ -87,11 +95,13 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 					$(".englishField")[0].value = event.currentTarget.children[1].innerHTML;
 				} */
 				
+				// 사용여부
 				if( event.currentTarget.children[3].innerHTML == $(".useY")[0].value ){ // 사용여부 값에따라 체크표시
 					$(".useY")[0].checked = true;
 				} else {
 					$(".useN")[0].checked = true;
 				}
+				
 				
 				// 정렬순서
 				$(".order")[0].value = event.currentTarget.children[0].getAttribute('data-order');
@@ -128,6 +138,12 @@ let listRender = function(vo, $tbody) {
 			switch (i) {
 				case 0:
 					td.innerHTML = vo.positionCode;
+					if( vo.orderNum == null) {
+						vo.orderNum = '';
+					}
+					if( vo.commentText == null) {
+						vo.commentText = '';
+					}
 					td.setAttribute("data-order", vo.orderNum);
 					td.setAttribute("data-comment", vo.commentText);
 					td.setAttribute('data-dpNameEn', vo.dpNameEn);
@@ -152,26 +168,42 @@ let listRender = function(vo, $tbody) {
 		$tbody.append(tr);
 };
 	
-let search = () => { // 검색 클릭
+let search = position => { // 검색 클릭
 	console.log("검색");
 	
 	
 	let compSeq = document.getElementsByClassName('selectBoxStyle')[0].value;
-	let inputKwd =  document.getElementsByClassName('inputText')[0].value;
+	let inputKwd =  document.getElementsByClassName('inputText')[0];
 	let useYn = document.getElementsByClassName('useYN')[0].value;
 	
-	if( inputKwd != ''){
-		kwd = inputKwd;
-	}
+	// 검색키워드 저장
+	kwd = inputKwd.value;
 	
+	// 검색버튼을 눌렀으니 data-check true로 변경
 	$("input[data-check='false']").attr("data-check", "true");
+	console.log('position : ' + position);
 	
-	if( kwd != '' && $("input[data-check='true']").attr("data-check") == "true"){
+	// 직급 직책 버튼을 누르면 검색한 데이터 그냥 가져옴
+	if( position != undefined || inputKwd.getAttribute('data-focus') != 'false' && $("input[data-check='true']").attr("data-check") == "true"){
 		rankPositionSearch(compSeq, kwd, useYn, mainLangCode);
 	} else {
-		console.log("여기");
 		$("input[data-check='true']").attr("data-check", "false");
 	}
+};
+
+let messageBox = function(title, message){
+	$("#dialog-message").attr({
+		title: title
+	});
+	$("#dialog-message p").text(message);
+	$("#dialog-message").dialog({
+		modal: true,
+		buttons: {
+			"확인": function(){
+				$(this).dialog("close");
+			}
+		},
+	});
 };
 
 $(function(){
@@ -190,23 +222,36 @@ $(function(){
 	
 	
 	// 직급버튼
-	$(".positionButtons").click( () => {
+	$(".positionButtons").click( event => {
 		console.log("position 버튼 클릭");
-		$(".dutyButton").css("z-index", -1);    // 직책버튼을 클릭 못하게하고
-		$(".positionButton").css("z-index", 0); // 직급 버튼을 클릭할수있도록한다
 		
-		position = "position";  // 직급 버튼을 눌렀으므로 position 세팅
+		let $dutyButton = $(".dutyButton");
+		let $positionButton = $(".positionButton");
+		
+		$positionButton.css("background-color", "#ffffff");
+		$dutyButton.css("z-index", -1);    // 직책버튼을 클릭 못하게하고
+		$dutyButton.css("background-color", '#f8f8f8');
+		$positionButton.css("z-index", 0); // 직급 버튼을 클릭할수있도록한다
+		
+		position = "POSITION";  // 직급 버튼을 눌렀으므로 position 세팅
 		
 		search(position);
 	});
 	
 	// 직책버튼
-	$(".dutyButtons").click( () => {
+	$(".dutyButtons").click( event => {
 		console.log("duty 버튼 클릭");
-		$(".dutyButton").css("z-index", 0);
-		$(".positionButton").css("z-index", -1);
 		
-		position = "duty";	// 직책 버튼을 눌렀으므로 duty 세팅
+		let $dutyButton = $(".dutyButton");
+		let $positionButton = $(".positionButton");
+		
+		$dutyButton.css('background-color', '#ffffff');
+		$positionButton.css("background-color", '#f8f8f8');
+		
+		$dutyButton.css("z-index", 0);
+		$positionButton.css("z-index", -1);
+		
+		position = "DUTY";	// 직책 버튼을 눌렀으므로 duty 세팅
 		search(position);
 	});
 	
@@ -215,11 +260,13 @@ $(function(){
 		console.log("신규버튼 클릭");
 		
 		let $select = $(".tg-0lax select");
+		let positionField = $(".positionField")[0];
 		let option;
 		
 		$select.removeAttr('disabled');
-		$select.empty();
+		$select.empty(); // 싹 다 비움
 		
+		// 회사선택 다시 세팅
 		 <c:forEach items="${compList}" var="vo">
 		 	option = document.createElement('option');
 		 	option.setAttribute('value', '${vo.compSeq }');
@@ -229,9 +276,11 @@ $(function(){
 		</c:forEach> 
 		
 		//$(".tg-0lax select option")[0].value = '';
-		$(".positionField")[0].value = '';
+		positionField.value = '';
+		positionField.removeAttribute('disabled');
 		$(".koreaField")[0].value = '';
 		$(".englishField")[0].value = '';
+		$(".useY")[0].checked = true;
 		$(".order")[0].value = '';
 		$(".comment")[0].value = '';
 	});
@@ -239,8 +288,38 @@ $(function(){
 	// 저장버튼
 	$('.save').click( () => {
 		console.log("저장");
+		
+		let positionField = $(".positionField").val();
+		let koreaField = $(".koreaField").val();
+		let englishField = $(".englishField").val();
+		let order = $(".order").val();
+		let comment = $(".comment").val();
 		let compSeq;
 		
+		 if( positionField == ''){
+			messageBox("코드", "코드입력은 필수입니다");
+			return;
+		}
+		 
+		if( koreaField == '') {
+			messageBox("한국어", "한국어 명칭 입력은 필수입니다");
+			return;
+		}
+		
+		for(let i = 0; i < koreaField.length; i++){
+			if( koreaField[i].charCodeAt(0) < 10000){ // 한글이 아니면
+				messageBox("한국어", "한국어 명칭은 한국어 입력만 가능합니다");
+				return;
+			}
+		}
+				
+		for(let i = 0; i < order.length; i++){
+			if( order[i].charCodeAt(0) > 57) { // 숫자가 아니면
+				messageBox("정렬순서", "정렬순서는 숫자만 입력 가능합니다");
+				return;
+			}
+		}
+				
 		// select된 회사 시퀀스 가져옴 
 		$(".tg-0lax select option").each( (index, item) => {
 			if( item.selected) {
@@ -249,10 +328,79 @@ $(function(){
 		});
 		
 		// 입력한 직책 코드
-		console.log($(".positionField").val() );
-		console.log($(".koreaField").val() );
-		console.log($(".englishField").val() );
-		console.log($("input[name='group']:checked").val());
+		console.log( $(".englishField").val() );
+		console.log( $("input[name='group']:checked").val() );
+		console.log( $(".order").val() );
+		console.log( $(".comment").val() );
+		
+		if( englishField == ''){
+			englishField = ' ';
+		}
+		
+		if( order == ''){
+			order = 0;
+		}
+		
+		if( comment == ''){
+			comment = ' ';
+		}
+		
+		// 각 필드의 값을 가져와 ajax 통신
+		 $.ajax({
+				url : contextPath + "/savePositionValue/" +
+						compSeq + "/" +
+						positionField + "/" + 
+						koreaField + "/" + 
+						englishField + "/" + 
+						$("input[name='group']:checked").val() + "/" +
+						order + "/" + 
+						comment + "/" +
+						position,
+						
+				type : "get",
+				dataType : "json",
+				data : "",
+				success : function(response) {
+					search(position);
+		
+				},
+				error : function(xhr, status, e) {
+					console.error(status + ":" + e);
+				}
+
+			}); 
+	});
+	
+	// 직책 검색하는 input 속성을 변경
+	$("input[name='position']").focus( event => {
+		event.currentTarget.setAttribute('data-focus', true);
+	})
+	
+	$("input[name='position']").blur( event => {
+		event.currentTarget.setAttribute('data-focus', false);
+	})
+	
+	// 삭제버튼
+	$(".remove").click( () => {
+		console.log('삭제');
+		
+		 $.ajax({
+				url : contextPath + "/removePositionValue/" +
+						$(".positionField").val() + "/" +
+						position,
+						
+				type : "get",
+				dataType : "json",
+				data : "",
+				success : function(response) {
+					search(position);
+		
+				},
+				error : function(xhr, status, e) {
+					console.error(status + ":" + e);
+				}
+
+			}); 
 		
 	});
 });
@@ -284,7 +432,7 @@ $(function(){
 						</select>
 						
 						<span>직급/직책</span>
-						<input class="inputText" name="position" type="text">
+						<input class="inputText" name="position" data-focus=false type="text">
 						
 						<span>사용여부</span>
 						<select class='useYN'>
@@ -299,12 +447,12 @@ $(function(){
 				</div>
 				
 			
-				 <div class="buttonCover" style="background-color: blue;"> -->
+				 <div class="buttonCover"> <span style="visibility:hidden;">--></span>
 				 
 				 	<div class="positionButtons">
 				 	</div>
 				 	
-					<div class="positionButton" style="background-color: red;">
+					<div class="positionButton">
 						<span class="buttonText">직급</span>
 					</div>
 					
@@ -312,7 +460,7 @@ $(function(){
 					<div class="dutyButtons">
 					</div>
 					
-					<div class="dutyButton" style="background-color: yellow;">
+					<div class="dutyButton">
 							<span>직책</span>
 					</div>
 					
@@ -322,7 +470,11 @@ $(function(){
 					<input type="button" value="일괄등록">
 					<input class="new" type="button" value="신규">
 					<input type="button" class="save" value="저장">
-					<input type="button" value="삭제">
+					<input type="button"class="remove" value="삭제">
+				</div>
+				
+				<div id="dialog-message" style="display= none;">
+					<p></p>
 				</div>
 				
 				<div class="line">
@@ -384,6 +536,7 @@ $(function(){
 						<p class="positionInfoLabel">●직급정보</p>
 						
 						<div class="positionInfoForm">
+							
 								<table class="tg" style="undefined;table-layout: fixed;">
 								<colgroup>
 									<col style="width: 35px">
@@ -406,7 +559,7 @@ $(function(){
 								    <td class="tg-lqy6" colspan="2">코드</td>
 								    <td class="tg-0lax">
 								    	<input class="inputText positionField" type="text">
-								   
+								   		
 								    </td>
 								  </tr>
 								  <tr>
@@ -415,6 +568,7 @@ $(function(){
 								    <td class="tg-lqy6">한국어</td>
 								    <td class="tg-0lax">
 								   		 <input class="inputText koreaField" type="text">
+								   
 								    </td>
 								  </tr>
 								  <tr>
@@ -426,20 +580,21 @@ $(function(){
 								  <tr>
 								    <td class="tg-lqy6">일본어</td>
 								    <td class="tg-0lax">
-								    	<input class="inputText" type="text">
+								    	<input class="inputText" type="text" disabled="disabled">
 								    </td>
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6">중국어</td>
 								    <td class="tg-0lax">
-								    	<input class="inputText" type="text">
+								    	<input class="inputText" type="text" disabled="disabled">
 								    </td>
 								  </tr>
 								  <tr>
 								    <td class="tg-lqy6" colspan="2">사용여부</td>
 								    <td class="tg-0lax">
 								    	<label>
-								    		<input type="radio" class="useY" name="group" value="사용"/>사용
+								    		
+								    		<input type="radio" class="useY" name="group" value="사용" checked="checked"/>사용
 								    	</label>
 								    	
 								   		<label>

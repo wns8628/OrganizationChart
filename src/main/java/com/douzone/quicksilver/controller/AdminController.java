@@ -1,6 +1,6 @@
 package com.douzone.quicksilver.controller;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +35,8 @@ public class AdminController {
 	
 	@RequestMapping("/rankPositionManagement")
 	public String rankPositionManagement(Model model,
-										 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
+										 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode
+										 ) {
 		
 		List<CompanyVo> compList = adminService.getCompList(langCode);
 		model.addAttribute("compList", compList);

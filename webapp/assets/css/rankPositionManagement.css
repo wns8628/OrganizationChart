@@ -44,7 +44,7 @@ div.navi {
     height: 600px;
     display: flex;
     background-color: white;
-    border-top: solid 1px black;
+    border-top: solid 1px #f6f6f6;
    /*  z-index: -1;
     position: absolute; */
 }
@@ -80,7 +80,7 @@ div.navi {
 
 #useCheck {
 	/* padding: 8px 40px 8px 40px; */
-	border-color: black;
+	border-color: #f6f6f6;
 }
 
 #nickName {
@@ -90,7 +90,7 @@ div.navi {
 .listDiv, .positionInfoDiv {
 	margin: 8px 0px 8px 0px;
     background-color: #ffffff;
-    border: solid 1px black;
+    border: solid 1px #f6f6f6;
     /* padding: 0px 18px 0px 18px; */
     /* margin-right: -20px; */
     padding-left: 18px;
@@ -134,7 +134,7 @@ table.tg {
 	border-width:1px;
 	overflow:hidden;
 	word-break:normal;
-	border-color:black;
+	border-color:#f6f6f6;
 }
 
 .tg th{
@@ -146,7 +146,7 @@ table.tg {
 	border-width:1px;
 	overflow:hidden;
 	word-break:normal;
-	border-color:black;
+	border-color:#f6f6f6;
 }
 
 .tg .tg-baqh{
@@ -160,7 +160,7 @@ table.tg {
 }
 
 .tg .tg-dvpl{
-	border-color:inherit;
+	border-color:#f6f6f6;
 	text-align:right;
 	vertical-align:center;
 }
@@ -208,13 +208,13 @@ table.tg {
         border-collapse: collapse; */
     }
     table.fixed-table td {
-        border-bottom: 1px solid #DDD;
+        border-bottom: 1px solid #f6f6f6;
 				height:30px; padding:3px 10px 2px;
         text-align:center;
         color:#666;
     }
     table.fixed-table td + td {
-        border-left: 1px solid #DDD;
+        border-left: 1px solid #f6f6f6;
     }
     table.fixed-table th {
         padding: 0px; /* reset */
@@ -303,12 +303,12 @@ table.tg {
     text-align: center;
     padding-top: 10px;
     display: inline-flex;
-    border: 1px solid pink;
+    border: 1px solid #f6f6f6;
 }
 
 .positionButton {
 	z-index: 0;
-    border-bottom: solid 1px pink;
+    border-bottom: solid 1px #f6f6f6;
     position: absolute;
     padding: 7px 35px 7px 35px;
 	
