@@ -64,6 +64,9 @@ div#contents table#company-table { border: 1px solid #B2B2B2;  border-collapse:c
 div#contents table#company-table td{ border: 1px solid #B2B2B2; text-align: center; height: 20px;}
 div#contents table#company-table th{ border: 1px solid #B2B2B2; height: 20px; background-color:#F9F9F9;}
 div#contents table#company-table tbody tr:hover { background-color: #E9F2FB; cursor: pointer;}
+
+img.add-icon{ width: 10px; height: 10px; vertical-align: middle; padding-left: 2px; display: none; cursor: pointer;}
+
 .icon2 {display: none;}
 
 .active{

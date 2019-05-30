@@ -39,7 +39,7 @@
 	    	 a.biz_seq as bizSeq, a.parent_dept_seq as parentDeptSeq, a.dept_name as deptName, a.dept_level as deptLevel, 
 	    	 a.childCount as childCount, c.dept_name as deptNameEn
 		from (select a.dept_seq, a.group_seq, a.comp_seq,
-		    	 a.biz_seq, a.parent_dept_seq, b.dept_name, a.dept_level, 
+		    	 a.biz_seq, a.parent_dept_seq, b.dept_name, a.dept_level,
 		    	 (select count(*) from t_co_dept c where parent_dept_seq = a.dept_seq) as childCount
 			from t_co_dept a, t_co_dept_multi b
 			where a.dept_seq = b.dept_seq
