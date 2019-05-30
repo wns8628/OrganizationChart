@@ -13,16 +13,16 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.douzone.quicksilver.repository.AutocompleteKeyRepository;
-import com.douzone.quicksilver.repository.AutocompleteRepository;
-import com.douzone.quicksilver.vo.AutocompleteData;
+import com.douzone.quicksilver.interfaces.AutocompleteKeyRepository;
+import com.douzone.quicksilver.interfaces.AutocompleteRepository;
+import com.douzone.quicksilver.vo.AutocompleteVo;
 
 @Service
 public class AutocompleteServiceImpl implements AutocompleteRepository {
 
 	private final double min = 0;
-	private final double max = 5;
-	private final int offset = 30;
+	private final double max = 1000000;
+	private final int offset = 10;
 
 	private StringRedisTemplate stringRedisTemplate;
 	
@@ -36,31 +36,35 @@ public class AutocompleteServiceImpl implements AutocompleteRepository {
 	 
 
 	@Override
-	public List<AutocompleteData> complete(String word) {
-		return complete(word, min, max, offset);
+	public List<AutocompleteVo> complete(String word, boolean enter) {
+		return complete(word, min, max, offset, enter);
 	}
 
 	@Override
-	public List<AutocompleteData> complete(String word, double min, double max, int offset) {
+	public List<AutocompleteVo> complete(String word, double min, double max, int offset, boolean enter) {
 		Assert.hasLength(word, "Word cannot be empty or null");
-
+	
 		String trimedWord = word.trim();
 		int trimedWordLength = trimedWord.length();
 
 		String key = keyRepository.getKey(trimedWord);
 		
-	
-		add(trimedWord);
-		incr(trimedWord);
 		
+		//엔터쳤을때만 키워드 score가 올라가고 레디스에 키워드가 저장된다.
+		if(enter) {
+			add(trimedWord);
+			incr(trimedWord);			
+		}
 		
-		List<AutocompleteData> autocompletes = new ArrayList<>();
-		for (int i = trimedWordLength; i < offset; i++) {
+		List<AutocompleteVo> autocompletes = new ArrayList<>();
+		for (int i = trimedWordLength; i < (offset+10); i++) {
+			System.out.println("trimedWordLength:" + trimedWordLength);
 			if (autocompletes.size() == offset) break;
 
+			System.out.println("key: " + key + i);
 			Set<TypedTuple<String>> rangeResultsWithScore = stringRedisTemplate
 					.opsForZSet()
-					.reverseRangeByScoreWithScores(key + i, min, max, 0, offset);
+					.reverseRangeByScoreWithScores(key + i, min, max, 0, 100000);
 			if (rangeResultsWithScore.isEmpty()) continue;
 
 			for (TypedTuple<String> typedTuple : rangeResultsWithScore) {
@@ -69,7 +73,7 @@ public class AutocompleteServiceImpl implements AutocompleteRepository {
 				String value = typedTuple.getValue();
 				int minLength = Math.min(value.length(), trimedWordLength);
 				if (!value.endsWith(DEFAULT_DELIMITER) || !value.startsWith(trimedWord.substring(0, minLength))) continue;
-				autocompletes.add(new AutocompleteData(value.replace(DEFAULT_DELIMITER, ""), typedTuple.getScore().intValue()));
+				autocompletes.add(new AutocompleteVo(value.replace(DEFAULT_DELIMITER, ""), typedTuple.getScore().intValue()));
 			}
 		}
 		Collections.sort(autocompletes);

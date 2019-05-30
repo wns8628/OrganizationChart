@@ -1,17 +1,17 @@
 package com.douzone.quicksilver.vo;
 
-public class AutocompleteData implements Comparable<AutocompleteData> {
+public class AutocompleteVo implements Comparable<AutocompleteVo> {
 
 	private String value;
 	private int score;
 
-	public AutocompleteData(String value, int score) {
+	public AutocompleteVo(String value, int score) {
 		this.value = value;
 		this.score = score;
 	}
 
 	@Override
-	public int compareTo(AutocompleteData autocompleteData) {
+	public int compareTo(AutocompleteVo autocompleteData) {
 		return ((Integer)autocompleteData.getScore()).compareTo(this.score);
 	}
 

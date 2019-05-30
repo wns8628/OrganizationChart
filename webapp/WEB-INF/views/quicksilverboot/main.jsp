@@ -60,7 +60,7 @@
 					<span class="title lang empListLabel" data-lang='empList'>사원목록 </span>
 			 		<div class="checks">
 			 		  <input type="checkbox" id="dept-hierarchy">
-			 		  <label class="lang" for="dept-hierarchy">하위부서표시</label>
+			 		  <label class="lang" for="dept-hierarchy" data-lang='Sub-department'>하위부서표시</label>
 		 		    </div>
 
 					<!-- 엑셀다운로드  -->
@@ -85,14 +85,14 @@
 	                <table class="table table-bordered member" id="dataTable" width="100%" cellspacing="0" >
                        <thead>
 	                    <tr>
-	                  	  <th class='lang' data-lang='empNo'>사번</th>
-	                  	  <th class='lang' data-lang='deptNo' data-column='deptSeq'>부서번호 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='dept' data-column='deptName'>부서 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='position' data-column='positionCodeName'>직급 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='duty' data-column='dutyCodeName'>직책 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='empName' data-column='empName'>사원명(ID) <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='call' data-column='homeTelNum'>전화번호 <a href="#">↕</a></th>
-	                      <th class='lang' data-lang='phone' data-column='mobileTelNum'>휴대전화 <a href="#">↕</a></th>
+	                  	  <th class='lang hide' data-lang='empNo'>사번</th>
+	                  	  <th class='lang hide' data-lang='deptNo' data-column='deptSeq'>부서번호<a class="sort-btn">↕</a></th>
+	                      <th class='lang' data-lang='dept' data-column='deptName'>부서<a class="sort-btn">↕</a></th>
+	                      <th class='lang' data-lang='position' data-column='positionCodeName'>직급<a class="sort-btn">↕</a></th>
+	                      <th class='lang' data-lang='duty' data-column='dutyCodeName'>직책<a class="sort-btn">↕</a></th>
+	                      <th class='lang' data-lang='empName' data-column='empName'>사원명(ID)<a class="sort-btn">↕</a></th>
+	                      <th class='lang' data-lang='call' data-column='homeTelNum'>전화번호<a class="sort-btn">↕</a></th>
+	                      <th class='lang' data-lang='phone' data-column='mobileTelNum'>휴대전화<a class="sort-btn">↕</a></th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>
@@ -100,6 +100,7 @@
 	                  </tbody>
 	                </table>
                  </div>
+                 
                  
                  <!-- 페이지네이션 -->
                  <div class="pagination-group">
@@ -111,12 +112,19 @@
 	                </div>                 
                  	<input type='text' name='page-point' onkeydown='return onlyNumber(event)' placeholder='pageNo'class='page-point' size='5' maxlength='5' />
                  </div>
+				
                  <!--  -->
+				
+				
+				<div class="no-data-found">
+               	  No Data				
+				</div>
 				
 				<!-- 디테일 사원표시  -->
 				<div class="container-detail">
 					
 				</div>
+				
 		 </div>	
 		 
  		<%-- 	 

@@ -34,7 +34,7 @@ let searchAutocomplete = function(){
         	let part = $("input[aria-label='kwd']").val();
              $.ajax({
                     type: 'post',
-                    url: contextPath +"/redis/read?kwd="+part+"&count=10",
+                    url: contextPath +"/redis/read?kwd="+part,
                     dataType: "json",
                     success: function(res) {
                     	console.log(res.data)
@@ -57,6 +57,21 @@ let searchAutocomplete = function(){
         }
     });
 }
+//자동완성 엔터
+let searchAutoEnter = function(enter){
+	let part = $("input[aria-label='kwd']").val();
+	$.ajax({
+		url: contextPath +"/redis/read?kwd="+part+"&enter=" + enter,
+	      type:"get",
+	      dataType:"json",
+	      data:"",
+	      success: function(response){
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status+":"+e);
+	      }
+	});
+}
 
 //매핑된 url을 전달
 let search = function(selectSearch_p, kwd_p, sorting_p, column_p){	
@@ -71,6 +86,9 @@ let search = function(selectSearch_p, kwd_p, sorting_p, column_p){
 	kwd 	     = kwd_p;
 	sorting		 = sorting_p;
 	column		 = column_p;
+	
+	//searchAutoEnter 엔터
+	searchAutoEnter(true);
 
 	//세션X
     //getSearchData("/boot/search/" + selectSearch + "/" + kwd +"/?sorting=" + sorting + "&column=" + column + "&langCode=" + mainLangCode + "&pageNo=1");
@@ -97,6 +115,7 @@ $(function(){
 	 // 검색창 focus
 	 $(document).on("focus", ".input-text", function (event) { 				 // 검색창 눌렀을때 인식		 
 		console.log("focus");		
+		searchAutocomplete();												 // 자동완성 
 		$('.input-text').keydown( function(event) {			
 			if( event.keyCode == 13){ 										 // 검색창에서 엔터 눌렀을때
 				searchClick();
@@ -113,5 +132,4 @@ $(function(){
 		}
 	});  
 	
-	searchAutocomplete();													 // 자동완성 
 });

@@ -1,11 +1,10 @@
 package com.douzone.quicksilver.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.douzone.quicksilver.repository.AutocompleteKeyRepository;
+import com.douzone.quicksilver.interfaces.AutocompleteKeyRepository;
 
 @Service
 public class AutocompleteKeyServiceImpl implements AutocompleteKeyRepository {

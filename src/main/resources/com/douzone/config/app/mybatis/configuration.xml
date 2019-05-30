@@ -29,6 +29,10 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/pagination.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/excel.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/rankPositionManagement.xml" />
+      
+      
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/autocomplete.xml" />
+ 
    </mappers> 
 </configuration> 
 
