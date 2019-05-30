@@ -1,42 +1,21 @@
 package com.douzone.quicksilver.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.douzone.config.app.RedisConfig;
 import com.douzone.dto.JSONResult;
-import com.douzone.quicksilver.repository.AutocompleteKeyRepository;
-import com.douzone.quicksilver.repository.AutocompleteRepository;
-import com.douzone.quicksilver.service.AutocompleteServiceImpl;
 import com.douzone.quicksilver.service.MainService;
 import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
-import com.douzone.quicksilver.vo.HashVo;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 @Controller
 public class MainBoot {
@@ -45,10 +24,6 @@ public class MainBoot {
 	MainService mainService;
 	@Autowired
 	NaviService naviService;
-	@Autowired
-	AutocompleteKeyRepository autocompleteKeyRepository;
-	@Autowired
-	AutocompleteRepository autocompleteRepository;
 	
 	@RequestMapping("")
 	public String main(HttpSession session) {
@@ -162,13 +137,4 @@ public class MainBoot {
     	return new String[] {"0"};
     }
     
- // ---- redis 검색데이터 삽입
-    
-    @ResponseBody
-    @RequestMapping("/redisComplete")
-    public JSONResult redisSearch(@RequestParam String word) {
-
-    	return JSONResult.success(autocompleteRepository.complete(word));
-    }
-
 }

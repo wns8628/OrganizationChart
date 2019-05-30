@@ -59,6 +59,9 @@ body {
     margin-left: 10px;
     visibility:hidden; 
 }
+.sort-btn{
+	color: #007bff;
+}
 .body-container {
 /* 	background-color: green;
  */	height: 875px;
@@ -157,10 +160,14 @@ body {
 	 float:left;
 	 min-height:240px;
 }
+.hide{
+	display:none;
+}
 .table-boot{
 	padding:0px;
 }
 table.member {
+    table-layout: fixed;
 	width: 100%;
 	border: 1px solid #ececec;
 	border-collapse: seprate;
@@ -319,4 +326,11 @@ div.wrap {height: 20px; display: inline-block; float: left}
 	width: 79%;
     float: left;
     margin-left:15px;
+}
+.no-data-found{
+	/* display: inherit; */
+    clear: both;
+    text-align: center;
+    font-size: 25px;
+    color: lightgrey;
 }

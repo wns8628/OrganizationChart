@@ -1,11 +1,10 @@
 package com.douzone.quicksilver.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.douzone.quicksilver.repository.AutocompleteKeyRepository;
+import com.douzone.quicksilver.interfaces.AutocompleteKeyRepository;
 
 @Service
 public class AutocompleteKeyServiceImpl implements AutocompleteKeyRepository {
@@ -34,7 +33,7 @@ public class AutocompleteKeyServiceImpl implements AutocompleteKeyRepository {
 			stringRedisTemplate.opsForZSet().add(generatedKey, trimedWord + identifier, 1);
 			stringRedisTemplate.opsForZSet().add(generatedKey, firstLetter, 0);
 			
-			for (int index = 1; index < trimedWord.length(); index++) {
+			for (int index = 1; index < trimedWord.length() + 1; index++) {
 				stringRedisTemplate.opsForZSet().add(generatedKey, trimedWord.substring(0, index), 0);
 			}
 		} 

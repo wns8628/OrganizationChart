@@ -1,4 +1,4 @@
-package com.douzone.quicksilver.repository;
+package com.douzone.quicksilver.interfaces;
 
 import org.springframework.stereotype.Repository;
 

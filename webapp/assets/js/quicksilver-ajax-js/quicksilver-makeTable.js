@@ -18,8 +18,8 @@ var renderLeader = function(leader){
 //테이블렌더링-------------------------------------------------------------------------------
 let tableRender = function(vo){
 	let htmls = 			"	<tr class=\"row\">\r\n" + 
-	"								<td>"+vo.empSeq+"</td>\r\n"+
-	"								<td>"+vo.deptSeq+"</td>\r\n"+
+	"								<td class='hide'>"+vo.empSeq+"</td>\r\n"+
+	"								<td class='hide'>"+vo.deptSeq+"</td>\r\n"+
 	"								<td class='lang dept' data-lang='"+vo.deptSeq+"'></td>\r\n" + 
 	"								<td class='lang dp' data-val='"+vo.compSeq+"' data-lang='"+vo.positionCode+"'></td>\r\n" + 
 	"								<td class='lang dp' data-val='"+vo.compSeq+"' data-lang='"+vo.dutyCode+"'></td>\r\n" + 
@@ -62,6 +62,14 @@ var makeTable = function(url) {
 	         paging = response.data.page; 
 	         pageRender(paging);
 	         langChange(mainLangCode);
+	         
+	        //테이블 그리는데 데이터없으면 No Data 표시
+	     	if($("tbody")[0].innerText == ""){
+	    		$(".no-data-found").css("display","inherit").css("padding-top","174px");
+	    		
+	    	}else{
+	    		$(".no-data-found").css("display","none");
+	    	}
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);
@@ -89,7 +97,7 @@ var getLeader = function(url){
  */
 var tableColumnSort = () => {
 	
-		Array.from(document.getElementsByTagName("a")).forEach( tag => {
+		Array.from($(".sort-btn")).forEach( tag => {
 			tag.addEventListener("click", () => {
 				
 				if($("tbody")[0].innerText == ""){
@@ -182,7 +190,7 @@ let pageRender = function(paging){
 	}
     
     $(".pagination-info").append("<span class='lang etc' lang-data='result'></span><span> "+paging.totalboardcount+"</span>");
-    if(paging.totalBlock != 1){  
+    if(paging.totalBlock > 1){  
     	$(".page-point").css("display","inline");															 //페이지가많으면 페이지검색가능하게함 
     }else{
     	$(".page-point").css("display","none");																 

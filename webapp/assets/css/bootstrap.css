@@ -161,13 +161,12 @@ sup {
   top: -.5em;
 }
 
-a {
+/* a {
   color: #007bff;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
-
 a: {
   color: #0056b3;
   text-decoration: underline;
@@ -185,7 +184,7 @@ a:not([href]):not([tabindex]):, a:not([href]):not([tabindex]):focus {
 
 a:not([href]):not([tabindex]):focus {
   outline: 0;
-}
+} */
 
 pre,
 code,

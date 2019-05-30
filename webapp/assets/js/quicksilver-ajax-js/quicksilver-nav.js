@@ -20,7 +20,7 @@ $.lang = {
 			"search" : "검색",
 			"empList" : "사원목록",
 			"exel" : "엑셀저장",
-			"empName" : "사원명",
+			"empName" : "사원명(ID)",
 			"birth" : "생년월일",
 			"totalDept" : "전체부서",
 			"fax" : "팩스번호",
@@ -36,7 +36,8 @@ $.lang = {
 			"next" : "다음",
 			"last" : "맨끝",
 			"first": "처음",
-			"prev": "이전"				
+			"prev": "이전",
+			"Sub-department":"하위부서표시"
 		}
 	},
 	en : {
@@ -60,7 +61,7 @@ $.lang = {
 			"search" : "Search",
 			"empList" : "Employee List",
 			"exel" : "Exel Download",
-			"empName" : "Name",
+			"empName" : "Name(ID)",
 			"birth" : "Dirth Date",
 			"totalDept" : "Total Department",
 			"fax" : "Fax",
@@ -76,7 +77,8 @@ $.lang = {
 			"next" : "next",
 			"last" : "last",
 			"first": "first",
-			"prev": "prev"
+			"prev": "prev",
+			"Sub-department":"Sub-department"
 		}
 	}
 };
@@ -85,7 +87,7 @@ var mainLangCode = 'kr';
 
 var langChange = function(){
 	var langCode = $("#langcode option:selected").val();
-	let sortSpecialCharacter = "<a href='#'>↕</a>";
+	let sortSpecialCharacter = "<a class='sort-btn'>↕</a>";
 	
 	$("span.comp").each(function(){
 		var name = $.lang[langCode]["comp"][$(this).data("lang")];
@@ -449,7 +451,9 @@ $(function(){
 	  $parent.children(".wrap").children(".li-div").css("background-color","#B3E5FC"); 
 	  $("li[data-no!='"+seq+"']").children(".wrap").children(".li-div").css("background-color","transparent");
 
-	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);		  
+	  makeTable("/getEmpInfo/" + seq + "/d?pageNo=1&langCode="+mainLangCode + "&checkHierarchy=" + checkHierarchy);	
+	  
+	  
    });
    
    //여닫이
