@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,9 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 	
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -34,13 +39,14 @@
 <script type="text/javascript">
 
 let contextPath = "${pageContext.servletContext.contextPath }";
-let position = "position";
+let position = "POSITION";
 let kwd = '';
 
 let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 	
 	$('.fixed_header tbody').empty();
 	console.log("xx");
+	
 	 $.ajax({
 		url : contextPath + "/rPMSearch/" + compSeq + "/" + useYn + "?kwd=" + kwd + "&langCode=" + mainLangCode + "&position=" + position,
 		type : "get",
@@ -67,6 +73,9 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 				
 				// positionInfoForm의 각 필드에 값 삽입
 				$(".positionField")[0].value = event.currentTarget.children[0].innerHTML;
+				// 코드는 수정x
+				$(".positionField")[0].setAttribute('disabled', 'disabled');
+
 				$(".tg-0lax select option")[0].value = event.currentTarget.children[2].innerHTML;
 				$(".tg-0lax select option")[0].innerHTML = event.currentTarget.children[2].innerHTML;
 				
@@ -299,12 +308,12 @@ $(function(){
 				</div>
 				
 			
-				 <div class="buttonCover" style="background-color: blue;"> -->
+				 <div class="buttonCover"> <span style="visibility=hidden;">--></span>
 				 
 				 	<div class="positionButtons">
 				 	</div>
 				 	
-					<div class="positionButton" style="background-color: red;">
+					<div class="positionButton">
 						<span class="buttonText">직급</span>
 					</div>
 					
@@ -312,7 +321,7 @@ $(function(){
 					<div class="dutyButtons">
 					</div>
 					
-					<div class="dutyButton" style="background-color: yellow;">
+					<div class="dutyButton">
 							<span>직책</span>
 					</div>
 					

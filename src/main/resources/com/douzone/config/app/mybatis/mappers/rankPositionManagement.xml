@@ -9,8 +9,8 @@
 		    a.dp_seq AS positionCode,
 		    a.dp_name AS positionCodeName,
 		    b.comp_name AS compName,
-		    if( b.use_yn = 'Y', '사용', '사용안함') as useYn,
-		    c.order_num as orderNum,
+	   		if( a.use_yn = 'Y', '사용', '사용안함') as useYn,		    
+	    	c.order_num as orderNum,
 		    a.comment_text as commentText,
 		    (select dp_name from t_co_comp_duty_position_multi a where a.dp_seq = positionCode and a.lang_code='en') as dpNameEn
 		FROM
@@ -33,4 +33,109 @@
         order by compName + 0, compName asc;
 	</select>
 
+	<select id="checkPositionCode" parameterType="map" resultType="string">
+		<choose>
+			<when test="delete == null">
+				select dp_seq as dpSeq 
+					from t_co_comp_duty_position_multi
+						where dp_seq = #{positionCode}
+						<if test='langCode == "en"'>
+							and lang_code = #{langCode}
+						</if>
+			</when>
+			
+			<otherwise>
+					select dp_seq as dpSeq 
+						from t_co_comp_duty_position_multi
+							where dp_seq = #{positionCode}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert_t_co_comp_duty_position" parameterType="map">
+			<choose>
+				<when test="multi == null">
+					insert into t_co_comp_duty_position values ( #{compSeq},
+														 #{positionCode},
+														 #{position},
+														 'demo',
+														 #{use},
+														 #{order},
+														 'admin',
+														 now(),
+														 null,
+														 null );
+				</when>
+			
+				<otherwise>
+					insert into t_co_comp_duty_position_multi values ( #{positionCode},
+																		 #{langCode},
+																		 #{position},
+																		 'demo',
+																		 #{compSeq},
+																		 <choose>
+																			 <when test="korea != null">
+																			 	#{korea},
+																			 </when>
+																		 	
+																		 	<otherwise>
+																		 		#{english},
+																		 	</otherwise>
+																		 </choose>
+																		 
+																		 null,
+																		 #{comment},
+																		 #{use},
+																		 'admin',
+																		 now(),
+																		 null,
+																		 null );
+				</otherwise>
+		</choose>
+	</insert>
+	
+	<update id="update_t_co_comp_duty_position" parameterType="map">
+		<choose>
+			<when test="multi != null">
+				update t_co_comp_duty_position_multi
+					set dp_name = 
+						<choose>
+							<when test="korea != null">
+								#{korea},
+							</when>
+							<otherwise>
+								#{english},
+							</otherwise>
+						</choose>
+						comment_text = #{comment},
+						use_yn = #{use},
+						modify_seq = 'admin',
+						modify_date = now() 
+							where dp_type = #{position} and dp_seq = #{positionCode} and lang_code = #{langCode}
+			</when>
+			
+			<otherwise>
+				update t_co_comp_duty_position
+					set 
+						use_yn = #{use},
+						order_num = #{order},
+						modify_seq = 'admin',
+						modify_date = now() 
+							where dp_type = #{position} and dp_seq = #{positionCode}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<delete id="delete_t_co_comp_duty_position" parameterType="map">
+		<choose>
+			<when test="delete != null"> <!-- multi에 1개만남았으므로 다 삭제 -->
+				delete from t_co_comp_duty_position_multi where dp_seq = #{positionCode} and dp_type = #{position}
+			</when>
+			
+			<otherwise>
+				delete from t_co_comp_duty_position where dp_seq = #{positionCode} and dp_type = #{position}
+			</otherwise>
+		</choose>
+	</delete>
+	
 </mapper>
