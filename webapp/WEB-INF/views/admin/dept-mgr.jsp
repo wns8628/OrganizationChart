@@ -472,14 +472,25 @@ $(function() {
 	$(document).on("click", "img.add-icon", function(event) {
 		var seq = $(this).data("no");
 		$("#tbl-info span").hide();
+		$(".default-unit").hide();
 		$("#tbl-info input").val("").show();
-		$("#tbl-info .update-unit").show();
+		$(".update-unit").show();
 		$("img.add-icon").hide();
 		$("#tbl-info input[name='parentSeq']").val(seq);
 		if($(this).parent('.comp').length == 1){
-			$("ul[c-no='"+seq+"']").append("")
+			if($("ul[c-no='"+seq+"']>li").length == 0){
+				$("li[c-no='"+seq+"'] span").trigger("click");
+			}
+			if($("ul[c-no='"+seq+"']>li").length > 0){
+				$("ul[c-no='"+seq+"']>li:last img.last").remove();
+				$("ul[c-no='"+seq+"']>li:last div.wrap").prepend(child);
+			}
+			var html = "<li class='child biz incompl'><div class='wrap'>"+lastChild+"<div class='li-div'>"+noChildIcon
+						+ "<span class='biz'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div></li>";
+			$("ul[c-no='"+seq+"']").append(html);
+			$("li.incompl div.wrap").addClass("active-span");
 		}
-		
+		console.log($("ul[c-no='1']>li").length);
 		
 	});
 	
