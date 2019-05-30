@@ -7,17 +7,28 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.douzone.quicksilver.vo.CompanyVo;
+import com.douzone.quicksilver.vo.DutyPositionVo;
 
 @Repository
 public class RankPositionManagementDao {
 
+	@Autowired
+	private SqlSession sqlSession;
 	
-	 @Autowired 
-	 private SqlSession sqlSession;
-	  
-	  public List<CompanyVo> get(Map<String, Object> map){ 
-		  return sqlSession.selectList("rankPositionManagement.search", map);
-	 }
-	 
+	public int insert(Map<String, Object> map) {
+		return sqlSession.insert("rankPositionManagement.insert_t_co_comp_duty_position", map);
+	}
+	
+	public List<DutyPositionVo> select(Map<String, Object> map) {
+		return sqlSession.selectList("rankPositionManagement.checkPositionCode", map);
+	}
+	
+	// 저장 버튼 눌렀을때 업데이트
+	public int update(Map<String, Object> map) {
+		return sqlSession.update("rankPositionManagement.update_t_co_comp_duty_position", map);
+	}
+	
+	public int delete(Map<String, Object> map) {
+		return sqlSession.delete("rankPositionManagement.delete_t_co_comp_duty_position", map);
+	}
 }

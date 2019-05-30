@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'tj' of http://218.39.221.93/root/quicksilver.git
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'tj' of http://218.39.221.93/root/quicksilver.git
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +29,10 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'tj' of http://218.39.221.93/root/quicksilver.git
 	
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -35,6 +46,7 @@ let kwd = '';
 let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 	
 	$('.fixed_header tbody').empty();
+	console.log("xx");
 	
 	 $.ajax({
 		url : contextPath + "/rPMSearch/" + compSeq + "/" + useYn + "?kwd=" + kwd + "&langCode=" + mainLangCode + "&position=" + position,
@@ -64,7 +76,11 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 				$(".positionField")[0].value = event.currentTarget.children[0].innerHTML;
 				// 코드는 수정x
 				$(".positionField")[0].setAttribute('disabled', 'disabled');
+<<<<<<< HEAD
 				
+=======
+
+>>>>>>> branch 'tj' of http://218.39.221.93/root/quicksilver.git
 				$(".tg-0lax select option")[0].value = event.currentTarget.children[2].innerHTML;
 				$(".tg-0lax select option")[0].innerHTML = event.currentTarget.children[2].innerHTML;
 				
@@ -438,7 +454,11 @@ $(function(){
 				</div>
 				
 			
+<<<<<<< HEAD
 				 <div class="buttonCover"> <span style="visibility:hidden;">--></span>
+=======
+				 <div class="buttonCover"> <span style="visibility=hidden;">--></span>
+>>>>>>> branch 'tj' of http://218.39.221.93/root/quicksilver.git
 				 
 				 	<div class="positionButtons">
 				 	</div>
