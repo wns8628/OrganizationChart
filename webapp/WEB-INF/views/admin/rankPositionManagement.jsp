@@ -40,7 +40,7 @@ let kwd = '';
 let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 	
 	$('.fixed_header tbody').empty();
-	
+	console.log("xx");
 	 $.ajax({
 		url : contextPath + "/rPMSearch/" + compSeq + "/" + useYn + "?kwd=" + kwd + "&langCode=" + mainLangCode + "&position=" + position,
 		type : "get",
