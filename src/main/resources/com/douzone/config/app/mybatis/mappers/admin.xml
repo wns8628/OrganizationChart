@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="getBizInfo" parameterType="string" resultType="bizvo">
-		select a.biz_seq as bizSeq, a.comp_seq as compSeq, a.order_num as orderNum, a.use_yn as useYn,
+		select a.biz_seq as bizSeq, a.comp_seq as compSeq, a.order_num as orderNum, if(a.use_yn = 'Y', '사용', '미사용') as useYn,
 			 a.zip_code as zipCode, a.biz_name as bizName, a.biz_nickname as bizNickname, a.addr as addr, a.detail_addr as detailAddr, b.biz_name as bizNameEn
 		from
 			(select a.biz_seq, a.comp_seq, a.order_num, a.use_yn, a.zip_code, b.biz_name, b.biz_nickname, b.addr, b.detail_addr
@@ -49,7 +49,7 @@
 	</select>
 	
 	<select id="getDeptInfo" parameterType="string" resultType="departmentsvo">
-		select a.dept_seq as deptSeq, a.parent_dept_seq as parentDeptSeq, a.order_num as orderNum, a.use_yn as useYn,
+		select a.dept_seq as deptSeq, a.parent_dept_seq as parentDeptSeq, a.order_num as orderNum, if(a.use_yn = 'Y', '사용', '미사용') as useYn,
 			 a.zip_code as zipCode, a.dept_name as deptName, a.dept_nickname as deptNickname, a.addr as addr, a.detail_addr as detailAddr, b.dept_name as deptNameEn
 		from
 			(select a.dept_seq, a.parent_dept_seq, a.order_num, a.use_yn, a.zip_code, b.dept_name, b.dept_nickname, b.addr, b.detail_addr

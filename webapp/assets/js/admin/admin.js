@@ -145,7 +145,8 @@ var deptRender = function(vo, index, length, last, str){
    var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div' draggable='true'>"+icon+
-   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
+   				"<span class='dept' data-lang='"+vo.deptSeq+"'>"+deptName+"</span></div></div>"+
+   				"<img class='add-icon' data-no='"+vo.deptSeq+"' src='"+contextPath+"/assets/images/add2.png'></li><ul d-no='"+vo.deptSeq+"'></ul>";
    if(parseInt(vo.parentDeptSeq) < 10000000){
 	   $("ul[d-no='"+vo.parentDeptSeq+"']").append(htmls);
    }else{
@@ -185,7 +186,9 @@ var bizRender = function(vo, index, length){
 	
 	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"'>"+"<div class='wrap'>"+tree+btn+
 				"<div class='li-div'>"+icon+
-				"<span class='biz' c-no='"+vo.compSeq+"' data-lang='"+vo.bizSeq+"'>"+bizName+"<span></div></div></li><ul b-no='"+vo.bizSeq+"'></ul>";
+				"<span class='biz' c-no='"+vo.compSeq+"' data-lang='"+vo.bizSeq+"'>"+bizName+"<span></div></div>"+
+				"<img class='add-icon' data-no='"+vo.bizSeq+"' src='"+contextPath+"/assets/images/add2.png'>"+
+				"</li><ul b-no='"+vo.bizSeq+"'></ul>";
 	$("ul[c-no='"+vo.compSeq+"']").append(htmls);
 }
 
@@ -297,7 +300,7 @@ $(function() {
 			$icon1.hide();
 			$icon2.show();
 		} else {
-			$this.removeClass("active");
+			$this.removeClass("active-");
 			$this.next().hide();
 			$icon1.show();
 			$icon2.hide();

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/admin.css"
+	href="${pageContext.servletContext.contextPath }/assets/css/admin.css?ver=1"
 	rel="stylesheet" type="text/css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
@@ -100,17 +100,17 @@ div.tree li>span {float: left;}
 	background-color: #92B5DF;
 }
 
+
 </style>
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
 
-var compRender = function() {
+var defaultComp = function() {
 	var compSeq = $("#compSelect option:selected").val();
 	var compName = $("#compSelect option:selected").text();
 	var htmls = "<li class='comp' c-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"
-			+ "<span>"
-			+ compName
-			+ "</span></li><ul c-no='"+compSeq+"'></ul>";
+			+ "<span>"+ compName + "</span><img class='add-icon' style='display:inline;' data-no='"+compSeq+"' src='"+contextPath+"/assets/images/add2.png'>"
+			+ "</li><ul c-no='"+compSeq+"'></ul>";
 	$("div#tree-mini ul").children().remove();
 	$("div#tree-mini ul").append(htmls);
 }
@@ -127,17 +127,32 @@ var getBizInfo = function(seq) {
 					response.data[key] = "";
 				}
 			}
-			$("#parentSeq").text(response.data.compSeq);
-			$("#seq").text(response.data.bizSeq);
-			$("#type").text("사업장");
-			$("#name").text(response.data.bizName);
-			$("#nameEn").text(response.data.bizNameEn);
-			$("#nickname").text(response.data.bizNickname);
-			$("#useYn").text(response.data.useYn);
-			$("#orderNum").text(response.data.orderNum);
-			$("#zipCode").text(response.data.zipCode);
-			$("#addr").text(response.data.addr);
-			$("#detailAddr").text(response.data.detailAddr);
+// 			if($("div.save").css("display") != "none"){
+				$("#tbl-info input[name='parentSeq']").val(response.data.compSeq);
+				$("#tbl-info input[name='seq']").val(response.data.bizSeq);
+// 				$("#tbl-info option[data-id='사업장']").prop("selected",true);
+				$("#tbl-info input[name='type']").val(response.data.bizName);
+				$("#tbl-info input[name='name']").val('사업장');
+				$("#tbl-info input[name='nameEn']").val(response.data.bizNameEn);
+				$("#tbl-info input[name='nickname']").val(response.data.bizNickname);
+				$("#tbl-info input[data-id='"+response.data.useYn+"']").prop("checked",true);
+				$("#tbl-info input[name='orderNum']").val(response.data.orderNum);
+				$("#tbl-info input[name='zipCode']").val(response.data.zipCode);
+				$("#tbl-info input[name='addr']").val(response.data.addr);
+				$("#tbl-info input[name='detailAddr']").val(response.data.detailAddr);
+// 			}else{
+				$("#tbl-info span#parentSeq").text(response.data.compSeq);
+				$("#tbl-info span#seq").text(response.data.bizSeq);
+				$("#tbl-info span#type").text("사업장"); 
+				$("#tbl-info span#name").text(response.data.bizName);
+				$("#tbl-info span#nameEn").text(response.data.bizNameEn);
+				$("#tbl-info span#nickname").text(response.data.bizNickname);
+				$("#tbl-info span#useYn").text(response.data.useYn);
+				$("#tbl-info span#orderNum").text(response.data.orderNum);
+				$("#tbl-info span#zipCode").text(response.data.zipCode);
+				$("#tbl-info span#addr").text(response.data.addr);
+				$("#tbl-info span#detailAddr").text(response.data.detailAddr);
+// 			}
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -155,20 +170,33 @@ var getDeptInfo = function(seq) {
 		success : function(response) {
 			for ( var key in response.data) {
 				if (response.data[key] == null) {
-					response.data[key] = "";
+ 					response.data[key] = "";
 				}
 			}
-			$("#parentSeq").text(response.data.parentDeptSeq);
-			$("#seq").text(response.data.deptSeq);
-			$("#type").text("부서");
-			$("#name").text(response.data.deptName);
-			$("#nameEn").text(response.data.deptNameEn);
-			$("#nickname").text(response.data.deptNickname);
-			$("#useYn").text(response.data.useYn);
-			$("#orderNum").text(response.data.orderNum);
-			$("#zipCode").text(response.data.zipCode);
-			$("#addr").text(response.data.addr);
-			$("#detailAddr").text(response.data.detailAddr);
+			$("#tbl-info span#parentSeq").text(response.data.parentDeptSeq);
+			$("#tbl-info span#seq").text(response.data.deptSeq);
+			$("#tbl-info span#type").text("부서"); 
+			$("#tbl-info span#name").text(response.data.deptName);
+			$("#tbl-info span#nameEn").text(response.data.deptNameEn);
+			$("#tbl-info span#nickname").text(response.data.deptNickname);
+			$("#tbl-info span#useYn").text(response.data.useYn);
+			$("#tbl-info span#orderNum").text(response.data.orderNum);
+			$("#tbl-info span#zipCode").text(response.data.zipCode);
+			$("#tbl-info span#addr").text(response.data.addr);
+			$("#tbl-info span#detailAddr").text(response.data.detailAddr);
+			
+			$("#tbl-info input[name='parentSeq']").val(response.data.parentDeptSeq);
+			$("#tbl-info input[name='seq']").val(response.data.deptSeq);
+// 			$("#tbl-info option[data-id='부서']").prop("selected",true);
+			$("#tbl-info input[name='type']").val('부서');
+			$("#tbl-info input[name='name']").val(response.data.deptName);
+			$("#tbl-info input[name='nameEn']").val(response.data.deptNameEn);
+			$("#tbl-info input[name='nickname']").val(response.data.deptNickname);
+			$("#tbl-info input[data-id='"+response.data.useYn+"']").prop("checked",true);
+			$("#tbl-info input[name='orderNum']").val(response.data.orderNum);
+			$("#tbl-info input[name='zipCode']").val(response.data.zipCode);
+			$("#tbl-info input[name='addr']").val(response.data.addr);
+			$("#tbl-info input[name='detailAddr']").val(response.data.detailAddr);
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -252,6 +280,10 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 					+ "']");
 			var index = sortChild(deptSeq, parentDeptSeq);
 			var str = $(parent).children(".prev").html();
+			var activeSpan = false;
+			if($("#tree-mini li.child[data-no='"+deptSeq+"'] div.active-span").length > 0){
+				activeSpan = true;
+			};
 			
 			if($("#tree-mini li[data-no='" + parentDeptSeq + "']").next().children().length == 0 && 
 					$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close-btn").css("display") != "none"){
@@ -278,6 +310,10 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 				} else {
 					deptAddRender(response.data, index, true, str);
 				}
+			}
+			
+			if(activeSpan){
+				$("#tree-mini li.child[data-no='"+deptSeq+"'] div.wrap").addClass("active-span");
 			}
 			
 			// 부서 이동 후 이동 전 부모의 자식이 없으면 오픈 버튼 없애고 폴더 색상 변경
@@ -340,7 +376,11 @@ function treeDropDown() {
 
 	$(document).on("dragover", "div#tree-mini li[data-no!='"+dept+"'] div.wrap", function(e) {
 		if($(this).parent().data("no")==dept){
-			return false;
+			return;
+		}
+		var seq = $(this).parent().data("no");
+		if($("div#tree-mini ul[d-no='"+dept+"'] li[data-no='"+seq+"']").length > 0){
+			return;
 		}
 		e.stopPropagation();
 		e.preventDefault();
@@ -360,18 +400,25 @@ function treeDropDown() {
 	$(document).on("drop", "div#tree-mini li[data-no!='"+dept+"'] div.li-div", function(e) {
 		parent = "";
 		parent = $(this).parent().parent().data("no");
-
+	
+		var prevParent = $("li[data-no='"+dept+"']").parent().prev().data("no");
+		
 		e.stopPropagation();
 		e.preventDefault();
-		console.log($("li[data-no='"+dept+"']").parent().prev().data("no"));
-		if(parent!=dept){
-			updateParentDept(dept, parent, $("li[data-no='"+dept+"']").parent().prev().data("no"));
+		
+		var seq = $(this).parent().data("no");
+		if($("div#tree-mini ul[d-no='"+dept+"'] li[data-no='"+seq+"']").length > 0){
+			return;
+		}
+		
+		if(parent != dept && parent != prevParent){
+			updateParentDept(dept, parent, prevParent);
 		}
 	});
 
 	$(document).on("dragend", "div#tree-mini div.li-div", function(e) {
 		if($(this).parent().data("no")==dept){
-			return false;
+			return;
 		}
 		e.stopPropagation();
 		e.preventDefault();
@@ -392,10 +439,10 @@ $(function() {
 
 	treeDropDown();
 
-	compRender();
+	defaultComp();
 
 	$("#compSelect").change(function() {
-		compRender();
+		defaultComp();
 	});
 
 	$(document).on("click", "#tree-mini li.child span", function(event) {
@@ -404,11 +451,36 @@ $(function() {
 		$parent = $(this).parent().parent().parent();
 		var seq = $parent.attr("data-no");
 		$("#tbl-info span").text("");
+		
 		if (seq > 10000000) {
 			getBizInfo(seq);
 		} else {
 			getDeptInfo(seq);
 		}
+		
+		if($("li:not(.comp) img.add-icon").is(":visible") == false){
+			$("#tbl-info span").show();
+			$("#tbl-info input").hide();
+			$("#tbl-info .update-unit").hide();
+		}
+		
+		$("li:not(.comp) img.add-icon").css("display","none");
+		$("img.add-icon[data-no='"+seq+"']").css("display","inline");
+		$("li.comp img.add-icon").css("display","inline");
+	});
+	
+	$(document).on("click", "img.add-icon", function(event) {
+		var seq = $(this).data("no");
+		$("#tbl-info span").hide();
+		$("#tbl-info input").val("").show();
+		$("#tbl-info .update-unit").show();
+		$("img.add-icon").hide();
+		$("#tbl-info input[name='parentSeq']").val(seq);
+		if($(this).parent('.comp').length == 1){
+			$("ul[c-no='"+seq+"']").append("")
+		}
+		
+		
 	});
 	
 	$("div.update").click(function(){
@@ -422,8 +494,8 @@ $(function() {
 				$("input[data-id='"+$(this).text()+"']").prop("checked",true);
 			}
 			if($(this).attr("id") == "type"){
-				console.log("d2");
-				$("option[data-id='"+$(this).text()+"']").prop("checked",true);
+				console.log($(this).text());
+				$("option[data-id='"+$(this).text()+"']").prop("selected",true);
 			}
 			$("#tbl-info input[name='"+$(this).attr('id')+"']").val($(this).text()).show();
 			$(this).hide();
@@ -438,6 +510,7 @@ $(function() {
 		$(".update-unit").hide();
 		$(".default-unit").show();
 	});
+	
 });
 </script>
 </head>
@@ -507,17 +580,14 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="parentSeq"></span>
-										<input type="text" name='parentSeq'>
+										<input type="text" name='parentSeq' disabled="disabled">
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">유형</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="type"></span>
-										<select class='update-unit'>
-											<option value="biz" data-id='사업장'>사업장
-											<option value="dept" data-id='부서'>부서
-										</select>
+										<input type="text" name='type' disabled="disabled">
 									</td>
 								</tr>
 								<tr>
