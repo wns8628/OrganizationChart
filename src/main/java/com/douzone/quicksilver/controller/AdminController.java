@@ -33,6 +33,13 @@ public class AdminController {
 		return "main/admin";
 	}
 	
+	
+	@RequestMapping("/connectDeptEmp")
+	public String connectDeptEmp() {
+		
+		return "admin/connect-deptEmp-mgr";
+	}
+	
 	@RequestMapping("/rankPositionManagement")
 	public String rankPositionManagement(Model model,
 										 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode
