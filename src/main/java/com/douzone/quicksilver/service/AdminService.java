@@ -140,4 +140,19 @@ public class AdminService {
 		return adminDao.getDeptForTree(deptSeq);
 	}
 	
+	public void insertBiz(BizVo vo) {
+		adminDao.insertBiz(vo);
+		
+		if("".equals(vo.getBizName()) == false) {
+			System.out.println(vo.getBizName());
+			vo.setLangCode("kr");
+			adminDao.insertBizMulti(vo);
+		}
+		if("".equals(vo.getBizNameEn()) == false) {
+			vo.setLangCode("en");
+			vo.setBizName(vo.getBizNameEn());
+			adminDao.insertBizMulti(vo);
+		}
+		
+	}
 }

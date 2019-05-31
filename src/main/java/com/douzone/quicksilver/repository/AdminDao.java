@@ -78,4 +78,12 @@ public class AdminDao {
 	public DepartmentsVo getDeptForTree(String seq) {
 		return sqlSession.selectOne("admin.getDeptForTree", seq);
 	}
+	
+	public int insertBiz(BizVo vo) {
+		return sqlSession.insert("admin.insertBiz", vo);
+	}
+	
+	public int insertBizMulti(BizVo vo) {
+		return sqlSession.insert("admin.insertBizMulti", vo);
+	}
 }

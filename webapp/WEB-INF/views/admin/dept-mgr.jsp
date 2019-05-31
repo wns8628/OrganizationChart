@@ -16,7 +16,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
-
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style type="text/css">
 /* div.content-wrapper div#tree { width: 39.8%; border: 1px solid #B2B2B2; min-height: 350px; float: left;} */
 /* div.content-wrapper div#tbl-content { width: 59.8%; border: 1px solid #B2B2B2; min-height: 350px; float: right;} */
@@ -122,37 +122,32 @@ var getBizInfo = function(seq) {
 		dataType : "json",
 		data : "",
 		success : function(response) {
-			for ( var key in response.data) {
-				if (response.data[key] == null) {
-					response.data[key] = "";
+			$("#tbl-info input[type='text']:not(.dept)").each(function(index, item){
+				for(var key in response.data){
+					if($(item).attr('name') == key){
+						if(response.data[key] == null) {
+							response.data[key] = "";
+						}
+						$(item).val(response.data[key]);
+						if(key == 'useYn'){
+							$("input[data-id='"+response.data[key]+"']").prop("checked",true);
+						}
+					}
 				}
-			}
-// 			if($("div.save").css("display") != "none"){
-				$("#tbl-info input[name='parentSeq']").val(response.data.compSeq);
-				$("#tbl-info input[name='seq']").val(response.data.bizSeq);
-// 				$("#tbl-info option[data-id='사업장']").prop("selected",true);
-				$("#tbl-info input[name='type']").val(response.data.bizName);
-				$("#tbl-info input[name='name']").val('사업장');
-				$("#tbl-info input[name='nameEn']").val(response.data.bizNameEn);
-				$("#tbl-info input[name='nickname']").val(response.data.bizNickname);
-				$("#tbl-info input[data-id='"+response.data.useYn+"']").prop("checked",true);
-				$("#tbl-info input[name='orderNum']").val(response.data.orderNum);
-				$("#tbl-info input[name='zipCode']").val(response.data.zipCode);
-				$("#tbl-info input[name='addr']").val(response.data.addr);
-				$("#tbl-info input[name='detailAddr']").val(response.data.detailAddr);
-// 			}else{
-				$("#tbl-info span#parentSeq").text(response.data.compSeq);
-				$("#tbl-info span#seq").text(response.data.bizSeq);
-				$("#tbl-info span#type").text("사업장"); 
-				$("#tbl-info span#name").text(response.data.bizName);
-				$("#tbl-info span#nameEn").text(response.data.bizNameEn);
-				$("#tbl-info span#nickname").text(response.data.bizNickname);
-				$("#tbl-info span#useYn").text(response.data.useYn);
-				$("#tbl-info span#orderNum").text(response.data.orderNum);
-				$("#tbl-info span#zipCode").text(response.data.zipCode);
-				$("#tbl-info span#addr").text(response.data.addr);
-				$("#tbl-info span#detailAddr").text(response.data.detailAddr);
-// 			}
+			});
+			$("input[name='type']").val("사업장");
+			
+			$("#tbl-info span#parentSeq").text(response.data.compSeq);
+			$("#tbl-info span#seq").text(response.data.bizSeq);
+			$("#tbl-info span#type").text("사업장"); 
+			$("#tbl-info span#name").text(response.data.bizName);
+			$("#tbl-info span#nameEn").text(response.data.bizNameEn);
+			$("#tbl-info span#nickname").text(response.data.bizNickname);
+			$("#tbl-info span#useYn").text(response.data.useYn);
+			$("#tbl-info span#orderNum").text(response.data.orderNum);
+			$("#tbl-info span#zipCode").text(response.data.zipCode);
+			$("#tbl-info span#addr").text(response.data.addr);
+			$("#tbl-info span#detailAddr").text(response.data.detailAddr);
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -168,11 +163,21 @@ var getDeptInfo = function(seq) {
 		dataType : "json",
 		data : "",
 		success : function(response) {
-			for ( var key in response.data) {
-				if (response.data[key] == null) {
- 					response.data[key] = "";
+			$("#tbl-info input:not(.biz)").each(function(index, item){
+				for(var key in response.data){
+					if($(item).attr('name') == key){
+						if(response.data[key] == null) {
+							response.data[key] = "";
+						}
+						$(item).val(response.data[key]);
+						if(key == 'useYn'){
+							$("input[data-id='"+response.data[key]+"']").prop("checked",true);
+						}
+					}
 				}
-			}
+			});
+			$("input[name='type']").val("부서");
+			
 			$("#tbl-info span#parentSeq").text(response.data.parentDeptSeq);
 			$("#tbl-info span#seq").text(response.data.deptSeq);
 			$("#tbl-info span#type").text("부서"); 
@@ -185,18 +190,6 @@ var getDeptInfo = function(seq) {
 			$("#tbl-info span#addr").text(response.data.addr);
 			$("#tbl-info span#detailAddr").text(response.data.detailAddr);
 			
-			$("#tbl-info input[name='parentSeq']").val(response.data.parentDeptSeq);
-			$("#tbl-info input[name='seq']").val(response.data.deptSeq);
-// 			$("#tbl-info option[data-id='부서']").prop("selected",true);
-			$("#tbl-info input[name='type']").val('부서');
-			$("#tbl-info input[name='name']").val(response.data.deptName);
-			$("#tbl-info input[name='nameEn']").val(response.data.deptNameEn);
-			$("#tbl-info input[name='nickname']").val(response.data.deptNickname);
-			$("#tbl-info input[data-id='"+response.data.useYn+"']").prop("checked",true);
-			$("#tbl-info input[name='orderNum']").val(response.data.orderNum);
-			$("#tbl-info input[name='zipCode']").val(response.data.zipCode);
-			$("#tbl-info input[name='addr']").val(response.data.addr);
-			$("#tbl-info input[name='detailAddr']").val(response.data.detailAddr);
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -205,6 +198,25 @@ var getDeptInfo = function(seq) {
 	});
 }
 
+var insertBiz = function() {
+	var formData = $("#dept-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/insertBiz/",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		async : false,
+		success : function(response) {
+			var index = sortChild(response.data.bizName, response.data.compSeq, "comp");
+			bizAddRender(response.data, index, false);
+			$("#tree-mini li[data-no='"+response.data.bizSeq+"'] span").trigger("click");
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+}
 ///////////////////////////////////////
 var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>";
@@ -268,6 +280,54 @@ var deptAddRender = function(vo, index, last, str) {
 	}
 }
 
+var bizAddRender = function(vo, index, str) {
+	var btn = "";
+	var space = "";
+	var imgIcon = "";
+	var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
+	var tree = "";
+
+	if (mainLangCode == 'kr') {
+		var bizName = vo.bizName;
+	} else {
+		var bizName = vo.bizNameEn;
+	}
+
+	if (index == "last") {
+		tree += lastChild;
+	} else {
+		tree = child;
+	}
+
+	if (vo.childCount > 0) {
+		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
+				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>";
+		imgIcon = icon;
+	}else{
+		imgIcon = noChildIcon;
+	}
+
+	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"'>"
+			+ "<div class='prev'>"+ space + "</div><div class='wrap'>"+tree+btn
+			+ "<div class='li-div' draggable='true'>" + imgIcon + "<span class='biz' data-lang='"+vo.bizSeq+"'>"
+			+ bizName + "</span></div></div>"
+			+ "<img class='add-icon' data-no='"+vo.bizSeq+"' src='"+contextPath+"/assets/images/add2.png'>"
+			+ "</li><ul b-no='"+vo.bizSeq+"'></ul>";
+
+	if (index == "last"){
+		$("#tree-mini ul[c-no='" + vo.compSeq + "']").append(htmls);
+	}else{
+		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
+		$("#tree-mini ul[c-no='" + vo.compSeq + "']>li.child:last").
+		children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
+	}
+	
+// 	if ($("#tree-mini li[data-no='" + vo.bizSeq + "'] img.last").length != 0) {
+// 		$("#tree-mini li[data-no='" + vo.bizSeq + "']").prev().prev().
+// 		children('.wrap').prepend(child).children('img.last').remove();
+// 	}
+}
+
 var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 	$.ajax({
 		url : contextPath + "/admin/updateParentDept?deptSeq=" + deptSeq
@@ -278,7 +338,7 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 		success : function(response) {
 			var parent = $("#tree-mini li.child[data-no='" + parentDeptSeq
 					+ "']");
-			var index = sortChild(deptSeq, parentDeptSeq);
+			var index = sortChild($("#tree-mini span[data-lang='"+deptSeq+"']").text(), parentDeptSeq);
 			var str = $(parent).children(".prev").html();
 			var activeSpan = false;
 			if($("#tree-mini li.child[data-no='"+deptSeq+"'] div.active-span").length > 0){
@@ -330,18 +390,21 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 	});
 }
 
-function sortChild(dept, parent) {
+function sortChild(dept, parent, comp) {
 	var nextSeq = "last";
+	var attr = "";
 	if (parent > 10000000) {
-		var attr = "b-no"
-	} else {
-		var attr = "d-no"
+		attr = "b-no";
+	}else if(comp != null){
+		attr = "c-no";
+	}else {
+		attr = "d-no";
 	}
 	var childs = $("#tree-mini ul[" + attr + "='" + parent + "']")
 			.children('li.child').children("div.wrap").children(
 					"div.li-div").children("span");
 	$(childs).each(function(index) {
-		if($("#tree-mini span[data-lang='"+dept+"']").text() < $(this).text()){
+		if(dept < $(this).text()){
 			nextSeq = $(this).data('lang');
 			return false;
 		}
@@ -446,6 +509,8 @@ $(function() {
 	});
 
 	$(document).on("click", "#tree-mini li.child span", function(event) {
+		$(".update-unit").hide();
+		$(".default-unit").show();
 		$("#tree-mini div.wrap").removeClass("active-span");
 		$(this).parent().parent().addClass("active-span");
 		$parent = $(this).parent().parent().parent();
@@ -456,6 +521,18 @@ $(function() {
 			getBizInfo(seq);
 		} else {
 			getDeptInfo(seq);
+		}
+		
+		if($("div.update").css("display") == "none"){
+			if($("#tree-mini li div.active-span").parent().data("no") > 10000000){
+				console.log('사업장');
+				$("#tbl-info input:not(.dept)").show();
+				$("#tbl-info input.dept").hide();
+			}else{
+				console.log("부서");
+				$("#tbl-info input:not(.biz)").show();
+				$("#tbl-info input.biz").hide();
+			}
 		}
 		
 		if($("li:not(.comp) img.add-icon").is(":visible") == false){
@@ -473,11 +550,16 @@ $(function() {
 		var seq = $(this).data("no");
 		$("#tbl-info span").hide();
 		$(".default-unit").hide();
-		$("#tbl-info input").val("").show();
+// 		$("#tbl-info input").val("").show();
 		$(".update-unit").show();
 		$("img.add-icon").hide();
-		$("#tbl-info input[name='parentSeq']").val(seq);
+		$("#tree-mini div.wrap").removeClass("active-span");
 		if($(this).parent('.comp').length == 1){
+			$("#tbl-info input[type='text']:not(.dept)").val("").show();
+			$("#tbl-info input[type='radio']").show();
+			$("#tbl-info input[name='compSeq']").val(seq);
+			$("#tbl-info input[name='type']").val("사업장");
+			$("#tbl-info input[type='radio']:first").prop("checked", true);
 			if($("ul[c-no='"+seq+"']>li").length == 0){
 				$("li[c-no='"+seq+"'] span").trigger("click");
 			}
@@ -485,12 +567,12 @@ $(function() {
 				$("ul[c-no='"+seq+"']>li:last img.last").remove();
 				$("ul[c-no='"+seq+"']>li:last div.wrap").prepend(child);
 			}
+			var str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			var html = "<li class='child biz incompl'><div class='wrap'>"+lastChild+"<div class='li-div'>"+noChildIcon
-						+ "<span class='biz'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div></li>";
+						+ "<span class='biz'>"+str+"</span></div></div></li>";
 			$("ul[c-no='"+seq+"']").append(html);
 			$("li.incompl div.wrap").addClass("active-span");
 		}
-		console.log($("ul[c-no='1']>li").length);
 		
 	});
 	
@@ -499,18 +581,14 @@ $(function() {
 			alert("부서를 선택해주세요.");
 			return;
 		}
-		$("#tbl-info span").each(function(){
-			if($(this).attr("id") == "useYn"){
-				console.log("d1");
-				$("input[data-id='"+$(this).text()+"']").prop("checked",true);
-			}
-			if($(this).attr("id") == "type"){
-				console.log($(this).text());
-				$("option[data-id='"+$(this).text()+"']").prop("selected",true);
-			}
-			$("#tbl-info input[name='"+$(this).attr('id')+"']").val($(this).text()).show();
-			$(this).hide();
-		});
+		
+		if($("#tree-mini li div.active-span").parent().data("no") > 10000000){
+			$("#tbl-info input:not(.dept)").show();
+		}else{
+			$("#tbl-info input:not(.biz)").show();
+		}
+		
+		$("#tbl-info span").hide();
 		$(".head-btn").hide();
 		$(".update-unit").show();
 	});
@@ -522,6 +600,16 @@ $(function() {
 		$(".default-unit").show();
 	});
 	
+	$("div.save").click(function(){
+		if($("li.incompl").length > 0){
+			$("li.incompl").remove();
+			insertBiz();
+			
+		}
+		
+		$(".update-unit").hide();
+		$(".default-unit").show();
+	});
 });
 </script>
 </head>
@@ -578,6 +666,7 @@ $(function() {
 							<span>기본정보</span><span>부서원정보</span>
 						</div>
 						<div id="tbl-wrapper">
+							<form id="dept-form">
 							<table id="tbl-info" class="tg" style="table-layout: fixed; ">
 								<colgroup>
 									<col style="width: 90px">
@@ -591,7 +680,8 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="parentSeq"></span>
-										<input type="text" name='parentSeq' disabled="disabled">
+										<input class='dept' type="text" name='parentDeptSeq' disabled="disabled">
+										<input class='biz' type="text" name='compSeq' >
 									</td>
 								</tr>
 								<tr>
@@ -608,7 +698,8 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="seq"></span>
-										<input type="text" name='seq'>
+										<input class='dept' type="text" name='deptSeq'>
+										<input class='biz' type="text" name='bizSeq'>
 									</td>
 								</tr>
 								<tr>
@@ -622,35 +713,40 @@ $(function() {
 									</td>
 									<td class="tg-0lax">
 										<span id="name"></span>
-										<input type="text" name='name'>
+										<input class='dept' type="text" name='deptName'>
+										<input class='biz' type="text" name='bizName'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">영어</td>
 									<td class="tg-0lax">
 										<span id="nameEn"></span>
-										<input type="text" name='nameEn'>
+										<input class='dept' type="text" name='deptNameEn'>
+										<input class='biz' type="text" name='bizNameEn'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">일본어</td>
 									<td class="tg-0lax">
 										<span id="nameJp"></span>
-										<input type="text" name='nameJp'>
+										<input class='dept' type="text" name='deptNameJp'>
+										<input class='biz' type="text" name='bizNameJp'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">중국어</td>
 									<td class="tg-0lax">
 										<span id="nameCn"></span>
-										<input type="text" name='nameCn'>
+										<input class='dept' type="text" name='deptNameCn'>
+										<input class='biz' type="text" name='bizNameCn'>
 									</td>
 								</tr>
 								<tr>
 									<td class="tg-lqy6">부서약칭</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="nickname"></span>
-										<input type="text" name='nickname'>
+										<input class='dept' type="text" name='deptNickname'>
+										<input class='biz' type="text" name='bizNickname'>
 									</td>
 								</tr>
 								<tr>
@@ -658,8 +754,8 @@ $(function() {
 									<td class="tg-0lax" colspan="2">
 										<span id="useYn"></span>
 										<div class="update-unit">
-											<input type="radio" data-id="사용" name="useYn" value="Y">사용
-											<input type="radio" data-id="미사용" name="useYn" value="N">미사용
+											<input type="radio" data-id="사용" name="useYn"  value="Y">사용
+											<input type="radio" data-id="미사용" name="useYn"  value="N">미사용
 										</div>
 									</td>
 								</tr>
@@ -691,6 +787,7 @@ $(function() {
 									</td>
 								</tr>
 							</table>
+							</form>
 						</div>
 					</div>
 				</div>

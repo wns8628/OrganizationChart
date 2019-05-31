@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.AdminService;
 import com.douzone.quicksilver.service.NaviService;
+import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 
 @Controller
@@ -173,4 +174,14 @@ public class AdminController {
 		return JSONResult.success(adminService.updateParentDept(deptSeq, parentDeptSeq));
 	}
 	
+	@ResponseBody
+	@RequestMapping("/insertBiz")
+	public JSONResult insertBiz(@ModelAttribute BizVo vo) {
+		System.out.println(vo);
+		if(vo.getOrderNum() == "") {
+			vo.setOrderNum(null);
+		}
+		adminService.insertBiz(vo);
+		return JSONResult.success(adminService.getBizInfo(vo.getBizSeq()));
+	}
 }
