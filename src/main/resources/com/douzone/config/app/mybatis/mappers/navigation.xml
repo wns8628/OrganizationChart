@@ -19,19 +19,20 @@
 	</select>
 	
 	<select id="getBizList" parameterType="string" resultType="bizvo">
-		select a.biz_seq as bizSeq, a.group_seq as groupSeq, a.comp_seq as compSeq, a.biz_name as bizName,
+		select bizSeq, a.group_seq as groupSeq, a.comp_seq as compSeq, a.biz_name as bizName,
 				a.childCount as childCount, b.biz_name as bizNameEn
 		from
-			(select biz_seq, group_seq, comp_seq,
-				biz_name, (select count(*) from t_co_dept a where biz_seq = biz_seq) as childCount
+			(select biz_seq as bizSeq, group_seq, comp_seq,
+				biz_name, (select count(*) from t_co_dept a where biz_seq = bizSeq) as childCount
 			from t_co_biz_multi
 			where lang_code = 'kr'
 			and use_yn = 'Y'
 			and group_seq = 'demo'
 			and comp_seq = #{seq})a
 		left outer join t_co_biz_multi b
-		on a.biz_seq = b.biz_seq
+		on bizSeq = b.biz_seq
 		and b.lang_code = 'en'
+		order by bizName
 	</select>
 	
 	<select id="getDeptList" parameterType="string" resultType="departmentsvo">

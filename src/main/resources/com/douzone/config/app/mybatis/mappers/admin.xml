@@ -190,4 +190,14 @@
 		and c.lang_code = 'en'
 		order by substring(a.dept_name, 3) + 0
 	</select>
+	
+	<insert id="insertBiz" parameterType="bizvo">
+		insert into t_co_biz values( #{bizSeq}, #{bizSeq}, 'demo', #{compSeq}, null, null, null, null,
+					 null, #{zipCode}, null, 'kr', #{orderNum}, #{useYn}, null, '0101', now(), null, null)
+	</insert>
+	
+	<insert id="insertBizMulti" parameterType="bizvo">
+		insert into t_co_biz_multi values( #{bizSeq}, #{langCode}, 'demo', #{compSeq}, #{bizName}, null,
+			null, null, #{bizNickname}, null, #{addr}, #{detailAddr}, #{useYn}, '0101', now(), null, null)
+	</insert>
 </mapper> 
