@@ -224,6 +224,7 @@ var getBizList = function(seq){
 	      type:"get",
 	      dataType:"json",
 	      data:"",
+	      async : false,
 	      success: function(response){
 	         $(response.data.bizList).each(function(index, vo){
 	            bizRender(vo, index, response.data.bizList.length)
@@ -243,6 +244,7 @@ var getDeptList = function(seq, last, str){
       type:"get",
       dataType:"json",
       data:"",
+      async : false,
       success: function(response){
          $(response.data).each(function(index, vo){
             deptRender(vo, index, response.data.length, last, str);
