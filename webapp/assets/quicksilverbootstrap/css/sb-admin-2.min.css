@@ -4892,7 +4892,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-	min-width: 100%;
+	min-width: 1325px;
 	word-wrap: break-word;
 	background-color: #fff;
 	background-clip: border-box;

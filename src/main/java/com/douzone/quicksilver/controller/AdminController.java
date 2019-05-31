@@ -43,6 +43,15 @@ public class AdminController {
 		return "admin/rankPositionManagement";
 	}
 	
+	@RequestMapping("/movePersonnelStatus")
+	public String movePersonnelStatus(Model model,
+			 						  @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
+		
+		List<CompanyVo> compList = adminService.getCompList(langCode);
+		model.addAttribute("compList", compList);
+		return "admin/movePersonnelStatus";
+	}
+	
 	@RequestMapping("/popup")
 	public String popup() {
 //		model.addAttribute("companyList", naviService.getCompList(langCode));
