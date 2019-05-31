@@ -86,4 +86,12 @@ public class AdminDao {
 	public int insertBizMulti(BizVo vo) {
 		return sqlSession.insert("admin.insertBizMulti", vo);
 	}
+	
+	public int insertDept(DepartmentsVo vo) {
+		return sqlSession.insert("admin.insertDept", vo);
+	}
+	
+	public int insertDeptMulti(DepartmentsVo vo) {
+		return sqlSession.insert("admin.insertDeptMulti", vo);
+	}
 }

@@ -20,6 +20,7 @@ import com.douzone.quicksilver.service.AdminService;
 import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
+import com.douzone.quicksilver.vo.DepartmentsVo;
 
 @Controller
 @RequestMapping("/admin")
@@ -177,11 +178,15 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/insertBiz")
 	public JSONResult insertBiz(@ModelAttribute BizVo vo) {
-		System.out.println(vo);
-		if(vo.getOrderNum() == "") {
-			vo.setOrderNum(null);
-		}
 		adminService.insertBiz(vo);
 		return JSONResult.success(adminService.getBizInfo(vo.getBizSeq()));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/insertDept")
+	public JSONResult insertDept(@ModelAttribute DepartmentsVo vo) {
+		System.out.println(vo.getParentDeptSeq());
+		adminService.insertDept(vo);
+		return JSONResult.success(adminService.getDeptInfo(vo.getDeptSeq()));
 	}
 }

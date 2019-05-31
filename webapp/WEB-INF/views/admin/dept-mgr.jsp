@@ -105,6 +105,15 @@ div.tree li>span {float: left;}
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
 
+var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
+var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>";
+var noChildIcon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
+var toggleBtn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
+				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>";
+var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
+			"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
+var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
+
 var defaultComp = function() {
 	var compSeq = $("#compSelect option:selected").val();
 	var compName = $("#compSelect option:selected").text();
@@ -113,6 +122,7 @@ var defaultComp = function() {
 			+ "</li><ul c-no='"+compSeq+"'></ul>";
 	$("div#tree-mini ul").children().remove();
 	$("div#tree-mini ul").append(htmls);
+	$("input[name='compSeq']").val(compSeq);
 }
 
 var getBizInfo = function(seq) {
@@ -163,7 +173,7 @@ var getDeptInfo = function(seq) {
 		dataType : "json",
 		data : "",
 		success : function(response) {
-			$("#tbl-info input:not(.biz)").each(function(index, item){
+			$("#tbl-info input[type='text']:not(.biz)").each(function(index, item){
 				for(var key in response.data){
 					if($(item).attr('name') == key){
 						if(response.data[key] == null) {
@@ -217,14 +227,51 @@ var insertBiz = function() {
 
 	});
 }
+
+var insertDept = function() {
+	var formData = $("#dept-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/insertDept/",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		async : false,
+		success : function(response) {
+			var index = sortChild(response.data.deptName, response.data.parentDeptSeq, null);
+			var str = "";
+			if(parseInt(response.data.parentDeptSeq) < 10000000 ){
+				str = $("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] div.prev").html();
+			}
+			var last = true;
+			if ($("#tree-mini li[data-no='"+response.data.parentDeptSeq+"']").next().next().length > 0) {
+				last = false;
+			}else{
+				last = true;
+			}
+			deptAddRender(response.data, index, last, str);
+			if(index != "last"){
+				$("#tree-mini li[data-no='" + index + "']").
+				children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
+			}
+			$("#tree-mini li[data-no='"+response.data.deptSeq+"'] span").trigger("click");
+			
+			if($("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] img.open-btn").length == 0){
+				$("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] div.wrap>img:first-child").after(toggleBtn);
+// 				.children().append(icon).children().first().remove();
+				$("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] div.li-div>img:first-child").after(icon).remove();
+				$("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] div.wrap img.open").show();
+				$("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] div.wrap img.close").hide();
+				
+			}
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+}
 ///////////////////////////////////////
-var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
-var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>";
-var noChildIcon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
-var toggleBtn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
-				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>";
-var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
-			"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
+
 var deptAddRender = function(vo, index, last, str) {
 	var btn = "";
 	var space = "";
@@ -260,16 +307,21 @@ var deptAddRender = function(vo, index, last, str) {
 	var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"
 			+ "<div class='prev'>"+ depth + space + "</div><div class='wrap'>"+tree+btn
 			+ "<div class='li-div' draggable='true'>" + imgIcon + "<span class='dept' data-lang='"+vo.deptSeq+"'>"
-			+ deptName + "</span></div></div></li><ul d-no='"+vo.deptSeq+"'></ul>";
+			+ deptName + "</span></div></div>"
+			+ "<img class='add-icon' data-no='"+vo.deptSeq+"' src='"+contextPath+"/assets/images/add2.png'>"
+			+"</li><ul d-no='"+vo.deptSeq+"'></ul>";
 
 	if (index == "last") {
 		if (parseInt(vo.parentDeptSeq) < 10000000) {
+			console.log("1");
 			$("#tree-mini ul[d-no='" + vo.parentDeptSeq + "']").append(htmls);
 			$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
 		} else {
+			console.log("2");
 			$("#tree-mini ul[b-no='" + vo.parentDeptSeq + "']").append(htmls);
 		}
 	} else {
+		console.log("3");
 		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
 		$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
 	}
@@ -554,15 +606,18 @@ $(function() {
 		$(".update-unit").show();
 		$("img.add-icon").hide();
 		$("#tree-mini div.wrap").removeClass("active-span");
+		
+		$("#tbl-info input[type='radio']").show();
+		$("#tbl-info input[type='radio']:first").prop("checked", true);
 		if($(this).parent('.comp').length == 1){
 			$("#tbl-info input[type='text']:not(.dept)").val("").show();
-			$("#tbl-info input[type='radio']").show();
 			$("#tbl-info input[name='compSeq']").val(seq);
 			$("#tbl-info input[name='type']").val("사업장");
-			$("#tbl-info input[type='radio']:first").prop("checked", true);
+			
 			if($("ul[c-no='"+seq+"']>li").length == 0){
 				$("li[c-no='"+seq+"'] span").trigger("click");
 			}
+
 			if($("ul[c-no='"+seq+"']>li").length > 0){
 				$("ul[c-no='"+seq+"']>li:last img.last").remove();
 				$("ul[c-no='"+seq+"']>li:last div.wrap").prepend(child);
@@ -571,6 +626,46 @@ $(function() {
 			var html = "<li class='child biz incompl'><div class='wrap'>"+lastChild+"<div class='li-div'>"+noChildIcon
 						+ "<span class='biz'>"+str+"</span></div></div></li>";
 			$("ul[c-no='"+seq+"']").append(html);
+			$("li.incompl div.wrap").addClass("active-span");
+		}else{
+			var no = "";
+			var prev = "";
+			if(seq > 10000000){
+				no = "b-no";
+			}else{
+				no = "d-no";
+			}
+			$("#tbl-info input[type='text']:not(.biz)").val("").show();
+			$("#tbl-info input[name='parentDeptSeq']").val(seq);
+			$("#tbl-info input[name='type']").val("부서");
+			
+			if($("#tree-mini ul["+no+"='"+seq+"']>li").length == 0 && $("#tree-mini li[data-no='"+seq+"'] img.open-btn").length > 0){
+				$("li[data-no='"+seq+"'] img.open-btn").trigger("click");
+			}
+			if($("ul["+no+"='"+seq+"']>li").length > 0){
+				prev = $("ul["+no+"='"+seq+"']>li:last div.prev").html();
+				$("ul["+no+"='"+seq+"']>li:last img.last").remove();
+				$("ul["+no+"='"+seq+"']>li:last div.wrap").prepend(child);
+			}else{
+				if($("li[data-no='"+seq+"'] div.prev").length == 0){
+					if($("li[data-no='"+seq+"'] img.last").length == 1){
+						prev = "<div class='space'></div>";
+					}else{
+						prev = depth;
+					}
+				}else{
+					prev = $("li[data-no='"+seq+"'] div.prev").html();
+					if($("li[data-no='"+seq+"'] img.last").length == 1){
+						prev += "<div class='space'></div>";
+					}else{
+						prev += depth;
+					}
+				}
+			}
+			var str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			var html = "<li class='child dept incompl'><div class='prev'>"+prev+"</div><div class='wrap'>"
+						+lastChild+"<div class='li-div'>"+noChildIcon+"<span class='dept'>"+str+"</span></div></div></li>";
+			$("ul["+no+"='"+seq+"']").append(html);
 			$("li.incompl div.wrap").addClass("active-span");
 		}
 		
@@ -602,9 +697,12 @@ $(function() {
 	
 	$("div.save").click(function(){
 		if($("li.incompl").length > 0){
+			if($("li.incompl").hasClass("biz") === true){
+				insertBiz();
+			}else{
+				insertDept();
+			}
 			$("li.incompl").remove();
-			insertBiz();
-			
 		}
 		
 		$(".update-unit").hide();
@@ -680,7 +778,7 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="parentSeq"></span>
-										<input class='dept' type="text" name='parentDeptSeq' disabled="disabled">
+										<input class='dept' type="text" name='parentDeptSeq'>
 										<input class='biz' type="text" name='compSeq' >
 									</td>
 								</tr>

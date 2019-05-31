@@ -42,9 +42,9 @@ public class DepartmentsVo {
 	private String deptDisplayName;		// 부서 표시명
 	private String senderName;			// 발신인명
 	private String addr;				// 우편주소
-	private String detail_addr;			// 상세주소
+	private String detailAddr;			// 상세주소
 	private String pathName;			// 부서 경로명
-	private String deptNickName;		// 부서 약칭
+	private String deptNickname;		// 부서 약칭
 	
 	
 	private String bizName;		//전체부서보기할떄필요
@@ -147,13 +147,13 @@ public class DepartmentsVo {
 		return addr;
 	}
 	public String getDetail_addr() {
-		return detail_addr;
+		return detailAddr;
 	}
 	public String getPathName() {
 		return pathName;
 	}
 	public String getDeptNickName() {
-		return deptNickName;
+		return deptNickname;
 	}
 	public String getBizName() {
 		return bizName;
@@ -257,14 +257,14 @@ public class DepartmentsVo {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public void setDetail_addr(String detail_addr) {
-		this.detail_addr = detail_addr;
+	public void setDetail_addr(String detailAddr) {
+		this.detailAddr = detailAddr;
 	}
 	public void setPathName(String pathName) {
 		this.pathName = pathName;
 	}
-	public void setDeptNickName(String deptNickName) {
-		this.deptNickName = deptNickName;
+	public void setDeptNickName(String deptNickname) {
+		this.deptNickname = deptNickname;
 	}
 	public void setBizName(String bizName) {
 		this.bizName = bizName;
@@ -293,7 +293,7 @@ public class DepartmentsVo {
 				+ dateTime + ", modifySeq=" + modifySeq + ", modifyDate=" + modifyDate + ", deptManager=" + deptManager
 				+ ", displayYn=" + displayYn + ", langCode=" + langCode + ", deptName=" + deptName
 				+ ", deptDisplayName=" + deptDisplayName + ", senderName=" + senderName + ", addr=" + addr
-				+ ", detail_addr=" + detail_addr + ", pathName=" + pathName + ", deptNickName=" + deptNickName
+				+ ", detailAddr=" + detailAddr + ", pathName=" + pathName + ", deptNickname=" + deptNickname
 				+ ", bizName=" + bizName + ", childCount=" + childCount + ", deptEmpCount=" + deptEmpCount + "]";
 	}
 	

@@ -144,7 +144,6 @@ public class AdminService {
 		adminDao.insertBiz(vo);
 		
 		if("".equals(vo.getBizName()) == false) {
-			System.out.println(vo.getBizName());
 			vo.setLangCode("kr");
 			adminDao.insertBizMulti(vo);
 		}
@@ -152,6 +151,21 @@ public class AdminService {
 			vo.setLangCode("en");
 			vo.setBizName(vo.getBizNameEn());
 			adminDao.insertBizMulti(vo);
+		}
+		
+	}
+	
+	public void insertDept(DepartmentsVo vo) {
+		adminDao.insertDept(vo);
+		
+		if("".equals(vo.getDeptName()) == false) {
+			vo.setLangCode("kr");
+			adminDao.insertDeptMulti(vo);
+		}
+		if("".equals(vo.getDeptNameEn()) == false) {
+			vo.setLangCode("en");
+			vo.setBizName(vo.getDeptNameEn());
+			adminDao.insertDeptMulti(vo);
 		}
 		
 	}

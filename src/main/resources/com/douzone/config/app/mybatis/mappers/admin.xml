@@ -200,4 +200,34 @@
 		insert into t_co_biz_multi values( #{bizSeq}, #{langCode}, 'demo', #{compSeq}, #{bizName}, null,
 			null, null, #{bizNickname}, null, #{addr}, #{detailAddr}, #{useYn}, '0101', now(), null, null)
 	</insert>
+	
+	<insert id="insertDept" parameterType="departmentsvo">
+		insert into t_co_dept values( #{deptSeq}, #{deptSeq}, 'demo', #{compSeq},
+		<if test="parentDeptSeq gte 10000000">
+			#{parentDeptSeq},
+		</if>
+		<if test="parentDeptSeq lt 10000000">
+			(select a.biz_seq from t_co_dept as a where a.dept_seq = #{parentDeptSeq}),
+		</if>
+		  #{parentDeptSeq}, null, 
+			null, null, null, #{zipCode}, null, null, null, 'kr', null, null, 
+		<if test="parentDeptSeq gte 10000000">
+			1,
+		</if>
+		<if test="parentDeptSeq lt 10000000">
+			(select b.dept_level from t_co_dept as b where b.dept_seq = #{parentDeptSeq})+1,
+		</if>
+		#{orderNum}, #{useYn}, '0101', now(), null, null, null, 'Y')
+	</insert>
+	
+	<insert id="insertDeptMulti" parameterType="departmentsvo">
+		insert into t_co_dept_multi values( #{langCode}, #{deptSeq}, 'demo', #{compSeq},
+		<if test="parentDeptSeq gte 10000000">
+			#{parentDeptSeq},
+		</if>
+		<if test="parentDeptSeq lt 10000000">
+			(select a.biz_seq from t_co_dept as a where a.dept_seq = #{parentDeptSeq}),
+		</if>
+		#{deptName}, null, null, #{addr}, #{detailAddr}, null, #{useYn}, '0101', now(), null, null, #{deptNickname})
+	</insert>
 </mapper> 
