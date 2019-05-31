@@ -10,10 +10,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!--  dataTable -->
+  <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script>
+  
+ <!--  dataTable -->
+ 
+ 
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/admin.css"
 	rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/rankPositionManagement.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/movePersonnelStatus.css" />
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
@@ -33,7 +57,7 @@
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script>
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script> --%>
 	
 <script type="text/javascript">
 
@@ -371,38 +395,23 @@ $(function(){
 			}); 
 	});
 	
-	// 직책 검색하는 input 속성을 변경
-	$("input[name='position']").focus( event => {
-		event.currentTarget.setAttribute('data-focus', true);
-	})
-	
-	$("input[name='position']").blur( event => {
-		event.currentTarget.setAttribute('data-focus', false);
-	})
-	
-	// 삭제버튼
-	$(".remove").click( () => {
-		console.log('삭제');
-		
-		 $.ajax({
-				url : contextPath + "/removePositionValue/" +
-						$(".positionField").val() + "/" +
-						position,
-						
-				type : "get",
-				dataType : "json",
-				data : "",
-				success : function(response) {
-					search(position);
-		
-				},
-				error : function(xhr, status, e) {
-					console.error(status + ":" + e);
-				}
+	 $('#statusTable').dataTable({
+         pageLength: 3,
+         bPaginate: true,
+         bLengthChange: true,
+         lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
+         bAutoWidth: false,
+         processing: true,
+         ordering: true,
+         serverSide: false,
+         searching: true,
+         scrollY: "200px",
+         scrollCollapse: true
+         
+       
+ 
 
-			}); 
-		
-	});
+     });
 });
 </script>
 </head>
@@ -446,181 +455,47 @@ $(function(){
 					
 				</div>
 				
-			
-				 <div class="buttonCover"> <span style="visibility:hidden;">--></span>
-				 
-				 	<div class="positionButtons">
-				 	</div>
-				 	
-					<div class="positionButton">
-						<span class="buttonText">직급</span>
-					</div>
-					
 				
-					<div class="dutyButtons">
-					</div>
-					
-					<div class="dutyButton">
-							<span>직책</span>
-					</div>
-					
-				</div> 
-				
-				<div class="updateButtons">
-					<input type="button" value="일괄등록">
-					<input class="new" type="button" value="신규">
-					<input type="button" class="save" value="저장">
-					<input type="button"class="remove" value="삭제">
-				</div>
-				
-				<div id="dialog-message" style="display= none;">
-					<p></p>
-				</div>
-				
-				<div class="line">
-				</div>
-				
-					
-				<div class="mainDiv">
-			
-					<div class="listDiv">
-			
-							 <table class="fixed_header" border="1px;">
-								<thead>
-									<tr>
-										<th class="th-text positionCode">코드</th>
-										<th class="th-text positionCodeName">명칭</th>
-										<th class="th-text compName">사용회사</th>
-										<th class="th-text useYn" >사용여부</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-								
-							</table>
-				 	<!-- <div class="container-fluid">
+					 <div class="container-fluid">
 
+			          <!-- DataTales Example -->
 			          <div class="card shadow mb-4">
-			      
-				            <div class="card-body">
-				              <div class="table-responsive">
-				                <table class="table table-striped table-bordered table-hover" id="dataTable" width="400px" cellspacing="0">
-				                  <thead>
-				                    <tr>
-				                      <th>코드</th>
-				                      <th>명칭</th>
-				                      <th>사용회사</th>
-				                      <th>사용여부</th>
-				                    </tr>
-				                  </thead>
-				                  <tfoot>
-				                    <tr>
-				                      <th>코드</th>
-				                      <th>명칭</th>
-				                      <th>사용회사</th>
-				                      <th>사용여부</th>
-				                    </tr>
-				                  </tfoot>
-				                  
-				                </table>
-				              </div>
-				            </div>
-				          </div>
+			            <div class="card-header py-3">
+			              <h6 class="m-0 font-weight-bold text-primary">사용자 목록</h6>
+			            </div>
+			            <div class="card-body">
+			              <div class="table-responsive">
+			                <table class="table table-bordered" id="statusTable" width="100%" cellspacing="0">
+			                  <thead>
+			                     <tr>
+								    <th rowspan="2">변경일</th>
+								    <th rowspan="2">회사명</th>
+								    <th rowspan="2">사원명(ID)</th>
+								    <th rowspan="2">재직여부</th>
+								    <th colspan="3">변경정보</th>
+								    <th colspan="3">이전 정보</th>
+								  </tr>
+								  <tr>
+								    <td>부서</td>
+								    <td>직급</td>
+								    <td>직책</td>
+								    <td>부서</td>
+								    <td>직급</td>
+								    <td>직책</td>
+								  </tr>
+			                  </thead>
+			               
+			                   
+			                </table>
+			              </div>
+			            </div>
+			          </div>
+			
+			        </div>
 				
-				        </div> -->
-						
-						
-					</div>
-					
-					<div class="positionInfoDiv">
-						<p class="positionInfoLabel">●직급정보</p>
-						
-						<div class="positionInfoForm">
-							
-								<table class="tg" style="undefined;table-layout: fixed;">
-								<colgroup>
-									<col style="width: 35px">
-									<col style="width: 50px">
-									<col style="width: 148px">
-								</colgroup>
-								  <tr>
-								    <th class="tg-dvpl" colspan="2">회사선택</th>
-								    <th class="tg-0lax">
-								    	<select>
-								    	
-											<c:forEach items="${compList}" var="vo">
-												<option value="${vo.compSeq }">${vo.compName }</option>
-											</c:forEach>
-											
-								    	</select>
-								    </th>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6" colspan="2">코드</td>
-								    <td class="tg-0lax">
-								    	<input class="inputText positionField" type="text">
-								   		
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-baqh" rowspan="4">명칭</td>
-								    
-								    <td class="tg-lqy6">한국어</td>
-								    <td class="tg-0lax">
-								   		 <input class="inputText koreaField" type="text">
-								   
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6">영어</td>
-								    <td class="tg-0lax">
-								    	<input class="inputText englishField" type="text">
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6">일본어</td>
-								    <td class="tg-0lax">
-								    	<input class="inputText" type="text" disabled="disabled">
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6">중국어</td>
-								    <td class="tg-0lax">
-								    	<input class="inputText" type="text" disabled="disabled">
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6" colspan="2">사용여부</td>
-								    <td class="tg-0lax">
-								    	<label>
-								    		
-								    		<input type="radio" class="useY" name="group" value="사용" checked="checked"/>사용
-								    	</label>
-								    	
-								   		<label>
-								   			<input type="radio" class="useN" name="group" value="사용안함"/>사용안함
-								   		</label>
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6" colspan="2">정렬순서</td>
-								    <td class="tg-0lax2">
-								    	<input type="text" class="order" >
-								    </td>
-								  </tr>
-								  <tr>
-								    <td class="tg-lqy6" colspan="2">비고</td>
-								    <td class="tg-0lax2">
-								    	<input type="text" class="comment">
-								    </td>
-								  </tr>
-								</table>
-						</div>
-					</div>
-					
-				</div>
 			</div>
 		</div>
+			
 			
 			
 		<footer>
