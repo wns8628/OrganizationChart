@@ -134,17 +134,16 @@ var getBizInfo = function(seq) {
 		success : function(response) {
 			$("#tbl-info input[type='text']:not(.dept)").each(function(index, item){
 				for(var key in response.data){
+					if(response.data[key] == null) {
+						response.data[key] = "";
+					}
 					if($(item).attr('name') == key){
-						if(response.data[key] == null) {
-							response.data[key] = "";
-						}
 						$(item).val(response.data[key]);
-						if(key == 'useYn'){
-							$("input[data-id='"+response.data[key]+"']").prop("checked",true);
-						}
 					}
 				}
 			});
+			$("input[data-id='"+response.data['useYn']+"']").prop("checked",true);
+			
 			$("input[name='type']").val("사업장");
 			
 			$("#tbl-info span#parentSeq").text(response.data.compSeq);
@@ -175,17 +174,17 @@ var getDeptInfo = function(seq) {
 		success : function(response) {
 			$("#tbl-info input[type='text']:not(.biz)").each(function(index, item){
 				for(var key in response.data){
+					if(response.data[key] == null) {
+						response.data[key] = "";
+					}
 					if($(item).attr('name') == key){
-						if(response.data[key] == null) {
-							response.data[key] = "";
-						}
 						$(item).val(response.data[key]);
-						if(key == 'useYn'){
-							$("input[data-id='"+response.data[key]+"']").prop("checked",true);
-						}
 					}
 				}
 			});
+			
+			$("input[data-id='"+response.data['useYn']+"']").prop("checked",true);
+			
 			$("input[name='type']").val("부서");
 			
 			$("#tbl-info span#parentSeq").text(response.data.parentDeptSeq);
@@ -270,6 +269,98 @@ var insertDept = function() {
 
 	});
 }
+
+var updateBiz = function(){
+	var formData = $("#dept-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/updateBiz",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		async : false,
+		success : function(response) {
+			$("#tbl-info input[type='text']:not(.dept)").each(function(index, item){
+				for(var key in response.data){
+					if(response.data[key] == null) {
+						response.data[key] = "";
+					}
+					if($(item).attr('name') == key){
+						$(item).val(response.data[key]);
+					}
+				}
+			});
+			$("input[data-id='"+response.data['useYn']+"']").prop("checked",true);
+			
+			$("input[name='type']").val("사업장");
+			
+			$("#tbl-info span#parentSeq").text(response.data.compSeq);
+			$("#tbl-info span#seq").text(response.data.bizSeq);
+			$("#tbl-info span#type").text("사업장"); 
+			$("#tbl-info span#name").text(response.data.bizName);
+			$("#tbl-info span#nameEn").text(response.data.bizNameEn);
+			$("#tbl-info span#nickname").text(response.data.bizNickname);
+			$("#tbl-info span#useYn").text(response.data.useYn);
+			$("#tbl-info span#orderNum").text(response.data.orderNum);
+			$("#tbl-info span#zipCode").text(response.data.zipCode);
+			$("#tbl-info span#addr").text(response.data.addr);
+			$("#tbl-info span#detailAddr").text(response.data.detailAddr);
+			
+			$("#tbl-info span").show();
+			$("#tbl-info input").hide();
+			
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+}
+
+var updateDept = function(){
+	var formData = $("#dept-form").serialize();
+	$.ajax({
+		url : contextPath + "/admin/updateDept",
+		type : "post",
+		dataType : "json",
+		data : formData,
+		async : false,
+		success : function(response) {
+			$("#tbl-info input[type='text']:not(.biz)").each(function(index, item){
+				for(var key in response.data){
+					if(response.data[key] == null) {
+						response.data[key] = "";
+					}
+					if($(item).attr('name') == key){
+						$(item).val(response.data[key]);
+					}
+				}
+			});
+			$("input[data-id='"+response.data['useYn']+"']").prop("checked",true);
+			
+			$("input[name='type']").val("부서");
+			
+			$("#tbl-info span#parentSeq").text(response.data.parentDeptSeq);
+			$("#tbl-info span#seq").text(response.data.deptSeq);
+			$("#tbl-info span#type").text("부서"); 
+			$("#tbl-info span#name").text(response.data.deptName);
+			$("#tbl-info span#nameEn").text(response.data.deptNameEn);
+			$("#tbl-info span#nickname").text(response.data.deptNickname);
+			$("#tbl-info span#useYn").text(response.data.useYn);
+			$("#tbl-info span#orderNum").text(response.data.orderNum);
+			$("#tbl-info span#zipCode").text(response.data.zipCode);
+			$("#tbl-info span#addr").text(response.data.addr);
+			$("#tbl-info span#detailAddr").text(response.data.detailAddr);
+			
+			$("#tbl-info span").show();
+			$("#tbl-info input").hide();
+			
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+}
 ///////////////////////////////////////
 
 var deptAddRender = function(vo, index, last, str) {
@@ -313,23 +404,20 @@ var deptAddRender = function(vo, index, last, str) {
 
 	if (index == "last") {
 		if (parseInt(vo.parentDeptSeq) < 10000000) {
-			console.log("1");
 			$("#tree-mini ul[d-no='" + vo.parentDeptSeq + "']").append(htmls);
 			$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
 		} else {
-			console.log("2");
 			$("#tree-mini ul[b-no='" + vo.parentDeptSeq + "']").append(htmls);
 		}
 	} else {
-		console.log("3");
 		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
 		$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
 	}
 
-	if ($("#tree-mini li[data-no='" + vo.deptSeq + "'] img.last").length != 0) {
-		$("#tree-mini li[data-no='" + vo.deptSeq + "']").prev().prev().
-		children('.wrap').prepend(child).children('img.last').remove();
-	}
+// 	if ($("#tree-mini li[data-no='" + vo.deptSeq + "'] img.last").length != 0) {
+// 		$("#tree-mini li[data-no='" + vo.deptSeq + "']").prev().prev().
+// 		children('.wrap').prepend(child).children('img.last').remove();
+// 	}
 }
 
 var bizAddRender = function(vo, index, str) {
@@ -365,7 +453,7 @@ var bizAddRender = function(vo, index, str) {
 			+ bizName + "</span></div></div>"
 			+ "<img class='add-icon' data-no='"+vo.bizSeq+"' src='"+contextPath+"/assets/images/add2.png'>"
 			+ "</li><ul b-no='"+vo.bizSeq+"'></ul>";
-
+	
 	if (index == "last"){
 		$("#tree-mini ul[c-no='" + vo.compSeq + "']").append(htmls);
 	}else{
@@ -550,6 +638,40 @@ function treeDropDown() {
 	// 	});
 }
 
+var incomplRemove = function(trigger){
+	if($("li.incompl").length > 0){
+		if($("li.incompl").prev().prev().length > 0){
+			$("li.incompl").prev().prev().find("div.wrap").children("img.tree-icon").remove();
+			$("li.incompl").prev().prev().find("div.wrap").prepend(lastChild);
+		}
+		
+		if(trigger){
+			$("li.incompl").parent().prev().find("span").trigger("click");
+		}
+		
+		$("li.incompl").remove();
+	}
+}
+
+function seqCheck(seq){
+	var seqList;
+	$.ajax({
+		url : contextPath + "/admin/seqCheck/"+seq,
+		type : "get",
+		dataType : "json",
+		data : "",
+		async : false,
+		success : function(response) {
+			seqList = response.data;
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+
+	});
+	return seqList;
+}
+
 $(function() {
 
 	treeDropDown();
@@ -559,10 +681,20 @@ $(function() {
 	$("#compSelect").change(function() {
 		defaultComp();
 	});
-
+	
+	$("input.seq").focusout(function(){
+		var seqList = seqCheck($(this).val());
+		if(seqList[0] != null || seqList[1] != null){
+			console.log(seqList[0]);
+			console.log(seqList[1]);
+			alert("부서코드는 중복될 수 없습니다.");
+			$(this).val("").focus();
+		}
+	});
+	
 	$(document).on("click", "#tree-mini li.child span", function(event) {
-		$(".update-unit").hide();
-		$(".default-unit").show();
+		incomplRemove(false);
+		
 		$("#tree-mini div.wrap").removeClass("active-span");
 		$(this).parent().parent().addClass("active-span");
 		$parent = $(this).parent().parent().parent();
@@ -585,6 +717,9 @@ $(function() {
 				$("#tbl-info input:not(.biz)").show();
 				$("#tbl-info input.biz").hide();
 			}
+		}else{
+			$(".update-unit:not(input)").hide();
+			$(".default-unit").show();
 		}
 		
 		if($("li:not(.comp) img.add-icon").is(":visible") == false){
@@ -599,6 +734,12 @@ $(function() {
 	});
 	
 	$(document).on("click", "img.add-icon", function(event) {
+		if($("div.update").css("display") == "none"){
+			$("input[type='text']").hide();
+		}
+		
+		incomplRemove(false);
+		
 		var seq = $(this).data("no");
 		$("#tbl-info span").hide();
 		$(".default-unit").hide();
@@ -689,6 +830,7 @@ $(function() {
 	});
 	
 	$("div.cancel").click(function(){
+		incomplRemove(true);
 		$("#tbl-info input").hide();
 		$("#tbl-info span").show();
 		$(".update-unit").hide();
@@ -698,11 +840,18 @@ $(function() {
 	$("div.save").click(function(){
 		if($("li.incompl").length > 0){
 			if($("li.incompl").hasClass("biz") === true){
+				$("li.incompl").remove();
 				insertBiz();
 			}else{
+				$("li.incompl").remove();
 				insertDept();
 			}
-			$("li.incompl").remove();
+		}else{
+			if($("div.active-span").parent().data("no") > 10000000){
+				updateBiz();
+			}else{
+				updateDept();
+			}
 		}
 		
 		$(".update-unit").hide();
@@ -751,7 +900,6 @@ $(function() {
 					<div class="head-btn save update-unit">저장</div>
 					<div class="head-btn delete default-unit">삭제</div>
 					<div class="head-btn update default-unit">수정</div>
-					<div class="head-btn create default-unit">신규</div>
 				</div>
 				<div id="content-wrapper">
 					<div id="tree-mini" class="tree">
@@ -760,9 +908,9 @@ $(function() {
 						</ul>
 					</div>
 					<div id="tbl-content">
-						<div id="tbl-header">
-							<span>기본정보</span><span>부서원정보</span>
-						</div>
+<!-- 						<div id="tbl-header"> -->
+<!-- 							<span>기본정보</span><span>부서원정보</span> -->
+<!-- 						</div> -->
 						<div id="tbl-wrapper">
 							<form id="dept-form">
 							<table id="tbl-info" class="tg" style="table-layout: fixed; ">
@@ -778,8 +926,8 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="parentSeq"></span>
-										<input class='dept' type="text" name='parentDeptSeq'>
-										<input class='biz' type="text" name='compSeq' >
+										<input class='dept' type="text" name='parentDeptSeq'  readonly="readonly">
+										<input class='biz' type="text" name='compSeq'  readonly="readonly">
 									</td>
 								</tr>
 								<tr>
@@ -796,8 +944,8 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="seq"></span>
-										<input class='dept' type="text" name='deptSeq'>
-										<input class='biz' type="text" name='bizSeq'>
+										<input class='dept seq' type="text" name='deptSeq'>
+										<input class='biz seq' type="text" name='bizSeq'>
 									</td>
 								</tr>
 								<tr>

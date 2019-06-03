@@ -7,7 +7,7 @@ public class DepartmentsVo {
 	 */
 	
 	private String deptSeq; 			// 부서 시퀀스
-	private String deptCD; 				// 부서 코드
+	private String deptCd; 				// 부서 코드
 	private String groupSeq; 			// 그룹 시퀀스
 	private String compSeq; 			// 회사 시퀀스
 	private String bizSeq;				// 사업장 시퀀스
@@ -27,12 +27,12 @@ public class DepartmentsVo {
 	private Long orderNum;				// 정렬 순서
 	private String useYn;				// 사용 여부
 	private String createSeq;			// 등록자 시퀀스
+	private String createDate;		
 	private String dateTime;			// 등록일
 	private String modifySeq;			// 수정자 시퀀스
 	private String modifyDate;			// 수정일
 	private String deptManager;			// 부서 관리자
 	private String displayYn;			// 조직도 표시여부
-	
 	/*
 	 * t_co_dept_multi
 	 */
@@ -52,12 +52,38 @@ public class DepartmentsVo {
 	private int deptEmpCount;		// 부서별 사원 수
 	
 	private String deptNameEn;
+	private String opCode;
 	
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public String getDetailAddr() {
+		return detailAddr;
+	}
+	public void setDetailAddr(String detailAddr) {
+		this.detailAddr = detailAddr;
+	}
+	public String getDeptNickname() {
+		return deptNickname;
+	}
+	public void setDeptNickname(String deptNickname) {
+		this.deptNickname = deptNickname;
+	}
+	public String getOpCode() {
+		return opCode;
+	}
+	public void setOpCode(String opCode) {
+		this.opCode = opCode;
+	}
 	public String getDeptSeq() {
 		return deptSeq;
 	}
-	public String getDeptCD() {
-		return deptCD;
+	public String getDeptCd() {
+		return deptCd;
 	}
 	public String getGroupSeq() {
 		return groupSeq;
@@ -167,8 +193,8 @@ public class DepartmentsVo {
 	public void setDeptSeq(String deptSeq) {
 		this.deptSeq = deptSeq;
 	}
-	public void setDeptCD(String deptCD) {
-		this.deptCD = deptCD;
+	public void setDeptCd(String deptCd) {
+		this.deptCd = deptCd;
 	}
 	public void setGroupSeq(String groupSeq) {
 		this.groupSeq = groupSeq;
@@ -284,7 +310,7 @@ public class DepartmentsVo {
 	}
 	@Override
 	public String toString() {
-		return "DepartmentsVo [deptSeq=" + deptSeq + ", deptCD=" + deptCD + ", groupSeq=" + groupSeq + ", compSeq="
+		return "DepartmentsVo [deptSeq=" + deptSeq + ", deptCd=" + deptCd + ", groupSeq=" + groupSeq + ", compSeq="
 				+ compSeq + ", bizSeq=" + bizSeq + ", parentDeptSeq=" + parentDeptSeq + ", displayDeptSeq="
 				+ displayDeptSeq + ", telNum=" + telNum + ", faxNum=" + faxNum + ", homepgAddr=" + homepgAddr
 				+ ", zipCode=" + zipCode + ", susinYn=" + susinYn + ", virDeptYn=" + virDeptYn + ", teamYn=" + teamYn

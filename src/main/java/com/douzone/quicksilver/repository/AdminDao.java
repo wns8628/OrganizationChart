@@ -94,4 +94,76 @@ public class AdminDao {
 	public int insertDeptMulti(DepartmentsVo vo) {
 		return sqlSession.insert("admin.insertDeptMulti", vo);
 	}
+	
+	public int updateBiz(BizVo vo) {
+		return sqlSession.update("admin.updateBiz", vo);
+	}
+	
+	public int updateBizMulti(BizVo vo) {
+		return sqlSession.update("admin.updateBizMulti", vo);
+	}
+	
+	public int insertBizHistory(BizVo vo) {
+		return sqlSession.insert("admin.insertBizHistory", vo);
+	}
+	
+	public int insertBizMultiHistory(BizVo vo) {
+		return sqlSession.insert("admin.insertBizMultiHistory", vo);
+	}
+	
+	public BizVo getBizAll(String seq) {
+		return sqlSession.selectOne("admin.getBizAll", seq);
+	}
+	
+	public BizVo getBizMultiAll(BizVo vo) {
+		return sqlSession.selectOne("admin.getBizMultiAll", vo);
+	}
+	
+	public int deleteBiz(BizVo vo) {
+		return sqlSession.delete("admin.deleteBiz", vo);
+	}
+	
+	public int deleteBizMulti(BizVo vo) {
+		return sqlSession.delete("admin.deleteBizMulti", vo);
+	}
+	
+	public int updateDept(DepartmentsVo vo) {
+		return sqlSession.update("admin.updateDept", vo);
+	}
+	
+	public int updateDeptMulti(DepartmentsVo vo) {
+		return sqlSession.update("admin.updateDeptMulti", vo);
+	}
+	
+	public int insertDeptHistory(DepartmentsVo vo) {
+		return sqlSession.insert("admin.insertDeptHistory", vo);
+	}
+	
+	public int insertDeptMultiHistory(DepartmentsVo vo) {
+		return sqlSession.insert("admin.insertDeptMultiHistory", vo);
+	}
+	
+	public DepartmentsVo getDeptAll(DepartmentsVo vo) {
+		return sqlSession.selectOne("admin.getDeptAll", vo);
+	}
+	
+	public DepartmentsVo getDeptMultiAll(DepartmentsVo vo) {
+		return sqlSession.selectOne("admin.getDeptMultiAll", vo);
+	}
+	
+	public int deleteDept(DepartmentsVo vo) {
+		return sqlSession.delete("admin.deleteDept", vo);
+	}
+	
+	public int deleteDeptMulti(DepartmentsVo vo) {
+		return sqlSession.delete("admin.deleteDeptMulti", vo);
+	}
+	
+	public String deptSeqCheck(String seq) {
+		return sqlSession.selectOne("admin.deptSeqCheck", seq);
+	}
+	
+	public String bizSeqCheck(String seq) {
+		return sqlSession.selectOne("admin.bizSeqCheck", seq);
+	}
 }

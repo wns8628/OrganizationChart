@@ -33,6 +33,15 @@ public class BizVo {
 	private int childCount;			//자식 개수
 	
 	private int bizEmpCount; //사업장별 직원수구할때씀
+	private String opCode;
+	
+	public String getOpCode() {
+		return opCode;
+	}
+
+	public void setOpCode(String opCode) {
+		this.opCode = opCode;
+	}
 
 	public String getBizSeq() {
 		return bizSeq;
