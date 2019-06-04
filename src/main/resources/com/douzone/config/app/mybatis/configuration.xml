@@ -14,7 +14,8 @@
 	     <typeAlias alias="mastergroupvo" type="com.douzone.quicksilver.vo.MasterGroupVo"/>
 	     <typeAlias alias="paginationvo" type="com.douzone.quicksilver.vo.PaginationVo"/>
 	     <typeAlias alias="adminconnectdeptEmpvo" type="com.douzone.quicksilver.vo.AdminConnectDeptEmpVo"/>
-
+	     <typeAlias alias="movepersonnelstatusvo" type="com.douzone.quicksilver.vo.MovePersonnelStatusVo"/>
+	     
     </typeAliases>    
 
    <mappers> 
@@ -32,6 +33,7 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/rankPositionManagement.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/autocomplete.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/AdminConnectDeptEmp.xml" />
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/movePersonnelStatus.xml" />
       
  
    </mappers> 

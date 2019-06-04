@@ -200,4 +200,200 @@
 		insert into t_co_biz_multi values( #{bizSeq}, #{langCode}, 'demo', #{compSeq}, #{bizName}, null,
 			null, null, #{bizNickname}, null, #{addr}, #{detailAddr}, #{useYn}, '0101', now(), null, null)
 	</insert>
+	
+	<insert id="insertDept" parameterType="departmentsvo">
+		insert into t_co_dept values( #{deptSeq}, #{deptSeq}, 'demo', #{compSeq},
+		<if test="parentDeptSeq gte 10000000">
+			#{parentDeptSeq},
+		</if>
+		<if test="parentDeptSeq lt 10000000">
+			(select a.biz_seq from t_co_dept as a where a.dept_seq = #{parentDeptSeq}),
+		</if>
+		  #{parentDeptSeq}, null, 
+			null, null, null, #{zipCode}, null, null, null, 'kr', null, null, 
+		<if test="parentDeptSeq gte 10000000">
+			1,
+		</if>
+		<if test="parentDeptSeq lt 10000000">
+			(select b.dept_level from t_co_dept as b where b.dept_seq = #{parentDeptSeq})+1,
+		</if>
+		#{orderNum}, #{useYn}, '0101', now(), null, null, null, 'Y')
+	</insert>
+	
+	<insert id="insertDeptMulti" parameterType="departmentsvo">
+		insert into t_co_dept_multi values( #{langCode}, #{deptSeq}, 'demo', #{compSeq},
+		<if test="parentDeptSeq gte 10000000">
+			#{parentDeptSeq},
+		</if>
+		<if test="parentDeptSeq lt 10000000">
+			(select a.biz_seq from t_co_dept as a where a.dept_seq = #{parentDeptSeq}),
+		</if>
+		#{deptName}, null, null, #{addr}, #{detailAddr}, null, #{useYn}, '0101', now(), null, null, #{deptNickname})
+	</insert>
+	
+	<update id="updateBiz" parameterType="bizvo">
+		update t_co_biz set biz_seq = #{bizSeq}, biz_cd = #{bizCd}, zip_code = #{zipCode}, order_num = #{orderNum},
+							use_yn = #{useYn}, modify_seq = '0101', modify_date = now()
+						where biz_seq = #{bizSeq}
+	</update>
+	
+	<update id="updateBizMulti" parameterType="bizvo">
+		update t_co_biz_multi set biz_seq = #{bizSeq}, biz_name = #{bizName}, biz_nickname = #{bizNickname},
+								addr = #{addr}, detail_addr = #{detailAddr}, use_yn = #{useYn}, modify_seq = '0101',
+								modify_date = now()
+							where biz_seq = #{bizSeq}
+	</update>
+	
+	<insert id="insertBizHistory" parameterType="bizvo">
+		insert into t_co_biz_history values( ifnull((select max(a.seq)+1 from t_co_biz_history a), 1) ,
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), 'demo', #{compSeq}, #{bizSeq}, #{bizCd}, null, null, null, null, null, #{zipCode}, null, 'kr',
+		#{orderNum}, null, #{useYn}, #{createSeq}, #{createDate}, '0101', now())
+	</insert>
+	
+	<insert id="insertBizMultiHistory" parameterType="bizvo">
+		insert into t_co_biz_multi_history values( ifnull((select max(a.seq)+1 from t_co_biz_multi_history a), 1) ,
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), 'demo', #{compSeq}, #{bizSeq}, #{langCode}, #{bizName}, null, null, null, #{addr}, #{detailAddr}, 
+		#{useYn}, #{createSeq}, #{createDate}, '0101', now())
+	</insert>
+	
+	<select id="getBizAll" parameterType="string" resultType="bizvo">
+		select group_seq as groupSeq, comp_seq as compSeq, biz_seq as bizSeq, biz_cd as bizCd, zip_code as zipCode,
+				native_lang_code as nativeLangCode, order_num as orderNum, use_yn as useYn, create_seq as createSeq,
+				create_date as createDate
+		from t_co_biz
+		where biz_seq = #{bizSeq}
+	</select>
+	
+	<select id="getBizMultiAll" parameterType="bizvo" resultType="bizvo">
+		select group_seq as groupSeq, comp_seq as compSeq, biz_seq as bizSeq, lang_code as langCode, 
+				use_yn as useYn, biz_name as bizName, addr, detail_addr as detailAddr,  
+				create_seq as createSeq, create_date as createDate
+		from t_co_biz_multi
+		where biz_seq = #{bizSeq}
+		and lang_code = #{langCode}
+	</select>
+	
+	<delete id="deleteBiz" parameterType="bizvo">
+		delete from t_co_biz where biz_seq = #{bizSeq}
+	</delete>
+	
+	<delete id="deleteBizMulti" parameterType="bizvo">
+		delete from t_co_biz_multi where biz_seq = #{bizSeq} and lang_code = #{langCode}
+	</delete>
+	
+	<update id="updateDept" parameterType="departmentsvo">
+		update t_co_dept set dept_seq = #{deptSeq}, dept_cd = #{deptCd}, 
+		<if test="parentDeptSeq gte 1000000">
+			biz_seq = #{parentDeptSeq},
+		</if>
+		<if test="parentDeptSeq lt 1000000">
+			biz_seq = (select * from(select a.biz_seq from t_co_dept a where a.dept_seq = #{parentDeptSeq}) a),
+		</if>
+			parent_dept_seq = #{parentDeptSeq}, zip_code = #{zipCode}, order_num = #{orderNum}, use_yn = #{useYn},
+			modify_seq = '0101', modify_date= now()
+		where dept_seq = #{deptSeq}
+	</update>
+	
+	<update id="updateDeptMulti" parameterType="departmentsvo">
+		update t_co_dept_multi set dept_seq = #{deptSeq}, 
+		<if test="parentDeptSeq gte 1000000">
+			biz_seq = #{parentDeptSeq},
+		</if>
+		<if test="parentDeptSeq lt 1000000">
+			biz_seq = (select * from(select a.biz_seq from t_co_dept a where a.dept_seq = #{parentDeptSeq}) a),
+		</if>
+			dept_name = #{deptName}, addr = #{addr}, detail_addr = #{detailAddr}, use_yn = #{useYn}, 
+			modify_seq = '0101', modify_date = now(), dept_nickname = #{deptNickname}
+		where dept_seq = #{deptSeq}
+		and lang_code = #{langCode}
+	</update>
+	
+	<insert id="insertDeptHistory" parameterType="departmentsvo">
+		insert into t_co_dept_history values( ifnull((select max(a.seq)+1 from t_co_dept_history a), 1),
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), 'demo', #{compSeq}, #{bizSeq}, #{deptSeq}, #{parentDeptSeq}, null, null, null, #{zipCode}, null,
+		null, null, 'kr', null, null, #{deptLevel}, #{orderNum}, #{useYn}, #{createSeq}, #{createDate}, '0101',
+		now(), null, null)
+	</insert>
+	
+	<insert id="insertDeptMultiHistory" parameterType="departmentsvo">
+		insert into t_co_dept_multi_history values( ifnull((select max(a.seq)+1 from t_co_dept_multi_history a), 1),
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), 'demo', #{compSeq}, #{bizSeq}, #{deptSeq}, #{langCode}, #{deptName}, null, null, #{addr}, #{detailAddr},
+		null, #{useYn}, '0101', now(), null, null, #{deptNickname})
+	</insert>
+	
+	<select id="getDeptAll" parameterType="departmentsvo" resultType="departmentsvo">
+		select group_seq as groupSeq, comp_seq as compSeq, biz_seq as bizSeq, dept_seq as deptSeq, parent_dept_seq as parentDeptSeq,
+				zip_code as zipCode, native_lang_code as nativeLangCode, dept_level as deptLevel, order_num as orderNum, use_yn as useYn,
+				create_seq as createSeq, create_date as createDate
+		from t_co_dept
+		where dept_seq = #{deptSeq}
+	</select>
+	
+	<select id="getDeptMultiAll" parameterType="departmentsvo" resultType="departmentsvo">
+		select group_seq as groupSeq, comp_seq as compSeq, biz_seq as bizSeq, dept_seq as deptSeq, dept_name as deptName,
+			addr, detail_addr as detailAddr, use_yn as useYn, create_seq as createSeq, create_date as createDate, dept_nickname as deptNickname
+		from t_co_dept_multi
+		where dept_seq = #{deptSeq}
+		and lang_code = #{langCode}
+	</select>
+	
+	<delete id="deleteDept" parameterType="departmentsvo">
+		delete from t_co_dept where dept_seq = #{deptSeq}
+	</delete>
+
+	<delete id="deleteDeptMulti" parameterType="departmentsvo">
+		delete from t_co_dept_multi where dept_seq = #{deptSeq} and lang_code = #{langCode}
+	</delete>
+	
+	<select id="deptSeqCheck" parameterType="string" resultType="string">
+		select dept_seq from t_co_dept where dept_seq = #{seq};	
+	</select>
+	
+	<select id="bizSeqCheck" parameterType="string" resultType="string">
+		select biz_seq from t_co_biz where biz_seq = #{seq};	
+	</select>
 </mapper> 
