@@ -20,6 +20,7 @@ import com.douzone.quicksilver.service.AdminService;
 import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
+import com.douzone.quicksilver.vo.DepartmentsVo;
 
 @Controller
 @RequestMapping("/admin")
@@ -203,5 +204,32 @@ public class AdminController {
 		}
 		adminService.insertBiz(vo);
 		return JSONResult.success(adminService.getBizInfo(vo.getBizSeq()));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/insertDept")
+	public JSONResult insertDept(@ModelAttribute DepartmentsVo vo) {
+		adminService.insertDept(vo);
+		return JSONResult.success(adminService.getDeptInfo(vo.getDeptSeq()));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateBiz")
+	public JSONResult updateBiz(@ModelAttribute BizVo vo) {
+		adminService.updateBiz(vo);
+		return JSONResult.success(adminService.getBizInfo(vo.getBizSeq()));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateDept")
+	public JSONResult updateDept(@ModelAttribute DepartmentsVo vo) {
+		adminService.updateDept(vo);
+		return JSONResult.success(adminService.getDeptInfo(vo.getDeptSeq()));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/seqCheck/{seq}")
+	public JSONResult updateDept(@PathVariable("seq") String seq) {
+		return JSONResult.success(adminService.seqCheck(seq));
 	}
 }
