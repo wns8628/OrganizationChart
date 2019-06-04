@@ -26,7 +26,7 @@
 			<li>사원정보관리</li>
 			<li><a href="${pageContext.servletContext.contextPath }/admin/connectDeptEmp">사원부서연결</a></li>
 			<li>인사이동</li>
-			<li>인사이동 현황</li>
+			<li><a href="${pageContext.servletContext.contextPath }/admin/movePersonnelStatus">인사이동 현황</a></li>
 		</ul>
 	</div>
 </div>

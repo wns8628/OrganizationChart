@@ -33,6 +33,7 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/rankPositionManagement.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/autocomplete.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/AdminConnectDeptEmp.xml" />
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/movePersonnelStatus.xml" />
       
  
    </mappers> 
