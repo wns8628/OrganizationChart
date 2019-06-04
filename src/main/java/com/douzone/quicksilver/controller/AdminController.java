@@ -220,4 +220,10 @@ public class AdminController {
 	public JSONResult updateDept(@PathVariable("seq") String seq) {
 		return JSONResult.success(adminService.seqCheck(seq));
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getEmpListByDeptSeq/{deptSeq}")
+	public JSONResult getEmpListByDeptSeq(@PathVariable("deptSeq") String deptSeq) {
+		return JSONResult.success(adminService.getEmpListByDeptSeq(deptSeq));
+	}
 }

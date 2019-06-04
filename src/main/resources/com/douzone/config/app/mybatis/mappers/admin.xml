@@ -62,6 +62,7 @@
 		and b.lang_code = 'en';
 	</select>
 	
+	<!-- 회사정보관리 -->
 	<insert id="insertComp" parameterType="companyvo">
 		insert into t_co_comp values(#{compSeq}, 'demo', #{compCd}, '0', 'B', #{compRegistNum},
 		 #{compNum}, #{standardCode}, 'Y', #{telNum}, #{faxNum}, #{homepgAddr}, null, #{compDomain}, null,
@@ -160,6 +161,8 @@
 		and lang_code = #{langCode}
 	</select>
 	
+	
+	<!-- 조직도정보관리 -->
 	<update id="updateParentDept" parameterType="map">
 		update t_co_dept set parent_dept_seq = #{parentDeptSeq},
 		<if test="parentDeptSeq gte 1000000">
@@ -395,5 +398,24 @@
 	
 	<select id="bizSeqCheck" parameterType="string" resultType="string">
 		select biz_seq from t_co_biz where biz_seq = #{seq};	
+	</select>
+	
+	<!-- 인사이동 -->
+	<select id="getEmpListByDeptSeq" parameterType="string" resultType="employeesvo">
+		select a.emp_seq as empSeq, a.dept_seq as deptSeq, a.emp_name as empName, a.login_id as loginId,
+		a.dept_name as deptName, a.dp_name as dutyCodeName, f.dp_name as positionCodeName, a.work_status as workStatus
+		from(select a.emp_seq, b.dept_seq, c.emp_name, a.login_id, e.dept_name, d.dp_name, a.work_status, a.position_code
+			from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_comp_duty_position_multi d, t_co_dept_multi e
+			where a.emp_seq = b.emp_seq
+			and a.emp_seq = c.emp_seq
+			and a.duty_code = d.dp_seq
+			and b.dept_seq = e.dept_seq
+			and c.lang_code = 'kr'
+			and d.lang_code = 'kr'
+			and e.lang_code = 'kr'
+			and b.dept_seq = #{deptSeq}) a
+		left outer join t_co_comp_duty_position_multi f
+		on a.position_code = f.dp_seq
+		and f.lang_code = 'kr'
 	</select>
 </mapper> 

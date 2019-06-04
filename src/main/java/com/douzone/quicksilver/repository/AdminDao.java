@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Repository
 public class AdminDao {
@@ -165,5 +166,9 @@ public class AdminDao {
 	
 	public String bizSeqCheck(String seq) {
 		return sqlSession.selectOne("admin.bizSeqCheck", seq);
+	}
+	
+	public List<EmployeesVo> getEmpListByDeptSeq(String deptSeq){
+		return sqlSession.selectList("admin.getEmpListByDeptSeq", deptSeq);
 	}
 }

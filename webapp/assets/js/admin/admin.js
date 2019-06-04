@@ -184,7 +184,7 @@ var deptRender = function(vo, index, length, last, str){
 	}else{
 		icon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
 	}
-	
+	console.log(space);
    var htmls = "<li class='child dept' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
   				"<div class='prev'>"+depth+space+"</div><div class='wrap'>"+tree+btn+
 				"<div class='li-div' draggable='true'>"+icon+
@@ -326,7 +326,25 @@ function menuActive(){
 					"font-weight", "bold");
 		}
 	}
+	
+	$("div.parent-menu").click(function() {
+		$this = $(this);
+		$icon1 = $this.children().next();
+		$icon2 = $this.children().next().next();
+		if ($this.next().css("display") == "none") {
+			$this.addClass("active");
+			$this.next().show();
+			$icon1.hide();
+			$icon2.show();
+		} else {
+			$this.removeClass("active");
+			$this.next().hide();
+			$icon1.show();
+			$icon2.hide();
+		}
+	});
 }
+
 
 $(function() {
 	menuActive();

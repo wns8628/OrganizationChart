@@ -41,6 +41,7 @@ div#contents table#company-content-table div#zip-btn {float:left; width: 50px; h
 div#contents table#company-content-table .update-unit {display: none;}
 div#contents table#company-content-table select {width: 80%;}
 
+div#wrapper { height: 660px; width: 1519.2;}
 </style>
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
@@ -269,10 +270,6 @@ $(function(){
 			$(menuList[i]).children().css("color","#328CF5").css("font-weight","bold");
 		}
 	}
-	
-	$("#zip-btn").click(function(){
-		sample6_execDaumPostcode();
-	});
 	
 });
 </script>

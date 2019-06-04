@@ -47,7 +47,7 @@ div.tree img.open {display: none;}
 div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
 
 div.tree div.li-div {padding: 2px 0;  display: inline-block;}
-div.space { width: 20px; height: 20px; display: inline-block; float: left;}
+
 div.wrap {height: 20px; display: inline-block; float: left}
 .active-span{
 	background-color: #BEEBFF;
@@ -61,14 +61,8 @@ body         { font:0.75em "맑은 고딕", 돋움, 굴림; color:#111; min-widt
 ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
-div#contents div#select-bar{width: 100%; height: 20px; background: #EFF6FE; border: 1px solid #B2B2B2; padding: 15px 0; vertical-align: middle; margin-bottom: 10px;}
-div#contents div#select-bar span{ font-size: 13.5px; font-weight: bold; margin-left: 20px; height: 20px; float: left;}
-div#contents div#select-bar select { margin-left: 8px; height: 20px; float: left;}
-div#contents div#select-bar input { margin-left: 8px; height: 16px; float: left;}
-
 div.content-head-wrapper input { margin: 5px 0 0 20px; }
 
-div#content-wrapper {width: 100%; min-height: 350px; margin: 0 auto;}
 div#content-wrapper div#tree {  min-height: 350px; }
 div#content-wrapper div#tbl-content { width: 60%; min-height: 420px; float: right; }
 
@@ -80,7 +74,7 @@ div#content-wrapper div#tbl-header span:first-child {width: 80px; font-size: 13p
 
 div#content-wrapper div#tbl-wrapper {width: 96%; padding: 2%; border: 1px solid #B2B2B2; height: 100%}
 
-div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 300px;}
+div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 480px;}
 div#tbl-wrapper table#tbl-info td{font-size:13px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 22px; padding: 4px;}
 div#tbl-wrapper table#tbl-info th{font-size:13px;font-weight:normal;padding:0 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 30px;}
 div#tbl-wrapper table#tbl-info .tg-lqy6{text-align:right;vertical-align:middle; background-color: #F9F9F9;}
@@ -89,8 +83,8 @@ div#tbl-wrapper table#tbl-info input[type='text']{display: none; width: 99%;  he
 div#tbl-wrapper table#tbl-info input[name='zipCode']{display: none; width: 20%;  height: 16px; float: left;}
 div#tbl-wrapper table#tbl-info div#zip-btn {width: 53px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer; float: left;}
 
-div#tree-mini {width: 37.8%; background-color: white; border: 0px; height: 400px;
-vertical-align: top; float: left; padding: 1%; min-height: 400px; overflow-y:auto;
+div#tree-mini {width: 36.9%; background-color: white; border: 0px; height: 472px;
+vertical-align: top; float: left; padding: 1.5%; min-height: 472px; overflow-y:auto;
 border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
 div.tree li>span {float: left;}
 
@@ -100,6 +94,7 @@ div.tree li>span {float: left;}
 	background-color: #92B5DF;
 }
 
+div#wrapper { height: 662px; width: 1519.2;}
 
 </style>
 <script type="text/javascript">
@@ -120,8 +115,8 @@ var defaultComp = function() {
 	var htmls = "<li class='comp' c-no='"+compSeq+"'><img class='navi-icon' src='${pageContext.servletContext.contextPath }/assets/images/comp.png'>"
 			+ "<span>"+ compName + "</span><img class='add-icon' style='display:inline;' data-no='"+compSeq+"' src='"+contextPath+"/assets/images/add2.png'>"
 			+ "</li><ul c-no='"+compSeq+"'></ul>";
-	$("div#tree-mini ul").children().remove();
-	$("div#tree-mini ul").append(htmls);
+	$("div.tree ul").children().remove();
+	$("div.tree ul").append(htmls);
 	$("input[name='compSeq']").val(compSeq);
 }
 
@@ -675,7 +670,7 @@ function seqCheck(seq){
 }
 
 $(function() {
-
+	menuActive();
 	treeDropDown();
 
 	defaultComp();

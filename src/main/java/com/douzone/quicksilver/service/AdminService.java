@@ -12,6 +12,7 @@ import com.douzone.quicksilver.repository.AdminDao;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
 public class AdminService {
@@ -263,5 +264,9 @@ public class AdminService {
 		seqList.add(adminDao.bizSeqCheck(seq));
 		seqList.add(adminDao.deptSeqCheck(seq));
 		return seqList;
+	}
+	
+	public List<EmployeesVo> getEmpListByDeptSeq(String deptSeq){
+		return adminDao.getEmpListByDeptSeq(deptSeq);
 	}
 }
