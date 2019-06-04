@@ -8,7 +8,7 @@
 		select a.comp_seq as compSeq, b.comp_cd as compCd, a.comp_name as compName 
 		from t_co_comp_multi a, t_co_comp b
 		where a.comp_seq = b.comp_seq
-		and lang_code = #{langCode}
+		and lang_code = 'kr'
 		order by a.comp_seq + 0;
 	</select>
 	
