@@ -198,10 +198,6 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/insertBiz")
 	public JSONResult insertBiz(@ModelAttribute BizVo vo) {
-		System.out.println(vo);
-		if(vo.getOrderNum() == "") {
-			vo.setOrderNum(null);
-		}
 		adminService.insertBiz(vo);
 		return JSONResult.success(adminService.getBizInfo(vo.getBizSeq()));
 	}

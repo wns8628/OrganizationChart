@@ -13,7 +13,7 @@ public class BizVo {
 	private String zipCode;			//우편번호
 	private String displayYn;		//기본사업장여부
 	private String nativeLangCode;	//주사용언어
-	private String orderNum;		//정렬순서
+	private Long orderNum;		//정렬순서
 	private String useYn;			//사용여부
 	private String sealFileId;		//인감파일ID
 	private String createSeq;		//등록자시퀀스
@@ -33,6 +33,15 @@ public class BizVo {
 	private int childCount;			//자식 개수
 	
 	private int bizEmpCount; //사업장별 직원수구할때씀
+	private String opCode;
+	
+	public String getOpCode() {
+		return opCode;
+	}
+
+	public void setOpCode(String opCode) {
+		this.opCode = opCode;
+	}
 
 	public String getBizSeq() {
 		return bizSeq;
@@ -82,7 +91,7 @@ public class BizVo {
 		return nativeLangCode;
 	}
 
-	public String getOrderNum() {
+	public Long getOrderNum() {
 		return orderNum;
 	}
 
@@ -198,7 +207,7 @@ public class BizVo {
 		this.nativeLangCode = nativeLangCode;
 	}
 
-	public void setOrderNum(String orderNum) {
+	public void setOrderNum(Long orderNum) {
 		this.orderNum = orderNum;
 	}
 

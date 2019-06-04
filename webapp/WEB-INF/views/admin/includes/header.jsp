@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div id="header">
 	<div class="header-wrapper">
-		<span>quicksilver</span>
+		<a href='${pageContext.request.contextPath }'><span>quicksilver</span></a>
 		<div class="header-menubar">
 			<button>login</button>
 		</div>
