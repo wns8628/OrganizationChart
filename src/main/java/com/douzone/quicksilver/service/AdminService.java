@@ -18,8 +18,8 @@ public class AdminService {
 	@Autowired
 	private AdminDao adminDao;
 	
-	public List<CompanyVo> getCompList(String langCode){
-		return adminDao.getCompList(langCode);
+	public List<CompanyVo> getCompList(){
+		return adminDao.getCompList();
 	}
 	
 	public CompanyVo getCompInfo(String compSeq) {

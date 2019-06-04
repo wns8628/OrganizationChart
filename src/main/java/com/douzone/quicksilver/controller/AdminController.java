@@ -37,32 +37,32 @@ public class AdminController {
 	
 	
 	@RequestMapping("/connectDeptEmp")
-	public String connectDeptEmp( Model model,
-								 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
-		
-		List<CompanyVo> compList = adminService.getCompList(langCode);
+	public String connectDeptEmp( Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		
 		return "admin/connect-deptEmp-mgr";
 	}
 	
 	@RequestMapping("/rankPositionManagement")
-	public String rankPositionManagement(Model model,
-										 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode
-										 ) {
-		
-		List<CompanyVo> compList = adminService.getCompList(langCode);
+	public String rankPositionManagement(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		return "admin/rankPositionManagement";
 	}
 	
 	@RequestMapping("/movePersonnelStatus")
-	public String movePersonnelStatus(Model model,
-			 						  @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
-		
-		List<CompanyVo> compList = adminService.getCompList(langCode);
+	public String movePersonnelStatus(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		return "admin/movePersonnelStatus";
+	}
+	
+	@RequestMapping("/movePersonnel")
+	public String movePersonnel(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
+		model.addAttribute("compList", compList);
+		return "admin/movePersonnel";
 	}
 	
 	@RequestMapping("/popup")
@@ -79,24 +79,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/compMgr")
-	public String compMgr(HttpSession session, Model model) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		List<CompanyVo> compList = adminService.getCompList(langCode);
+	public String compMgr(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		model.addAttribute("firstCompInfo", adminService.getCompInfo(compList.get(0).getCompSeq()));
 		return "admin/comp-mgr";
 	}
 	
 	@RequestMapping("/deptMgr")
-	public String deptMgr(HttpSession session, Model model) {
-		String langCode = (String) session.getAttribute("langCode");
-		if(langCode == null) {
-			langCode = "kr";
-		}
-		List<CompanyVo> compList = adminService.getCompList(langCode);
+	public String deptMgr(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		return "admin/dept-mgr";
 	}
