@@ -27,10 +27,13 @@ public class AdminConnectDeptEmpDao {
 		return sqlSession.selectOne("adminConnectDeptEmp.getEmpDetailRender", adminConnectDeptEmpVo);    //클릭한사원의 겸직정보 부서이름 주부서여부 직급가져오기
 	}
 	
-	public List<AdminConnectDeptEmpVo> getListPositionDuty(AdminConnectDeptEmpVo adminConnectDeptEmpVo){
+	public Map<String, Object> getListPositionDuty(AdminConnectDeptEmpVo adminConnectDeptEmpVo){
 				
 		Map<String, Object> map = new HashMap<>();
 		
-		return sqlSession.selectList("adminConnectDeptEmp.getListPositionDuty", adminConnectDeptEmpVo);    //클릭한사원의 겸직정보 부서이름 주부서여부 직급가져오기
+		map.put("position", sqlSession.selectList("adminConnectDeptEmp.getListPosition", adminConnectDeptEmpVo));
+		map.put("duty",sqlSession.selectList("adminConnectDeptEmp.getListPosition", adminConnectDeptEmpVo));    
+			
+		return map;
 	}
 }

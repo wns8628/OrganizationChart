@@ -1,6 +1,7 @@
 package com.douzone.quicksilver.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class AdminConnectDeptEmpService {
 		return adminConnectDeptEmpDao.getOne(adminConnectDeptEmpVo);
 	}
 	
-	public List<AdminConnectDeptEmpVo> empDetailPositionDutyRender(AdminConnectDeptEmpVo adminConnectDeptEmpVo){
+	public Map<String, Object> empDetailPositionDutyRender(AdminConnectDeptEmpVo adminConnectDeptEmpVo){
 		
 		return adminConnectDeptEmpDao.getListPositionDuty(adminConnectDeptEmpVo);
 	}

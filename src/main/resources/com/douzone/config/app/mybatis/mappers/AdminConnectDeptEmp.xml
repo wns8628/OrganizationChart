@@ -107,24 +107,18 @@
 			  and emp.dept_name =#{deptName};  
 	</select>
 
-
-	<select id="getList" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
-		select distinct(a.login_id) as loginId, c.emp_name as empName
-		  from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_emp_comp d
-		 where a.emp_seq = b.emp_seq
-		   and a.emp_seq = c.emp_seq
-		   and c.emp_seq = d.emp_seq
-		   and b.comp_seq = #{compSeq}
-		   and c.lang_code = #{langCode}
-		   and d.work_status = #{workingStatus}
-		   and (a.login_id = 'xortn' or c.emp_name like #{kwd});  
-	</select>
-	
 	<select id="getListPosition" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
 			select dp_seq,dp_name
 		      from t_co_comp_duty_position_multi a
 			 where lang_code='kr'
 		       and dp_type = 'position'
 		       and comp_seq =1;
+	</select>
+	<select id="getListDuty" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
+			select dp_seq,dp_name
+			  from t_co_comp_duty_position_multi a
+			 where lang_code='kr'
+			   and dp_type = 'duty'
+			   and comp_seq =1
 	</select>
 </mapper> 
