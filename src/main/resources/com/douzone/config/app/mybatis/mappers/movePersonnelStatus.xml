@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movePersonnelStatus">
+	
+	<select id="search" parameterType="movepersonnelstatusvo" resultType="movepersonnelstatusvo">
+	<![CDATA[
+		SELECT 
+		    regDate,
+		    compName,
+		    empName,
+		    workStatus,
+		    nextDeptName,
+		    nextDutyName,
+		    nextPositionName,
+		    previousDeptName,
+		    previousDutyName,
+		    previousPositionName,
+		    mainDeptYn
+		FROM
+		]]>
+		<choose>
+			<when test='mainDeptYn == "Y"'>
+				movePersonnelStatus_Y
+			</when>
+				
+			<otherwise>
+				movePersonnelStatus_N
+			</otherwise>
+		</choose>
+		<![CDATA[
+			WHERE
+			    `query` = '"*${empName}*";limit=100050;mode=boolean;maxmatches=100050;'
+			        AND regDate >= #{startDate}
+			        AND regDate <= #{endDate}
+			        AND compName = #{compName}
+			        AND mainDeptYn = #{mainDeptYn}
+			limit 0, 200000;
+		]]>
+		
+
+	</select>
+
+</mapper>
