@@ -522,6 +522,8 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 				$("#tree-mini li[data-no='" + prevParent + "'] img.close").remove();
 				$("#tree-mini li[data-no='" + prevParent + "'] div.li-div").prepend(noChildIcon);
 			}
+			
+			$("#tree-mini li.child[data-no='"+deptSeq+"'] img.add-icon").show();
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -709,11 +711,9 @@ $(function() {
 		
 		if($("div.update").css("display") == "none"){
 			if($("#tree-mini li div.active-span").parent().data("no") > 10000000){
-				console.log('사업장');
 				$("#tbl-info input:not(.dept)").show();
 				$("#tbl-info input.dept").hide();
 			}else{
-				console.log("부서");
 				$("#tbl-info input:not(.biz)").show();
 				$("#tbl-info input.biz").hide();
 			}
