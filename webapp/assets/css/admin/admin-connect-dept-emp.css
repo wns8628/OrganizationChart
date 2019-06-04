@@ -1,0 +1,49 @@
+div#contents div#select-bar{width: 100%; height: 20px; background: #EFF6FE; border: 1px solid #B2B2B2; padding: 15px 0; vertical-align: middle; margin-bottom: 10px;}
+div#contents div#select-bar span{ font-size: 13.5px; font-weight: bold; margin-left: 20px; height: 20px; float: left;}
+div#contents div#select-bar select { margin-left: 8px; height: 20px; float: left;}
+div#contents div#select-bar input { margin-left: 8px; height: 16px; float: left;}
+
+/* 바디부분 */
+.connect-deptEmp-body{
+    width: 100%;
+    height: 420px;
+    border: 1px solid lightgray;	
+}
+/* ID 사원명나오는부분  */
+.connect-deptEmp-body-left{
+    width: 25%;
+    height: 100%;
+    background-color: beige;
+    float: left;
+}
+/* 사원클릭시나오는부분 */
+.connect-deptEmp-body-right{
+    width: 75%;
+    height: 100%;
+    background-color: gray;
+    float: left;
+}
+/* 사원클릭시 나오는부분 위 */
+.connect-deptEmp-body-right-up{
+    width: 100%;
+    height: 50%;
+}
+/* 사원클릭시 나오는부분 아래*/
+.connect-deptEmp-body-right-down{
+    width: 100%;
+    height: 50%;
+}
+
+/* 테이블 부분 */
+.loginIdAndEmpName-Table > tbody tr:hover{
+	background-color : red;
+}
+.loginIdAndEmpNameClick-Table > tbody tr:hover{
+	background-color : red;
+}
+/* 테이블 부분 아래 디테일 */
+.tg  {border-collapse:collapse;border-spacing:0; width:100%; }
+.tg td{font-family:Arial, sans-serif; width: 150px; font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-hf74{background-color:#fff4de;text-align:right;vertical-align:top}
+.tg .tg-lqy6{text-align:right;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}

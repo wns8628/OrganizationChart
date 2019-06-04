@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminConnectDeptEmp">
+	
+	<select id="getList" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
+		select distinct(a.login_id) as loginId, c.emp_name as empName
+		  from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_emp_comp d
+		 where a.emp_seq = b.emp_seq
+		   and a.emp_seq = c.emp_seq
+		   and c.emp_seq = d.emp_seq
+		   and b.comp_seq = #{compSeq}
+		   and c.lang_code = #{langCode}
+		   and d.work_status = #{workingStatus}
+		   and (a.login_id = 'xortn' or c.emp_name like #{kwd});  
+	</select>
+
+	<select id="getClickList" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
+			select
+			  emp.comp_name as compName,
+			  emp.dept_name as deptName,
+			  emp.main_dept_yn as mainDeptYn,
+			  pmp.dp_name as positionCode
+		from (select
+					f.comp_name,
+					b.main_dept_yn,
+					d.dept_name,
+					b.position_code as positionDuty,
+					b.duty_code as deptDuty,
+					e.emp_name,
+					a.login_id,
+					a.home_tel_num,
+					a.mobile_tel_num,
+					a.emp_seq,
+					b.dept_seq
+				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f
+				 where a.emp_seq = b.emp_seq
+				   and b.dept_seq = c.dept_seq
+				   and c.dept_seq = d.dept_seq 
+				   and a.emp_seq = e.emp_seq
+				   and b.comp_seq = f.comp_seq
+				   and f.lang_code=#{langCode}
+				   and e.lang_code =#{langCode}
+				   and d.lang_code = #{langCode}) emp    
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+				ON emp.positionDuty = pmp.dp_seq
+				AND pmp.lang_code = #{langCode}
+				AND pmp.dp_type = 'POSITION'
+			LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+				ON emp.deptDuty = pmd.dp_seq
+				AND pmd.lang_code = #{langCode}
+				AND pmd.dp_type = 'DUTY'
+		where emp.login_id = #{loginId} 
+		  and emp.emp_name = #{empName};  
+	</select>
+
+
+	<select id="getEmpDetailRender" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
+				select
+				  emp.comp_name as compName,
+				  emp.dept_name as deptName,
+		          emp.emp_seq as empSeq,
+				  emp.main_dept_yn as mainDeptYn,
+				  pmp.dp_name as positionCode,
+		          pmd.dp_name as dutyCode,
+		          emp.tel_num as telNum,
+		          emp.fax_num as faxNum,
+		          emp.check_work_yn as checkWorkYn,
+		          emp.work_status as workStatus
+			from (select
+						f.comp_name,
+						b.main_dept_yn,
+						d.dept_name,
+						b.position_code as positionDuty,
+						b.duty_code as deptDuty,
+						e.emp_name,
+						a.login_id,
+						a.home_tel_num,
+						a.mobile_tel_num,
+						a.emp_seq,
+						b.dept_seq,
+		                c.tel_num,
+		                c.fax_num,
+		                g.check_work_yn,
+		                g.work_status
+					  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_emp_comp g
+					 where a.emp_seq = b.emp_seq
+					   and b.dept_seq = c.dept_seq
+					   and c.dept_seq = d.dept_seq 
+					   and a.emp_seq = e.emp_seq
+					   and b.comp_seq = f.comp_seq
+		               and b.emp_seq = g.emp_seq
+					   and f.lang_code=#{langCode}
+					   and e.lang_code =#{langCode}
+					   and d.lang_code = #{langCode}) emp    
+				LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
+					ON emp.positionDuty = pmp.dp_seq
+					AND pmp.lang_code = #{langCode}
+					AND pmp.dp_type = 'POSITION'
+				LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
+					ON emp.deptDuty = pmd.dp_seq
+					AND pmd.lang_code = #{langCode}
+					AND pmd.dp_type = 'DUTY'
+			where emp.login_id =#{loginId}  
+			  and emp.emp_name =#{empName}
+			  and emp.dept_name =#{deptName};  
+	</select>
+
+
+	<select id="getListPositionDuty" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
+				select dp_seq,dp_name
+			      from t_co_comp_duty_position_multi a
+				 where lang_code='kr'
+			       and dp_type = 'position'
+			       and comp_seq =1
+	</select>
+</mapper> 

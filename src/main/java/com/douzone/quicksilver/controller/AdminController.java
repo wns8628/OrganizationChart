@@ -36,7 +36,11 @@ public class AdminController {
 	
 	
 	@RequestMapping("/connectDeptEmp")
-	public String connectDeptEmp() {
+	public String connectDeptEmp( Model model,
+								 @RequestParam (value = "langCode", required = false, defaultValue = "kr") String langCode) {
+		
+		List<CompanyVo> compList = adminService.getCompList(langCode);
+		model.addAttribute("compList", compList);
 		
 		return "admin/connect-deptEmp-mgr";
 	}

@@ -10,7 +10,13 @@
 
 <!-- css -->    
 <link href="${pageContext.servletContext.contextPath }/assets/css/admin.css?ver=1" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/admin-connect-dept-emp.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/admin/admin-connect-dept-emp.css" rel="stylesheet" type="text/css">
 
 <!-- admin-nav.js -->
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/admin/admin-nav.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/admin/admin-connect-deptEmp.js"></script>
+
+<!-- 부트스트랩 데이터테이블 -->
+<script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/jquery.dataTables.js"></script>
+<script src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.js"></script>
+ 
