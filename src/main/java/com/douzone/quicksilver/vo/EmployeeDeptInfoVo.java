@@ -34,7 +34,22 @@ public class EmployeeDeptInfoVo {
 	private String langCode;			// 언어 코드
 	private String addr;				// 우편주소
 	private String detailAddr;			// 상세주소
+	private String opCode;
+	private String prevDeptSeq;
 	
+	
+	public String getPrevDeptSeq() {
+		return prevDeptSeq;
+	}
+	public void setPrevDeptSeq(String prevDeptSeq) {
+		this.prevDeptSeq = prevDeptSeq;
+	}
+	public String getOpCode() {
+		return opCode;
+	}
+	public void setOpCode(String opCode) {
+		this.opCode = opCode;
+	}
 	public String getDeptSeq() {
 		return deptSeq;
 	}

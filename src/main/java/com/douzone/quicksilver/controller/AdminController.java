@@ -21,6 +21,7 @@ import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 
 @Controller
 @RequestMapping("/admin")
@@ -63,6 +64,14 @@ public class AdminController {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		return "admin/movePersonnel";
+	}
+	
+	@RequestMapping("/movePopup/{compSeq}")
+	public String movePopup(@PathVariable("compSeq") String compSeq, Model model) {
+		model.addAttribute("dutyList", adminService.getDutyListByCompSeq(compSeq));
+		model.addAttribute("positionList", adminService.getPositionListByCompSeq(compSeq));
+		model.addAttribute("compInfo", adminService.getCompInfo(compSeq));
+		return "admin/move-popup";
 	}
 	
 	@RequestMapping("/popup")
@@ -223,7 +232,21 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping("/getEmpListByDeptSeq/{deptSeq}")
-	public JSONResult getEmpListByDeptSeq(@PathVariable("deptSeq") String deptSeq) {
-		return JSONResult.success(adminService.getEmpListByDeptSeq(deptSeq));
+	public JSONResult getEmpListByDeptSeq(@PathVariable("deptSeq") String deptSeq,
+											@RequestParam("sortType") String sortType) {
+		return JSONResult.success(adminService.getEmpListByDeptSeq(deptSeq, sortType));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateEmpDept")
+	public JSONResult updateEmpDept(@ModelAttribute EmployeeDeptInfoVo vo) {
+		adminService.updateEmpDept(vo);
+		return JSONResult.success("dd");
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getParentDeptSeq/{deptSeq}")
+	public JSONResult getParentDeptSeq(@PathVariable("deptSeq") String deptSeq) {
+		return JSONResult.success(adminService.getParentDeptSeq(deptSeq));
 	}
 }

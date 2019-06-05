@@ -12,6 +12,8 @@ import com.douzone.quicksilver.repository.AdminDao;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DutyPositionVo;
+import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Service
@@ -266,7 +268,36 @@ public class AdminService {
 		return seqList;
 	}
 	
-	public List<EmployeesVo> getEmpListByDeptSeq(String deptSeq){
-		return adminDao.getEmpListByDeptSeq(deptSeq);
+	public List<EmployeesVo> getEmpListByDeptSeq(String deptSeq, String sortType){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("deptSeq", deptSeq);
+		map.put("sortType", sortType);
+		return adminDao.getEmpListByDeptSeq(map);
+	}
+	
+	public List<DutyPositionVo> getDutyListByCompSeq(String compSeq){
+		return adminDao.getDutyListByCompSeq(compSeq);
+	}
+	
+	public List<DutyPositionVo> getPositionListByCompSeq(String compSeq){
+		return adminDao.getPositionListByCompSeq(compSeq);
+	}
+	
+	public void updateEmpDept(EmployeeDeptInfoVo vo) {
+		EmployeeDeptInfoVo empDeptAll = adminDao.getEmpDeptAll(vo);
+		empDeptAll.setOpCode("U");
+		adminDao.insertEmpDeptHistory(empDeptAll);
+		adminDao.updateEmpDept(vo);
+		
+		if(!vo.getDeptSeq().equals(vo.getPrevDeptSeq())) {
+			EmployeeDeptInfoVo empDeptMultiAll = adminDao.getEmpDeptMultiAll(vo);
+			empDeptMultiAll.setOpCode("U");
+			adminDao.insertEmpDeptMultiHistory(empDeptMultiAll);
+			adminDao.updateEmpDeptMulti(vo);
+		}
+	}
+	
+	public DepartmentsVo getParentDeptSeq(String deptSeq) {
+		return adminDao.getParentDeptSeq(deptSeq);
 	}
 }

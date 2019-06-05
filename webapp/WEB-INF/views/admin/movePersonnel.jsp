@@ -32,7 +32,7 @@ div.tree li>span {float: left;}
 div#tree-move {width: 37.8%; background-color: white; border: 0px; height: 480px;
 vertical-align: top; float: left; padding: 1%; min-height: 480px; overflow-y:auto;
 border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
-
+div.tree div.wrap {display: inline-block;}
 div#wrapper { height: 662px; width: 1519.2;}
 
 div#content-wrapper div#tbl-content { width: 57.9%; min-height: 480px; float: right; border: 1px solid #B2B2B2; padding: 1%;}
@@ -45,9 +45,17 @@ div#content-wrapper div#tbl-content { width: 57.9%; min-height: 480px; float: ri
 
 table#tbl-emplist { width: 100%; height: 100%; border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; }
 
+
+.active-span{
+	background-color: #BEEBFF;
+}
 </style>
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
+var openWin;
+function move_pop(list){
+	openWin = window.open( contextPath+'/admin/movePopup/'+list, '조직도', 'width=550, height=350');
+}
 
 var empRender = function(vo){
 	var htmls = "<tr><td class='tg-0lax'><input type='checkbox' value='"+vo.empSeq+"'></td><td class='tg-0lax'>"+vo.deptName+"</td>"
@@ -65,11 +73,12 @@ var defaultComp = function() {
 	$("div.tree ul").children().remove();
 	$("div.tree ul").append(htmls);
 	$("input[name='compSeq']").val(compSeq);
+	$("li.comp span").trigger("click");
 }
 
-var getEmpListByDeptSeq = function(deptSeq){
+var getEmpListByDeptSeq = function(deptSeq, sortType){
 	$.ajax({
-		url : contextPath + "/admin/getEmpListByDeptSeq/" + deptSeq,
+		url : contextPath + "/admin/getEmpListByDeptSeq/" + deptSeq +"?sortType="+sortType,
 		type : "get",
 		dataType : "json",
 		data : "",
@@ -95,8 +104,27 @@ $(function(){
 	menuActive();
 	defaultComp();
 	
+	$("#compSelect").change(function() {
+		defaultComp();
+		$("#tbl-emplist tr:not(:first-child)").remove();
+		$("#tbl-emplist").append("<tr><td class='tg-0lax' colspan='6'>데이터가 존재하지 않습니다.</td></tr>");
+	});
+	
+	$("#move-btn").click(function(){
+		var seqList = [];
+		if($("#tbl-emplist input[type='checkbox']").is(":checked")){
+			$("#tbl-emplist input[type='checkbox']:checked").each(function(){
+				seqList.push($(this).val());
+			});
+			var compSeq = $("li.comp").attr("c-no");
+			move_pop(compSeq);
+		}else{
+			alert("사원을 선택해주세요.");
+		}
+	});
+	
 	$(document).on("click", "#tree-move li.dept span", function(event) {
-		$("#tree-mini div.wrap").removeClass("active-span");
+		$("#tree-move div.wrap").removeClass("active-span");
 		$(this).parent().parent().addClass("active-span");
 		$parent = $(this).parent().parent().parent();
 		var seq = $parent.attr("data-no");
@@ -149,7 +177,7 @@ $(function(){
 					</div>
 					<div class="content-head-wrapper">
 						<span>* 부서정보</span>
-						<div class="head-btn move">인사이동</div>
+						<div id="move-btn" class="head-btn move">인사이동</div>
 						<div>변경 할 사용자를 선택 후 [인사이동] 버튼을 눌러 부서, 직급, 직책을 변경하여 주세요.</div>
 					</div>
 					<div id="content-wrapper">

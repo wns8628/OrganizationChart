@@ -118,6 +118,7 @@ var defaultComp = function() {
 	$("div.tree ul").children().remove();
 	$("div.tree ul").append(htmls);
 	$("input[name='compSeq']").val(compSeq);
+	$("li.comp span").trigger("click");
 }
 
 var getBizInfo = function(seq) {

@@ -43,6 +43,22 @@ div.navi div.menu li:not(:first-child){margin-top: 5px;}
 div.navi div.menu li:hover a{font-weight:bold ; color: #328CF5; cursor: pointer;}
 div#contents { background-color: #ffffff; min-height: 550px; /* min-width: 800px; */ height:100%; width: 81.5%; padding: 0 1%; float: right;}
 
+/*  */
+div.tree li {font: 2em; display: block; height: 20px; position: relative;}
+div.tree li.comp:not(:first-child) { padding-top: 4px;}
+div.tree li.dept { font: 1.5em; }
+div.tree li.biz { font: 1.5em; }
+div.tree span {cursor: pointer; height: 100%; font-size: 12px; padding-left: 4px;}
+div.tree img.navi-icon {height: 16px; width: 16px; vertical-align: middle; float: left;}
+div.tree img.tree-icon {height: 20px; width: 20px; vertical-align: top; display: inline-block; float: left;}
+div.tree img.open-btn {height: 9px; width: 5px; position: relative; left: -12px; top: -1px; cursor: pointer;}
+div.tree img.close-btn {height: 6px; width: 6px; position: relative; left: -13px; top: -3px; cursor: pointer;}
+div.tree img.open {display: none;}
+
+div.result-wrapper { background-color: #ffffff; min-height: 500px; min-width: 800px; height:100%; width: 78%; padding: 0.5%; float: right;}
+
+div.tree div.li-div {padding: 2px 0;  display: inline-block;}
+/*  */
 div.tbl-wrapper { width : 96%; padding: 2%;}
 
 div.content-head-wrapper {margin: 5px 5px; width: 100%; height: 20px;}
