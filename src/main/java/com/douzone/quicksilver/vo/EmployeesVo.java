@@ -69,6 +69,7 @@ public class EmployeesVo {
 	private String deptSeq;				// 부서번호
 	private String deptNameEn;
 	private String empNameEn;
+	private String sortType;			//정렬구분
 	/*
 	 * 상세한 직원정보를 위한 필드
 	 */
@@ -85,6 +86,13 @@ public class EmployeesVo {
 	private String dutyCodeName;
 	private String positionCodeName;
 	
+	
+	public String getSortType() {
+		return sortType;
+	}
+	public void setSortType(String sortType) {
+		this.sortType = sortType;
+	}
 	public String getDutyCodeName() {
 		return dutyCodeName;
 	}

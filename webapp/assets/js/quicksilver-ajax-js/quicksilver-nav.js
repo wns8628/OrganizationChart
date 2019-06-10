@@ -239,7 +239,7 @@ var deptRender = function(vo, index, length, last, str){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}else{
-		icon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
+		icon = "<img class='navi-icon' style='margin-left: 4.5px;' src='"+contextPath+"/assets/images/dept_end.png'>";
 	}
 	
    var htmls = "<li class='child dept department' data-no='"+vo.deptSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parentDeptSeq+"'>"+
@@ -279,7 +279,7 @@ var bizRender = function(vo,index, length){
 		btn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"+
 		"<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>"
 	}else{
-		icon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
+		icon = "<img class='navi-icon' style='margin-left: 4.5px;' src='"+contextPath+"/assets/images/dept_end.png'>";
 	}
 	
 	var htmls = "<li class='child biz' data-no='"+vo.bizSeq+"' g-no='"+vo.groupSeq+"' p-no='"+vo.parents+"'>"+"<div class='wrap'>"+tree+btn+

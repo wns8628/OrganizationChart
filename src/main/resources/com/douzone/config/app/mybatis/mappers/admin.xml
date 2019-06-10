@@ -62,6 +62,7 @@
 		and b.lang_code = 'en';
 	</select>
 	
+	<!-- 회사정보관리 -->
 	<insert id="insertComp" parameterType="companyvo">
 		insert into t_co_comp values(#{compSeq}, 'demo', #{compCd}, '0', 'B', #{compRegistNum},
 		 #{compNum}, #{standardCode}, 'Y', #{telNum}, #{faxNum}, #{homepgAddr}, null, #{compDomain}, null,
@@ -160,6 +161,8 @@
 		and lang_code = #{langCode}
 	</select>
 	
+	
+	<!-- 조직도정보관리 -->
 	<update id="updateParentDept" parameterType="map">
 		update t_co_dept set parent_dept_seq = #{parentDeptSeq},
 		<if test="parentDeptSeq gte 1000000">
@@ -395,5 +398,122 @@
 	
 	<select id="bizSeqCheck" parameterType="string" resultType="string">
 		select biz_seq from t_co_biz where biz_seq = #{seq};	
+	</select>
+	
+	<!-- 인사이동 -->
+	<select id="getEmpListByDeptSeq" parameterType="map" resultType="employeesvo">
+		select a.emp_seq as empSeq, a.dept_seq as deptSeq, a.emp_name as empName, a.login_id as loginId,
+		a.dept_name as deptName, a.dp_name as dutyCodeName, f.dp_name as positionCodeName, a.work_status as workStatus,
+			a.dp_seq as dutyCode, f.dp_seq as positionCode
+		from(select a.emp_seq, b.dept_seq, c.emp_name, a.login_id, e.dept_name, d.dp_name, a.work_status, b.position_code, d.dp_seq
+			from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_comp_duty_position_multi d, t_co_dept_multi e
+			where a.emp_seq = b.emp_seq
+			and a.emp_seq = c.emp_seq
+			and b.duty_code = d.dp_seq
+			and b.dept_seq = e.dept_seq
+			and c.lang_code = 'kr'
+			and d.lang_code = 'kr'
+			and e.lang_code = 'kr'
+			and b.dept_seq = #{deptSeq}) a
+		left outer join t_co_comp_duty_position_multi f
+		on a.position_code = f.dp_seq
+		and f.lang_code = 'kr'
+		<if test="sortType eq ''.toString()">
+			order by empName
+		</if>
+		<if test="sortType != ''.toString()">
+			order by #{sortType}
+		</if>
+		
+	</select>
+	
+	<select id="getDutyListByCompSeq" parameterType="string" resultType="dutypositionvo">
+		select dp_seq as dpSeq, dp_name as dpName 
+		from t_co_comp_duty_position_multi 
+		where comp_seq = #{compSeq}
+		and dp_type = 'duty' 
+		and lang_code = 'kr'
+	</select>
+	
+	<select id="getPositionListByCompSeq" parameterType="string" resultType="dutypositionvo">
+		select dp_seq as dpSeq, dp_name as dpName 
+		from t_co_comp_duty_position_multi 
+		where comp_seq = #{compSeq}
+		and dp_type = 'position' 
+		and lang_code = 'kr'
+	</select>
+	
+	<update id="updateEmpDept" parameterType="employeedeptinfovo">
+		update t_co_emp_dept 
+		set duty_code = #{dutyCode}, position_code = #{positionCode}, dept_seq = #{deptSeq},
+			biz_seq = (select a.biz_seq from t_co_dept a where a.dept_seq = #{deptSeq})
+		where emp_seq = #{empSeq} and dept_seq = #{prevDeptSeq}
+	</update>
+	
+	<insert id="insertEmpDeptHistory" parameterType="employeedeptinfovo">
+		insert into t_co_emp_dept_history values( ifnull((select max(a.seq)+1 from t_co_emp_dept_history a), 1),
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), #{deptSeq}, #{empSeq}, #{groupSeq}, #{compSeq}, #{bizSeq}, #{mainDeptYn}, #{dutyCode}, #{positionCode},
+		#{telNum}, #{faxNum}, #{zipCode}, #{orgchartDisplayYn}, #{messengerDisplayYn}, #{orderNum} , #{useYn}, 
+		#{createSeq}, #{createDate}, #{modifySeq}, #{modifyDate})
+	</insert>
+	
+	<select id="getEmpDeptAll" parameterType="employeedeptinfovo" resultType="employeedeptinfovo">
+		select dept_seq as deptSeq, emp_seq as empSeq, group_seq as groupSeq, comp_seq as compSeq, biz_seq as bizSeq,
+				main_dept_yn as mainDeptYn, duty_code as dutyCode, position_code as positionCode, tel_num as telNum,
+				fax_num as faxNum, zip_code as zipCode, orgchart_display_yn as orgchartDisplayYn, messenger_display_yn as messengerDisplayYn,
+				order_num as orderNum, order_text as orderText, use_yn as useYn, create_seq as createSeq, create_date as createDate,
+				modify_seq as modifySeq, modify_date as modifyDate
+		from t_co_emp_dept
+		where emp_seq = #{empSeq}
+		and dept_seq = #{prevDeptSeq}
+	</select>
+	
+	<update id="updateEmpDeptMulti" parameterType="employeedeptinfovo">
+		update t_co_emp_dept_multi 
+		set dept_seq = #{deptSeq}, 
+			biz_seq = (select a.biz_seq from t_co_dept a where a.dept_seq = #{deptSeq})
+		where emp_seq = #{empSeq}
+		and dept_seq = #{prevDeptSeq}
+	</update>
+	
+	<insert id="insertEmpDeptMultiHistory" parameterType="employeedeptinfovo">
+		insert into t_co_emp_dept_multi_history values(ifnull((select max(a.seq)+1 from t_co_emp_dept_history a), 1),
+		<choose>
+			<when test="opCode eq 'I'.toString()">
+				'I',
+			</when>
+			<when test="opCode eq 'U'.toString()">
+				'U',
+			</when>
+			<otherwise>
+				'D',
+			</otherwise>
+		</choose>
+		now(), #{deptSeq}, #{empSeq}, #{langCode}, #{groupSeq}, #{compSeq}, #{bizSeq}, #{addr}, #{detailAddr}, #{useYn},
+		#{createSeq}, #{createDate}, #{modifySeq}, #{modifyDate})
+	</insert>
+	
+	<select id="getEmpDeptMultiAll" parameterType="employeedeptinfovo" resultType="employeedeptinfovo">
+		select dept_seq as deptSeq, emp_seq as empSeq, lang_code as langCode, group_seq as groupSeq, comp_seq as compSeq,
+				biz_seq as bizSeq, addr, detail_addr as detailAddr, use_yn as useYn, create_seq as createSeq, create_date as createDate,
+				modify_seq as modifySeq, modify_date as modifyDate
+		from t_co_emp_dept_multi
+		where emp_seq = #{empSeq}
+		and dept_seq = #{deptSeq}
+	</select>
+	
+	<select id="getParentDeptSeq" parameterType="string" resultType="departmentsvo">
+		select parent_dept_seq as parentDeptSeq, biz_seq as bizSeq from t_co_dept where dept_seq = #{deptSeq}
 	</select>
 </mapper> 

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
+import com.douzone.quicksilver.vo.DutyPositionVo;
+import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
+import com.douzone.quicksilver.vo.EmployeesVo;
 
 @Repository
 public class AdminDao {
@@ -165,5 +168,45 @@ public class AdminDao {
 	
 	public String bizSeqCheck(String seq) {
 		return sqlSession.selectOne("admin.bizSeqCheck", seq);
+	}
+	
+	public List<EmployeesVo> getEmpListByDeptSeq(Map<String, Object> map){
+		return sqlSession.selectList("admin.getEmpListByDeptSeq", map);
+	}
+	
+	public List<DutyPositionVo> getDutyListByCompSeq(String compSeq){
+		return sqlSession.selectList("admin.getDutyListByCompSeq", compSeq);
+	}
+	
+	public List<DutyPositionVo> getPositionListByCompSeq(String compSeq){
+		return sqlSession.selectList("admin.getPositionListByCompSeq", compSeq);
+	}
+	
+	public int updateEmpDept(EmployeeDeptInfoVo vo) {
+		return sqlSession.update("admin.updateEmpDept", vo);
+	}
+	
+	public int insertEmpDeptHistory(EmployeeDeptInfoVo vo) {
+		return sqlSession.insert("admin.insertEmpDeptHistory", vo);
+	}
+	
+	public EmployeeDeptInfoVo getEmpDeptAll(EmployeeDeptInfoVo vo) {
+		return sqlSession.selectOne("admin.getEmpDeptAll", vo);
+	}
+	
+	public int updateEmpDeptMulti(EmployeeDeptInfoVo vo) {
+		return sqlSession.update("admin.updateEmpDeptMulti", vo);
+	}
+	
+	public int insertEmpDeptMultiHistory(EmployeeDeptInfoVo vo) {
+		return sqlSession.insert("admin.insertEmpDeptMultiHistory", vo);
+	}
+	
+	public EmployeeDeptInfoVo getEmpDeptMultiAll(EmployeeDeptInfoVo vo) {
+		return sqlSession.selectOne("admin.getEmpDeptMultiAll", vo);
+	}
+	
+	public DepartmentsVo getParentDeptSeq(String deptSeq) {
+		return sqlSession.selectOne("admin.getParentDeptSeq", deptSeq);
 	}
 }
