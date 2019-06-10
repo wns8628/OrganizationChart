@@ -13,12 +13,11 @@
 
 </head>
 <body>
+<div class="modal"></div>	
 <div id="container">
-
 <div id="wrapper">
 	<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
 	<div id="contents">
-		
 				<!-- 모으자 -->
 				<div id="contents-header" draggable='true'>
 					<img class="home" alt=""
@@ -50,7 +49,7 @@
 				</select>
 				<span>사원명/ID검색</span>
 				<input class="search-empID" type="text" placeholder="사원명/ID검색">
-				<button class="search-empID-button">검색</button>
+				<button class="search-empID-button button-css-search">검색</button>
 			</div>
 		
 			<!-- body -->
@@ -79,11 +78,29 @@
 				
 				    <!-- 위  -->
 					<div class="connect-deptEmp-body-right-up">
+						
+						<div class="connect-deptEmp-body-right-info">
+							<div class="connect-deptEmp-body-right-info-label">● 부서 정보목록</div>
+							<div class="connect-deptEmp-body-right-info-button">
+								<button class="connect-deptEmp-create button-css">
+								  	신규
+								</button>
+								<button class="connect-deptEmp-save button-css">
+									저장
+								</button>
+								<button class="connect-deptEmp-delete button-css">
+									삭제
+								</button>							
+							</div>
+						</div>
+						
 			  		    <div class="table-body">
-			                <table class="table loginIdAndEmpNameClick-Table" id="" width="100%" cellspacing="0" >
+			                <table class="table loginIdAndEmpNameClick-Table" id="" width="100%" cellspacing="0">
 		                       <thead>
 			                    <tr>
 			                      <th class='compName'     data-column='compName'>회사</th>
+			                      <th class='bizName'     data-column='bizName'>사업장</th>
+			                      <th class='deptSeq hide'     data-column='deptSeq'>부서번호</th>
 			                      <th class='deptName'     data-column='deptName'>부서</th>
 			                      <th class='mainDeptYn'   data-column='mainDeptYn'>구분</th>
 			                      <th class='positionCode' data-column='positionCode'>직급</th>
@@ -98,31 +115,43 @@
 					
 				   <!-- 아래 -->
 				   <div class="connect-deptEmp-body-right-down">
-			
+						<div class="connect-deptEmp-body-right-down-label">● 상세정보</div>
 						<table class="tg">
 						  <tr>
 						    <td class="tg-hf74">회사</td>
-						    <td class="tg-0lax detail-comp"></td>
-						    <td class="tg-hf74">부서</td>
-						    <td class="tg-0lax detail-dept"></td>
+						    <td class="tg-0lax detail-comp" data-lang=""></td>
+						    <td class="tg-hf74"><sup class="connect-deptEmp-new">(new)</sup>부서</td>
+						    <td class="tg-0lax detail-dept">
+						    	
+						    	<input type="text" class="detail-dept-text" data-lang="" data-lang-biz="" placeholder="부서가 지정되지 않았습니다." readonly/>
+						    	
+						    	<button class="dept-search button-css">
+						    		검색
+						    	</button>
+					    	</td>
 						  </tr>
 						  <tr>
 						    <td class="tg-hf74">ERP사번</td>
 						    <td class="tg-0lax detail-empSeq"></td>
-						    <td class="tg-hf74">구분</td>
-						    <td class="tg-lqy6 detail-mainDeptYn"></td>
+						    <td class="tg-hf74"><sup class="connect-deptEmp-new">(new)</sup>구분</td>
+						    <td class="tg-lqy6 detail-mainDeptYn">
+					    	    <select id="detail-mainDeptYn-select">
+										<option value="Y">주부서
+										<option value="N">서브부서	
+								</select>	
+						    </td>
 						  </tr>
 						  <tr>
-						    <td class="tg-hf74">직급</td>
+						    <td class="tg-hf74"><sup class="connect-deptEmp-new">(new)</sup>직급</td>
 						    <td class="tg-0lax detail-positionCode">
 		    					<select id="detail-positionCode-select">
-										<option value="${vo.compSeq }">${vo.compName }
+										<option value=null>비고
 								</select>
 						    </td>
-						    <td class="tg-hf74">직책</td>
+						    <td class="tg-hf74"><sup class="connect-deptEmp-new">(new)</sup>직책</td>
 						    <td class="tg-0lax detail-dutyCode">
 					    		<select id="detail-dutyCode-select">
-										<option value="${vo.compSeq }">${vo.compName }
+										<option value=null>비고
 								</select>
 						    </td>
 						  </tr>
@@ -132,18 +161,31 @@
 						    <td class="tg-hf74">부서팩스</td>
 						    <td class="tg-0lax detail-faxNum"></td>
 						  </tr>
-						  <tr>
-						    <td class="tg-hf74">재직여부</td>
-						    <td class="tg-0lax detail-workStatus"></td>
-						    <td class="tg-hf74">근태여부</td>
-						    <td class="tg-0lax detail-checkWorkYn"></td>
+						  <!--
+ 						  <tr>
+						    <td class="tg-hf74"><sup class="connect-deptEmp-new">(new)</sup>재직여부</td>
+						    <td class="tg-0lax detail-workStatus">
+							    <select id="detail-workStatus-select">
+										<option value="999">재직
+										<option value="001">퇴직									
+										<option value="004">휴직
+								</select>						    
+						    </td>
+						    <td class="tg-hf74"><sup class="connect-deptEmp-new">(new)</sup>근태여부</td>
+						    <td class="tg-0lax detail-checkWorkYn">
+						        <select id="detail-checkWorkYn-select">
+										<option value="Y">적용
+										<option value="N">미적용
+								</select>
+						    </td>
 						  </tr>
+						   -->
 						</table>
 				   </div>
 					
 				</div>
 			</div>
-		
+			
 		</div>	
 	    <!-- nav  -->
 		<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />

@@ -120,9 +120,9 @@ $(function(){
 		</header>
 		
 		<div class="section">
-			<div>
+			
 				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
-			</div>	
+			
 			
 			<div class="mainSection" >
 			
@@ -159,7 +159,7 @@ $(function(){
 						 
 						</select>
 						
-						<input class="submit" data-check="false" type="button" value="검색">
+						<input class="submit button-css-search" data-check="false" type="button" value="검색">
 						
 					
 				</div>
@@ -185,10 +185,9 @@ $(function(){
 				</div> 
 				
 				<div class="updateButtons">
-					<input type="button" value="일괄등록">
-					<input class="new" type="button" value="신규">
-					<input type="button" class="save" value="저장">
-					<input type="button"class="remove" value="삭제">
+					<input class="new button-css" type="button" value="신규">
+					<input type="button" class="save button-css" value="저장">
+					<input type="button"class="remove button-css" value="삭제">
 				</div>
 				
 				<div id="dialog-message" style="display= none;">
@@ -251,7 +250,7 @@ $(function(){
 					</div>
 					
 					<div class="positionInfoDiv">
-						<p class="positionInfoLabel">●직급정보</p>
+						<p class="positionInfoLabel">● 직급정보</p>
 						
 						<div class="positionInfoForm">
 							

@@ -1749,7 +1749,7 @@
 			// Backwards compatibility - if there is no sEmptyTable given, then use the same as
 			// sZeroRecords - assuming that is given.
 			if ( ! lang.sEmptyTable && zeroRecords &&
-				defaults.sEmptyTable === "No data available in table" )
+				defaults.sEmptyTable === "No data" )
 			{
 				_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
 			}
@@ -11436,8 +11436,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
-	
+			"sEmptyTable": "No data",
+
 	
 			/**
 			 * This string gives information to the end user about the information

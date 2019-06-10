@@ -11,6 +11,8 @@
 <!-- css -->    
 <link href="${pageContext.servletContext.contextPath }/assets/css/admin.css?ver=1" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/admin/admin-connect-dept-emp.css" rel="stylesheet" type="text/css">
+<!-- 부트스트랩 css -->
+<%-- <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css"> --%>
 
 <!-- admin-nav.js -->
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/admin/admin-nav.js"></script>

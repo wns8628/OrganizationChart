@@ -3,47 +3,174 @@ div#contents div#select-bar span{ font-size: 13.5px; font-weight: bold; margin-l
 div#contents div#select-bar select { margin-left: 8px; height: 20px; float: left;}
 div#contents div#select-bar input { margin-left: 8px; height: 16px; float: left;}
 
+/* 모달용 */
+.modal{
+    background-color: lightgrey;
+    opacity: 0.5;
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+/* 컨테이너 */
+#container{
+	height:879px;
+}
 /* 바디부분 */
 .connect-deptEmp-body{
     width: 100%;
-    height: 420px;
+    height: 745px;
     border: 1px solid lightgray;	
 }
 /* ID 사원명나오는부분  */
 .connect-deptEmp-body-left{
-    width: 25%;
+    width: 24%;
     height: 100%;
-    background-color: beige;
     float: left;
+    border-right: 1px solid lightgrey
 }
 /* 사원클릭시나오는부분 */
 .connect-deptEmp-body-right{
-    width: 75%;
+    width: 73%;
     height: 100%;
-    background-color: gray;
     float: left;
+    padding-left: 15px;
+    padding-top: 15px;
 }
 /* 사원클릭시 나오는부분 위 */
 .connect-deptEmp-body-right-up{
     width: 100%;
     height: 50%;
 }
+.connect-deptEmp-body-right-info-label{
+	float:left;
+}
+.connect-deptEmp-body-right-info-button{
+	float:right
+}
 /* 사원클릭시 나오는부분 아래*/
 .connect-deptEmp-body-right-down{
     width: 100%;
     height: 50%;
 }
+.connect-deptEmp-body-right-down-label{
+    padding-bottom: 15px;	
+}
 
 /* 테이블 부분 */
+.hide{
+	display:none;
+}
+thead{
+    background-color: #F9F9F9;
+    font:1.2em "맑은 고딕", 돋움, 굴림;
+}
+thead > tr[role="row"] > th {
+	padding-top:10px;
+	padding-bottom:10px;
+	border-top: 1px solid lightgrey;
+	border-bottom: 1px solid lightgrey;
+}
+.table-body{
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    clear: both;
+}
+.dataTables_scrollBody{
+	overflow: auto;
+    max-height: 400px;
+}
+#DataTables_Table_0_wrapper > div.row:first-child > div:first-child{
+	float:left;
+	margin-bottom :15px;
+}
+#DataTables_Table_0_wrapper > div.row:first-child > div:last-child{
+	float:right;
+	margin-bottom :15px;
+}
+#DataTables_Table_1_wrapper > div.row:first-child > div:first-child{
+	float:left;
+	margin-bottom :15px;
+}
+#DataTables_Table_1_wrapper > div.row:first-child > div:last-child{
+	float:right;
+	margin-bottom :15px;
+}
+div .row > .table-boot{
+	text-align:center;
+}
 .loginIdAndEmpName-Table > tbody tr:hover{
-	background-color : red;
+	background-color : #e6f4fe;
 }
 .loginIdAndEmpNameClick-Table > tbody tr:hover{
-	background-color : red;
+	background-color : #e6f4fe;
+}
+tr > .sorting_1, td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font:1.2em "맑은 고딕", 돋움, 굴림;
+    border-bottom: 1px solid lightgray;
+}
+tr .emp-name{
+	width :140px;
+}
+.dataTables_info{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    float: right;
+}
+
+/* 페이지네이션 */
+.pagination{
+	float: right;
+    clear: both;
+    margin-top:10px;
+}
+.pagination li{
+	float:left;
+    border: 1px solid lightgray;
+    font:1.2em "맑은 고딕", 돋움, 굴림;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 /* 테이블 부분 아래 디테일 */
 .tg  {border-collapse:collapse;border-spacing:0; width:100%; }
-.tg td{font-family:Arial, sans-serif; width: 150px; font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-.tg .tg-hf74{background-color:#fff4de;text-align:right;vertical-align:top}
-.tg .tg-lqy6{text-align:right;vertical-align:top}
+.tg td{font-family:Arial, sans-serif; width: 150px; font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:lightgrey;}
+.tg .tg-hf74{background-color:#F9F9F9;text-align:right;vertical-align:top}
+.tg .tg-lqy6{text-align:left;vertical-align:top}
 .tg .tg-0lax{text-align:left;vertical-align:top}
+
+/* 부서검색 신규때만 활성*/
+.dept-search{
+	display:none;
+}
+/* 신규처리  */
+.connect-deptEmp-new{
+	color : tomato;
+	display: none;
+}
+
+/* 버튼꾸미기 */
+.button-css-search{
+	padding-top:2px;
+	padding-bottom:2px;
+	padding-right:12px;
+	padding-left:12px;
+	color:white;
+	background-color:#3A86D2;
+	border:1px solid lightgrey;
+	margin-left:8px;
+    font-weight: bolder;
+}
+.button-css{
+	padding-top:2px;
+	padding-bottom:2px;
+	padding-right:12px;
+	padding-left:12px;
+	background-color:white;
+	border:1px solid lightgrey;
+}
+
+
