@@ -25,6 +25,17 @@ public class MovePersonnelStatusService {
 		movePersonnelStatusVo.setMainDeptYn("N");
 		list.addAll( movePersonnelStatusDao.select(movePersonnelStatusVo) );
 		
+		// 인사이동을 한번도 하지않는 사원은 제거
+		int size = list.size();
+		
+		for(int i = 0; i < size; i++) {
+			if( list.get(i).getNextDeptName().isEmpty()){
+				list.remove(i);
+				size = list.size();
+				i = 0;
+			}
+		}
+		
 		return list;
 	}
 }

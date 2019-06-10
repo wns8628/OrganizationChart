@@ -18,9 +18,8 @@ public class MovePersonnelStatusController{
 	private MovePersonnelStatusService movePersonnelStatusService;
 	
 	@ResponseBody
-	@RequestMapping("/search/{compName}/{startDate}/{endDate}/{empName}")
+	@RequestMapping("/search")
 	public JSONResult search(@ModelAttribute MovePersonnelStatusVo movePersonnelStatusVo) {
-		System.out.println(movePersonnelStatusVo);
 		return JSONResult.success( movePersonnelStatusService.search(movePersonnelStatusVo) );
 	}
 }

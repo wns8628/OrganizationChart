@@ -328,6 +328,12 @@ function menuActive(){
 	}
 }
 
+let ArrowChange = () => {
+	$(".active").each( (index, item) => {
+		item.children[2].classList.toggle()
+	});
+};
+
 $(function() {
 	menuActive();
 	getCompList();

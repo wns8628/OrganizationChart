@@ -19,8 +19,18 @@ let rankPositionSearch = (compSeq, kwd, useYn, mainLangCode) => {
 			
 			//$(".listDiv table").append(tbody);
 			
-			$(".listDiv table tbody tr").click( event => {
+			let tr = $(".listDiv table tbody tr");
+			
+			tr.click( event => {
 				console.log("tbody tr 클릭");
+				
+				tr.each( (index, item) => {
+					if( item.style.backgroundColor != '' ){
+						item.removeAttribute("style");
+					}
+				});
+				
+				$(event.currentTarget).css("background-color", "#f9f9f9");
 				
 				console.log( $(".tg-0lax select") );
 				
@@ -164,6 +174,30 @@ let messageBox = function(title, message){
 	});
 };
 
+let questionBox = function(title, message){
+	
+	let def = $.Deferred();
+	
+	$("#dialog-message").attr({
+		title: title
+	});
+	$("#dialog-message p").text(message);
+	$("#dialog-message").dialog({
+		modal: true,
+		buttons: {
+			"예": function(){
+				$(this).dialog("close");
+				def.resolve("Yes");
+			},
+			"아니요": function(){
+				$(this).dialog("close");
+				def.resolve("No");
+			}
+		},
+	});
+	return def.promise();
+};
+
 let positionButtonClick = event => {
 	console.log("position 버튼 클릭");
 	
@@ -255,51 +289,70 @@ let saveButtonClick = () => {
 		comment = ' ';
 	}
 	
-	// 각 필드의 값을 가져와 ajax 통신
-	 $.ajax({
-			url : contextPath + "/savePositionValue/" +
-					compSeq + "/" +
-					positionField + "/" + 
-					koreaField + "/" + 
-					englishField + "/" + 
-					$("input[name='group']:checked").val() + "/" +
-					order + "/" + 
-					comment + "/" +
-					position,
-					
-			type : "get",
-			dataType : "json",
-			data : "",
-			success : function(response) {
-				search(position);
-	
-			},
-			error : function(xhr, status, e) {
-				console.error(status + ":" + e);
-			}
+	questionBox("저장","저장하시겠습니까?").then( val => {
+		if( val == "No"){
+			return;
+		} else{
+			// 각 필드의 값을 가져와 ajax 통신
+			 $.ajax({
+					url : contextPath + "/savePositionValue/" +
+							compSeq + "/" +
+							positionField + "/" + 
+							koreaField + "/" + 
+							englishField + "/" + 
+							$("input[name='group']:checked").val() + "/" +
+							order + "/" + 
+							comment + "/" +
+							position,
+							
+					type : "get",
+					dataType : "json",
+					data : "",
+					success : function(response) {
+						search(position);
+			
+					},
+					error : function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
 
-		}); 
+				}); 
+		}
+	})
+	
 };
 
 let removeButtonClick = () => {
 	console.log('삭제');
 	
-	 $.ajax({
-			url : contextPath + "/removePositionValue/" +
-					$(".positionField").val() + "/" +
-					position,
-					
-			type : "get",
-			dataType : "json",
-			data : "",
-			success : function(response) {
-				search(position);
+	if( $(".positionField").val() == '' || typeof $(".positionField:disabled").val() == "undefined"){
+		messageBox('삭제', '삭제할 대상이 없습니다.');
+		return;
+	}
 	
-			},
-			error : function(xhr, status, e) {
-				console.error(status + ":" + e);
-			}
+	questionBox("삭제", "삭제하시겠습니까?").then( val => {
+		if( val == "No"){
+			return;
+		} else {
+			$.ajax({
+				url : contextPath + "/removePositionValue/" +
+						$(".positionField").val() + "/" +
+						position,
+						
+				type : "get",
+				dataType : "json",
+				data : "",
+				success : function(response) {
+					search(position);
+		
+				},
+				error : function(xhr, status, e) {
+				}
 
-		}); 
+			}); 
+		}
+	})
+
+
 	
 };

@@ -91,7 +91,7 @@ $(function(){
          processing: true,
          ordering: true,
          serverSide: false,
-         searching: false,
+         searching: false
         
      });
 	 
@@ -181,7 +181,9 @@ $(function(){
 						
 					
 				</div>
-				
+				<div id="dialog-message" style="display= none;">
+					<p></p>
+				</div>
 				
 					 <div class="container-fluid">
 
