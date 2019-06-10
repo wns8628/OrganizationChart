@@ -42,6 +42,7 @@ var makeTable = function(url) {
 	      data:"",
 	      async: false,
 	      success: function(response){
+	    	  console.log(response);
 	    	 $.lang.kr.emp = {};
 	    	 $.lang.en.emp = {};
 	         $(response.data.list).each(function(index, vo){

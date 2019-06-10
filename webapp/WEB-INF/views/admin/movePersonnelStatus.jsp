@@ -12,9 +12,11 @@
 <title>Insert title here</title>
 
 <!--  dataTable -->
-  <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+  <%-- <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  
+   --%>
+   
+   
   <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -55,7 +57,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/sb-admin-2.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/jquery.dataTables.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
@@ -83,7 +85,9 @@ $(function(){
 	document.getElementsByClassName('submit')[0].addEventListener("click", search);
 	
 	 $('#statusTable').dataTable({
-         pageLength: 3,
+         pageLength: 10,
+         pagingType:"numbers",
+         info:false,
          bPaginate: true,
          bLengthChange: true,
          lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
@@ -92,7 +96,6 @@ $(function(){
          ordering: true,
          serverSide: false,
          searching: false,
-        
      });
 	 
 	 $( "#startDate" ).datepicker({
@@ -130,7 +133,7 @@ $(function(){
 		  maxDate: "+0D"
 	  });
 	 
-	 $(".dataTables_scrollBody").css('height', '800px');
+	 $(".dataTables_scrollBody").css('height', '400px');
 });
 </script>
 </head>
@@ -141,9 +144,9 @@ $(function(){
 		</header>
 		
 		<div class="section">
-			<div>
+			
 				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
-			</div>	
+		
 			
 			<div class="mainSection" >
 			
@@ -181,7 +184,9 @@ $(function(){
 						
 					
 				</div>
-				
+				<div id="dialog-message" style="display= none;">
+					<p></p>
+				</div>
 				
 					 <div class="container-fluid">
 

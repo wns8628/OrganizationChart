@@ -7,11 +7,18 @@ let search = position => { // 검색 클릭
 	// 검색버튼을 눌렀으니 data-check true로 변경
 	$("input[data-check='false']").attr("data-check", "true");
 	
+	if( $('#empName').val() == ''){
+		messageBox("사원명", "사원명 입력은 필수입니다");
+		return;
+	}
+		
 	$('#statusTable').DataTable().destroy();
 	
-	$('#statusTable').dataTable({
-         pageLength: 3,
+let table =	$('#statusTable').dataTable({
+         pageLength: 10,
          bPaginate: true,
+         info:false,
+         pagingType:"numbers",
          bLengthChange: true,
          lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],
          bAutoWidth: false,
@@ -21,16 +28,37 @@ let search = position => { // 검색 클릭
          searching: false,
          scrollY: false,
          ajax : {
-             "url": contextPath + "/moveStatus/search/" + document.getElementsByClassName('selectBoxStyle')[0].value + "/" +
-             							   document.getElementById('startDate').value + "/" +
-             							   document.getElementById('endDate').value + "/" +
-             							   document.getElementById('empName').value,
-             "type":"GET",
-             "data": "",
-             "dataFilter": function(response){
-            	 console.log(typeof response);
-            	 return response;
-             }
+             "url": contextPath + "/moveStatus/search",
+             "type":"POST",
+             data: {
+            	compName:  document.getElementsByClassName('selectBoxStyle')[0].value,
+            	startDate: document.getElementById('startDate').value,
+            	endDate: document.getElementById('endDate').value,
+            	empName: document.getElementById('empName').value
+             },
+             /*"dataSrc": function(json) {
+            	 console.log(json);
+            	 let data = new Object();
+            	 let jsonData = new Array();
+            	 
+            	 for(let i = 0; i < json.data.length; i++) {
+            		 
+            		 if( json.data[i].nextDeptName == ''){
+            			 console.log(json.data[i]);
+            			 delete json.data[i];
+            		 } else {
+            			 jsonData.push(json.data[i]);
+            		 }
+            		 
+            	 }
+            	 data.result = "success";
+            	 data.message = null;
+            	 data.data = jsonData;
+            	 
+            	 console.log(data);
+            	 return data;
+             }*/
+             
          },
          columns : [
              {data: "regDate"},
@@ -42,10 +70,18 @@ let search = position => { // 검색 클릭
              {data: "nextPositionName"},
              {data: "previousDeptName"},
              {data: "previousDutyName"},
-             {data: "previousPositionName"},
+             {data: "previousPositionName"}
          ]
 
      });
+	
+/*	table.on( 'draw.dt', () => {
+		 $(".table tbody tr td").each( (index, item) => {
+		    if( item.innerHTML == 'remove'){
+		    	item.parentNode.remove().draw();
+		    }
+		  });
+	})*/
 	
 };
 

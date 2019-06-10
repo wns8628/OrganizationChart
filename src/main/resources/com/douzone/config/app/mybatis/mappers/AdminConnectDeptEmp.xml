@@ -4,6 +4,20 @@
 
 <mapper namespace="adminConnectDeptEmp">
 	
+	<select id="getEmpSeq" parameterType="adminconnectdeptEmpvo" resultType="Integer">
+			select distinct(a.emp_seq)
+			  from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c 
+			  where a.emp_seq = b.emp_seq
+			    and c.emp_seq = a.emp_seq
+			    and b.lang_code = #{langCode}
+			    and a.login_id = #{loginId} 
+			    and b.emp_name = #{empName}
+			    and c.comp_seq = #{compSeq};
+	</select>
+	<select id="getBizSeq" parameterType="adminconnectdeptEmpvo" resultType="Integer">
+		select biz_seq as bizSeq from t_co_dept where dept_seq =#{deptSeq};
+	</select>
+	
 	<select id="getList" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
 		select distinct(a.login_id) as loginId, c.emp_name as empName
 		  from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_emp_comp d
@@ -19,7 +33,9 @@
 	<select id="getClickList" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
 			select
 			  emp.comp_name as compName,
+			  emp.biz_name as bizName,
 			  emp.dept_name as deptName,
+			  emp.dept_seq as deptSeq,
 			  emp.main_dept_yn as mainDeptYn,
 			  pmp.dp_name as positionCode
 		from (select
@@ -33,16 +49,20 @@
 					a.home_tel_num,
 					a.mobile_tel_num,
 					a.emp_seq,
-					b.dept_seq
-				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f
+					b.dept_seq,
+					g.biz_name
+				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_biz_multi g
 				 where a.emp_seq = b.emp_seq
+				   and b.biz_seq = g.biz_seq
 				   and b.dept_seq = c.dept_seq
 				   and c.dept_seq = d.dept_seq 
 				   and a.emp_seq = e.emp_seq
 				   and b.comp_seq = f.comp_seq
+				   and g.lang_code=#{langCode}
 				   and f.lang_code=#{langCode}
 				   and e.lang_code =#{langCode}
-				   and d.lang_code = #{langCode}) emp    
+				   and d.lang_code = #{langCode}
+				   and b.comp_seq = #{compSeq}) emp    
 			LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
 				ON emp.positionDuty = pmp.dp_seq
 				AND pmp.lang_code = #{langCode}
@@ -57,13 +77,17 @@
 
 
 	<select id="getEmpDetailRender" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
-				select
+			select
 				  emp.comp_name as compName,
 				  emp.dept_name as deptName,
+				  emp.dept_seq as deptSeq,
+				  emp.biz_seq as bizSeq,
 		          emp.emp_seq as empSeq,
 				  emp.main_dept_yn as mainDeptYn,
-				  pmp.dp_name as positionCode,
-		          pmd.dp_name as dutyCode,
+				  emp.positionCode,
+				  emp.dutyCode,
+				  pmp.dp_name as positionName,
+		          pmd.dp_name as dutyName,
 		          emp.tel_num as telNum,
 		          emp.fax_num as faxNum,
 		          emp.check_work_yn as checkWorkYn,
@@ -72,8 +96,8 @@
 						f.comp_name,
 						b.main_dept_yn,
 						d.dept_name,
-						b.position_code as positionDuty,
-						b.duty_code as deptDuty,
+						b.position_code as positionCode,
+						b.duty_code as dutyCode,
 						e.emp_name,
 						a.login_id,
 						a.home_tel_num,
@@ -83,7 +107,8 @@
 		                c.tel_num,
 		                c.fax_num,
 		                g.check_work_yn,
-		                g.work_status
+		                g.work_status,
+		                b.biz_seq
 					  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_emp_comp g
 					 where a.emp_seq = b.emp_seq
 					   and b.dept_seq = c.dept_seq
@@ -93,32 +118,116 @@
 		               and b.emp_seq = g.emp_seq
 					   and f.lang_code=#{langCode}
 					   and e.lang_code =#{langCode}
-					   and d.lang_code = #{langCode}) emp    
+					   and d.lang_code = #{langCode}
+					   and b.comp_seq = #{compSeq}) emp    
 				LEFT OUTER JOIN t_co_comp_duty_position_multi pmp
-					ON emp.positionDuty = pmp.dp_seq
+					ON emp.positionCode = pmp.dp_seq
 					AND pmp.lang_code = #{langCode}
 					AND pmp.dp_type = 'POSITION'
 				LEFT OUTER JOIN t_co_comp_duty_position_multi pmd
-					ON emp.deptDuty = pmd.dp_seq
+					ON emp.dutyCode = pmd.dp_seq
 					AND pmd.lang_code = #{langCode}
 					AND pmd.dp_type = 'DUTY'
 			where emp.login_id =#{loginId}  
 			  and emp.emp_name =#{empName}
-			  and emp.dept_name =#{deptName};  
+			  and emp.dept_seq =#{deptSeq};  
 	</select>
 
 	<select id="getListPosition" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
-			select dp_seq,dp_name
+			select dp_seq as positionCode ,dp_name as positionName
 		      from t_co_comp_duty_position_multi a
-			 where lang_code='kr'
+			 where lang_code=#{langCode}
 		       and dp_type = 'position'
-		       and comp_seq =1;
+		       and comp_seq =#{compSeq};
 	</select>
 	<select id="getListDuty" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
-			select dp_seq,dp_name
+			select dp_seq as dutyCode ,dp_name as dutyName
 			  from t_co_comp_duty_position_multi a
-			 where lang_code='kr'
+			 where lang_code=#{langCode}
 			   and dp_type = 'duty'
-			   and comp_seq =1
+			   and comp_seq =#{compSeq}
 	</select>
+	
+	
+	<insert id="insert" parameterType="adminconnectdeptEmpvo">
+		INSERT INTO `t_co_emp_dept` (`dept_seq`, `emp_seq`, `group_seq`, `comp_seq`,  `biz_seq`, `main_dept_yn`, `duty_code`, `position_code`, `tel_num`, `fax_num`, `zip_code`, `orgchart_display_yn`, `messenger_display_yn`, `order_num`, `order_text`, `use_yn`, `create_seq`, `create_date`, `modify_seq`, `modify_date`)
+		VALUES (#{deptSeq}, #{empSeq}, 'demo', #{compSeq}, #{bizSeq}, #{mainDeptYn}, #{dutyCode}, #{positionCode},																               #{telNum}, 		  #{faxNum},		  Null, 					'Y',					 'Y', 	 	 Null, Null, 'Y', 'admin', now(), Null, Null);	
+	</insert>
+	<insert id="insert_history" parameterType="adminconnectdeptEmpvo">
+		INSERT INTO `t_co_emp_dept_history` (`seq`,
+									  `op_code`,
+									  `reg_date`,
+                                      `dept_seq`,
+                                      `emp_seq`,
+                                      `group_seq`,
+                                      `comp_seq`,
+                                      `biz_seq`,
+                                      `main_dept_yn`,
+                                      `duty_code`,
+                                      `position_code`,
+                                      `tel_num`,
+                                      `fax_num`,
+                                      `zip_code`,
+                                      `orgchart_display_yn`,
+                                      `messenger_display_yn`,
+                                      `order_num`,
+                                      `use_yn`,
+                                      `create_seq`,
+                                      `create_date`,
+                                      `modify_seq`,
+                                      `modify_date`)
+		VALUES (null, 
+				'I',
+		        date_format( now(), '%Y-%m-%d'),
+				#{deptSeq},
+		        #{empSeq},
+		        'demo',
+		        #{compSeq},
+		        #{bizSeq},		
+		        #{mainDeptYn}, 	
+		        #{dutyCode},		
+		        #{positionCode}, 		
+		        #{telNum},			
+		        #{faxNum}, 	 	
+		        Null,
+		        'Y',
+		        'Y',
+		        Null, 
+		        'Y', 
+		        'admin',
+		        now(), 
+		        Null,
+		        Null);
+	</insert>
+	
+	<update id="update" parameterType="adminconnectdeptEmpvo">
+		update t_co_emp_dept 
+		   set duty_code = #{dutyCode},
+			   position_code = #{positionCode},
+			   main_dept_yn = #{mainDeptYn}
+		 where emp_seq = #{empSeq}
+		   and dept_seq = #{deptSeq}
+	</update>
+	
+	<update id="update_history" parameterType="adminconnectdeptEmpvo">	
+		update t_co_emp_dept_history
+		   set op_code = 'U',
+		       reg_date = now()
+		 where emp_seq = #{empSeq}
+		   and dept_seq =#{deptSeq}
+	</update>
+	
+	<delete id="delete" parameterType="adminconnectdeptEmpvo">	
+		delete from t_co_emp_dept 
+		      where dept_seq = #{deptSeq}
+		        and emp_seq = #{empSeq};
+	</delete>
+	
+	<update id="delete_history" parameterType="adminconnectdeptEmpvo">	
+		update t_co_emp_dept_history
+		   set op_code = 'D',
+		       reg_date = now()
+		 where emp_seq = #{empSeq}
+		   and dept_seq =#{deptSeq}
+	</update>
 </mapper> 

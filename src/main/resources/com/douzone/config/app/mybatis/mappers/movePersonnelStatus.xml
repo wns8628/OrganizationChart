@@ -32,12 +32,25 @@
 		<![CDATA[
 			WHERE
 			    `query` = '"*${empName}*";limit=100050;mode=boolean;maxmatches=100050;'
-			        AND regDate >= #{startDate}
-			        AND regDate <= #{endDate}
-			        AND compName = #{compName}
+		]]>
+				<if test='startDate != ""'>
+					<![CDATA[
+						AND regDate >= #{startDate}
+					]]>
+				</if>
+				
+				<if test='endDate != ""'>
+					<![CDATA[
+			        	AND regDate <= #{endDate}
+					]]>
+				</if>
+		
+				<if test='compName != "all"'>
+				      AND compName = #{compName}
+				</if>
 			        AND mainDeptYn = #{mainDeptYn}
 			limit 0, 200000;
-		]]>
+		
 		
 
 	</select>

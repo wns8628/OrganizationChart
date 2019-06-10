@@ -38,16 +38,16 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 html {
-  font-family: sans-serif;
+ /*  font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent; */
   
 }
 
@@ -60,14 +60,14 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 }
 
 body {
-  margin: 0;
+  /* margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #fff; */
 }
 
 [tabindex="-1"]:focus {
@@ -621,7 +621,7 @@ pre code {
 .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
 .col-xl-auto {
   position: relative;
-  width: 100%;
+ /*  width: 100%; */
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
