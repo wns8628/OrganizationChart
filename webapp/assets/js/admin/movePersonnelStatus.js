@@ -7,13 +7,11 @@ let search = position => { // 검색 클릭
 	// 검색버튼을 눌렀으니 data-check true로 변경
 	$("input[data-check='false']").attr("data-check", "true");
 	
-	if( $('#empName').val() == ""){
+	if( $('#empName').val() == ''){
 		messageBox("사원명", "사원명 입력은 필수입니다");
 		return;
 	}
-	
-	if( $('#startDate'))
-	
+		
 	$('#statusTable').DataTable().destroy();
 	
 let table =	$('#statusTable').dataTable({
