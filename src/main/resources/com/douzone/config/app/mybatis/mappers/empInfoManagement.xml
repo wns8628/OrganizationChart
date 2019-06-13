@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="empInfoManagement">
+	
+	<select id="search" parameterType="empinfomanagementvo" resultType="empinfomanagementvo">
+		SELECT 
+		    compName,
+		    deptName,
+		    position,
+		    duty,
+		    empName,
+		    workStatus,
+		    useYn,
+		    license,
+		    emailAddr
+		FROM
+		    empInfoManagement
+		WHERE
+			`query` = '@empName ("*${kwd}*");limit=100050;mode=boolean;maxmatches=100050;'
+			
+			 <if test='compName != "전체"'>
+			 	and compName = #{compName}
+			 </if>
+			 
+			 <if test='workStatus != "전체"'>
+			 	and workStatus = #{workStatus}
+			 </if>
+		
+	</select>
+	
+	<select id="checkDuplicateLoginId" parameterType="resetidvo" resultType="resetidvo">
+		select login_id as nextLoginId from t_co_emp2 where login_id = #{nextLoginId}
+	</select>
+	
+	<select id="getPositionDuty" parameterType="string" resultType="getpositiondutyvo">
+		SELECT 
+		        a.dp_seq as positionSeq, a.dp_name as positionName
+		    FROM
+		        t_co_comp_duty_position_multi a
+		    WHERE
+		        a.comp_seq = #{value} AND dp_type = 'POSITION' and lang_code = 'kr'
+		        
+		union all
+		
+		SELECT 
+		        a.dp_seq as dutySeq, a.dp_name as dutyName
+		    FROM
+		        t_co_comp_duty_position_multi a
+		    WHERE
+		        a.comp_seq = #{value} AND dp_type = 'DUTY' and lang_code ='kr'
+	</select>
+	
+	<update id="resetId" parameterType="resetidvo">
+		update t_co_emp2 
+			set login_id = #{nextLoginId}, email_addr = #{nextEmailAddr} 
+				where emp_seq = (select emp_seq from (select emp_seq from t_co_emp2 where login_id = #{previousLoginId} and email_addr = #{previousEmailAddr}) a); 
+	</update>
+
+	<update id="changePassword" parameterType="changepasswordvo">
+		update t_co_emp2 
+			set login_passwd = #{newPassword}, appr_passwd = #{newPassword}, pay_passwd = #{newPassword} 
+				where emp_seq = (select emp_seq from (select a.emp_seq from t_co_emp2 a, t_co_emp_multi b where a.emp_seq = b.emp_seq and b.emp_name = #{empName} and a.login_id = #{loginId}) a);
+		
+	</update>
+	
+	
+</mapper>

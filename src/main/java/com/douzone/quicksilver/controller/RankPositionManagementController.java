@@ -37,7 +37,7 @@ public class RankPositionManagementController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/savePositionValue/{compSeq}/{positionCode}/{korea}/{english}/{use}/{order}/{comment}/{position}")
+	@RequestMapping("/savePositionValue/{compSeq}/{positionCode}/{korea}/{english}/{use}/{order}/{comment}/{position}/{check}")
 	public JSONResult savePositionValue(@PathVariable Optional<String> compSeq,
 								  @PathVariable Optional<String> positionCode,
 								  @PathVariable Optional<String> korea,
@@ -45,7 +45,8 @@ public class RankPositionManagementController {
 								  @PathVariable Optional<String> use,
 								  @PathVariable Optional<String> order,
 								  @PathVariable Optional<String> comment,
-								  @PathVariable Optional<String> position) {
+								  @PathVariable Optional<String> position,
+								  @PathVariable Optional<String> check) {
 		
 		if( positionCode.isPresent()) {
 			System.out.println(positionCode);
@@ -76,7 +77,8 @@ public class RankPositionManagementController {
 										use.get(), 
 										order.get(),
 										comment.get(),
-										position.get()) );
+										position.get(),
+										check.get()) );
 	}
 	
 	@ResponseBody

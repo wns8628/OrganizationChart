@@ -86,6 +86,7 @@ let table =	$('#statusTable').dataTable({
 };
 
 let messageBox = function(title, message){
+	console.log("여기");
 	$("#dialog-message").attr({
 		title: title
 	});

@@ -40,7 +40,8 @@ public class RankPositionManagementService {
 						   String use,
 						   String order,
 						   String comment,
-						   String position) {
+						   String position,
+						   String check) {
 		
 		if( use.equals("사용")) {
 			use = "Y";
@@ -64,23 +65,35 @@ public class RankPositionManagementService {
 		map.put("position", position);
 		map.put("multi", null);
 		
+		// 이미 들어와있는 데이터인지 확인  이미들어온 데이터를 수정하기위해 온거면 check 값이 true
+		if( !check.equals("true") && !rankPositionDao.select(map).isEmpty()) {
+			System.out.println("이미들어있음");
+			return 0;
+		}
+		
 		// positionCode로 기존에 있는 데이터를 업데이트하는지 새로 추가하는지 확인
 		
 		if( rankPositionDao.select(map).isEmpty()) {// empty면 insert 아니면 update
+			System.out.println("insert");
 			
 			rankPositionDao.insert(map);
+			map.put("multi", "sads");
+			// 한국어 입력
+			rankPositionDao.insert(map);
+
+			System.out.println("english 필드값 : " + map.get("english"));
 			
 			if( !map.get("english").equals(" ") ) { // 영어필드에도 글자가있으면
+				System.out.println("영어필드에 글자있음");
 				map.put("langCode", "en");
 				map.put("multi", "sads");
 				map.put("korea", null);
 				return rankPositionDao.insert(map);
-				
-			} else { // 영어필드에 글자없고 그냥 한국어만 삽입
-				map.put("multi", "sads");
-				return rankPositionDao.insert(map);
-			}
+			} 
+			
 		} else {
+			System.out.println("update");
+			
 			// t_co_comp_duty_position 업데이트
 			rankPositionDao.update(map);
 			
@@ -100,6 +113,7 @@ public class RankPositionManagementService {
 			}
 		}
 		
+		return 1;
 	}
 	
 	public int removeValue(String positionCode, String position) {
