@@ -78,11 +78,6 @@ let empDetailPositionDutyRender  = (form) => {
 		dataType:"json",
 		data: form,
 		success: function(response){	
-			
-			console.log(response.data.position.length);
-			console.log(positionCode);
-			
-			console.log("대체 왜?----------------------");
 					
 			//그회사에맞는 직급직책뿌려주기
 			for(let i=0; i<response.data.position.length; i++){
@@ -461,16 +456,34 @@ let plusUpdate = (form) => {
 	});
 }
 
-
+let windowPopup;
 $(function(){	
+	
+	//새로고침시 팝업창지우기
+	window.onbeforeunload = function () { 
+        if( document.readyState == "complete"){ // self.screenTop > 9000 브라우저 닫힘
+            try {
+            	windowPopup.close();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+    };
+	
 	
 	table      = $('.loginIdAndEmpName-Table').DataTable({pagingType:"numbers", info:false});						 	    //빈테이블 출력
 	tableClick = $('.loginIdAndEmpNameClick-Table').DataTable({pagingType:"numbers",  info:false, filter:false});					    //빈테이블 출력
 		
-	$(document).on("click", ".search-empID-button", function(key) {					    // 마우스로 검색버튼을 눌렀을때
+	$(document).on("click", ".search-empID-button", function() {					    // 마우스로 검색버튼을 눌렀을때
 		searchEmp();
 	}); 
-	
+	$(document).on("keydown", ".search-empID", function(event) {					    // 엔터
+		if( event.keyCode == 13){ 
+			searchEmp();
+		}
+	});
+		
 	$(document).on("click", ".loginIdAndEmpName-Table > tbody tr", function(key) {	    // 마우스로 검색결과사원 눌렀을때		
 		
 		//데이터 수집
@@ -532,8 +545,10 @@ $(function(){
 		w = winX + (winWidth - popWidth) / 2;
 		h = winY + (winHeight - popHeight) / 2;
 		
-		window.open( contextPath+'/adminConnectDeptEmp/deptSearch?compSeq=' +
+		windowPopup = window.open( contextPath+'/adminConnectDeptEmp/deptSearch?compSeq=' +
 				compSeq +"&compName="+compName, '부서검색', 'width=440, height=485, top='+ h +' , left='+w);
+		
+		
 	}); 
 	
 	

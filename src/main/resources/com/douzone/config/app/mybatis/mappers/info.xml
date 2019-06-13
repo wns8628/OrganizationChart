@@ -4,16 +4,17 @@
 
 <mapper namespace="info">
 	<select id="getMainInfo" resultType="mastergroupvo">
-		select distinct(b.group_name) as groupName, d.total_comp as totalComp, e.total_biz as totalBiz, f.total_dept as totalDept,count(a.emp_seq) as totalEmp, c.age_10 as age10, c.age_20 as age20, c.age_30 as age30, c.age_40 as age40, c.age_50 as age50, c.age_60 as age60
-		  from t_co_emp a, t_co_group b, (select a.group_seq,
+		select distinct(b.group_name) as groupName, d.total_comp as totalComp, e.total_biz as totalBiz, f.total_dept as totalDept,count(a.emp_seq) as totalEmp, count(distinct(a.emp_seq)) as allEmp,c.age_10 as age10, c.age_20 as age20, c.age_30 as age30, c.age_40 as age40, c.age_50 as age50, c.age_60 as age60
+		  from t_co_emp_dept a, t_co_group b, (select a.group_seq,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 10 and 19 , 1, 0)) as age_10,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 20 and 29 , 1, 0)) as age_20,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 30 and 39 , 1, 0)) as age_30,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 40 and 49 , 1, 0)) as age_40,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 50 and 59 , 1, 0)) as age_50,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 60 and 69 , 1, 0)) as age_60
-										   from t_co_emp a, t_co_group b
-										  where a.group_seq = b.group_seq) c, (select b.group_seq, count(a.comp_seq) as total_comp
+										 from t_co_emp a, t_co_group b, t_co_emp_dept h
+								  		where a.emp_seq = h.emp_seq
+										  and a.group_seq = b.group_seq) c, (select b.group_seq, count(a.comp_seq) as total_comp
 																				 from t_co_comp a, t_co_group b
 																				where a.group_seq = b.group_seq) d, ( select b.group_seq,count(a.biz_seq) as total_biz
 																													    from t_co_biz a, t_co_group b
@@ -27,19 +28,27 @@
 		   and e.group_seq = f.group_seq;
 	</select>	
 	
+	<select id="getMainInfoFm" resultType="mastergroupvo">
+		select a.gender_code as genderCode, count(a.gender_code) as genderCount 
+		  from t_co_emp a, t_co_emp_dept b 
+		 where a.emp_seq = b.emp_seq 
+		  group by a.gender_code;    
+	</select>	
+	
 	<select id="getMainChartList" resultType="companyvo">
-		select c.comp_name as compName, count(b.comp_seq) as compEmpCount
-		  from t_co_emp_dept a, t_co_comp b, t_co_comp_multi c
-		 where a.comp_seq = b.comp_seq 	
-		   and b.comp_seq = c.comp_seq
-		   and c.lang_code = #{langCode}
+		select c.comp_name as compName, count(a.comp_seq) as compEmpCount
+		  from t_co_emp_dept a right join t_co_comp b 
+	        on a.comp_seq = b.comp_seq
+			, t_co_comp_multi c
+	        where b.comp_seq = c.comp_seq 
+	          and c.lang_code =#{langCode}
 		 group by b.comp_seq;
 	</select>	
 	
 	<!-- 회사 정보 -->
 	<select id="getCompInfo" resultType="companyvo">
 	select * from 
-			 (select f.comp_name as compName,count(distinct(a.emp_seq)) as totalEmp,
+			 (select f.comp_name as compName,f.owner_name as ownerName,count(a.emp_seq) as totalEmp, count(distinct(e.emp_seq)) as allEmp,
 						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 10 and 19 , 1, 0)) as age10,
 						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 20 and 29 , 1, 0)) as age20,
 						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 30 and 39 , 1, 0)) as age30,
@@ -66,15 +75,20 @@
 												   and c.group_seq = d.group_seq
 												   and a.comp_seq = #{compSeq}) c;
 	</select>	
-
+	<select id="getCompInfoFm" resultType="companyvo">
+		      select a.gender_code as genderCode, count(a.gender_code) as genderCount 
+			    from t_co_emp a, t_co_emp_dept b
+			   where a.emp_seq = b.emp_seq
+			     and b.comp_seq = #{compSeq}
+			group by gender_code;    
+		</select>	
 	<select id="getBizChartList" resultType="bizvo">
-		  select b.biz_name as bizName, count(distinct(d.emp_seq)) as bizEmpCount
-		    from t_co_biz a, t_co_biz_multi b, t_co_comp c,t_co_emp_dept d
-		   where a.biz_seq= b.biz_seq 
-		     and a.comp_seq = c.comp_seq
-		     and a.biz_seq = d.biz_seq
-		     and b.lang_code = #{langCode}
-		     and a.comp_seq = #{compSeq}
-		group by a.biz_seq;
+		  select b.biz_name as bizName, count(distinct(c.emp_seq)) as bizEmpCount
+			from t_co_biz a left join t_co_emp_dept c
+		      on a.biz_seq = c.biz_seq , t_co_biz_multi b
+			where a.biz_seq= b.biz_seq 
+			 and b.lang_code = #{langCode}
+			 and a.comp_seq = #{compSeq}
+			group by a.biz_seq;
 	</select>	
 </mapper>	

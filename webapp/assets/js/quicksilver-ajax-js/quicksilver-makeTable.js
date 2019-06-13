@@ -17,7 +17,7 @@ var renderLeader = function(leader){
 }
 //테이블렌더링-------------------------------------------------------------------------------
 let tableRender = function(vo){
-	let htmls = 			"	<tr class=\"row\">\r\n" + 
+	let htmls = 			"	<tr class='row emp-table-body'>" + 
 	"								<td class='hide'>"+vo.empSeq+"</td>\r\n"+
 	"								<td class='hide'>"+vo.deptSeq+"</td>\r\n"+
 	"								<td class='lang dept' data-lang='"+vo.deptSeq+"'></td>\r\n" + 

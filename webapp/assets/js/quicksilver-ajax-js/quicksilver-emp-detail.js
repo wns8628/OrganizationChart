@@ -114,7 +114,11 @@ var getparents = function(deptSeq){
 let fixScroll=0;																					   //스크롤위해
 $(function(){
 	//테이블 행 클릭
-	$(document).on("click", "tbody tr.row", function(event){   
+	$(document).on("click", "tbody tr.row", function(event){  
+		
+		$(".emp-table-body").css("background-color", "")
+		$(this).css("background-color", "rgb(230, 244, 254)")
+		
 		$("li.comp").next().children().remove();
 		$.lang.kr.biz = {};
 		$.lang.en.biz = {};

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.AdminService;
+import com.douzone.quicksilver.service.MainService;
 import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
@@ -36,6 +37,20 @@ public class AdminController {
 		return "main/admin";
 	}
 	
+// --	
+	@Autowired
+	MainService mainService;
+	@RequestMapping("/chart")
+	public String chart( Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
+		model.addAttribute("compList", compList);
+		model.addAttribute("mainInfo", mainService.getMainInfo());
+		model.addAttribute("mainInfoFm", mainService.getMainInfoFm());
+		
+		
+		return "admin/chart-mgr";
+	}
+// --
 	
 	@RequestMapping("/connectDeptEmp")
 	public String connectDeptEmp( Model model) {

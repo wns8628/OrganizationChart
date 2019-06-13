@@ -1,5 +1,8 @@
 package com.douzone.quicksilver.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +56,17 @@ public class MainBoot {
 	
 	
 //-차트관련----------------------------------------------------------------------------------
+	@ResponseBody
+	@RequestMapping("/chartGroup")
+	public JSONResult chartGroup() {
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("mainInfo", mainService.getMainInfo());
+		map.put("mainInfoFm", mainService.getMainInfoFm());
+		
+		return JSONResult.success(map);
+	}
+	
 	//차트관련
 	@ResponseBody
 	@RequestMapping("/getMainChart")
@@ -61,7 +75,6 @@ public class MainBoot {
 		if(langCode == null) {
 			langCode = "kr";
 		}
-
 		return JSONResult.success(mainService.getMainChart(langCode));
 	}
 	
@@ -77,7 +90,12 @@ public class MainBoot {
 		}
 		
 		companyvo.setLangCode(langCode);
-		return JSONResult.success(mainService.getCompChart(companyvo));
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put( "compChart", mainService.getCompChart(companyvo));
+		map.put( "compChartFm", mainService.getCompChartFm(companyvo) );
+		
+		return JSONResult.success(map);
 	}
     //차트관련
     @ResponseBody	  

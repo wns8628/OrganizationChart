@@ -21,13 +21,7 @@
 			  <c:import url="/WEB-INF/views/quicksilverboot/includes/navigation.jsp"/>
 			</div>
 			<br>	
-	
-		<!--  -->
- 			<!-- chart일단뺌 -->
-			<%--
-			  <c:import url="/WEB-INF/views/quicksilverboot/includes/chart.jsp"/>
- 			--%>
- 			
+			
 		    <!-- 검색창 -->    
 	        <div class="main-body">
 				<!-- Navbar Search -->

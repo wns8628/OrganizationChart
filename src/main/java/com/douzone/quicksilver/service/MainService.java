@@ -23,6 +23,9 @@ public class MainService {
 	public MasterGroupVo getMainInfo(){
 		return mainDao.get();
 	}
+	public List<MasterGroupVo> getMainInfoFm(){
+		return mainDao.getFm();
+	}
 	public List<CompanyVo> getMainChart(String langCode){
 		return mainDao.getList(langCode);
 	}
@@ -30,6 +33,9 @@ public class MainService {
 	//사업장별
 	public CompanyVo getCompChart(CompanyVo companyvo){
 		return mainDao.get(companyvo);
+	}
+	public List<CompanyVo> getCompChartFm(CompanyVo companyvo){
+		return mainDao.getFm(companyvo);
 	}
 	public List<BizVo> getBizChart(BizVo bizvo){
 		return mainDao.getList(bizvo);
