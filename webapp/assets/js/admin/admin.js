@@ -331,7 +331,9 @@ function menuActive(){
 
 let ArrowChange = () => {
 	$(".active").each( (index, item) => {
-		item.children[2].classList.toggle()
+		console.log(item);
+		item.children[2].classList.toggle('icon2');
+		item.children[1].classList.toggle('icon2');
 	});
 };
 

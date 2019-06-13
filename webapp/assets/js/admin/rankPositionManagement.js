@@ -136,13 +136,17 @@ let listRender = function(vo, $tbody) {
 		$tbody.append(tr);
 };
 	
-let search = position => { // 검색 클릭
+let search = (position, check) => { // 검색 클릭
 	console.log("검색");
-	
 	
 	let compSeq = document.getElementsByClassName('selectBoxStyle')[0].value;
 	let inputKwd =  document.getElementsByClassName('inputText')[0];
 	let useYn = document.getElementsByClassName('useYN')[0].value;
+	
+	console.log(check);
+	if( check == 'true'){ // 직급, 직책을 새로 수정하거나 넣은후 search할때
+		compSeq = $("select option:selected")[2].value;
+	}
 	
 	// 검색키워드 저장
 	kwd = inputKwd.value;
@@ -239,6 +243,15 @@ let saveButtonClick = () => {
 	let order = $(".order").val();
 	let comment = $(".comment").val();
 	let compSeq;
+	let check;
+	
+	// 직급, 직책을 선택하여 수정하는건지 확인하기위함
+	if( typeof $(".positionField:disabled").val() != 'undefined' ){ // 수정하는거
+		check = true;
+	} else { // 수정아님
+		console.log("수정아님");
+		check = false;
+	}
 	
 	 if( positionField == ''){
 		messageBox("코드", "코드입력은 필수입니다");
@@ -265,17 +278,16 @@ let saveButtonClick = () => {
 	}
 			
 	// select된 회사 시퀀스 가져옴 
-	$(".tg-0lax select option").each( (index, item) => {
-		if( item.selected) {
-			compSeq = item.value;
-		}
-	});
+	compSeq = $(".tg-0lax select option:selected").val();
+	
+	console.log(compSeq);
 	
 	// 입력한 직책 코드
 	console.log( $(".englishField").val() );
 	console.log( $("input[name='group']:checked").val() );
 	console.log( $(".order").val() );
 	console.log( $(".comment").val() );
+	console.log(koreaField);
 	
 	if( englishField == ''){
 		englishField = ' ';
@@ -303,13 +315,21 @@ let saveButtonClick = () => {
 							$("input[name='group']:checked").val() + "/" +
 							order + "/" + 
 							comment + "/" +
-							position,
+							position + "/" +
+							check,
 							
 					type : "get",
 					dataType : "json",
 					data : "",
 					success : function(response) {
-						search(position);
+						console.log(response);
+						
+						// 이미들어있는 데이터일시
+						if( response.data == '0'){
+							messageBox('정보', '이미 들어있는 데이터입니다.');
+							return;
+						}
+						search(position, 'true');
 			
 					},
 					error : function(xhr, status, e) {
