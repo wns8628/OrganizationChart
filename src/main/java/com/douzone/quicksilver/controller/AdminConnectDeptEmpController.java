@@ -95,7 +95,7 @@ public class AdminConnectDeptEmpController {
 		model.addAttribute("compSeq", compSeq);
 		model.addAttribute("compName", compName);
 		
-		return "admin/connetc-deptEmp-search-dept-mgr";
+		return "admin/connect-deptEmp-search-dept-mgr";
 	}
 	
 	//신규 겸직추가 

@@ -11,8 +11,17 @@ let menuActive = function(){
 	}
 }
 
+let ArrowChange = () => {
+	$(".active").each( (index, item) => {
+		item.children[2].classList.toggle('icon2');
+		item.children[1].classList.toggle('icon2');
+	});
+};
+
+
 $(function(){
 	menuActive();
+	ArrowChange();
 	
 	$("div.parent-menu").click(function(){
 		$this = $(this);

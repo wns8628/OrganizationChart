@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
 import com.douzone.quicksilver.service.AdminService;
+import com.douzone.quicksilver.service.MainService;
 import com.douzone.quicksilver.service.NaviService;
 import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
@@ -36,6 +37,20 @@ public class AdminController {
 		return "main/admin";
 	}
 	
+// --	
+	@Autowired
+	MainService mainService;
+	@RequestMapping("/chart")
+	public String chart( Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
+		model.addAttribute("compList", compList);
+		model.addAttribute("mainInfo", mainService.getMainInfo());
+		model.addAttribute("mainInfoFm", mainService.getMainInfoFm());
+		
+		
+		return "admin/chart-mgr";
+	}
+// --
 	
 	@RequestMapping("/connectDeptEmp")
 	public String connectDeptEmp( Model model) {
@@ -43,6 +58,54 @@ public class AdminController {
 		model.addAttribute("compList", compList);
 		
 		return "admin/connect-deptEmp-mgr";
+	}
+
+	@RequestMapping("/empManagement")
+	public String empManagement(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
+		model.addAttribute("compList", compList);
+		return "admin/empManagement/emp-mgr";
+	}
+	
+	@RequestMapping("/addEmp")
+	public String addEmp(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
+		model.addAttribute("compList", compList);
+		return "admin/empManagement/add-emp";
+	}
+	
+	@RequestMapping("/deptFind")
+	public String deptFind(Model model) {
+		List<CompanyVo> compList = adminService.getCompList();
+		model.addAttribute("compList", compList);
+		return "admin/empManagement/connect-deptEmp-search-emp-mgr";
+	}
+	
+	@RequestMapping("/jusoPopup")
+	public String jusoPopup() {
+		return "admin/empManagement/jusoPopup";
+	}
+	
+	
+	@RequestMapping("/deleteEmp")
+	public String deleteEmp(Model model) {
+		//List<CompanyVo> compList = adminService.getCompList();
+		//model.addAttribute("compList", compList);
+		return "admin/empManagement/delete-emp";
+	}
+	
+	@RequestMapping("/resetPassword")
+	public String resetPassword(Model model) {
+		//List<CompanyVo> compList = adminService.getCompList();
+		//model.addAttribute("compList", compList);
+		return "admin/empManagement/reset-emp";
+	}
+	
+	@RequestMapping("/resetIdEmp")
+	public String resetIdEmp(Model model) {
+		//List<CompanyVo> compList = adminService.getCompList();
+		//model.addAttribute("compList", compList);
+		return "admin/empManagement/resetid-emp";
 	}
 	
 	@RequestMapping("/rankPositionManagement")

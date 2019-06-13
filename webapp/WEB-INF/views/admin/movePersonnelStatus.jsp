@@ -65,6 +65,7 @@
 	src="${pageContext.request.contextPath }/assets/quicksilverbootstrap/js/demo/datatables-demo.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/movePersonnelStatus.js"></script>
+
 <script type="text/javascript">
 
 let contextPath = "${pageContext.servletContext.contextPath }";
@@ -72,6 +73,8 @@ let kwd = '';
 
 $(function(){
 	
+	ArrowChange();
+
 	// 엔터 클릭 인식
 	document.getElementsByTagName('body')[0].addEventListener("keydown", event => {
 		console.log(event.keyCode);
@@ -164,24 +167,24 @@ $(function(){
 			
 				<div class="topSearchDiv">
 				
-						<span>회사선택</span>
-						<select class="selectBoxStyle">
-							<option value="all" data-compSeq="all">전체</option>
-							<c:forEach items="${compList}" var="vo">
-								<option value="${vo.compName }">${vo.compName }</option>
-							</c:forEach>
-						</select>
+					<span>회사선택</span>
+					<select class="selectBoxStyle">
+						<option value="all" data-compSeq="all">전체</option>
+						<c:forEach items="${compList}" var="vo">
+							<option value="${vo.compName }">${vo.compName }</option>
+						</c:forEach>
+					</select>
 						
-						<span>기간</span>
-						<input class="inputText" id="startDate" data-focus=false type="text">
-						~
-						<input class="inputText" id="endDate" data-focus=false type="text">
+					<span>기간</span>
+					<input class="inputText" id="startDate" data-focus=false type="text">
+					~
+					<input class="inputText" id="endDate" data-focus=false type="text">
 						
-						<span>사원명(ID)</span>
-						<input class="inputText" id="empName" type="text">
+					<span>사원명(ID)</span>
+					<input class="inputText" id="empName" type="text">
 						
-						<input class="submit" data-check="false" type="button" value="검색">
-						
+					<input class="submit movePersonnel-search" data-check="false" type="button" value="검색">
+
 					
 				</div>
 				<div id="dialog-message" style="display= none;">

@@ -114,7 +114,7 @@
 							where dp_type = #{position} and dp_seq = #{positionCode} and lang_code = #{langCode}
 			</when>
 			
-			<otherwise>
+			 <otherwise>
 				update t_co_comp_duty_position
 					set 
 						use_yn = #{use},
@@ -122,7 +122,7 @@
 						modify_seq = 'admin',
 						modify_date = now() 
 							where dp_type = #{position} and dp_seq = #{positionCode}
-			</otherwise>
+			</otherwise> 
 		</choose>
 	</update>
 	

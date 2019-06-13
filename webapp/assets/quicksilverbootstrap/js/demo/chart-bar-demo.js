@@ -2,12 +2,12 @@ let labelsArray = new Array();
 let compEmpCountArray = new Array();
 let myLineChart;
 
-let InfoBar = function(seq, mode){
+let InfoBar = function(seq){
 
 	labelsArray = [];
 	compEmpCountArray = [];
 	
-	if(seq && mode == "biz"){
+	if(seq){
 		$.ajax({
 			url: contextPath + "/getBizChart/"+seq,
 			type:"get",
@@ -20,10 +20,8 @@ let InfoBar = function(seq, mode){
 					labelsArray.push(vo.bizName);
 					compEmpCountArray.push(vo.bizEmpCount);
 					
-					$(".card-header .fa-chart-bar").html(" 사업장별 직원 수")
+					$(".card-header .fa-chart-bar").html("사업장별 직원 수")
 				});
-				console.log(labelsArray);
-				console.log(compEmpCountArray);
 				
 			},
 			error: function(xhr, status, e){
@@ -43,9 +41,7 @@ let InfoBar = function(seq, mode){
 					labelsArray.push(vo.compName);
 					compEmpCountArray.push(vo.compEmpCount);
 				});
-				console.log(labelsArray);
-				console.log(compEmpCountArray);
-				
+				$(".card-header .fa-chart-bar").html("자회사별 직원 수")
 			},
 			error: function(xhr, status, e){
 				console.error(status+":"+e);
@@ -61,7 +57,7 @@ let InfoBar = function(seq, mode){
 	
 	console.log(maxData);
 	// Set new default font family and font color to mimic Bootstrap's default styling
-	Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+	//Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 	Chart.defaults.global.defaultFontColor = '#292b2c';
 	
 	// Bar Chart Example
@@ -72,8 +68,9 @@ let InfoBar = function(seq, mode){
 	    labels: labelsArray,
 	    datasets: [{
 	      label: "직원 수(명)",
-	      backgroundColor: "rgba(2,117,216,1)",
+	      backgroundColor: "#EFF6FE",
 	      borderColor: "rgba(2,117,216,1)",
+	      borderWidth: 1,
 	      data: compEmpCountArray,
 	    }],
 	  },
@@ -87,7 +84,7 @@ let InfoBar = function(seq, mode){
 	          display: true
 	        },
 	        ticks: {
-	          maxTicksLimit: 6
+	          autoSkip: false
 	        }
 	      }],
 	      yAxes: [{
@@ -103,15 +100,19 @@ let InfoBar = function(seq, mode){
 	    },
 	    legend: {
 	      display: true
-	    }
+	    },
+	  	 plugins:{
+	  		 labels: {
+	  			render: 'value'
+	  		 }
+	  	  },
 	  }
 	});
 }
 
 var resetCanvasBar = function(){
-	console.log("dasdd wㅈ워져라");
 	  $('#myBarChart').remove(); // this is my <canvas> element
-	  $('#graph-container-bar').append('<canvas id="myBarChart" width="100%" height="50"><canvas>');
+	  $('#graph-container-bar').append('<canvas id="myBarChart" width="100%" height="60"><canvas>');
 	  canvas = document.querySelector('#myBarChart');
 	  ctx = canvas.getContext('2d');
 	  console.log(ctx);
@@ -125,5 +126,5 @@ var resetCanvasBar = function(){
 };
 
 $(function(){
-	//InfoBar();
+	InfoBar();
 });

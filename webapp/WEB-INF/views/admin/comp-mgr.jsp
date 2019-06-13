@@ -19,29 +19,62 @@
 <style type="text/css">
 td, th{ padding: 0;}
 textarea{resize: none;}
-div#contents div#content-table-wrapper {float: right; width:80%;}
+div#contents div#content-table-wrapper {float: right; width:75%;}
 
-div.content-head-wrapper {margin: 5px 5px; width: 100%; height: 20px;}
+div.content-head-wrapper { width: 100%; height: 20px;}
 div.content-head-wrapper span {font-weight: bold;}
-div.content-head-wrapper div.head-btn{ float: right; display: inline; border: 1px black solid; margin: 0 5px; padding: 0 10px;}
+div.content-head-wrapper div.head-btn{ 
+	float: right; 
+	display: inline;
+ 	border:1px solid lightgrey;
+ 	margin: 0 5px;
+ 	margin-right: 0px;
+  	padding-top:2px;
+	padding-bottom:2px;
+	padding-right:12px;
+	padding-left:12px;
+	}
 div.content-head-wrapper div.head-btn:hover{ cursor: pointer;}
 
-div#contents table#company-content-table  {border-collapse:collapse; border-spacing:0;   background-color: white; width: 100%;}
-div#contents table#company-content-table td{font-family:Arial, sans-serif;font-size:12px;border-style:solid;border-width:1px;overflow:hidden; word-break:normal;border-color:black; height: 24px;}
-div#contents table#company-content-table th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;border-style:solid;border-width:1px; overflow:hidden; border-color:black; }
-div#contents table#company-content-table .tg-9anz{border-color:#333333;text-align:right;}
-div#contents table#company-content-table .tg-dvpl{border-color:inherit;text-align:right; background-color: #f9f9f9; padding-right: 10px;}
-div#contents table#company-content-table .tg-de2y{border-color:inherit;text-align:left; padding: 5px 5px; background-color: white;}
-div#contents table#company-content-table .tg-0pky{border-color:inherit;text-align:left;}
-div#contents table#company-content-table .tg-cont{border-color:inherit;text-align:center; padding: 5px 5px; background-color: white;}
+div#contents table#company-content-table  {border-collapse:collapse; border-spacing:0;   background-color: white; width: 97%;
+    margin-left: 16px;
+    margin-top: 15px;
+    
+    }
+div#contents table#company-content-table td{font-family:Arial, sans-serif;font-size:12px;border-style:solid;border-width:1px;overflow:hidden; word-break:normal;border-color:lightgrey; height: 24px;}
+div#contents table#company-content-table th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;border-style:solid;border-width:1px; overflow:hidden; border-color:lightgrey; }
+div#contents table#company-content-table .tg-9anz{border-color:lightgrey;text-align:right;}
+div#contents table#company-content-table .tg-dvpl{border-color:lightgrey;text-align:right; background-color: #f9f9f9; padding: 10px;}
+div#contents table#company-content-table .tg-de2y{border-color:lightgrey;text-align:left; padding: 5px 5px; background-color: white;}
+div#contents table#company-content-table .tg-0pky{border-color:lightgrey;text-align:left;}
+div#contents table#company-content-table .tg-cont{border-color:lightgrey;text-align:center; padding: 5px 5px; background-color: white;}
 div#contents table#company-content-table input[type='text']{height: 18px; width: 99%; display: none;}
 div#contents table#company-content-table th div{float: right;}
 div#contents table#company-content-table input[name='zipCode'] { width: 100px; float: left;}
-div#contents table#company-content-table div#zip-btn {float:left; width: 50px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer;}
+div#contents table#company-content-table div#zip-btn {float:left; width: 50px; height:18px; border: 1px lightgrey solid; margin: 0 5px; padding: 0 10px; cursor: pointer;}
 div#contents table#company-content-table .update-unit {display: none;}
 div#contents table#company-content-table select {width: 80%;}
 
-div#wrapper { height: 660px; width: 1519.2;}
+div#wrapper { height: 100%; width: 1519.2;}
+
+.comMgr-display{
+	display:flex;
+}
+.comMgr-nav-border{
+    width: 326px;
+    height: 691px;
+    float: left;
+    border-right: 1px solid lightgrey;
+}
+.comMgr-body-border{
+    margin-left: 15px;
+    width: 1033px;
+    height: 733px;
+    border: 1px solid #f9f9f9;
+}
+.content-head-wrapper2{
+	margin-left:15px;
+}
 </style>
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
@@ -179,6 +212,9 @@ var removeForm = function(){
 }
 
 $(function(){
+	
+	ArrowChange();
+	
 	$("#company-table tbody tr:first").addClass("company-table-active");
 	
 	// live event (미래에 동적으로 생성될 엘리먼트의 이벤트)
@@ -290,36 +326,46 @@ $(function(){
 						src="${pageContext.servletContext.contextPath }/assets/images/next.png">
 					<span>회사정보관리</span>
 				</div>
-				<div id="company-table-wrapper">
-					<div class="content-head-wrapper">
-						<span>* 회사목록</span>
-						<div id="comp-delete-btn" class="head-btn">삭제</div>
-						<div id="comp-add-btn" class="head-btn">추가</div>
-					</div>
-					<table id="company-table">
-						<thead>
-							<tr>
-								<th>회사코드</th>
-								<th>회사명</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${compList }" var="vo">
+			
+			<!--  -->	
+			<div id="select-bar">
+				<span class="Info-label">Quick Silver 그룹</span>
+			</div>
+			<!--  -->	
+			<div class="comMgr-display">	
+				<div class="comMgr-nav-border">
+					<div id="company-table-wrapper">
+						<div class="content-head-wrapper">
+							<span>● 회사목록</span>
+							<div id="comp-delete-btn" class="head-btn">삭제</div>
+							<div id="comp-add-btn" class="head-btn">추가</div>
+						</div>
+						<table id="company-table">
+							<thead>
 								<tr>
-									<td>${vo.compSeq }</td>
-									<td>${vo.compName }</td>
+									<th>회사코드</th>
+									<th>회사명</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<c:forEach items="${compList }" var="vo">
+									<tr>
+										<td>${vo.compSeq }</td>
+										<td>${vo.compName }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div id="content-table-wrapper">
-					<div class="content-head-wrapper">
-						<span>* 회사기본정보</span>
+					<div class="content-head-wrapper content-head-wrapper2">
+						<span>● 회사기본정보</span>
 						<div id="update-cancel-btn" class="head-btn update-toggle" style="display:none;">취소</div>
 						<div id="update-save-btn" class="head-btn" style="display:none;">저장</div>
 						<div id="company-update-btn" class="head-btn update-toggle">수정</div>
 					</div>
+					<div class="comMgr-body-border">
 					<form id="company-form">
 						<table id="company-content-table" style="table-layout: fixed;">
 							<colgroup>
@@ -481,7 +527,9 @@ $(function(){
 							</tr>
 						</table>
 					</form>
+					</div>
 				</div>
+		 	 </div>	
 			</div>
 			<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
 		</div>

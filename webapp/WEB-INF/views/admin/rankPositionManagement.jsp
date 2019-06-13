@@ -74,6 +74,8 @@ let newButtonClick = () => {
 
 $(function(){
 	
+	ArrowChange();
+	
 	// 엔터 클릭 인식
 	document.getElementsByTagName('body')[0].addEventListener("keydown", event => {
 		console.log(event.keyCode);

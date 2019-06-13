@@ -66,26 +66,26 @@ div.content-head-wrapper input { margin: 5px 0 0 20px; }
 div#content-wrapper div#tree {  min-height: 350px; }
 div#content-wrapper div#tbl-content { width: 60%; min-height: 420px; float: right; }
 
-div#content-wrapper div#tbl-header {width: 100%; padding-top: 20px; background-color: #F9F9F9; height: 30px; border-top: 1px solid #B2B2B2; border-right: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
+div#content-wrapper div#tbl-header {width: 100%; padding-top: 20px; background-color: #F9F9F9; height: 30px; border-top: 1px solid lightgrey; border-right: 1px solid lightgrey; border-left: 1px solid lightgrey;}
 div#content-wrapper div#tbl-header span:last-child { width: 80px; font-size: 13px; height: 28px; float: left; display: inline-block; line-height: 30px;
-													border-left: 1px solid #B2B2B2; border-top: 1px solid #B2B2B2; border-right: 1px solid #B2B2B2;}
+													border-left: 1px solid lightgrey; border-top: 1px solid lightgrey; border-right: 1px solid lightgrey;}
 div#content-wrapper div#tbl-header span:first-child {width: 80px; font-size: 13px; height: 28px; float: left; display: inline-block; line-height: 30px;
-													margin-left: 20px; background-color: white; border-left: 1px solid #B2B2B2; border-top: 1px solid #B2B2B2;}
+													margin-left: 20px; background-color: white; border-left: 1px solid lightgrey; border-top: 1px solid lightgrey;}
 
-div#content-wrapper div#tbl-wrapper {width: 96%; padding: 2%; border: 1px solid #B2B2B2; height: 100%}
+div#content-wrapper div#tbl-wrapper {width: 96%; padding: 2%; border: 1px solid lightgrey; height: 687px;}
 
-div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; width: 100%; height: 480px;}
-div#tbl-wrapper table#tbl-info td{font-size:13px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 22px; padding: 4px;}
-div#tbl-wrapper table#tbl-info th{font-size:13px;font-weight:normal;padding:0 20px; border: 1px solid #B2B2B2; overflow:hidden;word-break:normal; height: 30px;}
+div#tbl-wrapper table#tbl-info  {border-collapse:collapse; border: 1px solid lightgrey; border-spacing:0; width: 100%; height: 480px;}
+div#tbl-wrapper table#tbl-info td{font-size:13px; border: 1px solid lightgrey; overflow:hidden;word-break:normal; height: 22px; padding: 10px;}
+div#tbl-wrapper table#tbl-info th{font-size:13px;font-weight:normal;padding:0 20px; border: 1px solid lightgrey; overflow:hidden;word-break:normal; height: 30px;}
 div#tbl-wrapper table#tbl-info .tg-lqy6{text-align:right;vertical-align:middle; background-color: #F9F9F9;}
 div#tbl-wrapper table#tbl-info .tg-0lax{text-align:left;vertical-align:middle;}
 div#tbl-wrapper table#tbl-info input[type='text']{display: none; width: 99%;  height: 16px}
 div#tbl-wrapper table#tbl-info input[name='zipCode']{display: none; width: 20%;  height: 16px; float: left;}
 div#tbl-wrapper table#tbl-info div#zip-btn {width: 53px; height:18px; border: 1px black solid; margin: 0 5px; padding: 0 10px; cursor: pointer; float: left;}
 
-div#tree-mini {width: 36.9%; background-color: white; border: 0px; height: 472px;
+div#tree-mini {width: 36.9%; background-color: white; border: 0px; height: 679px;
 vertical-align: top; float: left; padding: 1.5%; min-height: 472px; overflow-y:auto;
-border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
+border-top: 1px solid lightgrey; border-bottom: 1px solid lightgrey; border-left: 1px solid lightgrey;}
 div.tree li>span {float: left;}
 
 .update-unit{ display: none;}
@@ -94,7 +94,7 @@ div.tree li>span {float: left;}
 	background-color: #92B5DF;
 }
 
-div#wrapper { height: 662px; width: 1519.2;}
+div#wrapper { height: 100%; width: 1519.2;}
 
 </style>
 <script type="text/javascript">
@@ -676,6 +676,7 @@ $(function() {
 
 	defaultComp();
 
+	ArrowChange();
 	$("#compSelect").change(function() {
 		defaultComp();
 	});
@@ -890,7 +891,7 @@ $(function() {
 					</select>
 				</div>
 				<div class="content-head-wrapper">
-					<span>* 부서정보</span>
+					<span>● 부서정보</span>
 <!-- 					<input type="checkbox">사업장 숨김 -->
 					<div class="head-btn cancel update-unit">취소</div>
 					<div class="head-btn save update-unit">저장</div>

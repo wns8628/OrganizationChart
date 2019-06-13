@@ -15,6 +15,10 @@
 	     <typeAlias alias="paginationvo" type="com.douzone.quicksilver.vo.PaginationVo"/>
 	     <typeAlias alias="adminconnectdeptEmpvo" type="com.douzone.quicksilver.vo.AdminConnectDeptEmpVo"/>
 	     <typeAlias alias="movepersonnelstatusvo" type="com.douzone.quicksilver.vo.MovePersonnelStatusVo"/>
+	     <typeAlias alias="empinfomanagementvo" type="com.douzone.quicksilver.vo.EmpInfoManagementVo"/>
+	     <typeAlias alias="resetidvo" type="com.douzone.quicksilver.vo.ResetIdVo"/>
+	     <typeAlias alias="changepasswordvo" type="com.douzone.quicksilver.vo.ChangePasswordVo"/>
+	     <typeAlias alias="getpositiondutyvo" type="com.douzone.quicksilver.vo.GetPositionDutyVo"/>
 	     
     </typeAliases>    
 
@@ -34,6 +38,7 @@
       <mapper resource="/com/douzone/config/app/mybatis/mappers/autocomplete.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/AdminConnectDeptEmp.xml" />
       <mapper resource="/com/douzone/config/app/mybatis/mappers/movePersonnelStatus.xml" />
+      <mapper resource="/com/douzone/config/app/mybatis/mappers/empInfoManagement.xml" />
       
  
    </mappers> 
