@@ -5089,7 +5089,7 @@
 				$(_div, { 'class': classes.sScrollHead } )
 					.css( {
 						overflow: 'hidden',
-						position: 'relative',
+						position: 'initial',
 						border: 0,
 						width: scrollX ? size(scrollX) : '100%'
 					} )
@@ -5113,7 +5113,7 @@
 			.append(
 				$(_div, { 'class': classes.sScrollBody } )
 					.css( {
-						position: 'relative',
+						position: 'initial',
 //						overflow: 'auto',
 						width: size( scrollX )
 					} )

@@ -1,0 +1,120 @@
+.info-detail{
+	border : 1px solid lightgrey;
+}
+.info-detail-total-emp{
+	border : 1px solid lightgrey;
+}
+/* 차트 */
+.chart-label{
+	padding-bottom: 10px;
+    border-bottom: 1.5px solid lightgrey;
+    opacity: 0.6;
+    font-size:14px;
+    font-weight:bold;
+}
+.info-bar-chart-mma{
+	border : 1px solid lightgrey;
+	width:50%;
+	height:304px;
+	float:left;
+	padding:15px;
+}
+.info-chart-ul{
+	font-size:14px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.info-chart-ul > li{
+	padding-bottom:4px;
+}
+.info-bar-chart{
+	border : 1px solid lightgrey;
+	width:50%;
+	height:304px;
+	float:left;
+	margin-left:15px;
+	padding:15px;
+}
+.info-pie-chart{
+	border : 1px solid lightgrey;
+	width:50%;
+	height:280px;
+	margin-top: 15px;
+	float:left;
+	padding:15px;
+}
+.info-pie-chart-fm{
+	border : 1px solid lightgrey;
+	width:50%;
+	height:280px;
+	margin-top: 15px;
+	float:left;
+	margin-left:15px;
+	padding:15px;
+}
+#myBarChart, #myPieChartFm ,#myPieChart{
+    margin-top: 15px;
+}
+
+/* 레프트 테이블부분  */
+.chart-body-left-label{
+    font-weight: bold;
+    font-size: 13px;	
+}
+   
+#chart-company-table{
+	border: 1px solid lightgrey;
+    border-collapse: collapse;
+    width: 95%;
+    margin-top: 13px;
+}
+#chart-company-table th{
+    border: 1px solid lightgrey;
+    height: 20px;
+    background-color: #F9F9F9;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#chart-company-table td{
+	border: 1px solid lightgrey;
+    text-align: center;
+    height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#chart-company-table tr:hover{
+	background-color : rgb(230, 244, 254);
+}
+
+/* 바디부분  */
+.chart-body{
+	width: 100%;
+    height: 100%;
+    display:flex;
+}
+.chart-body-left{
+	width: 326px;
+    height: 746px;
+    float:left;
+    border-right: 1px solid lightgrey;
+}
+.chart-body-right{
+    width: 75%;	
+    height: 100%;
+    /* border:1px solid lightgrey; */
+    margin-left: 15px;
+}
+.chart-body-right-in{
+	width: 97%;
+    height: 663px;
+    float:left;
+   	padding:15px;
+    margin-top: 13px;
+    border: 1px solid #f9f9f9;
+    clear:both;
+}
+.chart-body-right-label{
+	float:left;
+    font-weight: bold;
+    font-size: 13px;
+}

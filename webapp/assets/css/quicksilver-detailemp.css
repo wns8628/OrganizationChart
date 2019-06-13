@@ -29,12 +29,11 @@ body {
     float:left; 
 }
 #admin-login{
-	width:150px;
+    width: 58px;
 	color : #ffffff;
 	font-weight: bold;
     font-size: unset;
 	float:right; 
-	padding-right:15px;
     padding-top:10px; 
     text-align: center;
 }
@@ -338,4 +337,11 @@ div.wrap {height: 20px; display: inline-block; float: left}
     text-align: center;
     font-size: 25px;
     color: lightgrey;
+}
+
+/* 로그인 폼부분 */
+#admin-dialog{
+	background-color: rgb(230, 244, 254);
+    padding: 30px;
+    border : 2px solid lightgrey;
 }

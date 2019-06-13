@@ -22,6 +22,9 @@ public class MainDao {
 	public MasterGroupVo get(){
 		return sqlSession.selectOne("info.getMainInfo");
 	}
+	public List<MasterGroupVo> getFm(){
+		return sqlSession.selectList("info.getMainInfoFm");
+	}
 	public List<CompanyVo> getList(String langCode){
 		return sqlSession.selectList("info.getMainChartList",langCode);
 	}
@@ -29,6 +32,9 @@ public class MainDao {
 	//사업장클릭시 정보
 	public CompanyVo get(CompanyVo companyvo){
 		return sqlSession.selectOne("info.getCompInfo", companyvo);
+	}
+	public List<CompanyVo> getFm(CompanyVo companyvo){
+		return sqlSession.selectList("info.getCompInfoFm", companyvo);
 	}
 	public List<BizVo> getList(BizVo bizvo){
 		return sqlSession.selectList("info.getBizChartList",bizvo);

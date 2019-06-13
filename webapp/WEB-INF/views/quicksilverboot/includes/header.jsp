@@ -6,18 +6,10 @@
 
 	 <nav class="">
 	 	<!-- 메인로고 -->
-	    <a class='main-logo' href="${pageContext.request.contextPath }/boot">Quick Silver ( <span class="lang" data-lang='title'>조직도</span> )</a>
+	    <a class='main-logo' href="${pageContext.request.contextPath }/">Quick Silver ( <span class="lang" data-lang='title'>조직도</span> )</a>
 	    
 		<!-- 다국어 -->
 				<div class="btn-group btn-group-toggle multi" data-toggle="">
-				  <%-- <a href="${pageContext.servletContext.contextPath }/boot/kr"
-				     class="btn btn-secondary btn-sm active">
-				    <input type="radio" name="options" id="option1" autocomplete="off" checked>한국어
-				  </a>
-				  <a href="${pageContext.servletContext.contextPath }/boot/en"
-				     class="btn btn-secondary btn-sm">
-				    <input type="radio" name="options" id="option2" autocomplete="off">영어 
-				  </a> --%>
 				  <select id="langcode">
 		 			<option class='lang' value="kr" data-lang='kr'>한국어
 		 			<option class='lang' value="en" data-lang='en'>영어
@@ -28,12 +20,14 @@
 	    <!-- 관리자로그인 -->
 	    <ul class="navbar-nav ml-auto ml-md-0">
 	      <li class="nav-item">   
-	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm lang" data-lang='adminLogin'>
-		       		 관리자 로그인
-		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
+	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm lang" data-lang='admin'>
+		       		 관리자
+		       		 
+				<%--
+ 		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
+				      <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
 					  <div id="formContent" >
-						    <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
-					       	 	 <h2 class='lang' data-lang='admin'>관리자</h2>
+					       	 	 <h4 class='lang' data-lang='admin'>관리자</h4>
 						    <div class="fadeIn first">
 						    </div>		
 						    <!-- Login Form -->
@@ -43,11 +37,14 @@
 						      <input type="submit" class="fadeIn fourth" value="Log In">
 						    </form>
 						    <!-- Remind Passowrd -->
-						    <div id="formFooter">
+						    <!--
+						     <div id="formFooter">
 						      <a class="underlineHover" href="#">Forgot Password?</a>
 						    </div>
+						     -->
 					  </div>
 				</div>    	
+				 --%>
 	        </div> 
 	     	<!--  -->
 	     	
