@@ -49,6 +49,10 @@ table#tbl-emplist { width: 100%; height: 100%; border-collapse:collapse; border:
 .active-span{
 	background-color: #BEEBFF;
 }
+
+.move-tr{
+	background-color: #FFE0E0;
+}
 </style>
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
@@ -58,7 +62,7 @@ function move_pop(list){
 }
 
 var empRender = function(vo){
-	var htmls = "<tr><td class='tg-0lax'><input type='checkbox' value='"+vo.empSeq+"'></td><td class='tg-0lax'>"+vo.deptName+"</td>"
+	var htmls = "<tr data-no='"+vo.empSeq+"'><td class='tg-0lax'><input type='checkbox' value='"+vo.empSeq+"'></td><td class='tg-0lax'>"+vo.deptName+"</td>"
 				+"<td class='tg-0lax'>"+vo.empName+"("+vo.loginId+")"+"</td><td class='tg-0lax'>"+vo.dutyCodeName+"</td>"
 				+"<td class='tg-0lax'>"+vo.positionCodeName+"</td><td class='tg-0lax'>"+vo.workStatus+"</td></tr>";
 	
@@ -82,6 +86,7 @@ var getEmpListByDeptSeq = function(deptSeq, sortType){
 		type : "get",
 		dataType : "json",
 		data : "",
+		async : false,
 		success : function(response) {
 			$("#tbl-emplist tr:not(:first-child)").remove();
 			

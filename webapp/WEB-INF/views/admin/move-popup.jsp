@@ -69,6 +69,10 @@ div#move-popup-tree img.close-btn{
     top: -6px;
     cursor: pointer;
 }
+
+.move-tr{
+	background-color: #FFE0E0;
+}
 </style>
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
@@ -154,15 +158,21 @@ $(function(){
 			$("p:last-child").after("<p style='color:red;'>* 직책을 선택해주세요.</p>");
 		}else{
 			var seq = $("input[name='deptSeq']").val();
+			var seqList = [];
 			$(opener.document).find("input[type='checkbox']:checked").each(function(){
 				$("input[name='empSeq']").val($(this).val());
+				seqList.push($(this).val());
 				updateEmpDept();
 			});
 			
 			if(seq != prevDeptSeq){
 				getParentDeptSeq(seq);
 				$(opener.document).find("li.child[data-no='"+seq+"'] span").trigger("click");
+				for(var i=0; i<seqList.length; i++){
+					$(opener.document).find("tr[data-no='"+seqList[i]+"']").addClass("move-tr");
+				}
 			}
+			
 			window.close();
 		}
 	});
