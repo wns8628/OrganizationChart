@@ -405,6 +405,10 @@ var deptAddRender = function(vo, index, last, str) {
 		} else {
 			$("#tree-mini ul[b-no='" + vo.parentDeptSeq + "']").append(htmls);
 		}
+		
+		if($("#tree-mini li[data-no='"+vo.parentDeptSeq+"']").next().children("li").length > 1){
+			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').prepend(child).children('img.last').remove();
+		}
 	} else {
 		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
 		$("#tree-mini li[data-no='" + vo.deptSeq + "'] div.prev").prepend(str);
@@ -519,7 +523,9 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 				$("#tree-mini li[data-no='" + prevParent + "'] div.li-div").prepend(noChildIcon);
 			}
 			
-			$("#tree-mini li.child[data-no='"+deptSeq+"'] img.add-icon").show();
+			if(deptSeq == $("#tbl-info span#seq").text()){
+				$("#tree-mini li.child[data-no='"+deptSeq+"'] img.add-icon").show();
+			}
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -644,7 +650,9 @@ var incomplRemove = function(trigger){
 		}
 		
 		if(trigger){
-			$("li.incompl").parent().prev().find("span").trigger("click");
+			if(!$("li.incompl").hasClass("biz")){
+				$("li.incompl").parent().prev().find("span").trigger("click");
+			}
 		}
 		
 		$("li.incompl").remove();
@@ -652,7 +660,7 @@ var incomplRemove = function(trigger){
 }
 
 function seqCheck(seq){
-	var seqList;
+	var seq;
 	$.ajax({
 		url : contextPath + "/admin/seqCheck/"+seq,
 		type : "get",
@@ -660,14 +668,18 @@ function seqCheck(seq){
 		data : "",
 		async : false,
 		success : function(response) {
-			seqList = response.data;
+			$(response.data).each(function(index, item){
+				if(item != null){
+					seq = item;
+				}
+			});
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
 		}
 
 	});
-	return seqList;
+	return seq;
 }
 
 $(function() {
@@ -682,12 +694,18 @@ $(function() {
 	});
 	
 	$("input.seq").focusout(function(){
-		var seqList = seqCheck($(this).val());
-		if(seqList[0] != null || seqList[1] != null){
-			console.log(seqList[0]);
-			console.log(seqList[1]);
+// 		console.log($(this).val());
+		console.log($(this));
+		var seq = seqCheck($(this).val());
+		if($("li.incompl").length > 0 && seq != null){
+			console.log("1");
 			alert("부서코드는 중복될 수 없습니다.");
 			$(this).val("").focus();
+		}else if($("li.incompl").length == 0 && seq != null	&& $("div.active-span span").data("lang") != seq){
+			console.log("2");
+			alert("부서코드는 중복될 수 없습니다.");
+			setTimeout(function(){$(this).val("").focus();}, 1);
+			return false;
 		}
 	});
 	
@@ -941,7 +959,7 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="seq"></span>
-										<input class='dept seq' type="text" name='deptSeq'>
+<!-- 										<input class='dept seq' type="text" name='deptSeq'> -->
 										<input class='biz seq' type="text" name='bizSeq'>
 									</td>
 								</tr>

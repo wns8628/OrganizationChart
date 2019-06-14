@@ -261,6 +261,10 @@ public class AdminService {
 		}
 	}
 	
+	public String compSeqCheck(String seq) {
+		return adminDao.compSeqCheck(seq);
+	}
+	
 	public List<String> seqCheck(String seq){
 		List<String> seqList = new ArrayList<String>();
 		seqList.add(adminDao.bizSeqCheck(seq));

@@ -201,16 +201,33 @@ var removeForm = function(){
 	$("#company-update-btn").show();
 	$(".update-unit").hide();
 	
-	$("#company-content-table input[type='text']").each(function(index, item){
-		$(item).prev().text($(item).val());
-	});
-	$("input:checked").parent().prev().text($("input:checked").attr("data-id"));
-	$("option:checked").parent().prev().text($("option:checked").attr("data-id"));
+	if($("#company-table tbody tr.company-table-active").length === 0){
+		$("#company-table tbody tr:fisrt-child").trigger("click");
+	}else{
+		$("tr.company-table-active").trigger("click");
+	}
 
 	$("#company-content-table span").show();
 	$("#company-content-table input[type='text']").hide();
 }
 
+var compSeqCheck = function(seq){
+	var result;
+	$.ajax({
+		url : contextPath + "/admin/compSeqCheck/"+seq,
+		type : "get",
+		dataType : "json",
+		data : "",
+		async : false,
+		success : function(response) {
+			result = response.data;
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}
+	});
+	return result;
+}
 $(function(){
 	
 	ArrowChange();
@@ -264,7 +281,13 @@ $(function(){
 	//회사추가
 	$("#update-save-btn").click(function(){
 		if($("#company-table tbody tr.company-table-active").length === 0){
-			addComp();
+			if($("input[name='compSeq']").val() == ""){
+				alert("회사코드를 입력해주세요.");
+			}else if($("input[name='compName']").val() == ""){
+				alert("회사명을 입력해주세요.");
+			}else{
+				addComp();
+			}
 		}
 	});
 	
@@ -307,6 +330,16 @@ $(function(){
 		}
 	}
 	
+	$("input[name='compSeq']").focusout(function(){
+		var seq = compSeqCheck($(this).val());
+		if($("#company-table tbody tr.company-table-active").length === 0 && seq != null){
+			alert("회사코드는 중복될 수 없습니다.");
+			$(this).val("").focus();
+		}else if($("#company-table tbody tr.company-table-active").length > 0 && seq != null && seq != $("tr.company-table-active td:first-child").text()){
+			alert("회사코드는 중복될 수 없습니다.");
+			$(this).val("").focus();
+		}
+	});
 });
 </script>
 </head>

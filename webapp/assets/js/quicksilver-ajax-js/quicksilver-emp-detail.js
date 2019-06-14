@@ -161,7 +161,7 @@ $(function(){
                for(let i=0; i<deptInfoList.length; i++){
                   alldept = alldept.concat((deptInfoList[deptInfoList.length-(i+1)] + " > ")); 
                }
-               
+               console.log($.lang);
                for(var key in $(response.data)[0]){ 
 	    		 if($(response.data)[0][key] == null) {
 	    			 $(response.data)[0][key] = "";
