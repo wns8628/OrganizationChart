@@ -13,6 +13,11 @@
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/admin/admin.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/admin/rankPositionManagement.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style type="text/css">
 
 /* reset */
@@ -54,9 +59,48 @@ div#footer { width: 100%; height: 50px; background-color: #ececec; margin: 30px 
 
 var contextPath = "${pageContext.servletContext.contextPath }";
 
+$(function(){
+	let loginId =  window.opener.document.getElementById('hiddenLoginId').value;
+	let empName = window.opener.document.getElementById('hiddenEmpName').value;
+	
+	console.log(loginId);
+	console.log(empName);
+	
+	$(".notice").append('<p>선택한 사용자 <span style="color: red">' + empName + '(' + loginId + ')</span>을 삭제하시겠습니까?' + '</p>');
+	
+	$(".remove").click( () => {
+		
+		questionBox("알림", "정말 삭제하시겠습니까?").then( val => {
+			if( val == 'Yes'){
+				$.ajax({
+					url : contextPath + "/empInfoManage/removeEmpInfo",
+					type : "post",
+					dataType : "json",
+					data : {
+						empName: empName,
+						loginId: loginId
+					},
+					success : function(response) {
+						window.close();
+					},
+					error : function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
+
+				});
+			}
+		});
+	
+	});
+});
 </script>
 </head>
 <body>
+
+	<div id="dialog-message" style="display= none;">
+		<p></p>
+	</div>
+	
 	<div id="container">
 		<div id="header">
 			<div class="header-wrapper">
@@ -64,17 +108,12 @@ var contextPath = "${pageContext.servletContext.contextPath }";
 			</div>
 		</div>
 		<div id="contents">
-			<table class="empDetail2">
-				<tr>
-					<th><img alt="" src="${pageContext.servletContext.contextPath }/assets/images/smallc.png">관리자 비밀번호</th>
-					<td>							
-						<input type="password" name="password" value="" class="input">
-					</td>
-				</tr>
-			</table>
+			<div class="notice">
+		
+			</div>
 		</div>
 		<div id="footer">
-			<button class="save">삭제</button>
+			<button class="remove">삭제</button>
 			<button class="cancle" onClick='window.close()'>취소</button>
 		</div>	
 	</div>	
