@@ -192,7 +192,7 @@ $(function(){
 					<input type="button"class="remove button-css" value="삭제">
 				</div>
 				
-				<div id="dialog-message" style="display= none;">
+				<div id="dialog-message" style="display: none;">
 					<p></p>
 				</div>
 				

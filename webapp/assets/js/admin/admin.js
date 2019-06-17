@@ -1,3 +1,7 @@
+let oneOpenYn = true;
+let twoOpenYn = false;
+
+
 //var contextPath = "${pageContext.servletContext.contextPath }";
 $.lang = {
 	kr : {
@@ -318,15 +322,30 @@ var getEmpInfo = function(seq){
 function menuActive(){
 	var menuList = $("div.menu li");
 	for (var i = 0; i < menuList.length; i++) {
-		if ($(menuList[i]).text() === $("#contents-header span:last")
-				.text()) {
-			$(menuList[i]).parent().parent().show().prev().addClass(
-					"active");
+		if ($(menuList[i]).text() === $("#contents-header span:last").text()) {
+//			$(menuList[i]).parent().parent().show().prev().addClass(
+//					"active");
 			$(menuList[i]).children().css("color", "#328CF5").css(
 					"font-weight", "bold");
 		}
 	}
-
+	
+	console.log($(".oneOpenYn").html());
+	console.log($(".twoOpenYn").html());
+	
+	if($(".oneOpenYn").html() == 'true' ){
+		$(".parent-menu").eq(0).addClass("active").next().show();
+		oneOpenYn = true;
+	}else{
+		oneOpenYn = false;	
+	};
+	if($(".twoOpenYn").html() == 'true' ){
+		$(".parent-menu").eq(1).addClass("active").next().show();
+		twoOpenYn = true;
+	}else{
+		twoOpenYn = false;	
+	};
+	
 }
 
 let ArrowChange = () => {
@@ -338,6 +357,7 @@ let ArrowChange = () => {
 };
 
 $(function() {
+	
 	menuActive();
 	getCompList();
 	$("#langcode").change(function(){
@@ -359,6 +379,10 @@ $(function() {
 			$icon1.show();
 			$icon2.hide();
 		}
+		
+		oneOpenYn = $(".parent-menu").eq(0).hasClass("active");
+		twoOpenYn =	$(".parent-menu").eq(1).hasClass("active");
+		
 	});
 
 	$(document).on("click", "li.comp span", function(event) {

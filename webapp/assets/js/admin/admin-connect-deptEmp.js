@@ -327,44 +327,55 @@ let formMake = () => {
 //
 //저장버튼 함수--
 let save_confirm = () => {
-    if (confirm('부서를 새로 추가하시겠습니까?')) {
-    	 //추가
-    	 plusDept(formMake());
+	
+	questionBox("알림","부서를 새로 추가하시겠습니까?").then( val => {
+		if( val == "No"){
+			return false;
+		}else{
+			//추가
+	    	 plusDept(formMake());
 
-    	 //정리 
-    	 alert("추가되었습니다.");
-         status="update";
- 		 $(".connect-deptEmp-new").css("display","none");
-    } else {
-    	return false;
-    }
+	    	 //정리 
+	    	 messageBox("추가", "추가되었습니다.");
+	         status="update";
+	 		 $(".connect-deptEmp-new").css("display","none");	
+		}
+	});
+	
 }
 //업데이트 
 let save_update = () => {
-	 if (confirm('수정하시겠습니까?')) {
-		 //업데이트
-		 plusUpdate(formMake());
-		 
-		 
-		 //정리 
-		 alert("수정되었습니다.");
-	 }else{
-		 return false;
-	 }
+	
+	questionBox("알림","수정하시겠습니까?").then( val => {
+		if( val == "No"){
+			return false;
+		}else{
+			 //업데이트
+			 plusUpdate(formMake());
+			 
+			 //정리 
+	    	 messageBox("알림", "수정되었습니다.");
+		}
+	});
+
 }
 //삭제버튼 함수 
 let delete_confirm = () => {
-    if (confirm('정말로 삭제하시겠습니까?')) {
-    	 //추가
-    	 deleteDept(formMake());
+	
+	questionBox("알림","정말로 삭제하시겠습니까?").then( val => {
+		if( val == "No"){
+			return false;
+		}else{
+			 //추가
+	    	 deleteDept(formMake());
 
-    	 //정리 
-    	 alert("삭제되었습니다.");
-         status=null;
- 		//$(".connect-deptEmp-new").css("display","none");
-    } else {
-    	return false;;
-    }
+	    	 //정리 
+	    	 messageBox("알림", "삭제되었습니다.");
+				
+	         status=null;
+		}
+	});
+	
 }
 //삭제 ajax
 let deleteDept = (form) =>{
@@ -557,18 +568,16 @@ $(function(){
 	$(document).on("click", ".connect-deptEmp-create", function(key) {
 		
 		if(!empSeq){
-			alert("선택된 사원이 없습니다.")
+			messageBox("알림", "선택된 사원이 없습니다.");
 			return false;
 		}
 		if($(".connect-deptEmp-new").css("display") == "inline"){
-			alert("이미 신규모드 입니다.")
+			messageBox("알림", "이미 신규모드 입니다.");
 			return false;	
 		}
 		
 		status = "new";
-		
-		alert("새로운 부서에 직원을 추가합니다.");
-
+		messageBox("알림", "새로운 부서에 직원을 추가합니다.");
 		let form = {																	
     			compSeq: compSeq
     	}
@@ -593,8 +602,8 @@ $(function(){
 	//저장버튼
 	$(document).on("click", ".connect-deptEmp-save", function(key) {
 		console.log(status);
-		if(status == null){ 																	
-			alert("저장할 데이터가 없습니다.");
+		if(status == null){ 			
+			messageBox("알림", "저장할 데이터가 없습니다.");
 			return;
 		}
 		
@@ -603,7 +612,7 @@ $(function(){
 			console.log($(".detail-dept-text").attr("data-lang"));
 			
 			if(!$(".detail-dept-text").attr("data-lang") || $(".detail-dept-text").attr("data-lang") == 'null' ){
-				alert("부서를 지정해주세요");
+				messageBox("알림", "부서를 지정해주세요");
 			}else{
 				save_confirm();   																//새로 저장 				
 			}
@@ -613,7 +622,7 @@ $(function(){
 			if(positionCode == $("#detail-positionCode-select option:selected").val()  			//데이터 변경여부 
 					&&  dutyCode ==  $("#detail-dutyCode-select option:selected").val() 
 					  && mainDeptYn == $("#detail-mainDeptYn-select option:selected").val() ){
-				alert("수정된 데이터가 없습니다.");														//변경할게없음 
+				messageBox("알림", "수정된 데이터가 없습니다.");											//변경할게없다.
 			}else{
 				save_update();																	//업데이트 
 			}
@@ -623,11 +632,11 @@ $(function(){
 	$(document).on("click", ".connect-deptEmp-delete", function(key) {
 		
 		if(status == null || status== 'new'){ 																	
-			alert("삭제할 부서를 지정하세요");
+			messageBox("알림", "삭제할 부서를 지정하세요.");	
 			return false;
 		}
-		if($("#DataTables_Table_1_wrapper table tbody tr").length == 1 ){
-			alert("사원은 하나이상의 부서를 가져야합니다.")
+		if($("#DataTables_Table_1_wrapper table tbody tr").length == 1 ){							
+			messageBox("알림", "사원은 하나이상의 부서를 가져야합니다.");	
 			return false;
 		}
 		

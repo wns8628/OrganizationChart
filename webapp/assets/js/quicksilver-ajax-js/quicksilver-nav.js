@@ -421,16 +421,11 @@ $(function(){
 		   $parent.next().children().remove();
 	   }else{
 		   getBizList(seq);
-    	   //차트관련
-    	   //getCompInfo(seq);
-    	   //InfoBar(seq, "biz");  
-		   //회사클릭시 다가져와서 렌더링 
-    	   //makeTable("/getEmpInfo/" + seq + "/a");
-		}
+	   }
    });
    //사업장 클릭 
    $(document).on("click", "li.biz span", function(event){		
-	   //
+	   console.log("클릭됨?")
    });
    //부서 클릭
    $(document).on("click", "li.department span", function(event){

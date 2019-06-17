@@ -15,16 +15,19 @@ let makePieInfo = function(){
 		token = $("div[data-age='"+(i+1)+"']").html().split(':');
 		ageName.push(token[0]);
 		totalAge.push(token[1]);
-	}	
+	}
+	
 	makePie();
+	
 }
 let makePie = function(){
-
+	
 	if(myPieChart != null){
 		resetCanvasPie();
 	}
 	
 	// Set new default font family and font color to mimic Bootstrap's default styling
+	Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 	Chart.defaults.global.defaultFontColor = '#292b2c';
 		
 	// Pie Chart Example
@@ -71,9 +74,6 @@ let makePieFm = function(){
 		resetCanvasPieFm();
 	}
 	
-	// Set new default font family and font color to mimic Bootstrap's default styling
-	Chart.defaults.global.defaultFontColor = '#292b2c';
-		
 	// Pie Chart Example
     let ctx = document.getElementById("myPieChartFm");
 
@@ -90,6 +90,7 @@ let makePieFm = function(){
 	  },
 	  
      options: {
+		 
 	  	 plugins:{
 	  		 labels:
   			 [
@@ -123,13 +124,8 @@ var resetCanvasPie = function(){
 	  canvas = document.querySelector('#myPieChart');
 	  ctx = canvas.getContext('2d');
 	  console.log(ctx);
-//	  ctx.canvas.width = $('#graph').width(); // resize to parent width
-//	  ctx.canvas.height = $('#graph').height(); // resize to parent height
 	  var x = canvas.width/2;
 	  var y = canvas.height/2;
-	  ctx.font = '10pt Verdana';
-	  ctx.textAlign = 'center';
-	  ctx.fillText('This text is centered on the canvas', x, y);
 };
 //남여 지우기
 var resetCanvasPieFm = function(){
@@ -138,13 +134,8 @@ var resetCanvasPieFm = function(){
 	  canvas = document.querySelector('#myPieChartFm');
 	  ctx = canvas.getContext('2d');
 	  console.log(ctx);
-//	  ctx.canvas.width = $('#graph').width(); // resize to parent width
-//	  ctx.canvas.height = $('#graph').height(); // resize to parent height
 	  var x = canvas.width/2;
 	  var y = canvas.height/2;
-	  ctx.font = '10pt Verdana';
-	  ctx.textAlign = 'center';
-	  ctx.fillText('This text is centered on the canvas', x, y);
 };
 
 $(function(){

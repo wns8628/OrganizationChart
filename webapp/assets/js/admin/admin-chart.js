@@ -29,9 +29,9 @@ let groupInfo = () => {
 	    	  
 	    	  
 	    	  insertCompInfo("group");
+	    	  InfoBar();
 	    	  makePieInfo();
 	    	  makePieInfoFm();
-	    	  InfoBar();
 	      },
 	      error: function(xhr, status, e){
 	         console.error(status+":"+e);

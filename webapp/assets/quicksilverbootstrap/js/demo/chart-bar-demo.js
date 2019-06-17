@@ -55,9 +55,8 @@ let InfoBar = function(seq){
 	//각 유형별 최댓값으로 유동적인 max값으로 차트를 보기편하게함
 	let maxData = Math.max.apply(null, compEmpCountArray);
 	
-	console.log(maxData);
 	// Set new default font family and font color to mimic Bootstrap's default styling
-	//Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+	Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 	Chart.defaults.global.defaultFontColor = '#292b2c';
 	
 	// Bar Chart Example
@@ -74,7 +73,12 @@ let InfoBar = function(seq){
 	      data: compEmpCountArray,
 	    }],
 	  },
-	  options: {
+	  options: {   
+		  
+        animation: {
+            onProgress: function(animation) {
+            }
+        },
 	    scales: {
 	      xAxes: [{
 	        time: {
@@ -99,7 +103,7 @@ let InfoBar = function(seq){
 	      }],
 	    },
 	    legend: {
-	      display: true
+	      display: false
 	    },
 	  	 plugins:{
 	  		 labels: {
@@ -116,13 +120,8 @@ var resetCanvasBar = function(){
 	  canvas = document.querySelector('#myBarChart');
 	  ctx = canvas.getContext('2d');
 	  console.log(ctx);
-//	  ctx.canvas.width = $('#graph').width(); // resize to parent width
-//	  ctx.canvas.height = $('#graph').height(); // resize to parent height
 	  var x = canvas.width/2;
 	  var y = canvas.height/2;
-	  ctx.font = '10pt Verdana';
-	  ctx.textAlign = 'center';
-	  ctx.fillText('This text is centered on the canvas', x, y);
 };
 
 $(function(){

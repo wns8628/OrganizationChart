@@ -41,11 +41,20 @@ public class AdminController {
 	@Autowired
 	MainService mainService;
 	@RequestMapping("/chart")
-	public String chart( Model model) {
+	public String chart( Model model,
+						 @RequestParam(value="oneOpenYn", required=false, defaultValue="true") boolean oneOpenYn,
+						 @RequestParam(value="twoOpenYn", required=false, defaultValue="false") boolean twoOpenYn) {
+		
+		System.out.println(oneOpenYn);
+		System.out.println(twoOpenYn);
+		
+		
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		model.addAttribute("mainInfo", mainService.getMainInfo());
 		model.addAttribute("mainInfoFm", mainService.getMainInfoFm());
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
 		
 		
 		return "admin/chart-mgr";
@@ -53,17 +62,26 @@ public class AdminController {
 // --
 	
 	@RequestMapping("/connectDeptEmp")
-	public String connectDeptEmp( Model model) {
+	public String connectDeptEmp( Model model,
+								@RequestParam(value="oneOpenYn", required=false, defaultValue="false") boolean oneOpenYn,
+								 @RequestParam(value="twoOpenYn", required=false, defaultValue="true") boolean twoOpenYn) {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
 		
 		return "admin/connect-deptEmp-mgr";
 	}
 
 	@RequestMapping("/empManagement")
-	public String empManagement(Model model) {
+	public String empManagement(Model model,
+								@RequestParam(value="oneOpenYn", required=false, defaultValue="false") boolean oneOpenYn,
+								@RequestParam(value="twoOpenYn", required=false, defaultValue="true") boolean twoOpenYn) {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
+		
 		return "admin/empManagement/emp-mgr";
 	}
 	
@@ -109,23 +127,39 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/rankPositionManagement")
-	public String rankPositionManagement(Model model) {
+	public String rankPositionManagement(Model model,
+										 @RequestParam(value="oneOpenYn", required=false, defaultValue="true") boolean oneOpenYn,
+										 @RequestParam(value="twoOpenYn", required=false, defaultValue="false") boolean twoOpenYn) {
+		
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
+		
 		return "admin/rankPositionManagement";
 	}
 	
 	@RequestMapping("/movePersonnelStatus")
-	public String movePersonnelStatus(Model model) {
+	public String movePersonnelStatus(Model model,
+									  @RequestParam(value="oneOpenYn", required=false, defaultValue="false") boolean oneOpenYn,
+									  @RequestParam(value="twoOpenYn", required=false, defaultValue="true") boolean twoOpenYn) {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
+		
 		return "admin/movePersonnelStatus";
 	}
 	
 	@RequestMapping("/movePersonnel")
-	public String movePersonnel(Model model) {
+	public String movePersonnel(Model model,
+								@RequestParam(value="oneOpenYn", required=false, defaultValue="false") boolean oneOpenYn,
+								@RequestParam(value="twoOpenYn", required=false, defaultValue="true") boolean twoOpenYn) {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
+		
 		return "admin/movePersonnel";
 	}
 	
@@ -151,17 +185,27 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/compMgr")
-	public String compMgr(Model model) {
+	public String compMgr(Model model,
+						  @RequestParam(value="oneOpenYn", required=false, defaultValue="true") boolean oneOpenYn,
+						  @RequestParam(value="twoOpenYn", required=false, defaultValue="false") boolean twoOpenYn) {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		model.addAttribute("firstCompInfo", adminService.getCompInfo(compList.get(0).getCompSeq()));
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
+		
 		return "admin/comp-mgr";
 	}
 	
 	@RequestMapping("/deptMgr")
-	public String deptMgr(Model model) {
+	public String deptMgr(Model model,
+						  @RequestParam(value="oneOpenYn", required=false, defaultValue="true") boolean oneOpenYn,
+						  @RequestParam(value="twoOpenYn", required=false, defaultValue="false") boolean twoOpenYn) {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
+		model.addAttribute("oneOpenYn", oneOpenYn);
+		model.addAttribute("twoOpenYn", twoOpenYn);
+		
 		return "admin/dept-mgr";
 	}
 	

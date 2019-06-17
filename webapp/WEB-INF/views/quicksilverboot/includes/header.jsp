@@ -3,8 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 	 <nav class="">
+	 
 	 	<!-- 메인로고 -->
 	    <a class='main-logo' href="${pageContext.request.contextPath }/">Quick Silver ( <span class="lang" data-lang='title'>조직도</span> )</a>
 	    
@@ -27,7 +28,7 @@
  		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
 				      <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
 					  <div id="formContent" >
-					       	 	 <h4 class='lang' data-lang='admin'>관리자</h4>
+				       	 	<h4 class='lang' data-lang='admin'>관리자</h4>
 						    <div class="fadeIn first">
 						    </div>		
 						    <!-- Login Form -->

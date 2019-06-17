@@ -84,19 +84,3 @@ let table =	$('#statusTable').dataTable({
 	})*/
 	
 };
-
-let messageBox = function(title, message){
-	console.log("여기");
-	$("#dialog-message").attr({
-		title: title
-	});
-	$("#dialog-message p").text(message);
-	$("#dialog-message").dialog({
-		modal: true,
-		buttons: {
-			"확인": function(){
-				$(this).dialog("close");
-			}
-		},
-	});
-};
