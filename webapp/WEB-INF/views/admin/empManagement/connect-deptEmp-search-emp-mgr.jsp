@@ -135,6 +135,10 @@ var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.
 			"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
 var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
 
+let sel = window.opener.document.getElementsByClassName('compSelect')[0];
+console.log(sel.options[sel.selectedIndex].innerHTML);
+
+
 var defaultComp = function() {
 	var compSeq = $("#compSelect option:selected").val();
 	var compName = $("#compSelect option:selected").text();
@@ -698,6 +702,7 @@ function seqCheck(seq){
 var selectDeptSeq;
 var selectDeptName;
 $(function() {
+	$("#compSelect").append("<option value='" + sel.options[sel.selectedIndex].value + "'>" + sel.options[sel.selectedIndex].innerHTML + "</option>" );
 
 	treeDropDown();
 
@@ -715,8 +720,7 @@ $(function() {
 			alert("부서코드는 중복될 수 없습니다.");
 			$(this).val("").focus();
 		}
-	});
-	
+	});	
 	
 	
 	//부서선택시
@@ -814,10 +818,7 @@ $(function() {
 <body>
 		<div id="select-bar">
 			<span>회사 : </span>
-			<select id="compSelect">  	
-				<c:forEach items="${compList}" var="vo">
-					<option value="${vo.compSeq }">${vo.compName }</option>
-				</c:forEach>	   
+			<select id="compSelect" disabled="disabled">  	
 			</select>
 			
 			부서를 선택하세요

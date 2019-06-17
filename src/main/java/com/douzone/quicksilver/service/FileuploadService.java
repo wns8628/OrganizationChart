@@ -27,7 +27,7 @@ public class FileuploadService
 
 	public String restore( MultipartFile profilePicture)
 	{
-		String url = "/usr/local/quicksilver/xorwnTest/upload/";
+		String url = "C:/duzon/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/work/Catalina/localhost/quicksilver/usr/local/quicksilver/xorwnTest/upload/";
 		int zoom = 6; //축소하고 싶은 비율
 
 		try
@@ -83,7 +83,7 @@ public class FileuploadService
 		BufferedImage bi = render.getAsBufferedImage();//BufferImage 객체를 얻어옴
 		if(zoom <= 0) zoom = 1;//축소비율이 0이 될수없으므로
 		int width = 120;
-		int height = 120;
+		int height = 160;
 		
 		BufferedImage bufferIm = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D  g2 = bufferIm.createGraphics();//Graphics2D 객체 생성

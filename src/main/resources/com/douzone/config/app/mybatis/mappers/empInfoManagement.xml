@@ -65,5 +65,142 @@
 		
 	</update>
 	
+	<update id="removeEmpInfoVo" parameterType="removeempinfovo">
+		update ${table} 
+			set resign_day = ( select date_format( now(), '%Y-%m-%d') ), 
+													 work_status = '001' 
+			where emp_seq = ( select empSeq from ( select a.emp_seq as empSeq from t_co_emp2 a, t_co_emp_multi b where a.emp_seq = b.emp_seq and a.login_id = #{loginId} and b.emp_name = #{empName} ) a )
+		
+	</update>
+	
+	<insert id="addEmp" parameterType="addempvo">
+			
+			<choose>
+				<when test="check == 0">
+					insert t_co_emp2 values( (select empSeq from (select max(emp_seq + 0) + 1 as empSeq from t_co_emp2) a), 
+																													'demo',
+																												#{loginId},
+											 (select empSeq from (select max(emp_seq + 0) + 1 as empSeq from t_co_emp2) a),
+																													  null,
+																											  #{emailAddr},
+																													  null,
+					                                                                                                  null,
+																											   #{loginPwd},
+																													  null,
+					                                                                                                  null,
+																														 0,
+																													  null,
+					                                                                                                   'P',
+					                                                                                                   'Y',
+					                                                                                                   'Y',
+					                                                                                                   'Y',
+																													  null,
+																													  null,
+					                                                                                                  null,
+																												#{compSeq},
+																													   'Y',
+																												#{dutySeq},
+																											#{positionSeq},
+																													  'kr',
+																													   '1',
+																											   #{userDate},
+																													  null,
+																												 #{gender},
+																											   #{empBirth},
+																													  null,
+																											 #{workStatus},
+					                                                                                          #{homePhone},
+																												  #{phone},
+																													   'N',
+																													  null,
+																													   'Y',
+																											 #{postNumber},
+					                                                                                            #{picPath},
+																													  null,
+					                                                                                                   'Y',
+																													  null,
+																												   'admin',
+					                                                                                                 now(),
+					                                                                                                  null,
+					                                                                                                  null,
+					                                                                                                  null,
+					                                                                                                  null,
+					                                                                                                  null)
+					
+				
+				</when>
+				
+				<when test="check == 1">
+					insert t_co_emp_multi values( #{empSeq}, 
+												 #{langCode},
+													  'demo',
+													#{korea},
+					                                 #{addr},
+											   #{detailAddr},
+													 #{task},
+														 'Y',
+													 'admin',
+													   now(),
+													    null,
+					                                    null)
+				</when>
+				
+				<when test="check == 2">
+					insert t_co_emp_dept values( #{deptSeq},
+												  #{empSeq},
+					                                 'demo',
+												 #{compSeq},
+					                              #{bizSeq},
+														'Y',
+												 #{dutySeq},
+											 #{positionSeq},
+													   null,
+					                                   null,
+					                                   null,
+														'Y',
+					                                    'Y',
+													   null,
+					                                   null,
+														'Y',
+													'admin',
+					                                  now(),
+													   null,
+					                                   null)
+				</when>
+				
+				<otherwise>
+					insert t_co_emp_comp values( #{empSeq},
+												    'demo',
+												#{compSeq},
+					                             #{bizSeq},
+												#{deptSeq},
+													  null,
+					                                  null,
+					                                  null,
+					                                  null,
+					                                  null,
+													   'Y',
+													  null,
+					                                   '1',
+					                                   '1',
+													  null,
+											 #{workStatus},
+													   'Y',
+					                                   'N',
+												   'admin',
+													 now(),
+					                                  null,
+					                                  null)
+				</otherwise>
+			</choose>
+		
+		
+		<selectKey keyProperty="empSeq" resultType="string" order="AFTER">
+			<![CDATA[
+				select max(emp_seq + 0) from t_co_emp2
+			]]>
+		</selectKey>
+	</insert>
+	
 	
 </mapper>

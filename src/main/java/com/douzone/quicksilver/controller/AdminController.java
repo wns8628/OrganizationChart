@@ -76,8 +76,10 @@ public class AdminController {
 	
 	@RequestMapping("/deptFind")
 	public String deptFind(Model model) {
-		List<CompanyVo> compList = adminService.getCompList();
-		model.addAttribute("compList", compList);
+		/*
+		 * List<CompanyVo> compList = adminService.getCompList();
+		 * model.addAttribute("compList", compList);
+		 */
 		return "admin/empManagement/connect-deptEmp-search-emp-mgr";
 	}
 	
@@ -163,6 +165,11 @@ public class AdminController {
 		List<CompanyVo> compList = adminService.getCompList();
 		model.addAttribute("compList", compList);
 		return "admin/dept-mgr";
+	}
+	
+	@RequestMapping("/fileApi")
+	public String fileApi() {
+		return "admin/empManagement/fileApi";
 	}
 	
 	@ResponseBody

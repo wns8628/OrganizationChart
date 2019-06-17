@@ -115,12 +115,31 @@ $(function(){
  let changeLoginIdWindow;
  let changePasswordWindow;
  let addEmp;
+ let removeEmpInfoWindow;
  
  if (performance.navigation.type == 1) {
 	  console.info( "This page is reloaded" );
 	} else {
 	  console.info( "This page is not reloaded");
 }
+ 
+ let closeWindowCheck = windowObj => {
+	 // 0.5초 마다 감지
+	    g_oInterval = window.setInterval(function() {
+	        try {
+	            // 창이 꺼졌는지 판단
+	            if( windowObj == null || windowObj.closed ) {
+	                window.clearInterval(g_oInterval);
+	                windowObj = null;
+	                // Todo....
+	                //.....
+	                console.log("창꺼짐");
+	                search(compName, workStatus, kwd, 'true');
+	       			
+	            }
+	        } catch (e) { }
+	    }, 500);
+ };
  
  let changeButtonCheck = (url, title, option, width, height) => {
 	 
@@ -139,36 +158,29 @@ $(function(){
 		 
 		 if( title == 'ID변경'){
 			 changeLoginIdWindow = window.open('${pageContext.servletContext.contextPath }/admin/' + url, title, option + ", left=" + left + ", top=" + top + ", width=" + popWidth + ', height=' + popHeight);
+			 closeWindowCheck(changeLoginIdWindow);
 		 } else if( title == '비밀번호초기화'){
 			 changePasswordWindow = window.open('${pageContext.servletContext.contextPath }/admin/' + url, title, option + ", left=" + left+ ", top=" + top + ", width=" + popWidth + ', height=' + popHeight);
+			 closeWindowCheck(changePasswordWindow);
+		 } else if( title == '사원정보삭제'){
+			removeEmpInfoWindow = window.open('${pageContext.servletContext.contextPath }/admin/' + url, title, option + ", left=" + left+ ", top=" + top + ", width=" + popWidth + ', height=' + popHeight);
+			closeWindowCheck(removeEmpInfoWindow);
 		 } else {
 			 addEmp = window.open('${pageContext.servletContext.contextPath }/admin/' + url, title, option + ", left=" + left+ ", top=" + top + ", width=" + popWidth + ', height=' + popHeight);
+			 closeWindowCheck(addEmp);
 		 }
 		 		 
-		    // 0.5초 마다 감지
-		    g_oInterval = window.setInterval(function() {
-		        try {
-		            // 창이 꺼졌는지 판단
-		            if( windowPopup == null || windowPopup.closed ) {
-		                window.clearInterval(g_oInterval);
-		                windowPopup = null;
-		                // Todo....
-		                //.....
-		                console.log("창꺼짐");
-		                search(compName, workStatus, kwd, 'true');
-		       			
-		            }
-		        } catch (e) { }
-		    }, 500);
+		 
 	 } else {
 		 messageBox("알림", "사원을 클릭하십시오.");
 	 }
  }
 
- 
- $(".changeID").click( event => changeButtonCheck("resetIdEmp", "ID변경", 'location=no, scrollbars=yes', 1000, 238));
- $(".changePassword").click( event => changeButtonCheck("resetPassword", "비밀번호초기화", 'location=no, scrollbars=yes', 1000, 427));
- $(".addEmp").click( event => changeButtonCheck("addEmp", "입사처리", 'status=no, toolbars=no, location=no, scrollbars=yes', 1300, 1000));
+ $(".changeID").click( event => changeButtonCheck("resetIdEmp", "ID변경", 'location=no, scrollbars=yes, alwaysReised=yes', 1000, 238));
+ $(".changePassword").click( event => changeButtonCheck("resetPassword", "비밀번호초기화", 'location=no, scrollbars=yes, alwaysReised=yes', 1000, 427));
+ $(".addEmp").click( event => changeButtonCheck("addEmp", "입사처리", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857));
+ $(".remove").click( event => changeButtonCheck("deleteEmp", "사원정보삭제", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 800, 857));
+
  let search = (compNames, workStatuss, kwds, check) => {
 	   
 	   console.log(compNames);
@@ -363,7 +375,7 @@ $(function(){
 						<button type= "button" class="exel-submit changeID">ID변경</button>
 						<button type= "button" class="exel-submit changePassword">비밀번호 초기화</button>
 						<button type= "button" class="exel-submit addEmp">입사처리</button>
-						<button type= "button" onclick="window.open('${pageContext.servletContext.contextPath }/admin/deleteEmp', '직원삭제', 'width=1000, height=200, location=no, scrillbars=ys');" class="exel-submit">삭제</button>
+						<button type= "button" class="exel-submit remove">삭제</button>
 					</span>
 				</div>	
 			</div>
