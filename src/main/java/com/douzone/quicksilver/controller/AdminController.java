@@ -339,6 +339,13 @@ public class AdminController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/compSeqCheck/{seq}")
+	public JSONResult compSeqCheck(@PathVariable("seq") String seq) {
+		return JSONResult.success(adminService.compSeqCheck(seq));
+	}
+	
+	
+	@ResponseBody
 	@RequestMapping("/seqCheck/{seq}")
 	public JSONResult updateDept(@PathVariable("seq") String seq) {
 		return JSONResult.success(adminService.seqCheck(seq));

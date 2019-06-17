@@ -392,6 +392,10 @@
 		delete from t_co_dept_multi where dept_seq = #{deptSeq} and lang_code = #{langCode}
 	</delete>
 	
+	<select id="compSeqCheck" parameterType="string" resultType="string">
+		select comp_seq from t_co_comp where comp_seq = #{seq};	
+	</select>
+	
 	<select id="deptSeqCheck" parameterType="string" resultType="string">
 		select dept_seq from t_co_dept where dept_seq = #{seq};	
 	</select>

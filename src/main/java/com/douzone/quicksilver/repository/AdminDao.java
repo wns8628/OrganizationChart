@@ -162,6 +162,10 @@ public class AdminDao {
 		return sqlSession.delete("admin.deleteDeptMulti", vo);
 	}
 	
+	public String compSeqCheck(String seq) {
+		return sqlSession.selectOne("admin.compSeqCheck", seq);
+	}
+	
 	public String deptSeqCheck(String seq) {
 		return sqlSession.selectOne("admin.deptSeqCheck", seq);
 	}
