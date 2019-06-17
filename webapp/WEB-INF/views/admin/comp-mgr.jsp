@@ -319,6 +319,7 @@ $(function(){
 		if($("#company-table tbody tr.company-table-active").length != 0){
 			updateComp();
 			removeForm();
+			$("#company-table tbody tr.company-table-active").trigger("click");
 		}
 	});
 	
