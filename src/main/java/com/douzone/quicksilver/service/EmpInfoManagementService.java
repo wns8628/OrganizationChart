@@ -11,6 +11,7 @@ import com.douzone.quicksilver.repository.EmpInfoManagementDao;
 import com.douzone.quicksilver.vo.AddEmpVo;
 import com.douzone.quicksilver.vo.ChangePasswordVo;
 import com.douzone.quicksilver.vo.EmpInfoManagementVo;
+import com.douzone.quicksilver.vo.GetEmpInfoVo;
 import com.douzone.quicksilver.vo.GetPositionDutyVo;
 import com.douzone.quicksilver.vo.RemoveEmpInfoVo;
 import com.douzone.quicksilver.vo.ResetIdVo;
@@ -84,6 +85,39 @@ public class EmpInfoManagementService {
 		removeEmpInfoVo.setTable("t_co_emp_comp");
 		return empInfoManagementDao.update(removeEmpInfoVo);
 	}
+	
+	public List<GetEmpInfoVo> getEmpInfoVo(GetEmpInfoVo getEmpInfoVo){
+		return empInfoManagementDao.select(getEmpInfoVo);
+	}
+	
+	public int updateEmp(AddEmpVo addEmpVo) {
+		addEmpVo.setCheck(1);
+		return empInfoManagementDao.update(addEmpVo);
+	}
+	
+	public int update_t_co_emp_multi(AddEmpVo addEmpVo) {
+		
+		addEmpVo.setCheck(2);
+		addEmpVo.setLangCode("kr");
+		empInfoManagementDao.update(addEmpVo);
+		
+		addEmpVo.setLangCode("en");
+		addEmpVo.setAddr( changeHangulToEnglish(addEmpVo.getAddr()) );
+		addEmpVo.setDetailAddr( changeHangulToEnglish(addEmpVo.getDetailAddr()) );
+		return empInfoManagementDao.update(addEmpVo);
+	}
+	
+	public int update_t_co_emp_dept_comp_multi(AddEmpVo addEmpVo) {
+		
+		addEmpVo.setCheck(3);
+		addEmpVo.setTable("t_co_emp_dept");
+		empInfoManagementDao.update(addEmpVo);
+		addEmpVo.setTable("t_co_emp_comp");
+		empInfoManagementDao.update(addEmpVo);
+		addEmpVo.setTable("t_co_emp_dept_multi");
+		return empInfoManagementDao.update(addEmpVo);
+	}
+	
 	
 	public String changeHangulToEnglish(String addr) {
 		

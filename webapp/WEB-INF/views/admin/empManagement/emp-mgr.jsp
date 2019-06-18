@@ -166,6 +166,7 @@ $(function(){
 			removeEmpInfoWindow = window.open('${pageContext.servletContext.contextPath }/admin/' + url, title, option + ", left=" + left+ ", top=" + top + ", width=" + popWidth + ', height=' + popHeight);
 			closeWindowCheck(removeEmpInfoWindow);
 		 } else {
+			 $("#hiddenCheck").val('false');
 			 addEmp = window.open('${pageContext.servletContext.contextPath }/admin/' + url, title, option + ", left=" + left+ ", top=" + top + ", width=" + popWidth + ', height=' + popHeight);
 			 closeWindowCheck(addEmp);
 		 }
@@ -301,7 +302,18 @@ $(function(){
 		    	let id = splitEmpName[1];
 		    	$("#hiddenLoginId").val( id.slice(0, id.length - 1) );
 		    	$("#hiddenEmpName").val( name );
-		    })
+		    });
+		   	
+		    item.addEventListener('dblclick', event => {
+		    	console.log("더블클릭");
+		    	let splitEmpName = $(event.currentTarget).children()[4].innerHTML.split('(');
+		    	let name = splitEmpName[0];
+		    	let id = splitEmpName[1];
+		    	$("#hiddenLoginId").val( id.slice(0, id.length - 1) );
+		    	$("#hiddenEmpName").val( name );
+		    	changeButtonCheck("addEmp", "사원정보수정", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857);
+		    	$("#hiddenCheck").val('true');
+		    });
 		 });
 	})
    
@@ -326,6 +338,7 @@ $(function(){
 				<input type="hidden" id="hiddenPosition" value = "">
 				<input type="hidden" id="hiddenDuty" value = "">
 				<input type="hidden" id="hiddenEmpName" value = "">
+				<input type="hidden" id="hiddenCheck" value="">
 					<div id="contents-header">
 						<img class="home" alt=""
 							src="${pageContext.servletContext.contextPath }/assets/images/home.png">

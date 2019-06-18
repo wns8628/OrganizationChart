@@ -21,6 +21,7 @@
 	     <typeAlias alias="getpositiondutyvo" type="com.douzone.quicksilver.vo.GetPositionDutyVo"/>
 	     <typeAlias alias="addempvo" type="com.douzone.quicksilver.vo.AddEmpVo"/>
 	     <typeAlias alias="removeempinfovo" type="com.douzone.quicksilver.vo.RemoveEmpInfoVo"/>
+	     <typeAlias alias="getempinfovo" type="com.douzone.quicksilver.vo.GetEmpInfoVo"/>
 	     
     </typeAliases>    
 

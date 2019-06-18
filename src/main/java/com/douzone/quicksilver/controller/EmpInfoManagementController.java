@@ -16,6 +16,7 @@ import com.douzone.quicksilver.service.FileuploadService;
 import com.douzone.quicksilver.vo.AddEmpVo;
 import com.douzone.quicksilver.vo.ChangePasswordVo;
 import com.douzone.quicksilver.vo.EmpInfoManagementVo;
+import com.douzone.quicksilver.vo.GetEmpInfoVo;
 import com.douzone.quicksilver.vo.GetPositionDutyVo;
 import com.douzone.quicksilver.vo.RemoveEmpInfoVo;
 import com.douzone.quicksilver.vo.ResetIdVo;
@@ -72,7 +73,15 @@ public class EmpInfoManagementController {
 		String profilePicturePath = null;
 		
 		if( addEmpVo.getFile().getOriginalFilename().equals("default")) { // 사진을 보내지않음
-			profilePicturePath = "/uploads/images/defaultman.png";
+			String picPath = addEmpVo.getPicPath();
+			
+			System.out.println("picPath : " + picPath);
+			if( !picPath.equals("")) {
+				System.out.println("안비었다");
+			} else {
+				System.out.println("비었다");
+				profilePicturePath = "/uploads/images/defaultman.png";
+			}
 		} else {
 			profilePicturePath = fileuploadService.restore(addEmpVo.getFile());
 		}
@@ -80,22 +89,36 @@ public class EmpInfoManagementController {
 		System.out.println(profilePicturePath);
 		addEmpVo.setPicPath(profilePicturePath);
 
-		
-		// insert t_co_emp2
-		empInfoManagementService.addEmp(addEmpVo);
-		System.out.println(addEmpVo.getEmpSeq()); // 넣었던 empSeq을 가져옴
-		
-		// insert t_co_emp_multi 'kr'
-		empInfoManagementService.add_t_co_emp_multi(addEmpVo, true);
-		
-		// insert t_co_emp_multi 'en'
-		empInfoManagementService.add_t_co_emp_multi(addEmpVo, false);
-		
-		// insert t_co_emp_dept
-		empInfoManagementService.add_t_co_emp_dept(addEmpVo);
-		
-		// insert t_co_emp_comp
-		empInfoManagementService.add_t_co_emp_comp(addEmpVo);
+		if( profilePicturePath == null) { // 사원 업데이트 (파일을 보내지않았기때문에 null 값)
+			System.out.println("사원 업데이트");
+			System.out.println("empSeq : " + addEmpVo.getEmpSeq());
+			empInfoManagementService.updateEmp(addEmpVo);
+			
+			// insert t_co_emp_multi
+			empInfoManagementService.update_t_co_emp_multi(addEmpVo);
+
+			// update t_co_emp_dept, t_co_emp_dept_multi, t_co_emp_comp
+			empInfoManagementService.update_t_co_emp_dept_comp_multi(addEmpVo);
+						
+
+			
+		} else {
+			// insert t_co_emp2
+			empInfoManagementService.addEmp(addEmpVo);
+			System.out.println(addEmpVo.getEmpSeq()); // 넣었던 empSeq을 가져옴
+			
+			// insert t_co_emp_multi 'kr'
+			empInfoManagementService.add_t_co_emp_multi(addEmpVo, true);
+			
+			// insert t_co_emp_multi 'en'
+			empInfoManagementService.add_t_co_emp_multi(addEmpVo, false);
+			
+			// insert t_co_emp_dept
+			empInfoManagementService.add_t_co_emp_dept(addEmpVo);
+			
+			// insert t_co_emp_comp
+			empInfoManagementService.add_t_co_emp_comp(addEmpVo);
+		}
 	}
 	
 	@ResponseBody
@@ -103,6 +126,13 @@ public class EmpInfoManagementController {
 	public JSONResult removeEmpInfo(@ModelAttribute RemoveEmpInfoVo removeEmpInfoVo) {
 		System.out.println(removeEmpInfoVo);
 		return JSONResult.success(empInfoManagementService.removeEmpInfo(removeEmpInfoVo));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getEmpInfo")
+	public JSONResult getEmpInfo(@ModelAttribute GetEmpInfoVo getEmpInfoVo) {
+		System.out.println(getEmpInfoVo);
+		return JSONResult.success(empInfoManagementService.getEmpInfoVo(getEmpInfoVo));
 	}
 	
 	

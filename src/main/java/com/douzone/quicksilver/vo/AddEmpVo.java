@@ -38,8 +38,15 @@ public class AddEmpVo {
 	private String langCode;
 	private String empSeq;
 	private int check;
+	private String table;
 	
 	
+	public String getTable() {
+		return table;
+	}
+	public void setTable(String table) {
+		this.table = table;
+	}
 	public int getCheck() {
 		return check;
 	}
@@ -254,7 +261,8 @@ public class AddEmpVo {
 				+ detailAddr + ", compPostNumber=" + compPostNumber + ", compAddr=" + compAddr + ", compDetailAddr="
 				+ compDetailAddr + ", empBirth=" + empBirth + ", empWedding=" + empWedding + ", userDate=" + userDate
 				+ ", useYn=" + useYn + ", gender=" + gender + ", workStatus=" + workStatus + ", file=" + file
-				+ ", picPath=" + picPath + ", langCode=" + langCode + ", empSeq=" + empSeq + ", check=" + check + "]";
+				+ ", picPath=" + picPath + ", langCode=" + langCode + ", empSeq=" + empSeq + ", check=" + check
+				+ ", table=" + table + "]";
 	}
 	
 	

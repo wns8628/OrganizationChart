@@ -27,7 +27,7 @@ public class FileuploadService
 
 	public String restore( MultipartFile profilePicture)
 	{
-		String url = "C:/duzon/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/work/Catalina/localhost/quicksilver/usr/local/quicksilver/xorwnTest/upload/";
+		String url = "/usr/local/quicksilver/xorwnTest/upload/";		
 		int zoom = 6; //축소하고 싶은 비율
 
 		try

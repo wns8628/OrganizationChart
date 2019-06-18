@@ -52,6 +52,57 @@
 		        a.comp_seq = #{value} AND dp_type = 'DUTY' and lang_code ='kr'
 	</select>
 	
+	<select id="getEmpInfo" parameterType="getempinfovo" resultType="getempinfovo">
+		<![CDATA[
+			SELECT 
+				a.emp_seq as empSeq,
+				f.comp_seq as compSeq,
+			    a.login_id as loginId,
+			    b.emp_name as empNameEN,
+			    c.emp_name as empNameKR,
+			    e.dept_name as deptName,
+			    f.comp_name as compName,
+			    b.main_work as mainWork,
+			    a.email_addr as emailAddr,
+			    g.dp_name as position,
+			    h.dp_name as duty,
+			    a.home_tel_num as homeTelNum,
+			    a.mobile_tel_num as mobileTelNum,
+			    a.zip_code as zipCode,
+			    c.addr as addr,
+			    c.detail_addr as detailAddr,
+			    a.bday as birth,
+			    a.join_day as joinDay,
+			    a.use_yn as useYn,
+			    a.work_status as workStatus,
+			    a.gender_code as gender,
+			    a.pic_file_id as picFile
+			FROM
+			    t_co_emp2 a
+			        LEFT OUTER JOIN
+			    t_co_comp_duty_position_multi g ON a.position_code = g.dp_seq
+			        AND g.dp_type = 'position'
+			        AND g.lang_code = 'kr'
+				left outer join t_co_comp_duty_position_multi h on a.duty_code = h.dp_seq and h.dp_type = 'duty' and h.lang_code = 'kr',
+			    t_co_emp_dept d,
+			    t_co_dept_multi e,
+			    t_co_comp_multi f,
+			    t_co_emp_multi b
+			        LEFT OUTER JOIN
+			    t_co_emp_multi c ON b.emp_seq = c.emp_seq
+			        AND c.lang_code = 'kr'
+			WHERE
+			    a.emp_seq = b.emp_seq
+			        AND a.login_id = #{loginId}
+			        AND b.lang_code = 'en'
+			        AND a.emp_seq = d.emp_seq
+			        AND d.dept_seq = e.dept_seq
+			        AND e.lang_code = 'kr'
+			        AND a.main_comp_seq = f.comp_seq
+			        AND f.lang_code = 'kr';
+		]]>
+	</select>
+	
 	<update id="resetId" parameterType="resetidvo">
 		update t_co_emp2 
 			set login_id = #{nextLoginId}, email_addr = #{nextEmailAddr} 
@@ -71,6 +122,63 @@
 													 work_status = '001' 
 			where emp_seq = ( select empSeq from ( select a.emp_seq as empSeq from t_co_emp2 a, t_co_emp_multi b where a.emp_seq = b.emp_seq and a.login_id = #{loginId} and b.emp_name = #{empName} ) a )
 		
+	</update>
+	
+	<update id="updateEmpInfo" parameterType="addempvo">
+		<choose>
+			<when test="check == 1">
+				update t_co_emp2 
+					set login_passwd = #{loginPwd}, 
+						position_code = #{positionSeq}, 
+						duty_code = #{dutySeq}, 
+						home_tel_num = #{homePhone}, 
+						mobile_tel_num = #{phone}, 
+						zip_code = #{postNumber}, 
+						bday = #{empBirth}, 
+						join_day = #{userDate}, 
+						gender_code = #{gender},
+						use_yn = #{useYn},
+						work_status = #{workStatus},
+						modify_seq = 'admin', 
+						modify_date = now() 
+					where emp_seq = #{empSeq}
+			</when>
+			
+			<when test="check == 2">
+				<choose>
+					<when test="langCode == 'kr'">
+						update t_co_emp_multi 
+							set emp_name = #{korea}, 
+								main_work = #{task}, 
+								addr = #{addr}, 
+								detail_addr= #{detailAddr}, 
+								modify_seq = 'admin', 
+								modify_date = now() 
+							where emp_seq = #{empSeq} and lang_code = 'kr'
+					</when>
+					
+					<otherwise>
+						update t_co_emp_multi 
+							set emp_name = #{english}, 
+								main_work = #{task}, 
+								addr = #{addr}, 
+								detail_addr= #{detailAddr}, 
+								modify_seq = 'admin', 
+								modify_date = now() 
+							where emp_seq = #{empSeq} and lang_code = 'en'
+					</otherwise>
+				</choose>
+			</when>
+			
+			<otherwise>
+				update ${table}
+					set dept_seq = #{deptSeq}, 
+						biz_seq = #{bizSeq}, 
+						modify_seq = 'admin', 
+						modify_date = now() 
+					where emp_seq = #{empSeq}
+			</otherwise>
+		</choose>
 	</update>
 	
 	<insert id="addEmp" parameterType="addempvo">

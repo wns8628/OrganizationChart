@@ -171,7 +171,7 @@ function compPostcode() {
     }).open();
 }
 
-let getCompPositionDuty = compSeq => {
+let getCompPositionDuty = (compSeq, position, duty) => {
 	
 	let positionList;
 	let dutyList;
@@ -200,12 +200,20 @@ let getCompPositionDuty = compSeq => {
 
 	}).then( () => {
 		positionList.forEach( val => {
-			($(".position").append("<option value='" + val.positionSeq + "'>" + val.positionName + "</option>"));	
+			if( val.positionName == position){
+				($(".position").append("<option selected value='" + val.positionSeq + "'>" + val.positionName + "</option>"));	
+			} else {
+				($(".position").append("<option value='" + val.positionSeq + "'>" + val.positionName + "</option>"));	
+			}
 		});
 		
 		dutyList.forEach( val => {
-			console.log(val);
-			$(".duty").append("<option value='" + val.positionSeq + "'>" + val.positionName + "</option>");
+			if( val.positionName == duty){
+				$(".duty").append("<option selected value='" + val.positionSeq + "'>" + val.positionName + "</option>");
+			} else {
+				$(".duty").append("<option value='" + val.positionSeq + "'>" + val.positionName + "</option>");
+
+			}
 		});
 		
 	}); 
@@ -246,10 +254,235 @@ let closeWindowCheck = windowObj => {
 	    }, 500);
 };
 
+let sendData = (picFile, empSeq) => {
+	let compSeq = $("select option:selected")[0].value;
+	let loginId = $("input[name='id']")[0].value;
+	let korea = $("input[name='korea']")[0].value;
+	let english = $("input[name='english']")[0].value;
+	let loginPwd = $("input[name='loginPwd']")[0].value;
+	let dept = $("input[name='dept']")[0].value;
+	let deptSeq = $("input[name='dept']")[0].getAttribute('data-lang');
+	let bizSeq = $("input[name='dept']")[0].getAttribute('data-lang-biz');
+	let task = $("input[name='task']")[0].value;
+	let emailAddr = $("input[name='mail']")[0].value + "@" + $("input[name='backMail']")[0].value;
+	let positionSeq = $(".position option:selected").val();
+	let dutySeq = $(".duty option:selected").val();
+	let homePhone = $("input[name='homePhone']")[0].value;
+	let phone = $("input[name='phone']")[0].value;
+	let postNumber = $("input[name='zipCode']")[0].value;
+	let addr = $("input[name='addr']")[0].value;
+	let detailAddr = $("input[name='detailAddr']")[0].value;
+	let empBirth = $("input[name='empbirth']")[0].value;
+	let userDate = $("input[name='userdate']")[0].value;
+	let useYn = $("input[name='useYn']:checked").val();
+	let gender = $("input[name='gender']:checked").val();
+	let workStatus = $("input[name='status']:checked").val();
+	let file = $("input[type='file']")[0].files[0];
+	let picPath = picFile;
+	
+	console.log(file);
+	if( typeof file == 'undefined'){
+		file = new File(["foo"], "default", {
+			  type: "text/plain",
+		});
+	}
+	
+	// 이메일 주소형식 검사
+	let emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+	
+	// 전화번호 형식 검사
+	let phoneCheck = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+
+	if( loginId == ''){
+		messageBox("알림", "아이디 입력은 필수입니다.");
+		return;
+	}
+	
+	if( korea == ''){
+		messageBox("알림", "한국어 이름 입력은 필수입니다.");
+		return;
+	}
+	
+	for(let i = 0; i < korea.length; i++){
+		if( korea[i].charCodeAt(0) < 10000){ // 한글이 아니면
+			messageBox("한국어", "한국어 명칭은 한국어 입력만 가능합니다");
+			return;
+		}
+	}
+	
+	if( english == ''){
+		messageBox("알림", "영어 이름 입력은 필수입니다.");
+		return;
+	}
+	
+	for(let i = 0; i < english.length; i++){
+		if( english[i].charCodeAt(0) > 122){
+			messageBox("알림", "영어 명칭은 영어 입력만 가능합니다.");
+			return;
+		}
+	}
+	
+	if( loginPwd == ''){
+		messageBox("알림", "로그인 비밀번호 입력은 필수입니다.");
+		return;
+	}
+	
+	if( dept == ''){
+		messageBox("알림", "부서 입력은 필수입니다.");
+		return;
+	}
+	
+	if( emailAddr == '@'){
+		messageBox("알림", "이메일 아이디 입력은 필수입니다.");
+		return;
+	}
+	
+	if( emailAddr != '@' && emailCheck.test(emailAddr) == false){
+		messageBox("알림", "이메일 주소가 형식에 맞지않습니다.");
+		return;
+	}
+	
+	if( homePhone != '' && phoneCheck.test(homePhone) == false){
+		messageBox("알림", "집 전화번호가 형식에 맞지않습니다.");
+		return;
+	}
+	
+	if( phone != '' && phoneCheck.test(phone) == false){
+		messageBox("알림", "휴대전화가 형식에 맞지않습니다.");
+		return;
+	}
+	
+	let formData = new FormData();
+	formData.append('compSeq', compSeq);
+	formData.append('loginId', loginId);
+	formData.append('korea', korea);
+	formData.append('english', english);
+	formData.append('loginPwd', loginPwd);
+	formData.append('dept', dept);
+	formData.append('deptSeq', deptSeq);
+	formData.append('bizSeq', bizSeq);
+	formData.append('task', task);
+	formData.append('emailAddr', emailAddr);
+	formData.append('positionSeq', positionSeq);
+	formData.append('dutySeq', dutySeq);
+	formData.append('homePhone', homePhone);
+	formData.append('phone', phone);
+	formData.append('postNumber', postNumber);
+	formData.append('addr', addr);
+	formData.append('detailAddr', detailAddr);
+	formData.append('empBirth', empBirth);
+	formData.append('userDate', userDate);
+	formData.append('useYn', useYn);
+	formData.append('gender', gender);
+	formData.append('workStatus', workStatus);
+	formData.append('file', file);
+	formData.append('picPath', picPath);
+	formData.append('empSeq', empSeq);
+
+
+	
+	$.ajax({ 
+			 url: contextPath + '/empInfoManage/addEmp', 
+			 data: formData, 
+			 processData: false, 
+			 contentType: false, 
+			 type: 'POST', 
+			 success: function(data){ 
+				 alert("EE"); 
+			 } 
+	});
+
+
+};
+
 $(function(){
 	
 	let deptSearchWindow;
+	let check =  window.opener.document.getElementById('hiddenCheck').value;
+	let picFile = '';
+	let empSeq = '';
 	
+	if( check == 'true'){ // 더블클릭으로 열어서 사원정보 수정
+		console.log("check : " + check);
+		let loginId =  window.opener.document.getElementById('hiddenLoginId').value;
+		let empName = window.opener.document.getElementById('hiddenEmpName').value;
+		
+		console.log(loginId);
+		console.log(empName);
+		
+		$.ajax({
+			url : contextPath + "/empInfoManage/getEmpInfo",
+			type : "post",
+			dataType : "json",
+			data : {
+				loginId: loginId,
+				empName: empName
+			},
+			success : function(response) {
+				console.log("사원정보 가져옴");
+				console.log(response);
+				let $compSelect = $(".compSelect");
+				let emailAddr = response.data[0].emailAddr.split('@');
+				let $holder = $("#holder");
+				
+				$compSelect.attr('disabled', 'disabled');
+				$compSelect.empty();
+				
+				$(".position").empty();
+				$(".duty").empty();
+				getCompPositionDuty(response.data[0].compSeq, response.data[0].position, response.data[0].duty);
+				
+				$compSelect.append("<option value='" + response.data[0].compSeq + "'>"  + response.data[0].compName + "</option>");
+				$("input[name='id']").val(response.data[0].loginId).attr('readonly', 'readonly');
+				$("input[name='korea']").val(response.data[0].empNameKR);
+				$("input[name='english']").val(response.data[0].empNameEn);
+				$("input[name='dept']").val(response.data[0].deptName).attr('readonly', 'readonly');
+				$("input[name='task']").val(response.data[0].mainWork);
+				$("input[name='mail']").val(emailAddr[0]).attr('readonly', 'readonly');
+				$("input[name='backMail']").val(emailAddr[1]).attr('readonly', 'readonly');
+				$("input[name='homePhone']").val(response.data[0].homeTelNum);
+				$("input[name='phone']").val(response.data[0].mobileTelNum);
+				$("input[name='zipCode']").val(response.data[0].zipCode);
+				$("input[name='addr']").val(response.data[0].addr);
+				$("input[name='detailAddr']").val(response.data[0].detailAddr);
+				$("input[name='empbirth']").val(response.data[0].birth);
+				$("input[name='userdate']").val(response.data[0].joinDay);
+				
+				$("input[name='useYn']").each( (index, item) => {
+					if( item.value == response.data[0].useYn){
+						item.setAttribute('checked', 'checked');
+					}
+				});
+				
+				$("input[name='status']").each( (index, item) => {
+					if( item.value == response.data[0].workStatus){
+						item.setAttribute('checked', 'checked');
+					}
+				});
+				
+				$("input[name='gender']").each( (index, item) => {
+					if( item.value == response.data[0].gender){
+						item.setAttribute('checked', 'checked');
+					}
+				})
+				
+				picFile = response.data[0].picFile;
+				empSeq = response.data[0].empSeq;
+				
+				$holder.empty();
+				$holder.append("<img src=" + contextPath + "/" + picFile);
+
+
+
+
+			},
+			error : function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+
+		})
+		
+	}
 	window.onbeforeunload = function () {
 		
 		if( document.readyState == "complete"){ // self.screenTop > 9000 브라우저 닫힘
@@ -265,7 +498,7 @@ $(function(){
 		}
 	};
 	
-	$("input[name='dept']")[0].addEventListener('focus', deptPopup);
+	$("input[name='dept']")[0].addEventListener('click', deptPopup);
 	
 	$("#deptFind").click(deptPopup);
 	
@@ -279,145 +512,17 @@ $(function(){
 		getCompPositionDuty($(".compSelect option:selected").val());
 	})
 	
-	$("input[name='addr']")[0].addEventListener("focus", postcode);
+	$("input[name='addr']")[0].addEventListener("click", postcode);
 	
-	$("input[name='zipCode']")[0].addEventListener("focus", postcode);
+	$("input[name='zipCode']")[0].addEventListener("click", postcode);
 	
-	$(".save").click( () => {
-		let compSeq = $("select option:selected")[0].value;
-		let loginId = $("input[name='id']")[0].value;
-		let korea = $("input[name='korea']")[0].value;
-		let english = $("input[name='english']")[0].value;
-		let loginPwd = $("input[name='loginPwd']")[0].value;
-		let dept = $("input[name='dept']")[0].value;
-		let deptSeq = $("input[name='dept']")[0].getAttribute('data-lang');
-		let bizSeq = $("input[name='dept']")[0].getAttribute('data-lang-biz');
-		let task = $("input[name='task']")[0].value;
-		let emailAddr = $("input[name='mail']")[0].value + "@" + $("input[name='backMail']")[0].value;
-		let positionSeq = $(".position option:selected").val();
-		let dutySeq = $(".duty option:selected").val();
-		let homePhone = $("input[name='homePhone']")[0].value;
-		let phone = $("input[name='phone']")[0].value;
-		let postNumber = $("input[name='zipCode']")[0].value;
-		let addr = $("input[name='addr']")[0].value;
-		let detailAddr = $("input[name='detailAddr']")[0].value;
-		let empBirth = $("input[name='empbirth']")[0].value;
-		let userDate = $("input[name='userdate']")[0].value;
-		let useYn = $("input[name='useYn']:checked").val();
-		let gender = $("input[name='gender']:checked").val();
-		let workStatus = $("input[name='status']:checked").val();
-		let file = $("input[type='file']")[0].files[0];
-		
-		
-		console.log(file);
-		if( typeof file == 'undefined'){
-			file = new File(["foo"], "default", {
-				  type: "text/plain",
-			});
-		}
-		
-		// 이메일 주소형식 검사
-		let emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-		
-		// 전화번호 형식 검사
-		let phoneCheck = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-	
-		if( loginId == ''){
-			messageBox("알림", "아이디 입력은 필수입니다.");
-			return;
-		}
-		
-		if( korea == ''){
-			messageBox("알림", "한국어 이름 입력은 필수입니다.");
-			return;
-		}
-		
-		for(let i = 0; i < korea.length; i++){
-			if( korea[i].charCodeAt(0) < 10000){ // 한글이 아니면
-				messageBox("한국어", "한국어 명칭은 한국어 입력만 가능합니다");
-				return;
+	$(".save").click( event => {
+		questionBox("알림", "저장하시겠습니까?").then( val => {
+			if( val == 'Yes'){
+				sendData(picFile, empSeq); 
+				self.close();
 			}
-		}
-		
-		if( english == ''){
-			messageBox("알림", "영어 이름 입력은 필수입니다.");
-			return;
-		}
-		
-		for(let i = 0; i < english.length; i++){
-			if( english[i].charCodeAt(0) > 122){
-				messageBox("알림", "영어 명칭은 영어 입력만 가능합니다.");
-				return;
-			}
-		}
-		
-		if( loginPwd == ''){
-			messageBox("알림", "로그인 비밀번호 입력은 필수입니다.");
-			return;
-		}
-		
-		if( dept == ''){
-			messageBox("알림", "부서 입력은 필수입니다.");
-			return;
-		}
-		
-		if( emailAddr == '@'){
-			messageBox("알림", "이메일 아이디 입력은 필수입니다.");
-			return;
-		}
-		
-		if( emailAddr != '@' && emailCheck.test(emailAddr) == false){
-			messageBox("알림", "이메일 주소가 형식에 맞지않습니다.");
-			return;
-		}
-		
-		if( homePhone != '' && phoneCheck.test(homePhone) == false){
-			messageBox("알림", "집 전화번호가 형식에 맞지않습니다.");
-			return;
-		}
-		
-		if( phone != '' && phoneCheck.test(phone) == false){
-			messageBox("알림", "휴대전화가 형식에 맞지않습니다.");
-			return;
-		}
-		
-		let formData = new FormData();
-		formData.append('compSeq', compSeq);
-		formData.append('loginId', loginId);
-		formData.append('korea', korea);
-		formData.append('english', english);
-		formData.append('loginPwd', loginPwd);
-		formData.append('dept', dept);
-		formData.append('deptSeq', deptSeq);
-		formData.append('bizSeq', bizSeq);
-		formData.append('task', task);
-		formData.append('emailAddr', emailAddr);
-		formData.append('positionSeq', positionSeq);
-		formData.append('dutySeq', dutySeq);
-		formData.append('homePhone', homePhone);
-		formData.append('phone', phone);
-		formData.append('postNumber', postNumber);
-		formData.append('addr', addr);
-		formData.append('detailAddr', detailAddr);
-		formData.append('empBirth', empBirth);
-		formData.append('userDate', userDate);
-		formData.append('useYn', useYn);
-		formData.append('gender', gender);
-		formData.append('workStatus', workStatus);
-		formData.append('file', file);
-		
-		$.ajax({ 
-				 url: contextPath + '/empInfoManage/addEmp', 
-				 data: formData, 
-				 processData: false, 
-				 contentType: false, 
-				 type: 'POST', 
-				 success: function(data){ 
-					 alert("EE"); 
-				 } 
-		});
-
-
+		})
 	});
 	
 	$(".reg1").click( () => {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.douzone.quicksilver.vo.AddEmpVo;
 import com.douzone.quicksilver.vo.ChangePasswordVo;
 import com.douzone.quicksilver.vo.EmpInfoManagementVo;
+import com.douzone.quicksilver.vo.GetEmpInfoVo;
 import com.douzone.quicksilver.vo.GetPositionDutyVo;
 import com.douzone.quicksilver.vo.RemoveEmpInfoVo;
 import com.douzone.quicksilver.vo.ResetIdVo;
@@ -32,6 +33,10 @@ public class EmpInfoManagementDao {
 		return sqlSession.selectList("empInfoManagement.getPositionDuty", compSeq);
 	}
 	
+	public List<GetEmpInfoVo> select(GetEmpInfoVo getEmpInfoVo){
+		return sqlSession.selectList("empInfoManagement.getEmpInfo", getEmpInfoVo);
+	}
+	
 	public int update(ResetIdVo resetIdVo) {
 		return sqlSession.update("empInfoManagement.resetId", resetIdVo);
 	}
@@ -42,6 +47,10 @@ public class EmpInfoManagementDao {
 	
 	public int update(RemoveEmpInfoVo removeEmpInfoVo) {
 		return sqlSession.update("empInfoManagement.removeEmpInfoVo", removeEmpInfoVo);
+	}
+	
+	public int update(AddEmpVo addEmpVo) {
+		return sqlSession.update("empInfoManagement.updateEmpInfo", addEmpVo);
 	}
 	
 	public int insert(AddEmpVo addEmpVo) {
