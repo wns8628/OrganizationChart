@@ -56,6 +56,8 @@
 		<![CDATA[
 			SELECT 
 				a.emp_seq as empSeq,
+				d.dept_seq as deptSeq,
+				d.biz_seq as bizSeq,
 				f.comp_seq as compSeq,
 			    a.login_id as loginId,
 			    b.emp_name as empNameEN,

@@ -24,9 +24,24 @@ public class GetEmpInfoVo {
 	private String picFile;
 	private String compSeq;
 	private String empSeq;
+	private String deptSeq;
+	private String bizSeq;
 	
 	
 	
+	
+	public String getDeptSeq() {
+		return deptSeq;
+	}
+	public void setDeptSeq(String deptSeq) {
+		this.deptSeq = deptSeq;
+	}
+	public String getBizSeq() {
+		return bizSeq;
+	}
+	public void setBizSeq(String bizSeq) {
+		this.bizSeq = bizSeq;
+	}
 	public String getEmpSeq() {
 		return empSeq;
 	}
@@ -167,6 +182,6 @@ public class GetEmpInfoVo {
 				+ ", mobileTelNum=" + mobileTelNum + ", zipCode=" + zipCode + ", addr=" + addr + ", detailAddr="
 				+ detailAddr + ", birth=" + birth + ", joinDay=" + joinDay + ", useYn=" + useYn + ", workStatus="
 				+ workStatus + ", gender=" + gender + ", picFile=" + picFile + ", compSeq=" + compSeq + ", empSeq="
-				+ empSeq + "]";
+				+ empSeq + ", deptSeq=" + deptSeq + ", bizSeq=" + bizSeq + "]";
 	}
 }

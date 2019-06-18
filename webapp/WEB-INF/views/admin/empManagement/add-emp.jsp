@@ -436,7 +436,7 @@ $(function(){
 				$("input[name='id']").val(response.data[0].loginId).attr('readonly', 'readonly');
 				$("input[name='korea']").val(response.data[0].empNameKR);
 				$("input[name='english']").val(response.data[0].empNameEn);
-				$("input[name='dept']").val(response.data[0].deptName).attr('readonly', 'readonly');
+				$("input[name='dept']").val(response.data[0].deptName).attr('readonly', 'readonly').attr('data-lang', response.data[0].deptSeq).attr('data-lang-biz', response.data[0].bizSeq);
 				$("input[name='task']").val(response.data[0].mainWork);
 				$("input[name='mail']").val(emailAddr[0]).attr('readonly', 'readonly');
 				$("input[name='backMail']").val(emailAddr[1]).attr('readonly', 'readonly');
