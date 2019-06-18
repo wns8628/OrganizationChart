@@ -388,7 +388,7 @@ let sendData = (picFile, empSeq) => {
 			 contentType: false, 
 			 type: 'POST', 
 			 success: function(data){ 
-				 alert("EE"); 
+				 self.close();
 			 } 
 	});
 
@@ -519,8 +519,8 @@ $(function(){
 	$(".save").click( event => {
 		questionBox("알림", "저장하시겠습니까?").then( val => {
 			if( val == 'Yes'){
-				sendData(picFile, empSeq); 
-				self.close();
+				console.log("업데이트");
+				sendData(picFile, empSeq);
 			}
 		})
 	});
