@@ -103,8 +103,8 @@ var contextPath = "${pageContext.servletContext.contextPath }";
 var child = "<img class='tree-icon' src='"+contextPath+"/assets/images/child.png'>";
 var lastChild = "<img class='tree-icon last' src='"+contextPath+"/assets/images/last_child.png'>";
 var noChildIcon = "<img class='navi-icon' style='padding-left: 4px;' src='"+contextPath+"/assets/images/dept_end.png'>";
-var toggleBtn = "<img class='open-btn close' src='"+contextPath+"/assets/images/openbtn.png'>"
-				+ "<img class='close-btn open' src='"+contextPath+"/assets/images/closebtn.png'>";
+var toggleBtn = "<img class='open-btn close btn' src='"+contextPath+"/assets/images/openbtn.png'>"
+				+ "<img class='close-btn open btn' src='"+contextPath+"/assets/images/closebtn.png'>";
 var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
 			"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
 var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
@@ -487,11 +487,14 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 			
 			if($("#tree-mini li[data-no='" + parentDeptSeq + "']").next().children().length == 0 && 
 					$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close-btn").css("display") != "none"){
+				console.log("dfdaf");
 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.wrap div.li-div img.navi-icon").remove();
 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.li-div").prepend(icon);
 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.wrap").prepend(toggleBtn);
-				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.open-btn").css("display","none");
-				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close-btn").css("display","inline");
+// 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.open").css("display","none");
+// 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close").css("display","inline");
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.open").css("display","inline");
+				$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close").css("display","none");
 			}
 			
 			if ($("#tree-mini li[data-no='" + deptSeq + "'] img.last").length != 0) {
@@ -660,7 +663,7 @@ var incomplRemove = function(trigger){
 }
 
 function seqCheck(seq){
-	var seq;
+	var result;
 	$.ajax({
 		url : contextPath + "/admin/seqCheck/"+seq,
 		type : "get",
@@ -670,7 +673,8 @@ function seqCheck(seq){
 		success : function(response) {
 			$(response.data).each(function(index, item){
 				if(item != null){
-					seq = item;
+					console.log(item);
+					result = item;
 				}
 			});
 		},
@@ -679,7 +683,7 @@ function seqCheck(seq){
 		}
 
 	});
-	return seq;
+	return result;
 }
 
 $(function() {
@@ -694,18 +698,15 @@ $(function() {
 	});
 	
 	$("input.seq").focusout(function(){
-// 		console.log($(this).val());
-		console.log($(this));
-		var seq = seqCheck($(this).val());
-		if($("li.incompl").length > 0 && seq != null){
-			console.log("1");
-			alert("부서코드는 중복될 수 없습니다.");
-			$(this).val("").focus();
-		}else if($("li.incompl").length == 0 && seq != null	&& $("div.active-span span").data("lang") != seq){
-			console.log("2");
-			alert("부서코드는 중복될 수 없습니다.");
-			setTimeout(function(){$(this).val("").focus();}, 1);
-			return false;
+		if($(this).val() != ""){
+			var seq = seqCheck($(this).val());
+			if($("li.incompl").length > 0 && seq != null){
+				alert("부서코드는 중복될 수 없습니다.");
+				$(this).val("");
+			}else if($("li.incompl").length == 0 && seq != null && $("div.active-span span").data("lang") != seq){
+				alert("부서코드는 중복될 수 없습니다.");
+				$(this).val("");
+			}
 		}
 	});
 	
@@ -852,7 +853,33 @@ $(function() {
 		$(".default-unit").show();
 	});
 	
-	$("div.save").click(function(){
+	$("div.save").click(function(event){
+		var val = false;
+		
+		$("input.seq").each(function(index, item){
+			if($(this).css("display") != "none" && $(this).val() == ""){
+				alert("부서코드를 입력해주세요.");
+				val = true;
+				return false;
+			}
+		});
+		
+		if(val){
+			return false;
+		}
+		
+		$("input.name").each(function(index, item){
+			if($(this).css("display") != "none" && $(this).val() == ""){
+				alert("부서명을 입력해주세요.");
+				val = true;
+				return false;
+			}
+		});
+		
+		if(val){
+			return false;
+		}
+		
 		if($("li.incompl").length > 0){
 			if($("li.incompl").hasClass("biz") === true){
 				$("li.incompl").remove();
@@ -867,8 +894,9 @@ $(function() {
 			}else{
 				updateDept();
 			}
+			$("div.active-span span").text($("span#name").text());
 		}
-		
+
 		$(".update-unit").hide();
 		$(".default-unit").show();
 	});
@@ -899,8 +927,8 @@ $(function() {
 						</c:forEach>
 					</select>
 					
-					<span>부서명</span>
-					<input type="text" value="검색">
+<!-- 					<span>부서명</span> -->
+<!-- 					<input type="text" value="검색"> -->
 					<span>사용여부</span>
 					<select>
 						<option>전체
@@ -959,7 +987,7 @@ $(function() {
 									</td>
 									<td class="tg-0lax" colspan="2">
 										<span id="seq"></span>
-<!-- 										<input class='dept seq' type="text" name='deptSeq'> -->
+										<input class='dept seq' type="text" name='deptSeq'>
 										<input class='biz seq' type="text" name='bizSeq'>
 									</td>
 								</tr>
@@ -974,8 +1002,8 @@ $(function() {
 									</td>
 									<td class="tg-0lax">
 										<span id="name"></span>
-										<input class='dept' type="text" name='deptName'>
-										<input class='biz' type="text" name='bizName'>
+										<input class='dept name' type="text" name='deptName'>
+										<input class='biz name' type="text" name='bizName'>
 									</td>
 								</tr>
 								<tr>

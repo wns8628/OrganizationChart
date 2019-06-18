@@ -96,7 +96,8 @@ public class AdminService {
 				vo.setOpCode("I");
 				adminDao.insertCompMulti(vo);
 				adminDao.updateCompMultiHistory(vo);
-			}else if(vo.getCompName().equals(compMulti.getCompName()) == false) {
+				System.out.println(vo.getAddr()+":"+vo.getDetailAddr());
+			}else{
 				compMulti.setOpCode("U");
 				adminDao.updateCompMultiHistory(compMulti);
 				adminDao.updateCompMulti(vo);
@@ -119,7 +120,7 @@ public class AdminService {
 				vo.setOpCode("I");
 				adminDao.insertCompMulti(vo);
 				adminDao.updateCompMultiHistory(vo);
-			}else if(vo.getCompName().equals(compMulti.getCompName()) == false) {
+			}else{
 				compMulti.setOpCode("U");
 				adminDao.updateCompMultiHistory(compMulti);
 				adminDao.updateCompMulti(vo);
@@ -176,7 +177,7 @@ public class AdminService {
 		}
 		if("".equals(vo.getDeptNameEn()) == false) {
 			vo.setLangCode("en");
-			vo.setBizName(vo.getDeptNameEn());
+			vo.setDeptName(vo.getDeptNameEn());
 			adminDao.insertDeptMulti(vo);
 			adminDao.insertDeptMultiHistory(vo);
 		}
@@ -230,11 +231,11 @@ public class AdminService {
 		
 		vo.setLangCode("kr");
 		DepartmentsVo deptMultiAll = adminDao.getDeptMultiAll(vo);
-		if(!vo.getBizName().equals(deptMultiAll.getDeptName()) ) {
-			deptMultiAll.setOpCode("U");
-			adminDao.insertDeptMultiHistory(deptMultiAll);
-			adminDao.updateDeptMulti(vo);
-		}
+//		if(!vo.getBizName().equals(deptMultiAll.getDeptName()) ) {
+		deptMultiAll.setOpCode("U");
+		adminDao.insertDeptMultiHistory(deptMultiAll);
+		adminDao.updateDeptMulti(vo);
+//		}
 		
 		if("".equals(vo.getDeptNameEn()) == false) {
 			vo.setLangCode("en");

@@ -42,7 +42,7 @@ table div.btn{border: 1px solid #B2B2B2; height: 22px; width: 50px; display: inl
 div.move-wrapper p{font-size: 0.9em; padding-top: 5px;}
 
 div.footer { background-color: #F8F8F8; height: 50px;}
-div.footer div.btn{ display: inline-block; border: 1px solid #B2B2B2; width: 55px; text-align: center; 
+div.footer div.btn{ display: inline-block; border: 1px solid #B2B2B2; width: 55px; text-align: center; cursor: pointer;
 			height: 30px; line-height: 30px; margin-top: 10px; font-size: 0.9em; color: white; font-weight: bold;}
 div.footer div.btn:first-child { background-color: #1385DB; margin-left: 210px;}		
 div.footer div.btn:last-child { background-color: #ADADAD;}		
@@ -132,7 +132,7 @@ $(function(){
 	$("input[name='prevDeptSeq']").val(prevDeptSeq);
 	
 	$("div#dept-btn").click(function(){
-		$("#move-popup-tree li.comp span").trigger("click");
+// 		$("#move-popup-tree li.comp span").trigger("click");
 		$("div#move-popup-tree").toggle();
 		$("#move-popup-tree li.comp span").trigger("click");
 	});

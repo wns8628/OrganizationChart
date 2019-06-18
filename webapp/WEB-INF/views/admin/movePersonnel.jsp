@@ -176,9 +176,9 @@ $(function(){
 							<option>미재직
 						</select>
 						
-						<span>사원(ID)</span>
-						<input type="text" value="검색">
-						<button>검색</button>
+<!-- 						<span>사원(ID)</span> -->
+<!-- 						<input type="text" value="검색"> -->
+<!-- 						<button>검색</button> -->
 					</div>
 					<div class="content-head-wrapper">
 						<span>* 부서정보</span>
