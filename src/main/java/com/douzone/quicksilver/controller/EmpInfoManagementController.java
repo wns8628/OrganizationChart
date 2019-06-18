@@ -71,17 +71,24 @@ public class EmpInfoManagementController {
 	public void addEmp(@ModelAttribute AddEmpVo addEmpVo) {
 		System.out.println(addEmpVo);
 		String profilePicturePath = null;
+		boolean check = false;
+		String picPath = addEmpVo.getPicPath();
+
+		if( !picPath.equals("")) {
+			System.out.println("안비었다");
+			check = true; // 업데이트로 온것 insert X
+		}
 		
 		if( addEmpVo.getFile().getOriginalFilename().equals("default")) { // 사진을 보내지않음
-			String picPath = addEmpVo.getPicPath();
 			
 			System.out.println("picPath : " + picPath);
-			if( !picPath.equals("")) {
-				System.out.println("안비었다");
-			} else {
+			
+			if( picPath.equals("") ) {
 				System.out.println("비었다");
 				profilePicturePath = "/uploads/images/defaultman.png";
 			}
+			
+			
 		} else {
 			profilePicturePath = fileuploadService.restore(addEmpVo.getFile());
 		}
@@ -89,7 +96,7 @@ public class EmpInfoManagementController {
 		System.out.println(profilePicturePath);
 		addEmpVo.setPicPath(profilePicturePath);
 
-		if( profilePicturePath == null) { // 사원 업데이트 (파일을 보내지않았기때문에 null 값)
+		if(check) { // 사원 업데이트 (파일을 보내지않았기때문에 null 값)
 			System.out.println("사원 업데이트");
 			System.out.println("empSeq : " + addEmpVo.getEmpSeq());
 			empInfoManagementService.updateEmp(addEmpVo);

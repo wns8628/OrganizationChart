@@ -139,6 +139,9 @@
 						gender_code = #{gender},
 						use_yn = #{useYn},
 						work_status = #{workStatus},
+						<if test="picPath != null">
+							pic_file_id = #{picPath},
+						</if>
 						modify_seq = 'admin', 
 						modify_date = now() 
 					where emp_seq = #{empSeq}
