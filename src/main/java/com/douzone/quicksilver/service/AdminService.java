@@ -192,11 +192,11 @@ public class AdminService {
 		
 		vo.setLangCode("kr");
 		BizVo bizMultiAll = adminDao.getBizMultiAll(vo);
-		if(!vo.getBizName().equals(bizMultiAll.getBizName()) ) {
+//		if(!vo.getBizName().equals(bizMultiAll.getBizName()) ) {
 			bizMultiAll.setOpCode("U");
 			adminDao.insertBizMultiHistory(bizMultiAll);
 			adminDao.updateBizMulti(vo);
-		}
+//		}
 		
 		if("".equals(vo.getBizNameEn()) == false) {
 			vo.setLangCode("en");
