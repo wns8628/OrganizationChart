@@ -470,7 +470,7 @@ $(function(){
 				empSeq = response.data[0].empSeq;
 				
 				$holder.empty();
-				$holder.append("<img src=" + contextPath + picFile);
+				$holder.append("<img src=" + contextPath + picFile + ">");
 
 
 
