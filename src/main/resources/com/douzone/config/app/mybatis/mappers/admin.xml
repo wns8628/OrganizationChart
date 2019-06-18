@@ -244,7 +244,7 @@
 		update t_co_biz_multi set biz_seq = #{bizSeq}, biz_name = #{bizName}, biz_nickname = #{bizNickname},
 								addr = #{addr}, detail_addr = #{detailAddr}, use_yn = #{useYn}, modify_seq = '0101',
 								modify_date = now()
-							where biz_seq = #{bizSeq}
+							where biz_seq = #{bizSeq} and lang_code = #{langCode}
 	</update>
 	
 	<insert id="insertBizHistory" parameterType="bizvo">

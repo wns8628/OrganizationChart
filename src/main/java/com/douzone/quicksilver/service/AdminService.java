@@ -177,7 +177,7 @@ public class AdminService {
 		}
 		if("".equals(vo.getDeptNameEn()) == false) {
 			vo.setLangCode("en");
-			vo.setBizName(vo.getDeptNameEn());
+			vo.setDeptName(vo.getDeptNameEn());
 			adminDao.insertDeptMulti(vo);
 			adminDao.insertDeptMultiHistory(vo);
 		}
@@ -192,11 +192,11 @@ public class AdminService {
 		
 		vo.setLangCode("kr");
 		BizVo bizMultiAll = adminDao.getBizMultiAll(vo);
-//		if(!vo.getBizName().equals(bizMultiAll.getBizName()) ) {
-		bizMultiAll.setOpCode("U");
-		adminDao.insertBizMultiHistory(bizMultiAll);
-		adminDao.updateBizMulti(vo);
-//		}
+		if(!vo.getBizName().equals(bizMultiAll.getBizName()) ) {
+			bizMultiAll.setOpCode("U");
+			adminDao.insertBizMultiHistory(bizMultiAll);
+			adminDao.updateBizMulti(vo);
+		}
 		
 		if("".equals(vo.getBizNameEn()) == false) {
 			vo.setLangCode("en");

@@ -894,6 +894,7 @@ $(function() {
 			}else{
 				updateDept();
 			}
+			$("div.active-span span").text($("span#name").text());
 		}
 
 		$(".update-unit").hide();
