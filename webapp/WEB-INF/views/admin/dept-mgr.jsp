@@ -407,7 +407,8 @@ var deptAddRender = function(vo, index, last, str) {
 		}
 		
 		if($("#tree-mini li[data-no='"+vo.parentDeptSeq+"']").next().children("li").length > 1){
-			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').prepend(child).children('img.last').remove();
+// 			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').prepend(child).children('img.last').remove();
+			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').children('img.last').remove();
 		}
 	} else {
 		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
