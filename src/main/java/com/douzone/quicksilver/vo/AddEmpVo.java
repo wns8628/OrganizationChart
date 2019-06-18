@@ -39,8 +39,16 @@ public class AddEmpVo {
 	private String empSeq;
 	private int check;
 	private String table;
+	private String mainDeptYn;
 	
 	
+	
+	public String getMainDeptYn() {
+		return mainDeptYn;
+	}
+	public void setMainDeptYn(String mainDeptYn) {
+		this.mainDeptYn = mainDeptYn;
+	}
 	public String getTable() {
 		return table;
 	}
@@ -262,7 +270,7 @@ public class AddEmpVo {
 				+ compDetailAddr + ", empBirth=" + empBirth + ", empWedding=" + empWedding + ", userDate=" + userDate
 				+ ", useYn=" + useYn + ", gender=" + gender + ", workStatus=" + workStatus + ", file=" + file
 				+ ", picPath=" + picPath + ", langCode=" + langCode + ", empSeq=" + empSeq + ", check=" + check
-				+ ", table=" + table + "]";
+				+ ", table=" + table + ", mainDeptYn=" + mainDeptYn + "]";
 	}
 	
 	

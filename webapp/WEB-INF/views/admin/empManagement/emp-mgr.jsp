@@ -233,12 +233,17 @@ $(function(){
 	                {data: "workStatus"},
 	                {data: "useYn"},
 	                {data: "license"},
-	                {data: "emailAddr"}
+	                {data: "emailAddr"},
+	                {data: "mainDeptYn"}
 	            ],
 	            columnDefs: [{
 	            	targets: [8],
 	            	searchable: false,
 	      			visible: false
+	            }, {
+	            	targets: [9],
+	            	searchable: false,
+	            	visible: false
 	            }]
 
 	        });  
@@ -295,6 +300,7 @@ $(function(){
 				$("#hiddenDeptName").val( info.deptName);
 				$("#hiddenPosition").val( info.position);
 				$("#hiddenDuty").val( info.duty);
+				$("#hiddenMainDeptYn").val (info.mainDeptYn);
 
 		    	$(event.currentTarget).css('background-color', 'black');
 		    	let splitEmpName = $(event.currentTarget).children()[4].innerHTML.split('(');
@@ -307,12 +313,16 @@ $(function(){
 		    item.addEventListener('dblclick', event => {
 		    	console.log("더블클릭");
 		    	let splitEmpName = $(event.currentTarget).children()[4].innerHTML.split('(');
+		    	let info = table.api().row($(event.currentTarget)).data();
+		    	console.log(info.mainDeptYn);
 		    	let name = splitEmpName[0];
 		    	let id = splitEmpName[1];
 		    	$("#hiddenLoginId").val( id.slice(0, id.length - 1) );
 		    	$("#hiddenEmpName").val( name );
 		    	changeButtonCheck("addEmp", "사원정보수정", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857);
 		    	$("#hiddenCheck").val('true');
+				$("#hiddenMainDeptYn").val (info.mainDeptYn);
+
 		    });
 		 });
 	})
@@ -339,6 +349,7 @@ $(function(){
 				<input type="hidden" id="hiddenDuty" value = "">
 				<input type="hidden" id="hiddenEmpName" value = "">
 				<input type="hidden" id="hiddenCheck" value="">
+				<input type="hidden" id="hiddenMainDeptYn" value="">
 					<div id="contents-header">
 						<img class="home" alt=""
 							src="${pageContext.servletContext.contextPath }/assets/images/home.png">

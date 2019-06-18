@@ -14,7 +14,8 @@
 		    workStatus,
 		    useYn,
 		    license,
-		    emailAddr
+		    emailAddr,
+		    mainDeptYn
 		FROM
 		    empInfoManagement
 		WHERE
@@ -56,6 +57,7 @@
 		<![CDATA[
 			SELECT 
 				a.emp_seq as empSeq,
+				d.main_dept_yn as mainDeptYn,
 				d.dept_seq as deptSeq,
 				d.biz_seq as bizSeq,
 				f.comp_seq as compSeq,
@@ -96,6 +98,7 @@
 			WHERE
 			    a.emp_seq = b.emp_seq
 			        AND a.login_id = #{loginId}
+			        and d.main_dept_yn = #{mainDeptYn}
 			        AND b.lang_code = 'en'
 			        AND a.emp_seq = d.emp_seq
 			        AND d.dept_seq = e.dept_seq
@@ -181,7 +184,11 @@
 						biz_seq = #{bizSeq}, 
 						modify_seq = 'admin', 
 						modify_date = now() 
-					where emp_seq = #{empSeq}
+					where
+						<if test="table == 't_co_emp_dept'">
+							main_dept_yn = #{mainDeptYn},
+						</if> 
+						emp_seq = #{empSeq}
 			</otherwise>
 		</choose>
 	</update>

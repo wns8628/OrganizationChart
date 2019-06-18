@@ -12,9 +12,15 @@ public class EmpInfoManagementVo {
 	private String license;
 	private String kwd;
 	private String emailAddr;
+	private String mainDeptYn;
 	
 	
-	
+	public String getMainDeptYn() {
+		return mainDeptYn;
+	}
+	public void setMainDeptYn(String mainDeptYn) {
+		this.mainDeptYn = mainDeptYn;
+	}
 	public String getEmailAddr() {
 		return emailAddr;
 	}
@@ -81,7 +87,8 @@ public class EmpInfoManagementVo {
 	public String toString() {
 		return "EmpInfoManagementVo [compName=" + compName + ", deptName=" + deptName + ", position=" + position
 				+ ", duty=" + duty + ", empName=" + empName + ", workStatus=" + workStatus + ", useYn=" + useYn
-				+ ", license=" + license + ", kwd=" + kwd + ", emailAddr=" + emailAddr + "]";
+				+ ", license=" + license + ", kwd=" + kwd + ", emailAddr=" + emailAddr + ", mainDeptYn=" + mainDeptYn
+				+ "]";
 	}
 	
 }
