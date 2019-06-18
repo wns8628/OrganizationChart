@@ -254,7 +254,7 @@ let closeWindowCheck = windowObj => {
 	    }, 500);
 };
 
-let sendData = (picFile, empSeq) => {
+let sendData = (picFile, empSeq, mainDeptYn) => {
 	let compSeq = $("select option:selected")[0].value;
 	let loginId = $("input[name='id']")[0].value;
 	let korea = $("input[name='korea']")[0].value;
@@ -378,7 +378,7 @@ let sendData = (picFile, empSeq) => {
 	formData.append('file', file);
 	formData.append('picPath', picPath);
 	formData.append('empSeq', empSeq);
-
+	formData.append('mainDeptYn', mainDeptYn);
 
 	
 	$.ajax({ 
@@ -401,14 +401,17 @@ $(function(){
 	let check =  window.opener.document.getElementById('hiddenCheck').value;
 	let picFile = '';
 	let empSeq = '';
+	let mainDeptYn = '';
 	
 	if( check == 'true'){ // 더블클릭으로 열어서 사원정보 수정
 		console.log("check : " + check);
 		let loginId =  window.opener.document.getElementById('hiddenLoginId').value;
 		let empName = window.opener.document.getElementById('hiddenEmpName').value;
+		mainDeptYn = window.opener.document.getElementById('hiddenMainDeptYn').value;
 		
 		console.log(loginId);
 		console.log(empName);
+		console.log(mainDeptYn);
 		
 		$.ajax({
 			url : contextPath + "/empInfoManage/getEmpInfo",
@@ -416,7 +419,8 @@ $(function(){
 			dataType : "json",
 			data : {
 				loginId: loginId,
-				empName: empName
+				empName: empName,
+				mainDeptYn: mainDeptYn
 			},
 			success : function(response) {
 				console.log("사원정보 가져옴");
@@ -520,7 +524,7 @@ $(function(){
 		questionBox("알림", "저장하시겠습니까?").then( val => {
 			if( val == 'Yes'){
 				console.log("업데이트");
-				sendData(picFile, empSeq);
+				sendData(picFile, empSeq, mainDeptYn);
 			}
 		})
 	});
