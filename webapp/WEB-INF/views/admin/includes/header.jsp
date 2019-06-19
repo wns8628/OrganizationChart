@@ -18,21 +18,34 @@ $(document).on("click", "#popup-boot", function(key) {	    						    //부서검
 	
 	window.open( contextPath+'/boot', '부서검색', 'width=1500, height=800, top='+ h +' , left='+w);
 	
-}); 
+});
+
+function logout(){
+	window.location.href = contextPath+"/logout";
+}
 </script>
-<style>    
- #popup-boot{ color:white; }
+<style>
+ #popup-boot{ color:white;  cursor: pointer;}
+ #logout{
+	color:white;
+	cursor: pointer;
+	border-left: 2px solid white;
+	padding-left: 10px;
+	margin-left: 10px;
+}
 </style>
 <div id="header">
 	<div class="header-wrapper">
 		<div class="admin-top-header">
 			<a href='${pageContext.request.contextPath }'>
 				<span class="logo-label">Quick Silver </span>
-					<span class="logo-label-sub">( 관리자 페이지 )</span>
 			</a>
 		</div>
 		<div class="header-menubar">
 			<button id="popup-boot">조직도</button>
+			<c:if test="${authuser ne null }">
+			<button id="logout" onclick="logout()">로그아웃</button>
+			</c:if>
 		</div>
 	</div>
 </div>

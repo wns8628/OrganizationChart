@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.dto.JSONResult;
@@ -155,4 +157,17 @@ public class MainBoot {
     	return new String[] {"0"};
     }
     
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(@RequestParam(defaultValue="success", required=false) String result, Model model) {
+    	model.addAttribute("result", result);
+		return "/main/login";
+	}
+    
+    @RequestMapping(value = "/auth")
+	public void auth() {
+	}
+    
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void logout() {
+	}
 }

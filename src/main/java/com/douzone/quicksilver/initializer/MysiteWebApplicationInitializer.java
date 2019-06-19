@@ -5,6 +5,7 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.douzone.quicksilver.config.AppConfig;
@@ -34,7 +35,7 @@ public class MysiteWebApplicationInitializer extends AbstractAnnotationConfigDis
 		
 //		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter()
 		
-		return new Filter[] { new CharacterEncodingFilter("UTF-8", true) };
+		return new Filter[] { new CharacterEncodingFilter("UTF-8", true)};
 	}
 
 	

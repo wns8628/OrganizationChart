@@ -12,6 +12,7 @@ import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 import com.douzone.quicksilver.vo.MasterGroupVo;
+import com.douzone.quicksilver.vo.UserVo;
 
 @Service
 public class MainService {	
@@ -70,5 +71,10 @@ public class MainService {
 		map.put("dutyCode", dutyCode);
 		
 		return mainDao.update2(map);
+	}
+	
+	public UserVo login(UserVo userVo) {
+		System.out.println(mainDao.login(userVo));
+		return mainDao.login(userVo);
 	}
 }

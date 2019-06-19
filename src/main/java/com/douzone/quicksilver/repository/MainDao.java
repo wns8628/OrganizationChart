@@ -11,6 +11,7 @@ import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.EmployeesVo;
 import com.douzone.quicksilver.vo.MasterGroupVo;
+import com.douzone.quicksilver.vo.UserVo;
 
 @Repository
 public class MainDao {
@@ -55,6 +56,9 @@ public class MainDao {
 	
 	public int update2(Map<String, Object> map) {
 		return sqlSession.update("biz.update2", map);
+	}
+	public UserVo login(UserVo userVo) {
+		return sqlSession.selectOne("employees.login", userVo);
 	}
 
 }

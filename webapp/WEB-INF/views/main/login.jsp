@@ -1,8 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<c:set var="fail" value="fail"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,12 +26,13 @@
 } 
 .admin-main-logo-nav-body{
 	width:100%;
-    margin-top: 125px;
+    margin-top: 100px;
     display:flex;  
     -webkit-justify-content: center;
     justify-content: center;
     -webkit-align-items: center;
     align-items: center; 
+    margin-bottom: 300px;
 }
 .admin-main-logo-nav-body-admin , .admin-main-logo-nav-body-boot{
 	float:left;
@@ -69,50 +71,83 @@
     -webkit-border-radius: 2em;
     color: #2E64FE;
 }
+div.input-wrapper{
+	display: block;
+	width: 275px;
+	height: 40px;
+	margin-bottom: 15px;
+	border: 1px solid #AAAAAA;
+/* 	#01b4ec */
+}
+
+input:not(last){
+	width: 260px;
+	height: 26px;
+	font-size: 15px;
+	border: 0px;
+	margin: 7.5px 7px;
+}
+#login-btn{
+	margin: 0px;
+	width: 275px;
+	height: 40px;
+	background-color: #01b4ec;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+}
+p{
+	margin-top:30px; color:red; font-size: 13px;
+}
 </style>
 <script type="text/javascript">
-var contextPath = "${pageContext.servletContext.contextPath }";
 $(function(){
-	$(".admin-main-logo-nav-body-boot").click(function(){
-		//win_pop();
-		window.location.href= contextPath +"/boot";
+	$("input").focus(function(){
+		$(this).parent().css("border-color","#01b4ec");
 	});
-	$(".admin-main-logo-nav-body-admin").click(function(){
-		//win_pop();
-		window.location.href= contextPath +"/admin/chart";
+	
+	$("input").focusout(function(){
+		$(this).parent().css("border-color","#AAAAAA");
 	});
-})
+	
+	$("#login-btn").click(function(event){
+		$("p").remove();
+		if($("input[name='id']").val() == ""){
+			$("form").append("<p>아이디를 입력해주세요.</p>")
+			event.preventDefault();
+		}else if($("input[name='password']").val() == ""){
+			$("form").append("<p>비밀번호를 입력해주세요.</p>")
+			event.preventDefault();
+		}
+	});
+});
 </script>
 </head>
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
-		<div id="wrapper">
-			 <div class="admin-main-logo-body">
-			 	<div id="admin-main-logo-label">
-				 	<span class="admin-main-logo-token">Q</span>uick
-				 	<span class="admin-main-logo-token">S</span>il<span class="">v</span>er
-			 	</div>
-			 	
-			 	<div class="admin-main-logo-nav-body">
-			 		<div class="admin-main-logo-nav-body-admin">
-			 			<img  class="admin-main-logo-nav-body-admin-img" src="${pageContext.request.contextPath }/assets/images/admin_setting.png" >
-			 			<span class="admin-main-logo-nav-body-admin-label">
-			 			관리자
-			 			</span>					
-			 		</div>
-			 		<div class="admin-main-logo-nav-body-boot">
-			 			<img  class="admin-main-logo-nav-body-boot-img"src="${pageContext.request.contextPath }/assets/images/hierarchy.png">
-			 		 	<span class="admin-main-logo-nav-body-boot-label">
-			 		 	조직도
-			 		 	</span>
-			 		</div>
-			 	</div>
-			 </div>
-			<div class="admin-main-logo-body-foot-mention">
-				<div class="admin-main-logo-body-foot-mention-label">
-					웹에서의 대용량 조직도 조회 및 검색 처리
-				</div>
+		<div class="admin-main-logo-body">
+		 	<div id="admin-main-logo-label">
+			 	<span class="admin-main-logo-token">Q</span>uick
+			 	<span class="admin-main-logo-token">S</span>il<span class="">v</span>er
+		 	</div>
+			<div class="admin-main-logo-nav-body">
+				<form action="${pageContext.servletContext.contextPath }/auth">
+					<div class="input-wrapper">
+						<input type="text" name="id" placeholder="아이디">
+					</div>
+					<div class="input-wrapper">
+						<input type="password" name="password" placeholder="비밀번호">
+					</div>
+					
+					<input id="login-btn" type="submit" value="로그인">
+					<c:if test="${result eq fail}">
+						<p>
+							아이디 또는 비밀번호를 다시 확인하세요.
+						</p>
+					</c:if>
+				</form>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/admin/includes/footer.jsp" />

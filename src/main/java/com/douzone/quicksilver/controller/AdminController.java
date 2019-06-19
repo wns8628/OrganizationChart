@@ -23,8 +23,11 @@ import com.douzone.quicksilver.vo.BizVo;
 import com.douzone.quicksilver.vo.CompanyVo;
 import com.douzone.quicksilver.vo.DepartmentsVo;
 import com.douzone.quicksilver.vo.EmployeeDeptInfoVo;
+import com.douzone.security.Auth;
+import com.douzone.security.Auth.Role;
 
 @Controller
+@Auth(Role.ADMIN)
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired

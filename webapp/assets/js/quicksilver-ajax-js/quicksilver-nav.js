@@ -334,7 +334,7 @@ var getListNavPoint = function(seq, last, str, pointSeq){
 
 var getCompList = function(){
 	 $.ajax({
-	      url: contextPath+"/admin/getComp",
+	      url: contextPath+"/getComp",
 	      type:"get",
 	      dataType:"json",
 	      data:"",
