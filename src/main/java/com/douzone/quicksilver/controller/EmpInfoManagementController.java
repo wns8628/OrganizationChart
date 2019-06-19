@@ -97,7 +97,7 @@ public class EmpInfoManagementController {
 		addEmpVo.setPicPath(profilePicturePath);
 
 		if(check) { // 사원 업데이트 (파일을 보내지않았기때문에 null 값)
-			System.out.println("사원 업데이트");
+			System.out.println("사원 업데이트!!");
 			System.out.println("empSeq : " + addEmpVo.getEmpSeq());
 			System.out.println("bizSeq : " + addEmpVo.getBizSeq());
 			System.out.println("deptSeq : " + addEmpVo.getBizSeq());
