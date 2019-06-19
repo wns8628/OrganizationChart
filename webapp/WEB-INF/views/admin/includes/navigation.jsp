@@ -38,7 +38,7 @@
 	</div>
 	<div class="menu">
 		<ul>
-			<li>사원정보관리</li>
+			<li><a href="#" onclick="location.href = '${pageContext.servletContext.contextPath }/admin/empManagement?oneOpenYn=' + oneOpenYn +'&twoOpenYn='+ twoOpenYn; return false;">사원정보관리</a></li>
 	<%-- 		<li><a href="${pageContext.servletContext.contextPath }/admin/connectDeptEmp">사원부서연결</a></li>
 			<li><a href="${pageContext.servletContext.contextPath }/admin/movePersonnel">인사이동</a></li>
 			<li><a href="${pageContext.servletContext.contextPath }/admin/movePersonnelStatus">인사이동 현황</a></li>
