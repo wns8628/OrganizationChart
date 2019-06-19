@@ -407,7 +407,7 @@
 	<!-- 인사이동 -->
 	<select id="getEmpListByDeptSeq" parameterType="map" resultType="employeesvo">
 		select a.emp_seq as empSeq, a.dept_seq as deptSeq, a.emp_name as empName, a.login_id as loginId,
-		a.dept_name as deptName, a.dp_name as dutyCodeName, f.dp_name as positionCodeName, a.work_status as workStatus,
+		a.dept_name as deptName, a.dp_name as dutyCodeName, f.dp_name as positionCodeName, if(a.work_status = '999', '재직', '미재직') as workStatus,
 			a.dp_seq as dutyCode, f.dp_seq as positionCode
 		from(select a.emp_seq, b.dept_seq, c.emp_name, a.login_id, e.dept_name, d.dp_name, a.work_status, b.position_code, d.dp_seq
 			from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_comp_duty_position_multi d, t_co_dept_multi e

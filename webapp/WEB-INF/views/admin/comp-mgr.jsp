@@ -21,7 +21,7 @@ td, th{ padding: 0;}
 textarea{resize: none;}
 div#contents div#content-table-wrapper {float: right; width:75%;}
 
-div.content-head-wrapper { width: 100%; height: 20px;}
+div.content-head-wrapper { width: 98.5%; height: 20px;}
 div.content-head-wrapper span {font-weight: bold;}
 div.content-head-wrapper div.head-btn{ 
 	float: right; 
@@ -68,7 +68,7 @@ div#wrapper { height: 100%; width: 1519.2;}
 }
 .comMgr-body-border{
     margin-left: 15px;
-    width: 1033px;
+    width: 933px;
     height: 733px;
     border: 1px solid #f9f9f9;
 }

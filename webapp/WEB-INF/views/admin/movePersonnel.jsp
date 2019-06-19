@@ -39,7 +39,7 @@ div#content-wrapper div#tbl-content { width: 57.9%; min-height: 480px; float: ri
 
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{padding:5px 5px; border:1px solid #B2B2B2; overflow:hidden;word-break:normal;}
-.tg th{color:white; padding:5px 5px; border:1px solid #B2B2B2; ;overflow:hidden;word-break:normal; background-color: #A0C8F0;}
+.tg th{padding:5px 5px; border:1px solid #B2B2B2; ;overflow:hidden;word-break:normal; background-color: #F9F9F9;}
 .tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:middle;}
 .tg .tg-0lax{text-align:center;vertical-align:middle;}
 
@@ -51,7 +51,7 @@ table#tbl-emplist { width: 100%; height: 100%; border-collapse:collapse; border:
 }
 
 .move-tr{
-	background-color: #FFE0E0;
+	background-color: #BEEBFF;
 }
 </style>
 <script type="text/javascript">

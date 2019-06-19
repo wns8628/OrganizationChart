@@ -22,6 +22,7 @@
 	     <typeAlias alias="addempvo" type="com.douzone.quicksilver.vo.AddEmpVo"/>
 	     <typeAlias alias="removeempinfovo" type="com.douzone.quicksilver.vo.RemoveEmpInfoVo"/>
 	     <typeAlias alias="getempinfovo" type="com.douzone.quicksilver.vo.GetEmpInfoVo"/>
+	     <typeAlias alias="uservo" type="com.douzone.quicksilver.vo.UserVo"/>
 	     
     </typeAliases>    
 
