@@ -186,7 +186,7 @@
 						modify_date = now() 
 					where
 						<if test="table == 't_co_emp_dept'">
-							main_dept_yn = #{mainDeptYn},
+							main_dept_yn = #{mainDeptYn}, and
 						</if> 
 						emp_seq = #{empSeq}
 			</otherwise>
