@@ -62,7 +62,7 @@ function move_pop(list){
 }
 
 var empRender = function(vo){
-	var htmls = "<tr data-no='"+vo.empSeq+"'><td class='tg-0lax'><input type='checkbox' value='"+vo.empSeq+"'></td><td class='tg-0lax'>"+vo.deptName+"</td>"
+	var htmls = "<tr data-no='"+vo.empSeq+"' data-dept='"+vo.deptSeq+"'><td class='tg-0lax'><input type='checkbox' value='"+vo.empSeq+"'></td><td class='tg-0lax'>"+vo.deptName+"</td>"
 				+"<td class='tg-0lax'>"+vo.empName+"("+vo.loginId+")"+"</td><td class='tg-0lax'>"+vo.dutyCodeName+"</td>"
 				+"<td class='tg-0lax'>"+vo.positionCodeName+"</td><td class='tg-0lax'>"+vo.workStatus+"</td></tr>";
 	

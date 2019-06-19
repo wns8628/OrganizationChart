@@ -125,11 +125,12 @@ var getParentDeptSeq = function(seq){
 }
 $(function(){
 	var prevDeptSeq;
-	prevDeptSeq = $(opener.document).find('.active-span').parent().data("no");
+	
 // 	$(document).on("mouseover","div#move-popup-tree li.dept span[data-lang='"+noSeq+"']", function(event){
 // 		$(this).css("cursor", "not-allowed");
 // 	});
-	$("input[name='prevDeptSeq']").val(prevDeptSeq);
+// 	prevDeptSeq = $(opener.document).find('.active-span').parent().data("no");
+// 	$("input[name='prevDeptSeq']").val(prevDeptSeq);
 	
 	$("div#dept-btn").click(function(){
 // 		$("#move-popup-tree li.comp span").trigger("click");
@@ -162,6 +163,9 @@ $(function(){
 			$(opener.document).find("input[type='checkbox']:checked").each(function(){
 				$("input[name='empSeq']").val($(this).val());
 				seqList.push($(this).val());
+				prevDeptSeq = $(this).parent().parent().data("dept");
+				$("input[name='prevDeptSeq']").val(prevDeptSeq);
+				
 				updateEmpDept();
 			});
 			
