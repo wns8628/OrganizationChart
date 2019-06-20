@@ -173,11 +173,11 @@ $(function(){
 							</c:forEach>
 						</select>
 						
-						<span>재직여부</span>
-						<select>
-							<option>재직
-							<option>미재직
-						</select>
+<!-- 						<span>재직여부</span> -->
+<!-- 						<select> -->
+<!-- 							<option>재직 -->
+<!-- 							<option>미재직 -->
+<!-- 						</select> -->
 						
 <!-- 						<span>사원(ID)</span> -->
 <!-- 						<input type="text" value="검색"> -->
