@@ -268,9 +268,11 @@ var insertDept = function() {
 					$("#tree-mini ul[b-no='" + response.data.parentDeptSeq + "']>li:last").
 					children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
 				}else{
-					$("#tree-mini ul[d-no='" + response.data.parentDeptSeq + "'] li:last-child").
+					$("#tree-mini ul[d-no='" + response.data.parentDeptSeq + "']>li:last").
 					children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
 				}
+			}else{
+				$("li[data-no='"+response.data.deptSeq+"']").prev().prev().children('div.wrap').children().eq(0).remove();
 			}
 			
 			$("#tree-mini li[data-no='"+response.data.deptSeq+"'] span").trigger("click");
