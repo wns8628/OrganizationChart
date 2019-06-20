@@ -102,6 +102,7 @@ p{
 }
 </style>
 <script type="text/javascript">
+var contextPath = "${pageContext.servletContext.contextPath }";
 $(function(){
 	$("input").focus(function(){
 		$(this).parent().css("border-color","#01b4ec");
