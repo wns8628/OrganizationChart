@@ -126,6 +126,13 @@ public class EmpInfoManagementController {
 			// insert t_co_emp_dept
 			empInfoManagementService.add_t_co_emp_dept(addEmpVo);
 			
+			// insert t_co_emp_dept_multi
+			addEmpVo.setLangCode("kr");
+			empInfoManagementService.add_t_co_emp_dept_multi(addEmpVo);
+			
+			addEmpVo.setLangCode("en");
+			empInfoManagementService.add_t_co_emp_dept_multi(addEmpVo);
+			
 			// insert t_co_emp_comp
 			empInfoManagementService.add_t_co_emp_comp(addEmpVo);
 		}

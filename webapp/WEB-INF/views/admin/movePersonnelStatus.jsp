@@ -15,8 +15,6 @@
   <%-- <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
    --%>
-   
-   
   <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -38,6 +36,9 @@
  
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
  <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+    <script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/admin/admin-nav.js"></script>
+
  
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/admin.css"
@@ -46,8 +47,7 @@
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/admin/admin-nav.js"></script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -73,7 +73,14 @@ let kwd = '';
 
 $(function(){
 	
-	ArrowChange();
+/* 	$(".active").each( (index, item) => {
+		
+		
+			item.children[2].classList.toggle('icon2');
+			item.children[1].classList.toggle('icon2');
+		
+	}); */
+/* 	ArrowChange(); */
 
 	// 엔터 클릭 인식
 	document.getElementsByTagName('body')[0].addEventListener("keydown", event => {

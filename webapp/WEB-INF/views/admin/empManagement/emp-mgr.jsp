@@ -179,7 +179,7 @@ $(function(){
 
  $(".changeID").click( event => changeButtonCheck("resetIdEmp", "ID변경", 'location=no, scrollbars=yes, alwaysReised=yes', 1000, 238));
  $(".changePassword").click( event => changeButtonCheck("resetPassword", "비밀번호초기화", 'location=no, scrollbars=yes, alwaysReised=yes', 1000, 427));
- $(".addEmp").click( event => changeButtonCheck("addEmp", "입사처리", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857));
+ $(".addEmp").click( event => changeButtonCheck("addEmp", "입사처리", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 690));
  $(".remove").click( event => changeButtonCheck("deleteEmp", "사원정보삭제", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 800, 857));
 
  let search = (compNames, workStatuss, kwds, check) => {
@@ -319,7 +319,7 @@ $(function(){
 		    	let id = splitEmpName[1];
 		    	$("#hiddenLoginId").val( id.slice(0, id.length - 1) );
 		    	$("#hiddenEmpName").val( name );
-		    	changeButtonCheck("addEmp", "사원정보수정", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857);
+		    	changeButtonCheck("addEmp", "사원정보수정", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 690);
 		    	$("#hiddenCheck").val('true');
 				$("#hiddenMainDeptYn").val (info.mainDeptYn);
 
@@ -399,7 +399,7 @@ $(function(){
 						<button type= "button" class="exel-submit changeID">ID변경</button>
 						<button type= "button" class="exel-submit changePassword">비밀번호 초기화</button>
 						<button type= "button" class="exel-submit addEmp">입사처리</button>
-						<button type= "button" class="exel-submit remove">삭제</button>
+						<button type= "button" class="exel-submit remove">퇴사처리</button>
 					</span>
 				</div>	
 			</div>
