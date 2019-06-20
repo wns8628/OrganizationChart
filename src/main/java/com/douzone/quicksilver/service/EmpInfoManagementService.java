@@ -78,6 +78,11 @@ public class EmpInfoManagementService {
 		return empInfoManagementDao.insert(addEmpVo);
 	}
 	
+	public int add_t_co_emp_dept_multi(AddEmpVo addEmpVo) {
+		addEmpVo.setCheck(4);
+		return empInfoManagementDao.insert(addEmpVo);
+	}
+	
 	public int removeEmpInfo(RemoveEmpInfoVo removeEmpInfoVo) {
 		removeEmpInfoVo.setTable("t_co_emp2");
 		empInfoManagementDao.update(removeEmpInfoVo);

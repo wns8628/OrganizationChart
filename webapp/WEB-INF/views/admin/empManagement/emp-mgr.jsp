@@ -327,7 +327,7 @@ $(function(){
 		    	let id = splitEmpName[1];
 		    	$("#hiddenLoginId").val( id.slice(0, id.length - 1) );
 		    	$("#hiddenEmpName").val( name );
-		    	changeButtonCheck("addEmp", "사원정보수정", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857);
+		    	changeButtonCheck("addEmp", "사원정보수정", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 690);
 		    	$("#hiddenCheck").val('true');
 				$("#hiddenMainDeptYn").val (info.mainDeptYn);
 

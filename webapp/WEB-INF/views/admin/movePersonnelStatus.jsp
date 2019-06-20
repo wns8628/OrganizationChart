@@ -36,6 +36,9 @@
  
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
  <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+    <script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/admin/admin-nav.js"></script>
+
  
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/admin.css"
@@ -44,8 +47,7 @@
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/admin/admin-nav.js"></script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

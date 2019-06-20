@@ -288,7 +288,7 @@
 					                                   null)
 				</when>
 				
-				<otherwise>
+				<when test="check == 3">
 					insert t_co_emp_comp values( #{empSeq},
 												    'demo',
 												#{compSeq},
@@ -311,6 +311,22 @@
 													 now(),
 					                                  null,
 					                                  null)
+				</when>
+				
+				<otherwise>
+					insert t_co_emp_dept_multi values( #{deptSeq},
+														#{empSeq},
+					                                    #{langCode},
+					                                    'demo',
+					                                    #{compSeq},
+					                                    #{bizSeq},
+					                                    null,
+					                                    null,
+					                                    'Y',
+					                                    'admin',
+					                                    now(),
+					                                    null,
+					                                    null)
 				</otherwise>
 			</choose>
 		
