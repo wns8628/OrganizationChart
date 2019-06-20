@@ -17,6 +17,8 @@
 <style type="text/css">
 div.content-head-wrapper div{ float: right;} 
 
+div#content-wrapper {    height: 720px; padding-bottom: 15px;}
+
 div.tree li {font: 2em; display: block; height: 20px; position: relative;}
 div.tree li.comp:not(:first-child) { padding-top: 4px;}
 div.tree li.dept { font: 1.5em; }
@@ -29,21 +31,21 @@ div.tree img.close-btn {height: 6px; width: 6px; position: relative; left: -13px
 div.tree img.open {display: none;}
 div.tree div.li-div {padding: 2px 0;  display: inline-block;}
 div.tree li>span {float: left;}
-div#tree-move {width: 37.8%; background-color: white; border: 0px; height: 480px;
-vertical-align: top; float: left; padding: 1%; min-height: 480px; overflow-y:auto;
+div#tree-move {width: 37.8%; background-color: white; border: 0px; height: 96%;
+vertical-align: top; float: left; padding: 1%; /* min-height: 480px; */ overflow-y:auto;
 border-top: 1px solid #B2B2B2; border-bottom: 1px solid #B2B2B2; border-left: 1px solid #B2B2B2;}
-div.tree div.wrap {display: inline-block;}
-div#wrapper { height: 662px; width: 1519.2;}
+div.tree div.wrap {display: inline-block;}/* 
+div#wrapper { height: 100%; width: 1519.2;} */
 
-div#content-wrapper div#tbl-content { width: 57.9%; min-height: 480px; float: right; border: 1px solid #B2B2B2; padding: 1%;}
+div#content-wrapper div#tbl-content { width: 57.9%; height: 96%; float: right; border: 1px solid #B2B2B2; padding: 1%;}
 
 .tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{padding:5px 5px; border:1px solid #B2B2B2; overflow:hidden;word-break:normal;}
-.tg th{padding:5px 5px; border:1px solid #B2B2B2; ;overflow:hidden;word-break:normal; background-color: #F9F9F9;}
+.tg td{padding:10px; border:1px solid #B2B2B2; overflow:hidden;word-break:normal;}
+.tg th{padding:10px; border:1px solid #B2B2B2; ;overflow:hidden;word-break:normal; background-color: #F9F9F9;}
 .tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:middle;}
 .tg .tg-0lax{text-align:center;vertical-align:middle;}
 
-table#tbl-emplist { width: 100%; height: 100%; border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; }
+table#tbl-emplist { width: 100%; /* height: 100%; */ border-collapse:collapse; border: 1px solid #B2B2B2; border-spacing:0; }
 
 
 .active-span{
@@ -181,7 +183,7 @@ $(function(){
 <!-- 						<button>검색</button> -->
 					</div>
 					<div class="content-head-wrapper">
-						<span>* 부서정보</span>
+						<span>● 부서정보</span>
 						<div id="move-btn" class="head-btn move">인사이동</div>
 						<div>변경 할 사용자를 선택 후 [인사이동] 버튼을 눌러 부서, 직급, 직책을 변경하여 주세요.</div>
 					</div>

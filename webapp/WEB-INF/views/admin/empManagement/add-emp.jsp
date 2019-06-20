@@ -19,7 +19,7 @@
 
 /* reset */
 *            { margin:0; padding:0 }
-body         { font: 1em "맑은 고딕", 돋움, 굴림; color:#111; min-width: 1000px;}
+body         { font: 1em "맑은 고딕", 돋움, 굴림; color:#111; /* min-width: 1000px; */}
 ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
@@ -29,15 +29,15 @@ a:active    	{ color:#111; text-decoration:none; }
 a:hover     	{ color:#111; text-decoration:none; }  
 
 div#header{ width: 100%; height: 30px; background-color: #2e8bd2; font-size: 1em;}
-div#header2 {width: 100%; height: 30px; }
+div#header2 {width: 100%; /* height: 30px; */ }
 div#header3 { width: 100%; height: 30px; }
 div.header-wrapper span {color: white; font-weight: bold; font-size: 1em; padding: 5px 15px 0 5px; float:left;}
 
-div#container { width: 100%; height: 100%;}
-div#contents { }
+div#container { width: 100%; height: 100%; }
+div#contents { margin-top: 16px; }
 
 div#sideBar { width: 150px; margin: 0 15px 0 15px ; }
-.pic { border: 1px solid #ececec; width: 200px; height: 250px; float: left; margin: 21px 15px 0 0 ;}
+.pic { border: 1px solid #ececec; width: 200px; height: 250px; float: left; margin: 0px 15px 0 0 ;}
 .reg1 { width: 100px; float: left; margin: 10px 0 10px 102px ;}
 .reg {  width: 80px; height: 25px; margin: 10px 0 10px 0 ; background-color: #ffffff ; }
 
@@ -46,9 +46,9 @@ div#footer { width: 100%; height: 50px; background-color: #ececec; margin: 30px 
 .cancle { width: 100px; height: 30px; mragin: 10px 5px 0 0; background-color: #adadad; color: #ffffff ; font-size: 1em;  font-weight: bold;	}
 
 
-.empDetail {border: 1px solid #ececec; width: 900px; height: 500px; border-collapse: collapse; }
-.empDetail th,td {1padding: 10px;}
-.empDetail th {  padding: 10px; border: 1px solid #ececec; text-align: right; width: 110px; background-color: #f9f9f9; font-weight: normal;}
+.empDetail {border: 1px solid #ececec; width: 920px; height: 500px; border-collapse: collapse; }
+.empDetail th,td {padding: 10px;}
+.empDetail th {  padding: 10px; border: 1px solid #ececec; text-align: right; width: 112px; background-color: #f9f9f9; font-weight: normal;}
 .empDetail td { border: 1px solid #ececec;}
 
 .input { border: 1px solid #dcdcdc; width: 200px; height: 25px; margin: 0 10px 0 10px; }
@@ -63,6 +63,11 @@ div#footer { width: 100%; height: 50px; background-color: #ececec; margin: 30px 
 /*
 .picUpload { width: 100px;}
 */
+.add-emp{
+	font-size : 13px;
+	
+}
+
 </style>
 
 <script type='text/javascript' src='https://bestvpn.org/wp-includes/js/jquery/jquery.js'></script>
@@ -579,7 +584,7 @@ $(function(){
 </head>
 
 <body>
-	<div id="container">
+	<div id="container" class="add-emp">
 		<div id="header">
 			<div class="header-wrapper">
 				<span>입사처리</span>
@@ -608,7 +613,7 @@ $(function(){
 					<p></p>
 				</div>
 				<div id="contents">
-				*기본정보
+				
 				<table class="empDetail"> 
 					<tr>
 						<th colspan='2'><img alt="" src="${pageContext.servletContext.contextPath }/assets/images/smallc.png">회사선택</th>

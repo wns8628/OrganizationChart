@@ -23,6 +23,14 @@
 <style type="text/css">
 div#contents div#select-bar{width: 98%; height: 30px; background: #EFF6FE; border: 1px solid #B2B2B2; padding: 1%;}
 div#contents div#select-bar span{ font: 12px}
+.button-css{
+	padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 12px;
+    padding-left: 12px;
+    background-color: white;
+    border: 1px solid lightgrey;
+}
 </style>
 
   <!-- dataTable -->
@@ -59,6 +67,8 @@ div#contents div#select-bar span{ font: 12px}
   
   <!-- 엑셀저장 lib  -->
   <!--  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/exel-lib/excelexportjs.js"></script> -->
+
+
 
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
@@ -179,7 +189,7 @@ $(function(){
 
  $(".changeID").click( event => changeButtonCheck("resetIdEmp", "ID변경", 'location=no, scrollbars=yes, alwaysReised=yes', 1000, 238));
  $(".changePassword").click( event => changeButtonCheck("resetPassword", "비밀번호초기화", 'location=no, scrollbars=yes, alwaysReised=yes', 1000, 427));
- $(".addEmp").click( event => changeButtonCheck("addEmp", "입사처리", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 1300, 857));
+ $(".addEmp").click( event => changeButtonCheck("addEmp", "입사처리", 'status=no, toolbars=no, location=no, scrollbars=no, alwaysReised=yes', 1170, 726));
  $(".remove").click( event => changeButtonCheck("deleteEmp", "사원정보삭제", 'status=no, toolbars=no, location=no, scrollbars=yes, alwaysReised=yes', 800, 857));
 
  let search = (compNames, workStatuss, kwds, check) => {
@@ -302,7 +312,7 @@ $(function(){
 				$("#hiddenDuty").val( info.duty);
 				$("#hiddenMainDeptYn").val (info.mainDeptYn);
 
-		    	$(event.currentTarget).css('background-color', 'black');
+		    	$(event.currentTarget).css('background-color', '#E9F2FB');
 		    	let splitEmpName = $(event.currentTarget).children()[4].innerHTML.split('(');
 		    	let name = splitEmpName[0];
 		    	let id = splitEmpName[1];
@@ -393,13 +403,11 @@ $(function(){
 				
 				<div class="usr-status">
 					<div class="count">
-						실사용자 : GW[  ***/***  ],  Mail[  **/**  ],  비라이센스 [  **  ]
 					<span class="buttons">
-						<button type= "submit" class="exel-submit lang" data-lang='exel'>엑셀 저장</button>
-						<button type= "button" class="exel-submit changeID">ID변경</button>
-						<button type= "button" class="exel-submit changePassword">비밀번호 초기화</button>
-						<button type= "button" class="exel-submit addEmp">입사처리</button>
-						<button type= "button" class="exel-submit remove">삭제</button>
+						<button type= "button" class="changeID button-css">ID변경</button>
+						<button type= "button" class="changePassword button-css">비밀번호 초기화</button>
+						<button type= "button" class="addEmp button-css">입사처리</button>
+						<button type= "button" class="remove button-css">삭제</button>
 					</span>
 				</div>	
 			</div>

@@ -73,6 +73,10 @@ let kwd = '';
 
 $(function(){
 	
+	$(".active").each( (index, item) => {
+		console.log(item);
+		
+	});
 	ArrowChange();
 
 	// 엔터 클릭 인식
@@ -147,9 +151,8 @@ $(function(){
 		</header>
 		
 		<div class="section">
-			
-				<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
-		
+					
+			<c:import url="/WEB-INF/views/admin/includes/navigation.jsp" />
 			
 			<div class="mainSection" >
 			
@@ -196,7 +199,7 @@ $(function(){
 			          <!-- DataTales Example -->
 			          <div class="card shadow mb-4">
 			            <div class="card-header py-3">
-			              <h6 class="m-0 font-weight-bold text-primary">사용자 목록</h6>
+			              <h6 class="m-0 font-weight-bold text-primary">● 사용자 목록</h6>
 			            </div>
 			            <div class="card-body">
 			              <div class="table-responsive">

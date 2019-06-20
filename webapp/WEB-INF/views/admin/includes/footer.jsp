@@ -5,5 +5,5 @@
     pageEncoding="UTF-8"%>
     
 <div id="footer">
-	<p>Quick Silver</p>
+	<div id="footer-label">Quick Silver</div>
 </div>

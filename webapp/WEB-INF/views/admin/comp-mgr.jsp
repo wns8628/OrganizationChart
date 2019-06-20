@@ -45,7 +45,7 @@ div#contents table#company-content-table td{font-family:Arial, sans-serif;font-s
 div#contents table#company-content-table th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;border-style:solid;border-width:1px; overflow:hidden; border-color:lightgrey; }
 div#contents table#company-content-table .tg-9anz{border-color:lightgrey;text-align:right;}
 div#contents table#company-content-table .tg-dvpl{border-color:lightgrey;text-align:right; background-color: #f9f9f9; padding: 10px;}
-div#contents table#company-content-table .tg-de2y{border-color:lightgrey;text-align:left; padding: 5px 5px; background-color: white;}
+div#contents table#company-content-table .tg-de2y{border-color:lightgrey;text-align:center; padding: 5px 5px; background-color: white;}
 div#contents table#company-content-table .tg-0pky{border-color:lightgrey;text-align:left;}
 div#contents table#company-content-table .tg-cont{border-color:lightgrey;text-align:center; padding: 5px 5px; background-color: white;}
 div#contents table#company-content-table input[type='text']{height: 18px; width: 99%; display: none;}
@@ -68,7 +68,7 @@ div#wrapper { height: 100%; width: 1519.2;}
 }
 .comMgr-body-border{
     margin-left: 15px;
-    width: 933px;
+   /*  width: 933px; */
     height: 733px;
     border: 1px solid #f9f9f9;
 }

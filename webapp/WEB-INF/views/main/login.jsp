@@ -127,6 +127,7 @@ $(function(){
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/admin/includes/header.jsp" />
+		<div id="wrapper">
 		<div class="admin-main-logo-body">
 		 	<div id="admin-main-logo-label">
 			 	<span class="admin-main-logo-token">Q</span>uick
@@ -150,6 +151,8 @@ $(function(){
 				</form>
 			</div>
 		</div>
+		</div>
+		
 		<c:import url="/WEB-INF/views/admin/includes/footer.jsp" />
 	</div>
 </body>

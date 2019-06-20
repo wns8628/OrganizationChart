@@ -285,11 +285,12 @@ ul, ol, li         { list-style-type: none }
 fieldset      { border:none }
 
 a:link          { color:#ffffff; text-decoration:none; font-weight:bold; }
-
-a:visited       { color:#696969F; text-decoration:none; font-weight:bold; }
-a:active       { color:#696969; text-decoration:none; font-weight:bold; }
-a:hover       { color:#f0f0f0; text-decoration:none; font-weight:bold; } 
-
+a:visited       { color:#ffffff; text-decoration:none; font-weight:bold; }
+a:active       { color:#ffffff; text-decoration:none; font-weight:bold; }
+a:hover       { color:#ffffff; text-decoration:none; font-weight:bold; } 
+.admin-go:{
+	
+}
 .tree {
 	float: left;
 	width: 25%; height: 800px;

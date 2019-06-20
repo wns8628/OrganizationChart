@@ -22,32 +22,8 @@
 	    <ul class="navbar-nav ml-auto ml-md-0">
 	      <li class="nav-item">   
 	        <div id="admin-login" class="form-control btn btn-outline-primary btn-sm lang" data-lang='admin'>
-		       		 관리자
-		       		 
-				<%--
- 		     	<div class="wrapper fadeInDown" id="admin-dialog" style="display:none">				  
-				      <img class="underlineHover" id="login-cancel" src="${pageContext.request.contextPath }/assets/images/delete.png"></img>
-					  <div id="formContent" >
-				       	 	<h4 class='lang' data-lang='admin'>관리자</h4>
-						    <div class="fadeIn first">
-						    </div>		
-						    <!-- Login Form -->
-						    <form>
-						      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-						      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-						      <input type="submit" class="fadeIn fourth" value="Log In">
-						    </form>
-						    <!-- Remind Passowrd -->
-						    <!--
-						     <div id="formFooter">
-						      <a class="underlineHover" href="#">Forgot Password?</a>
-						    </div>
-						     -->
-					  </div>
-				</div>    	
-				 --%>
+		       		<a class ="admin-go"href="${pageContext.request.contextPath }/admin/chart"> 관리자</a>
 	        </div> 
-	     	<!--  -->
 	     	
 	      </li>	     
 	    </ul>
