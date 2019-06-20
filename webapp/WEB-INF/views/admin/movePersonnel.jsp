@@ -110,6 +110,7 @@ var getEmpListByDeptSeq = function(deptSeq, sortType){
 $(function(){
 	menuActive();
 	defaultComp();
+	ArrowChange();
 	
 	$("#compSelect").change(function() {
 		defaultComp();

@@ -15,8 +15,6 @@
   <%-- <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
    --%>
-   
-   
   <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.servletContext.contextPath }/assets/quicksilverbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -73,12 +71,6 @@ let kwd = '';
 
 $(function(){
 	
-	$(".active").each( (index, item) => {
-		console.log(item);
-		
-	});
-	ArrowChange();
-
 	// 엔터 클릭 인식
 	document.getElementsByTagName('body')[0].addEventListener("keydown", event => {
 		console.log(event.keyCode);

@@ -68,8 +68,6 @@ div#contents div#select-bar span{ font: 12px}
   <!-- 엑셀저장 lib  -->
   <!--  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/exel-lib/excelexportjs.js"></script> -->
 
-
-
 <script type="text/javascript">
 var contextPath = "${pageContext.servletContext.contextPath }";
 
@@ -407,7 +405,7 @@ $(function(){
 						<button type= "button" class="changeID button-css">ID변경</button>
 						<button type= "button" class="changePassword button-css">비밀번호 초기화</button>
 						<button type= "button" class="addEmp button-css">입사처리</button>
-						<button type= "button" class="remove button-css">삭제</button>
+						<button type= "button" class="remove button-css">퇴사처리</button>
 					</span>
 				</div>	
 			</div>
