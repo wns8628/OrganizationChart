@@ -108,7 +108,7 @@ var toggleBtn = "<img class='open-btn close btn' src='"+contextPath+"/assets/ima
 var icon = "<img class='navi-icon open' src='"+contextPath+"/assets/images/open.png'>"+
 			"<img class='navi-icon close' src='"+contextPath+"/assets/images/close.png'>";
 var depth = "<img class='tree-icon depth' src='"+contextPath+"/assets/images/depth.png'>";
-
+var space = "<div class='space'></div>";
 var defaultComp = function() {
 	var compSeq = $("#compSelect option:selected").val();
 	var compName = $("#compSelect option:selected").text();
@@ -214,6 +214,15 @@ var insertBiz = function() {
 		success : function(response) {
 			var index = sortChild(response.data.bizName, response.data.compSeq, "comp");
 			bizAddRender(response.data, index, false);
+			
+			if(index != "last" && fakeInsertDepth){
+				liList = $("li.comp").next().children('li:last').next().find('li');
+				var length = $("li[data-no='"+response.data.bizSeq+"'] div.prev").children().length;
+				$(liList).each(function(index,item){
+					$(this).find('.prev').children().eq(length).before(space).remove();
+				});
+			}
+			fakeInsertDepth = false;
 			$("#tree-mini li[data-no='"+response.data.bizSeq+"'] span").trigger("click");
 		},
 		error : function(xhr, status, e) {
@@ -244,10 +253,26 @@ var insertDept = function() {
 				last = true;
 			}
 			deptAddRender(response.data, index, last, str);
-			if(index != "last"){
-				$("#tree-mini li[data-no='" + index + "']").
-				children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
+			
+			if(index != "last" && fakeInsertDepth){
+				liList = $("li[data-no='"+response.data.parentDeptSeq+"']").next().children('li:last').next().find('li');
+				var length = $("li[data-no='"+response.data.deptSeq+"'] div.prev").children().length;
+				$(liList).each(function(index,item){
+					$(this).find('.prev').children().eq(length).before(space).remove();
+				});
 			}
+			fakeInsertDepth = false;
+			
+			if(index != "last"){
+				if(response.data.parentDeptSeq > 10000000){
+					$("#tree-mini ul[b-no='" + response.data.parentDeptSeq + "']>li:last").
+					children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
+				}else{
+					$("#tree-mini ul[d-no='" + response.data.parentDeptSeq + "'] li:last-child").
+					children('.wrap').prepend(lastChild).children('img.tree-icon:not(.last)').remove();
+				}
+			}
+			
 			$("#tree-mini li[data-no='"+response.data.deptSeq+"'] span").trigger("click");
 			
 			if($("#tree-mini li[data-no='"+response.data.parentDeptSeq+"'] img.open-btn").length == 0){
@@ -407,8 +432,8 @@ var deptAddRender = function(vo, index, last, str) {
 		}
 		
 		if($("#tree-mini li[data-no='"+vo.parentDeptSeq+"']").next().children("li").length > 1){
-// 			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').prepend(child).children('img.last').remove();
-			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').children('img.last').remove();
+			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').prepend(child).children('img.last').remove();
+// 			$("#tree-mini li[data-no='"+vo.deptSeq+"']").prev().prev().find('.wrap').children('img.last').remove();
 		}
 	} else {
 		$("#tree-mini li.child[data-no='" + index + "']").before(htmls);
@@ -482,13 +507,13 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 			var index = sortChild($("#tree-mini span[data-lang='"+deptSeq+"']").text(), parentDeptSeq);
 			var str = $(parent).children(".prev").html();
 			var activeSpan = false;
+			
 			if($("#tree-mini li.child[data-no='"+deptSeq+"'] div.active-span").length > 0){
 				activeSpan = true;
 			};
 			
 			if($("#tree-mini li[data-no='" + parentDeptSeq + "']").next().children().length == 0 && 
 					$("#tree-mini li[data-no='" + parentDeptSeq + "'] img.close-btn").css("display") != "none"){
-				console.log("dfdaf");
 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.wrap div.li-div img.navi-icon").remove();
 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.li-div").prepend(icon);
 				$("#tree-mini li[data-no='" + parentDeptSeq + "'] div.wrap").prepend(toggleBtn);
@@ -518,6 +543,16 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 			
 			if(activeSpan){
 				$("#tree-mini li.child[data-no='"+deptSeq+"'] div.wrap").addClass("active-span");
+			}
+			
+			if(index == "last"){
+				if($("li[data-no='"+deptSeq+"']").prev().children('li').length > 0){
+					liList = $("li[data-no='"+deptSeq+"']").prev().find('li');
+					var length = $("li[data-no='"+deptSeq+"'] div.prev").children().length;
+					$(liList).each(function(index,item){
+						$(this).find('.prev').children().eq(length).before(depth).remove();
+					});
+				}
 			}
 			
 			// 부서 이동 후 이동 전 부모의 자식이 없으면 오픈 버튼 없애고 폴더 색상 변경
@@ -623,9 +658,21 @@ function treeDropDown() {
 			return;
 		}
 		
+		if($("li[data-no='"+prevParent+"']").next().children('li:last').data("no") == dept){
+			if($("li[data-no='"+dept+"']").prev().children('li').length > 0){
+				liList = $("li[data-no='"+dept+"']").prev().find('li');
+				var length = $("li[data-no='"+dept+"'] div.prev").children().length;
+				console.log(liList.length);
+				$(liList).each(function(index,item){
+					$(this).find('.prev').children().eq(length).before(space).remove();
+				});
+			}
+		}
+		
 		if(parent != dept && parent != prevParent){
 			updateParentDept(dept, parent, prevParent);
 		}
+		
 	});
 
 	$(document).on("dragend", "div#tree-mini div.li-div", function(e) {
@@ -660,6 +707,14 @@ var incomplRemove = function(trigger){
 			}
 		}
 		
+		if(fakeInsertDepth){
+			liList = $("li.incompl").prev().find('li');
+			var length = $("li.incompl div.prev").children().length;
+			$(liList).each(function(index,item){
+				$(this).find('.prev').children().eq(length).before(space).remove();
+			});
+		}
+		fakeInsertDepth = false;
 		$("li.incompl").remove();
 	}
 }
@@ -687,7 +742,7 @@ function seqCheck(seq){
 	});
 	return result;
 }
-
+var fakeInsertDepth = false;
 $(function() {
 	menuActive();
 	treeDropDown();
@@ -695,6 +750,7 @@ $(function() {
 	defaultComp();
 
 	ArrowChange();
+	
 	$("#compSelect").change(function() {
 		defaultComp();
 	});
@@ -826,11 +882,14 @@ $(function() {
 						+lastChild+"<div class='li-div'>"+noChildIcon+"<span class='dept'>"+str+"</span></div></div></li>";
 			$("ul["+no+"='"+seq+"']").append(html);
 			$("li.incompl div.wrap").addClass("active-span");
-			
-			if($("li.incompl").prev().children('li').length > 0){
-				var prevSeq = $("li.incompl").prev().prev().data("no");
-				console.log($("li[p-no='"+prevSeq+"'] div.prev div.space"));
-			}
+		}
+		if($("li.incompl").prev().children('li').length > 0){
+			liList = $("li.incompl").prev().find('li');
+			var length = $("li.incompl div.prev").children().length;
+			$(liList).each(function(index,item){
+				$(this).find('.prev').children().eq(length).before(depth).remove();
+			});
+			fakeInsertDepth = true;
 		}
 		
 	});
@@ -891,9 +950,27 @@ $(function() {
 			if($("li.incompl").hasClass("biz") === true){
 				$("li.incompl").remove();
 				insertBiz();
+// 				if(index != "last" && fakeInsertDepth){
+// 					console.log(index);
+// 					console.log("DD");
+// 					liList = $("li.incompl").prev().find('li');
+// 					var length = $("li.incompl div.prev").children().length;
+// 					$(liList).each(function(index,item){
+// 						$(this).find('.prev').children().eq(length).before(space).remove();
+// 					});
+// 				}
 			}else{
 				$("li.incompl").remove();
 				insertDept();
+// 				if(index != "last" && fakeInsertDepth){
+// 					console.log(index);
+// 					console.log("DD");
+// 					liList = $("li.incompl").prev().find('li');
+// 					var length = $("li.incompl div.prev").children().length;
+// 					$(liList).each(function(index,item){
+// 						$(this).find('.prev').children().eq(length).before(space).remove();
+// 					});
+// 				}
 			}
 		}else{
 			if($("div.active-span").parent().data("no") > 10000000){
