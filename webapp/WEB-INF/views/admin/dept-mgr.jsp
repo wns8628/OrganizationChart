@@ -530,6 +530,7 @@ var updateParentDept = function(deptSeq, parentDeptSeq, prevParent) {
 			if(deptSeq == $("#tbl-info span#seq").text()){
 				$("#tree-mini li.child[data-no='"+deptSeq+"'] img.add-icon").show();
 			}
+			
 		},
 		error : function(xhr, status, e) {
 			console.error(status + ":" + e);
@@ -825,6 +826,11 @@ $(function() {
 						+lastChild+"<div class='li-div'>"+noChildIcon+"<span class='dept'>"+str+"</span></div></div></li>";
 			$("ul["+no+"='"+seq+"']").append(html);
 			$("li.incompl div.wrap").addClass("active-span");
+			
+			if($("li.incompl").prev().children('li').length > 0){
+				var prevSeq = $("li.incompl").prev().prev().data("no");
+				console.log($("li[p-no='"+prevSeq+"'] div.prev div.space"));
+			}
 		}
 		
 	});
