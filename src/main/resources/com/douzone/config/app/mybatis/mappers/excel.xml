@@ -114,7 +114,7 @@
 					b.comp_seq,
                     b.biz_seq,
                     b.dept_seq
-				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+				  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
 				 where a.emp_seq = b.emp_seq
 				   and b.dept_seq = c.dept_seq
 				   and c.dept_seq = d.dept_seq 
@@ -178,7 +178,7 @@
 							b.comp_seq,
 		                    b.biz_seq,
 		                    b.dept_seq
-						  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+						  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
 						 where a.emp_seq = b.emp_seq
 						   and b.dept_seq = c.dept_seq
 						   and c.dept_seq = d.dept_seq 

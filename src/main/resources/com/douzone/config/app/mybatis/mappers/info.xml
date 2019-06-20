@@ -12,7 +12,7 @@
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 40 and 49 , 1, 0)) as age_40,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 50 and 59 , 1, 0)) as age_50,
 												sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 60 and 69 , 1, 0)) as age_60
-										 from t_co_emp a, t_co_group b, t_co_emp_dept h
+										 from t_co_emp2 a, t_co_group b, t_co_emp_dept h
 								  		where a.emp_seq = h.emp_seq
 										  and a.group_seq = b.group_seq) c, (select b.group_seq, count(a.comp_seq) as total_comp
 																				 from t_co_comp a, t_co_group b
@@ -30,7 +30,7 @@
 	
 	<select id="getMainInfoFm" resultType="mastergroupvo">
 		select a.gender_code as genderCode, count(a.gender_code) as genderCount 
-		  from t_co_emp a, t_co_emp_dept b 
+		  from t_co_emp2 a, t_co_emp_dept b 
 		 where a.emp_seq = b.emp_seq 
 		  group by a.gender_code;    
 	</select>	
@@ -55,7 +55,7 @@
 						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 40 and 49 , 1, 0)) as age40,
 						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 50 and 59 , 1, 0)) as age50,
 						sum(if(date_format(now(),'%Y')-substring(bday,1,4) between 60 and 69 , 1, 0)) as age60
-			  from t_co_emp_dept a, t_co_biz b, t_co_comp c, t_co_group d, t_co_emp e, t_co_comp_multi f
+			  from t_co_emp_dept a, t_co_biz b, t_co_comp c, t_co_group d, t_co_emp2 e, t_co_comp_multi f
 			 where a.biz_seq = b.biz_seq
 			   and a.comp_seq = c.comp_seq 
 			   and a.group_seq = d.group_seq
@@ -77,7 +77,7 @@
 	</select>	
 	<select id="getCompInfoFm" resultType="companyvo">
 		      select a.gender_code as genderCode, count(a.gender_code) as genderCount 
-			    from t_co_emp a, t_co_emp_dept b
+			    from t_co_emp2 a, t_co_emp_dept b
 			   where a.emp_seq = b.emp_seq
 			     and b.comp_seq = #{compSeq}
 			group by gender_code;    

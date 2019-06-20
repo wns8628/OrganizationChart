@@ -64,7 +64,7 @@
 		    a.dp_name as dutyCode, b.dp_name as positionCode
 		from
 			(select a.emp_seq, b.emp_name, dept_name, main_dept_yn, gender_code, bday, e.dp_name, a.position_code
-			from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
+			from t_co_emp2 a, t_co_emp_multi b, t_co_emp_dept c, t_co_dept_multi d, t_co_comp_duty_position_multi e
 			where a.emp_seq = b.emp_seq
 			and b.emp_seq = c.emp_seq
 			and c.dept_seq = d.dept_seq
