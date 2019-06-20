@@ -4,7 +4,7 @@
 
 <mapper namespace="employees">
 	<select id="login" parameterType="uservo" resultType="uservo">
-		select emp_seq as empSeq from t_co_emp where login_id = #{id} and login_passwd = #{password}
+		select emp_seq as empSeq from t_co_emp2 where login_id = #{id} and login_passwd = #{password}
 	</select>
 	
 	<select id="getDpAll" resultType="dutypositionvo">
@@ -46,7 +46,7 @@
 					b.comp_seq,
                     b.biz_seq,
                     b.dept_seq
-				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+				  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
 				 where a.emp_seq = b.emp_seq
 				   and b.dept_seq = c.dept_seq
 				   and c.dept_seq = d.dept_seq 
@@ -110,7 +110,7 @@
 							b.comp_seq,
 		                    b.biz_seq,
 		                    b.dept_seq
-						  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
+						  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e 
 						 where a.emp_seq = b.emp_seq
 						   and b.dept_seq = c.dept_seq
 						   and c.dept_seq = d.dept_seq 
@@ -316,7 +316,7 @@
 	
 	<update id="profilePictureUpdate" parameterType="employeesvo">
 		<![CDATA[
-			update t_co_emp set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
+			update t_co_emp2 set pic_file_id = #{picFileID} where emp_seq = #{empSeq}
 		]]>
 	</update>
 	

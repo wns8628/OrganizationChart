@@ -24,11 +24,11 @@
 	</select>
 	
 	<select id="getAutoDataAllmobile_tel_num" parameterType="string" resultType="String">	
-		select distinct(mobile_tel_num) from t_co_emp;
+		select distinct(mobile_tel_num) from t_co_emp2;
 	</select>
 	
 	<select id="getAutoDataAlllogin_id" parameterType="string" resultType="String">	
-		select distinct(login_id) from t_co_emp;
+		select distinct(login_id) from t_co_emp2;
 	</select>
 	
 </mapper>

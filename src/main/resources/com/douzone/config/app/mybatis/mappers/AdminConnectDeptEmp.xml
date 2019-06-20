@@ -6,7 +6,7 @@
 	
 	<select id="getEmpSeq" parameterType="adminconnectdeptEmpvo" resultType="Integer">
 			select distinct(a.emp_seq)
-			  from t_co_emp a, t_co_emp_multi b, t_co_emp_dept c 
+			  from t_co_emp2 a, t_co_emp_multi b, t_co_emp_dept c 
 			  where a.emp_seq = b.emp_seq
 			    and c.emp_seq = a.emp_seq
 			    and b.lang_code = #{langCode}
@@ -20,7 +20,7 @@
 	
 	<select id="getList" parameterType="adminconnectdeptEmpvo" resultType="adminconnectdeptEmpvo">
 		select distinct(a.login_id) as loginId, c.emp_name as empName
-		  from t_co_emp a, t_co_emp_dept b, t_co_emp_multi c, t_co_emp_comp d
+		  from t_co_emp2 a, t_co_emp_dept b, t_co_emp_multi c, t_co_emp_comp d
 		 where a.emp_seq = b.emp_seq
 		   and a.emp_seq = c.emp_seq
 		   and c.emp_seq = d.emp_seq
@@ -51,7 +51,7 @@
 					a.emp_seq,
 					b.dept_seq,
 					g.biz_name
-				  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_biz_multi g
+				  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_biz_multi g
 				 where a.emp_seq = b.emp_seq
 				   and b.biz_seq = g.biz_seq
 				   and b.dept_seq = c.dept_seq
@@ -109,7 +109,7 @@
 		                g.check_work_yn,
 		                g.work_status,
 		                b.biz_seq
-					  from t_co_emp a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_emp_comp g
+					  from t_co_emp2 a, t_co_emp_dept b, t_co_dept c, t_co_dept_multi d , t_co_emp_multi e, t_co_comp_multi f, t_co_emp_comp g
 					 where a.emp_seq = b.emp_seq
 					   and b.dept_seq = c.dept_seq
 					   and c.dept_seq = d.dept_seq 
