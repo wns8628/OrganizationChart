@@ -1015,19 +1015,19 @@ $(function() {
 					
 <!-- 					<span>부서명</span> -->
 <!-- 					<input type="text" value="검색"> -->
-					<span>사용여부</span>
-					<select>
-						<option>전체
-						<option>사용함
-						<option>사용안함
-					</select>
+<!-- 					<span>사용여부</span> -->
+<!-- 					<select> -->
+<!-- 						<option>전체 -->
+<!-- 						<option>사용함 -->
+<!-- 						<option>사용안함 -->
+<!-- 					</select> -->
 				</div>
 				<div class="content-head-wrapper">
 					<span>● 부서정보</span>
 <!-- 					<input type="checkbox">사업장 숨김 -->
 					<div class="head-btn cancel update-unit">취소</div>
 					<div class="head-btn save update-unit">저장</div>
-					<div class="head-btn delete default-unit">삭제</div>
+<!-- 					<div class="head-btn delete default-unit">삭제</div> -->
 					<div class="head-btn update default-unit">수정</div>
 				</div>
 				<div id="content-wrapper">
