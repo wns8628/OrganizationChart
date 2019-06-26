@@ -1,5 +1,5 @@
 # OrganizationChart
-조직도프로그램 (java - Spring)
+조직도프로그램 (java - Spring) - 개발기간2개월
 
 ![조직도환경](https://user-images.githubusercontent.com/26120409/60142812-7445ef00-97f6-11e9-85b3-d33680fe5d76.png)
 ![메인페이지](https://user-images.githubusercontent.com/26120409/60142924-efa7a080-97f6-11e9-8e43-7a877ac7c677.png)
