@@ -2,6 +2,7 @@
 조직도프로그램 (java - Spring) - 개발기간2개월
 
 ![조직도환경](https://user-images.githubusercontent.com/26120409/60142812-7445ef00-97f6-11e9-85b3-d33680fe5d76.png)
+![구성도](https://user-images.githubusercontent.com/26120409/60143601-cc322500-97f9-11e9-83e0-6c9f3fbe90fb.png)
 ![메인페이지](https://user-images.githubusercontent.com/26120409/60142924-efa7a080-97f6-11e9-8e43-7a877ac7c677.png)
 ![조직도페이지](https://user-images.githubusercontent.com/26120409/60142946-051cca80-97f7-11e9-933f-0fc2e7c70bf4.png)
 ![조직도페이지2](https://user-images.githubusercontent.com/26120409/60142975-2b426a80-97f7-11e9-9813-5f1fc36acb9a.png)
